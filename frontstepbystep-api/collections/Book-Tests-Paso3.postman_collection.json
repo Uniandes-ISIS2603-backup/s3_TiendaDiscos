@@ -1,0 +1,773 @@
+{
+	"info": {
+		"_postman_id": "c8947e97-d325-4a0c-9049-31dd272e25ff",
+		"name": "Book Tests",
+		"description": "Colección de pruebas sobre el recurso Book",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"_postman_id": "3957bd00-dcbd-411b-befa-e05f142a99f5",
+			"name": "Crear una editorial",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_e\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Norma\"}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/editorials",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"editorials"
+					]
+				},
+				"description": "**Release: Paso-3**\r\n\r\nCrea una nueva editorial. El recurso solo tiene de atributo \"name\" que debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "4ce87dd2-c01d-444b-8291-f424a357241c",
+			"name": "Crear un libro con ISBN invalido 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d80427e6-5008-41d2-88de-479a8d9c5f51",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con ISBN invalido\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El ISBN es inválido\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Jorge Fondebrider traza un mundo fantastico con mapas de la geografia real y de sus mitologias, observando a los hombres lobo que han vivido en la imaginacion de Europa y America.\",\n    \"image\": \"https://static.iris.net.co/arcadia/upload/images/2017/7/31/64899_1.jpg\",\n    \"editorial\": { \"id\": {{new_id_e}} },\n    \"name\": \"Historia de los hombres lobo 2\",\n    \"publishingdate\": \"2000-08-20T00:00:00-05:00\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books"
+					]
+				},
+				"description": "**Release: Paso-3**\r\n\r\nCrea un nuevo libro pero con un ISBN invalido. Verifica que se genera el error y el mensaje \"El ISBN es inválido\".\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "67494add-6036-40dd-9d66-65d4795d981d",
+			"name": "Crear un libro con ISBN invalido 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d80427e6-5008-41d2-88de-479a8d9c5f51",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con ISBN invalido\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El ISBN es inválido\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Jorge Fondebrider traza un mundo fantastico con mapas de la geografia real y de sus mitologias, observando a los hombres lobo que han vivido en la imaginacion de Europa y America.\",\n    \"image\": \"https://static.iris.net.co/arcadia/upload/images/2017/7/31/64899_1.jpg\",\n    \"isbn\": \"\",\n    \"editorial\": { \"id\": {{new_id_e}} },\n    \"name\": \"Historia de los hombres lobo 2\",\n    \"publishingdate\": \"2000-08-20T00:00:00-05:00\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books"
+					]
+				},
+				"description": "**Release: Paso-3**\r\n\r\nCrea un nuevo libro pero con un ISBN invalido. Verifica que se genera el error y el mensaje \"El ISBN es inválido\".\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "2ada7754-88d7-4d99-aa37-94f45cd3f25e",
+			"name": "Crear un libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "304084ed-d326-4e9b-b66a-8c2c95b18e0b",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_b\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Jorge Fondebrider traza un mundo fantastico con mapas de la geografia real y de sus mitologias, observando a los hombres lobo que han vivido en la imaginacion de Europa y America.\",\n    \"image\": \"https://static.iris.net.co/arcadia/upload/images/2017/7/31/64899_1.jpg\",\n    \"isbn\": \"930330149-8\",\n    \"editorial\": { \"id\": {{new_id_e}} },\n    \"name\": \"Historia de los hombres lobo 2\",\n    \"publishingdate\": \"2000-08-20T00:00:00-05:00\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books"
+					]
+				},
+				"description": "**Release: Paso-3**\r\n\r\nCrea un nuevo libro. El ISBN del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "80c2843b-36b3-4e91-9453-08081acda2c6",
+			"name": "Crear un libro 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ceefa0d0-e6b0-4457-bf73-209c199fd164",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_b2\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Jorge Fondebrider traza un mundo fantastico con mapas de la geografia real y de sus mitologias, observando a los hombres lobo que han vivido en la imaginacion de Europa y America.\",\n    \"image\": \"https://static.iris.net.co/arcadia/upload/images/2017/7/31/64899_1.jpg\",\n    \"isbn\": \"930330149-81\",\n    \"editorial\": { \"id\": {{new_id_e}} },\n    \"name\": \"Historia de los hombres lobo 3\",\n    \"publishingdate\": \"2000-08-20T00:00:00-05:00\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books"
+					]
+				},
+				"description": "**Release: Paso-3**\r\n\r\nCrea otro libro. El ISBN del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\nEste segundo libro se utiliza para probar la petición que consultar todos los libros\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "0ed96c42-daec-4bd0-87d1-95cce35705a4",
+			"name": "Crear un libro con el mismo ISBN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "99432a89-1545-4c9d-9757-3a363a64c973",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El ISBN ya existe\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Jorge Fondebrider traza un mundo fantastico con mapas de la geografia real y de sus mitologias, observando a los hombres lobo que han vivido en la imaginacion de Europa y America.\",\n    \"image\": \"https://static.iris.net.co/arcadia/upload/images/2017/7/31/64899_1.jpg\",\n    \"isbn\": \"930330149-8\",\n    \"editorial\": { \"id\": {{new_id_e}} },\n    \"name\": \"Historia de los hombres lobo 2\",\n    \"publishingdate\": \"2000-08-20T00:00:00-05:00\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books"
+					]
+				},
+				"description": "**Release: Paso-3**\r\n\r\nCrea un nuevo libro pero con un ISBN que ya existe. Verifica que se genera el error y el mensaje \"El ISBN ya existe\".\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "8352de52-292d-4ec2-9588-65c91b45166f",
+			"name": "Crear un libro con editorial que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4acd1375-1d39-4524-9719-76c3a1d4e261",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con editorial que no existe\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La editorial es inválida\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Jorge Fondebrider traza un mundo fantastico con mapas de la geografia real y de sus mitologias, observando a los hombres lobo que han vivido en la imaginacion de Europa y America.\",\n    \"image\": \"https://static.iris.net.co/arcadia/upload/images/2017/7/31/64899_1.jpg\",\n    \"isbn\": \"930330149-8\",\n    \"editorial\": { \"id\": 0 },\n    \"name\": \"Historia de los hombres lobo 2\",\n    \"publishingdate\": \"2000-08-20T00:00:00-05:00\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books"
+					]
+				},
+				"description": "**Release: Paso-3**\r\n\r\nCrea un nuevo libro pero con una editorial que no existe. Verifica que se genera el error y el mensaje \"La editorial es inválida\".\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "ce2ca10e-51d6-4d5a-86e9-7fec8184cdb5",
+			"name": "Obtener todos los libros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ad309e51-c9e6-4900-a0ff-f4574a40b3df",
+						"type": "text/javascript",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
+							"tests[\"books count\"] = data.length >= 0;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books"
+					]
+				},
+				"description": "**Release: Paso-3**\r\n\r\nConsulta todos los libros de la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nPara la prueba, se verifica que el conjunto de libros en la respuesta tenga mas de uno.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "3eb0c0d0-9cf3-4419-8968-4bcf3268cb5e",
+			"name": "Obtener un libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b671f4fd-2e8e-4662-a534-d450acfc06d0",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"{{new_id_b}}"
+					]
+				},
+				"description": "**Release: Paso-3**\r\n\r\nConsulta un libro de la aplicación.  \r\nLa petición no tiene cuerpo.\r\nSe envía el id del libro deseado por la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "44c3ac64-7543-4b47-a786-ecf7a0cea186",
+			"name": "Obtener un libro que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "febd508c-10d5-415e-b52b-846b9e059291",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404; ",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /books/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"0"
+					]
+				},
+				"description": "**Release: Paso-3**\r\n\r\nConsulta un libro que no existe en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /books/0 no existe.\".\r\n\r\n**Código http esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "17f9e1fe-af2b-447a-a7a4-de56dac390c8",
+			"name": "Editar un libro que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1fe4e1cc-8b1e-48a6-b194-f17a6a2fc158",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No actualiza con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /books/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Jorge Fondebrider traza un mundo fantastico con mapas de la geografia real y de sus mitologias, observando a los hombres lobo que han vivido en la imaginacion de Europa y America.\",\n    \"image\": \"https://static.iris.net.co/arcadia/upload/images/2017/7/31/64899_1.jpg\",\n    \"isbn\": \"930330149-8\",\n    \"editorial\": { \"id\": {{new_id_e}} },\n    \"name\": \"Se ha editado la Historia de los hombres lobo 2\",\n    \"publishingdate\": \"2000-08-20T00:00:00-05:00\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"0"
+					]
+				},
+				"description": "**Release: Paso-3**\r\nActualiza un libro que no existe. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /books/0 no existe.\".\r\n\r\n**Código HTTP esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "1507a59c-481e-41f9-8b56-c3a6530c336f",
+			"name": "Editar un libro con ISBN invalido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2faffc82-5165-472c-8ea8-5e9bfc03100c",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con ISBN invalido\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El ISBN es inválido\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Jorge Fondebrider traza un mundo fantastico con mapas de la geografia real y de sus mitologias, observando a los hombres lobo que han vivido en la imaginacion de Europa y America.\",\n    \"image\": \"https://static.iris.net.co/arcadia/upload/images/2017/7/31/64899_1.jpg\",\n    \"isbn\": \"\",\n    \"editorial\": { \"id\": {{new_id_e}} },\n    \"name\": \"Se ha editado la Historia de los hombres lobo 2\",\n    \"publishingdate\": \"2000-08-20T00:00:00-05:00\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"{{new_id_b}}"
+					]
+				},
+				"description": "**Release: Paso-3**\r\nActualiza un libro con ISBN invalido. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El ISBN es inválido.\".\r\n\r\n**Código HTTP esperado: 412**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "8eccc708-b632-43aa-839f-b47b93a047a2",
+			"name": "Editar un libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1077a573-437a-4a11-9b9a-87cb45264001",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Jorge Fondebrider traza un mundo fantastico con mapas de la geografia real y de sus mitologias, observando a los hombres lobo que han vivido en la imaginacion de Europa y America.\",\n    \"image\": \"https://static.iris.net.co/arcadia/upload/images/2017/7/31/64899_1.jpg\",\n    \"isbn\": \"930330149-8\",\n    \"editorial\": { \"id\": {{new_id_e}} },\n    \"name\": \"Se ha editado la Historia de los hombres lobo 2\",\n    \"publishingdate\": \"2000-08-20T00:00:00-05:00\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"{{new_id_b}}"
+					]
+				},
+				"description": "**Release: Paso-3**\r\n\r\nActualiza un libro existente. \r\nse envía el Id en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "2c066a6c-f94a-473a-aef7-09b9e784035a",
+			"name": "Borrar un libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ec74fba-bc15-4973-99bd-0c1a86a28a2e",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"{{new_id_b}}"
+					]
+				},
+				"description": "**Release: Paso-3**\n\nBorra un libro. Se envía el id del libro creado anteriormente.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "c15a1d4d-beae-4b61-8b8a-0ad835b98da4",
+			"name": "Borrar un libro 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ec74fba-bc15-4973-99bd-0c1a86a28a2e",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/{{new_id_b2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"{{new_id_b2}}"
+					]
+				},
+				"description": "**Release: Paso-3**\n\nBorra un libro. Se envía el id del libro creado anteriormente.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "1c77ce4f-e943-4c3f-b1cc-faa07dffc163",
+			"name": "Borrar un libro que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f0c07240-fe4b-447c-9e39-ab2524df2ace",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No borra con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /books/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"0"
+					]
+				},
+				"description": "**Release: Paso-3**\r\n\r\nBorra un libro que no existe en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /books/0 no existe.\".\r\n\r\n**Código http esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "94335a6a-d843-4ffd-8d7a-230f6881a8dc",
+			"name": "Borrar una editorial",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ef06c2f-4539-4732-ac96-d27cf3eb1c8b",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/editorials/{{new_id_e}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"editorials",
+						"{{new_id_e}}"
+					]
+				},
+				"description": "**Release: Paso-3**\n\nBorra una editorial. Se envía el id de la editorial creada anteriormente.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a7e7fbf6-05fd-4e01-a73c-b5553dfd51c0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "acf4632f-f115-4dba-aca6-7f5f2f476be4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

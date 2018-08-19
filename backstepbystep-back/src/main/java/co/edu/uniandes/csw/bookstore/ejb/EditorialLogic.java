@@ -23,6 +23,7 @@ SOFTWARE.
  */
 package co.edu.uniandes.csw.bookstore.ejb;
 
+import co.edu.uniandes.csw.bookstore.entities.BookEntity;
 import co.edu.uniandes.csw.bookstore.entities.EditorialEntity;
 import co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.bookstore.persistence.EditorialPersistence;
@@ -67,6 +68,7 @@ public class EditorialLogic {
     }
 
     /**
+     *
      * Obtener todas las editoriales existentes en la base de datos.
      *
      * @return una lista de editoriales.
@@ -80,6 +82,7 @@ public class EditorialLogic {
     }
 
     /**
+     *
      * Obtener una editorial por medio de su id.
      *
      * @param editorialsId: id de la editorial para ser buscada.
@@ -97,6 +100,7 @@ public class EditorialLogic {
     }
 
     /**
+     *
      * Actualizar una editorial.
      *
      * @param editorialsId: id de la editorial para buscarla en la base de
@@ -117,10 +121,15 @@ public class EditorialLogic {
      * Borrar un editorial
      *
      * @param editorialsId: id de la editorial a borrar
+     * @throws BusinessLogicException Si la editorial a eliminar tiene libros.
      */
-    public void deleteEditorial(Long editorialsId) {
+    public void deleteEditorial(Long editorialsId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar la editorial con id = {0}", editorialsId);
         // Note que, por medio de la inyección de dependencias se llama al método "delete(id)" que se encuentra en la persistencia.
+        List<BookEntity> books = getEditorial(editorialsId).getBooks();
+        if (books != null && !books.isEmpty()) {
+            throw new BusinessLogicException("No se puede borrar la editorial con id = " + editorialsId + " porque tiene books asociados");
+        }
         persistence.delete(editorialsId);
         LOGGER.log(Level.INFO, "Termina proceso de borrar la editorial con id = {0}", editorialsId);
     }

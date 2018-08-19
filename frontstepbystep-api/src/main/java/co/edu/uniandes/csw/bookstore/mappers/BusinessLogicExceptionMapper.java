@@ -30,7 +30,7 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 /**
- * Convertidor de Excepciones BusinessLogicExceptionMapper a mensajes REST.
+ * Convertidor de Excepciones BusinessLogicException a mensajes REST.
  *
  * El error se transforma bajo el siguiente modelo: Codigo de respuesta:
  * <code style="color: #c7254e; background-color: #f9f2f4;">412 Precodition

@@ -52,13 +52,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author ISIS2603
  */
-public class EditorialDTO implements Serializable{
+public class EditorialDTO implements Serializable {
 
     private Long id;
     private String name;
 
     /**
-     * Constructor por defecto.
+     * Constructor por defecto
      */
     public EditorialDTO() {
     }

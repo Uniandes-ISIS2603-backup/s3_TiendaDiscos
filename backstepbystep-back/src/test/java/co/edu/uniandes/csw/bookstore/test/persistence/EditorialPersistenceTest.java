@@ -72,11 +72,12 @@ public class EditorialPersistenceTest {
     UserTransaction utx;
 
     /**
-     * lista que tiene los datos de prueba.
+     * Lista que tiene los datos de prueba.
      */
     private List<EditorialEntity> data = new ArrayList<EditorialEntity>();
 
     /**
+     *
      * @return Devuelve el jar que Arquillian va a desplegar en el Glassfish
      * embebido. El jar contiene las clases de Editorial, el descriptor de la
      * base de datos y el archivo beans.xml para resolver la inyección de

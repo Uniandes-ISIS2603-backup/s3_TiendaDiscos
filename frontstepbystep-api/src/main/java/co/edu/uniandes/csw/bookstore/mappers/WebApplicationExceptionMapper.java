@@ -50,6 +50,7 @@ public class WebApplicationExceptionMapper implements ExceptionMapper<WebApplica
      */
     @Override
     public Response toResponse(WebApplicationException exception) {
+
         return Response.status(exception.getResponse().getStatus())// Se recibe el status
                 .entity(getInitCause(exception).getLocalizedMessage())// Se envía la causa
                 .type(MediaType.TEXT_PLAIN_TYPE)

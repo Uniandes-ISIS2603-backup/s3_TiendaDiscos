@@ -24,6 +24,7 @@ SOFTWARE.
 package co.edu.uniandes.csw.bookstore.test.logic;
 
 import co.edu.uniandes.csw.bookstore.ejb.EditorialLogic;
+import co.edu.uniandes.csw.bookstore.entities.BookEntity;
 import co.edu.uniandes.csw.bookstore.entities.EditorialEntity;
 import co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.bookstore.persistence.EditorialPersistence;
@@ -65,6 +66,8 @@ public class EditorialLogicTest {
 
     private List<EditorialEntity> data = new ArrayList<EditorialEntity>();
 
+    private List<BookEntity> booksData = new ArrayList();
+
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
      * El jar contiene las clases, el descriptor de la base de datos y el
@@ -82,7 +85,6 @@ public class EditorialLogicTest {
 
     /**
      * Configuración inicial de la prueba.
-     *
      */
     @Before
     public void configTest() {
@@ -103,29 +105,35 @@ public class EditorialLogicTest {
 
     /**
      * Limpia las tablas que están implicadas en la prueba.
-     *
      */
     private void clearData() {
+        em.createQuery("delete from BookEntity").executeUpdate();
         em.createQuery("delete from EditorialEntity").executeUpdate();
     }
 
     /**
      * Inserta los datos iniciales para el correcto funcionamiento de las
      * pruebas.
-     *
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
+            BookEntity books = factory.manufacturePojo(BookEntity.class);
+            em.persist(books);
+            booksData.add(books);
+        }
+        for (int i = 0; i < 3; i++) {
             EditorialEntity entity = factory.manufacturePojo(EditorialEntity.class);
-
             em.persist(entity);
             data.add(entity);
+            if (i == 0) {
+                booksData.get(i).setEditorial(entity);
+            }
         }
     }
 
     /**
      * Prueba para crear un Editorial
-     *
+     * 
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
     @Test
@@ -188,25 +196,34 @@ public class EditorialLogicTest {
     public void updateEditorialTest() {
         EditorialEntity entity = data.get(0);
         EditorialEntity pojoEntity = factory.manufacturePojo(EditorialEntity.class);
-
         pojoEntity.setId(entity.getId());
-
         editorialLogic.updateEditorial(pojoEntity.getId(), pojoEntity);
-
         EditorialEntity resp = em.find(EditorialEntity.class, entity.getId());
-
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
     }
 
     /**
      * Prueba para eliminar un Editorial.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
     @Test
-    public void deleteEditorialTest() {
-        EditorialEntity entity = data.get(0);
+    public void deleteEditorialTest() throws BusinessLogicException {
+        EditorialEntity entity = data.get(1);
         editorialLogic.deleteEditorial(entity.getId());
         EditorialEntity deleted = em.find(EditorialEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+
+    /**
+     * Prueba para eliminar un Editorial con books asociados.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void deleteEditorialConBooksAsociadosTest() throws BusinessLogicException {
+        EditorialEntity entity = data.get(0);
+        editorialLogic.deleteEditorial(entity.getId());
     }
 }
