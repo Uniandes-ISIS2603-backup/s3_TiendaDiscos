@@ -24,6 +24,7 @@ SOFTWARE.
 package co.edu.uniandes.csw.bookstore.resources;
 
 import co.edu.uniandes.csw.bookstore.dtos.BookDTO;
+import co.edu.uniandes.csw.bookstore.dtos.BookDetailDTO;
 import co.edu.uniandes.csw.bookstore.ejb.BookEditorialLogic;
 import co.edu.uniandes.csw.bookstore.ejb.BookLogic;
 import co.edu.uniandes.csw.bookstore.ejb.EditorialLogic;
@@ -93,13 +94,13 @@ public class BookResource {
     /**
      * Busca y devuelve todos los libros que existen en la aplicacion.
      *
-     * @return JSONArray {@link BookDTO} - Los libros encontrados en la
+     * @return JSONArray {@link BookDetailDTO} - Los libros encontrados en la
      * aplicación. Si no hay ninguno retorna una lista vacía.
      */
     @GET
-    public List<BookDTO> getBooks() {
+    public List<BookDetailDTO> getBooks() {
         LOGGER.info("BookResource getBooks: input: void");
-        List<BookDTO> listaBooks = listBookEntity2DTO(bookLogic.getBooks());
+        List<BookDetailDTO> listaBooks = listEntity2DetailDTO(bookLogic.getBooks());
         LOGGER.log(Level.INFO, "BookResource getBooks: output: {0}", listaBooks.toString());
         return listaBooks;
     }
@@ -109,21 +110,21 @@ public class BookResource {
      *
      * @param booksId Identificador del libro que se esta buscando. Este debe
      * ser una cadena de dígitos.
-     * @return JSON {@link BookDTO} - El libro buscado
+     * @return JSON {@link BookDetailDTO} - El libro buscado
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el libro.
      */
     @GET
     @Path("{booksId: \\d+}")
-    public BookDTO getBook(@PathParam("booksId") Long booksId) {
+    public BookDetailDTO getBook(@PathParam("booksId") Long booksId) {
         LOGGER.log(Level.INFO, "BookResource getBook: input: {0}", booksId);
-        BookEntity entity = bookLogic.getBook(booksId);
-        if (entity == null) {
+        BookEntity bookEntity = bookLogic.getBook(booksId);
+        if (bookEntity == null) {
             throw new WebApplicationException("El recurso /books/" + booksId + " no existe.", 404);
         }
-        BookDTO bookDTO = new BookDTO(bookLogic.getBook(booksId));
-        LOGGER.log(Level.INFO, "BookResource getBook: output: {0}", bookDTO.toString());
-        return bookDTO;
+        BookDetailDTO bookDetailDTO = new BookDetailDTO(bookEntity);
+        LOGGER.log(Level.INFO, "BookResource getBook: output: {0}", bookDetailDTO.toString());
+        return bookDetailDTO;
     }
 
     /**
@@ -133,7 +134,7 @@ public class BookResource {
      * @param booksId Identificador del libro que se desea actualizar. Este debe
      * ser una cadena de dígitos.
      * @param book {@link BookDTO} El libro que se desea guardar.
-     * @return JSON {@link BookDTO} - El libro guardada.
+     * @return JSON {@link BookDetailDTO} - El libro guardada.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el libro a
      * actualizar.
@@ -142,14 +143,13 @@ public class BookResource {
      */
     @PUT
     @Path("{booksId: \\d+}")
-    public BookDTO updateBook(@PathParam("booksId") Long booksId, BookDTO book) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "BookResource updateBook: input: booksId: {0} , book: {1}", new Object[]{booksId, book.toString()});
+    public BookDetailDTO updateBook(@PathParam("booksId") Long booksId, BookDTO book) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "BookResource updateBook: input: id: {0} , book: {1}", new Object[]{booksId, book.toString()});
         book.setId(booksId);
-        BookEntity entity = bookLogic.getBook(booksId);
-        if (entity == null) {
+        if (bookLogic.getBook(booksId) == null) {
             throw new WebApplicationException("El recurso /books/" + booksId + " no existe.", 404);
         }
-        BookDTO detailDTO = new BookDTO(bookLogic.updateBook(booksId, book.toEntity()));
+        BookDetailDTO detailDTO = new BookDetailDTO(bookLogic.updateBook(booksId, book.toEntity()));
         LOGGER.log(Level.INFO, "BookResource updateBook: output: {0}", detailDTO.toString());
         return detailDTO;
     }
@@ -176,15 +176,41 @@ public class BookResource {
     }
 
     /**
-     * Convierte una lista de BookEntity a una lista de BookDTO.
+     * Conexión con el servicio de reseñas para un libro. {@link ReviewResource}
      *
-     * @param entityList Lista de BookEntity a convertir.
-     * @return Lista de BookDTO convertida.
+     * Este método conecta la ruta de /books con las rutas de /reviews que
+     * dependen del libro, es una redirección al servicio que maneja el segmento
+     * de la URL que se encarga de las reseñas.
+     *
+     * @param booksId El ID del libro con respecto al cual se accede al
+     * servicio.
+     * @return El servicio de Reseñas para ese libro en paricular.\
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el libro.
      */
-    private List<BookDTO> listBookEntity2DTO(List<BookEntity> entityList) {
-        List<BookDTO> list = new ArrayList();
+    @Path("{booksId: \\d+}/reviews")
+    public Class<ReviewResource> getReviewResource(@PathParam("booksId") Long booksId) {
+        if (bookLogic.getBook(booksId) == null) {
+            throw new WebApplicationException("El recurso /books/" + booksId + "/reviews no existe.", 404);
+        }
+        return ReviewResource.class;
+    }
+
+    /**
+     *
+     * lista de entidades a DTO.
+     *
+     * Este método convierte una lista de objetos BookEntity a una lista de
+     * objetos BookDetailDTO (json)
+     *
+     * @param entityList corresponde a la lista de libros de tipo Entity que
+     * vamos a convertir a DTO.
+     * @return la lista de libros en forma DTO (json)
+     */
+    private List<BookDetailDTO> listEntity2DetailDTO(List<BookEntity> entityList) {
+        List<BookDetailDTO> list = new ArrayList<>();
         for (BookEntity entity : entityList) {
-            list.add(new BookDTO(entity));
+            list.add(new BookDetailDTO(entity));
         }
         return list;
     }

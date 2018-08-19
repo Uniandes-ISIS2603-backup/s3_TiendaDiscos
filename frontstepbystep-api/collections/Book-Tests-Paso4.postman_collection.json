@@ -47,7 +47,7 @@
 						"editorials"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nCrea una nueva editorial. El recurso solo tiene de atributo \"name\" que debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+				"description": "**Release: Paso-4**\r\n\r\nCrea una nueva editorial. El recurso solo tiene de atributo \"name\" que debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -92,7 +92,7 @@
 						"books"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nCrea un nuevo libro pero con un ISBN invalido. Verifica que se genera el error y el mensaje \"El ISBN es inválido\".\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+				"description": "**Release: Paso-4**\r\n\r\nCrea un nuevo libro pero con un ISBN invalido. Verifica que se genera el error y el mensaje \"El ISBN es inválido\".\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
 			},
 			"response": []
 		},
@@ -137,7 +137,7 @@
 						"books"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nCrea un nuevo libro pero con un ISBN invalido. Verifica que se genera el error y el mensaje \"El ISBN es inválido\".\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+				"description": "**Release: Paso-4**\r\n\r\nCrea un nuevo libro pero con un ISBN invalido. Verifica que se genera el error y el mensaje \"El ISBN es inválido\".\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
 			},
 			"response": []
 		},
@@ -183,7 +183,7 @@
 						"books"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nCrea un nuevo libro. El ISBN del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+				"description": "**Release: Paso-4**\r\n\r\nCrea un nuevo libro. El ISBN del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -229,7 +229,7 @@
 						"books"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nCrea otro libro. El ISBN del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\nEste segundo libro se utiliza para probar la petición que consultar todos los libros\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+				"description": "**Release: Paso-4**\r\n\r\nCrea otro libro. El ISBN del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\nEste segundo libro se utiliza para probar la petición que consultar todos los libros\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -274,7 +274,7 @@
 						"books"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nCrea un nuevo libro pero con un ISBN que ya existe. Verifica que se genera el error y el mensaje \"El ISBN ya existe\".\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+				"description": "**Release: Paso-4**\r\n\r\nCrea un nuevo libro pero con un ISBN que ya existe. Verifica que se genera el error y el mensaje \"El ISBN ya existe\".\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
 			},
 			"response": []
 		},
@@ -319,7 +319,7 @@
 						"books"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nCrea un nuevo libro pero con una editorial que no existe. Verifica que se genera el error y el mensaje \"La editorial es inválida\".\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+				"description": "**Release: Paso-4**\r\n\r\nCrea un nuevo libro pero con una editorial que no existe. Verifica que se genera el error y el mensaje \"La editorial es inválida\".\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
 			},
 			"response": []
 		},
@@ -360,7 +360,7 @@
 						"books"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nConsulta todos los libros de la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nPara la prueba, se verifica que el conjunto de libros en la respuesta tenga mas de uno.\r\n\r\n**Código http esperado: 200**"
+				"description": "**Release: Paso-4**\r\n\r\nConsulta todos los libros de la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nPara la prueba, se verifica que el conjunto de libros en la respuesta tenga mas de uno.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -402,7 +402,7 @@
 						"{{new_id_b}}"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nConsulta un libro de la aplicación.  \r\nLa petición no tiene cuerpo.\r\nSe envía el id del libro deseado por la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+				"description": "**Release: Paso-4**\r\n\r\nConsulta un libro de la aplicación.  \r\nLa petición no tiene cuerpo.\r\nSe envía el id del libro deseado por la URL de la petición.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -443,7 +443,7 @@
 						"0"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nConsulta un libro que no existe en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /books/0 no existe.\".\r\n\r\n**Código http esperado: 404**"
+				"description": "**Release: Paso-4**\r\n\r\nConsulta un libro que no existe en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /books/0 no existe.\".\r\n\r\n**Código http esperado: 404**"
 			},
 			"response": []
 		},
@@ -489,7 +489,7 @@
 						"0"
 					]
 				},
-				"description": "**Release: Paso-3**\r\nActualiza un libro que no existe. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /books/0 no existe.\".\r\n\r\n**Código HTTP esperado: 404**"
+				"description": "**Release: Paso-4**\r\nActualiza un libro que no existe. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /books/0 no existe.\".\r\n\r\n**Código HTTP esperado: 404**"
 			},
 			"response": []
 		},
@@ -535,7 +535,7 @@
 						"{{new_id_b}}"
 					]
 				},
-				"description": "**Release: Paso-3**\r\nActualiza un libro con ISBN invalido. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El ISBN es inválido.\".\r\n\r\n**Código HTTP esperado: 412**"
+				"description": "**Release: Paso-4**\r\nActualiza un libro con ISBN invalido. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El ISBN es inválido.\".\r\n\r\n**Código HTTP esperado: 412**"
 			},
 			"response": []
 		},
@@ -582,7 +582,7 @@
 						"{{new_id_b}}"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nActualiza un libro existente. \r\nse envía el Id en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+				"description": "**Release: Paso-4**\r\n\r\nActualiza un libro existente. \r\nse envía el Id en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -622,7 +622,7 @@
 						"{{new_id_b}}"
 					]
 				},
-				"description": "**Release: Paso-3**\n\nBorra un libro. Se envía el id del libro creado anteriormente.\n\n**Código HTTP esperado: 204**"
+				"description": "**Release: Paso-4**\n\nBorra un libro. Se envía el id del libro creado anteriormente.\n\n**Código HTTP esperado: 204**"
 			},
 			"response": []
 		},
@@ -662,7 +662,7 @@
 						"{{new_id_b2}}"
 					]
 				},
-				"description": "**Release: Paso-3**\n\nBorra un libro. Se envía el id del libro creado anteriormente.\n\n**Código HTTP esperado: 204**"
+				"description": "**Release: Paso-4**\n\nBorra un libro. Se envía el id del libro creado anteriormente.\n\n**Código HTTP esperado: 204**"
 			},
 			"response": []
 		},
@@ -703,7 +703,7 @@
 						"0"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nBorra un libro que no existe en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /books/0 no existe.\".\r\n\r\n**Código http esperado: 404**"
+				"description": "**Release: Paso-4**\r\n\r\nBorra un libro que no existe en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /books/0 no existe.\".\r\n\r\n**Código http esperado: 404**"
 			},
 			"response": []
 		},
@@ -743,7 +743,7 @@
 						"{{new_id_e}}"
 					]
 				},
-				"description": "**Release: Paso-3**\n\nBorra una editorial. Se envía el id de la editorial creada anteriormente.\n\n**Código HTTP esperado: 204**"
+				"description": "**Release: Paso-4**\n\nBorra una editorial. Se envía el id de la editorial creada anteriormente.\n\n**Código HTTP esperado: 204**"
 			},
 			"response": []
 		}

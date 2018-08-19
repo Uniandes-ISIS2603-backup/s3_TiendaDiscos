@@ -24,6 +24,7 @@ SOFTWARE.
 package co.edu.uniandes.csw.bookstore.resources;
 
 import co.edu.uniandes.csw.bookstore.dtos.BookDTO;
+import co.edu.uniandes.csw.bookstore.dtos.BookDetailDTO;
 import co.edu.uniandes.csw.bookstore.ejb.BookLogic;
 import co.edu.uniandes.csw.bookstore.ejb.EditorialBooksLogic;
 import co.edu.uniandes.csw.bookstore.entities.BookEntity;
@@ -46,7 +47,7 @@ import java.util.logging.Logger;
 import javax.ws.rs.WebApplicationException;
 
 /**
- * Clase que implementa el recurso "editorials/{id}/books".
+ * Clase que implementa el recurso "editorial/{id}/books".
  *
  * @author ISIS2603
  * @version 1.0
@@ -92,13 +93,13 @@ public class EditorialBooksResource {
      *
      * @param editorialsId Identificador de la editorial que se esta buscando.
      * Este debe ser una cadena de dígitos.
-     * @return JSONArray {@link BookDTO} - Los libros encontrados en la
+     * @return JSONArray {@link BookDetailDTO} - Los libros encontrados en la
      * editorial. Si no hay ninguno retorna una lista vacía.
      */
     @GET
-    public List<BookDTO> getBooks(@PathParam("editorialsId") Long editorialsId) {
+    public List<BookDetailDTO> getBooks(@PathParam("editorialsId") Long editorialsId) {
         LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: input: {0}", editorialsId);
-        List<BookDTO> listaDetailDTOs = booksListEntity2DTO(editorialBooksLogic.getBooks(editorialsId));
+        List<BookDetailDTO> listaDetailDTOs = booksListEntity2DTO(editorialBooksLogic.getBooks(editorialsId));
         LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaDetailDTOs.toString());
         return listaDetailDTOs;
     }
@@ -110,7 +111,7 @@ public class EditorialBooksResource {
      * Este debe ser una cadena de dígitos.
      * @param booksId Identificador del libro que se esta buscando. Este debe
      * ser una cadena de dígitos.
-     * @return JSON {@link BookDTO} - El libro buscado
+     * @return JSON {@link BookDetailDTO} - El libro buscado
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el libro en la
      * editorial.
@@ -119,14 +120,14 @@ public class EditorialBooksResource {
      */
     @GET
     @Path("{booksId: \\d+}")
-    public BookDTO getBook(@PathParam("editorialsId") Long editorialsId, @PathParam("booksId") Long booksId) throws BusinessLogicException {
+    public BookDetailDTO getBook(@PathParam("editorialsId") Long editorialsId, @PathParam("booksId") Long booksId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EditorialBooksResource getBook: input: editorialsID: {0} , booksId: {1}", new Object[]{editorialsId, booksId});
         if (bookLogic.getBook(booksId) == null) {
             throw new WebApplicationException("El recurso /editorials/" + editorialsId + "/books/" + booksId + " no existe.", 404);
         }
-        BookDTO bookDTO = new BookDTO(editorialBooksLogic.getBook(editorialsId, booksId));
-        LOGGER.log(Level.INFO, "EditorialBooksResource getBook: output: {0}", bookDTO.toString());
-        return bookDTO;
+        BookDetailDTO bookDetailDTO = new BookDetailDTO(editorialBooksLogic.getBook(editorialsId, booksId));
+        LOGGER.log(Level.INFO, "EditorialBooksResource getBook: output: {0}", bookDetailDTO.toString());
+        return bookDetailDTO;
     }
 
     /**
@@ -142,41 +143,41 @@ public class EditorialBooksResource {
      * Error de lógica que se genera cuando no se encuentra el libro.
      */
     @PUT
-    public List<BookDTO> replaceBooks(@PathParam("editorialsId") Long editorialsId, List<BookDTO> books) {
+    public List<BookDetailDTO> replaceBooks(@PathParam("editorialsId") Long editorialsId, List<BookDetailDTO> books) {
         LOGGER.log(Level.INFO, "EditorialBooksResource replaceBooks: input: editorialsId: {0} , books: {1}", new Object[]{editorialsId, books.toString()});
-        for (BookDTO book : books) {
+        for (BookDetailDTO book : books) {
             if (bookLogic.getBook(book.getId()) == null) {
                 throw new WebApplicationException("El recurso /books/" + book.getId() + " no existe.", 404);
             }
         }
-        List<BookDTO> listaDetailDTOs = booksListEntity2DTO(editorialBooksLogic.replaceBooks(editorialsId, booksListDTO2Entity(books)));
+        List<BookDetailDTO> listaDetailDTOs = booksListEntity2DTO(editorialBooksLogic.replaceBooks(editorialsId, booksListDTO2Entity(books)));
         LOGGER.log(Level.INFO, "EditorialBooksResource replaceBooks: output: {0}", listaDetailDTOs.toString());
         return listaDetailDTOs;
     }
 
     /**
-     * Convierte una lista de BookEntity a una lista de BookDTO.
+     * Convierte una lista de BookEntity a una lista de BookDetailDTO.
      *
      * @param entityList Lista de BookEntity a convertir.
      * @return Lista de BookDTO convertida.
      */
-    private List<BookDTO> booksListEntity2DTO(List<BookEntity> entityList) {
-        List<BookDTO> list = new ArrayList();
+    private List<BookDetailDTO> booksListEntity2DTO(List<BookEntity> entityList) {
+        List<BookDetailDTO> list = new ArrayList();
         for (BookEntity entity : entityList) {
-            list.add(new BookDTO(entity));
+            list.add(new BookDetailDTO(entity));
         }
         return list;
     }
 
     /**
-     * Convierte una lista de BookDTO a una lista de BookEntity.
-     * 
-     * @param dtos Lista de BookDTO a convertir.
+     * Convierte una lista de BookDetailDTO a una lista de BookEntity.
+     *
+     * @param dtos Lista de BookDetailDTO a convertir.
      * @return Lista de BookEntity convertida.
      */
-    private List<BookEntity> booksListDTO2Entity(List<BookDTO> dtos) {
+    private List<BookEntity> booksListDTO2Entity(List<BookDetailDTO> dtos) {
         List<BookEntity> list = new ArrayList<>();
-        for (BookDTO dto : dtos) {
+        for (BookDetailDTO dto : dtos) {
             list.add(dto.toEntity());
         }
         return list;

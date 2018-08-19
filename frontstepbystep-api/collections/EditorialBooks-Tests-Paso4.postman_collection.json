@@ -47,7 +47,7 @@
 						"editorials"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nCrea una nueva editorial. El recurso solo tiene de atributo \"name\" que debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+				"description": "**Release: Paso-4**\r\n\r\nCrea una nueva editorial. El recurso solo tiene de atributo \"name\" que debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -95,7 +95,7 @@
 						"editorials"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nCrea otra editorial. El recurso solo tiene de atributo \"name\" que debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nEsta segunda editorial se utiliza para probar la petición que consultar todas las editoriales\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+				"description": "**Release: Paso-4**\r\n\r\nCrea otra editorial. El recurso solo tiene de atributo \"name\" que debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nEsta segunda editorial se utiliza para probar la petición que consultar todas las editoriales\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -141,7 +141,7 @@
 						"books"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nCrea un nuevo libro. El ISBN del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+				"description": "**Release: Paso-4**\r\n\r\nCrea un nuevo libro. El ISBN del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -187,7 +187,7 @@
 						"books"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nCrea otro libro. El ISBN del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\nEste segundo libro se utiliza para probar la petición que consultar todos los libros\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+				"description": "**Release: Paso-4**\r\n\r\nCrea otro libro. El ISBN del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\nEste segundo libro se utiliza para probar la petición que consultar todos los libros\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -235,7 +235,7 @@
 						"{{new_id_b}}"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nAsocia un libro a una editorial en la aplicación. \r\n\r\nSe envía el Id de la editorial y el del libro a asociar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+				"description": "**Release: Paso-4**\r\n\r\nAsocia un libro a una editorial en la aplicación. \r\n\r\nSe envía el Id de la editorial y el del libro a asociar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -283,7 +283,7 @@
 						"0"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nAsocia un libro que no existe a una editorial en la aplicación. \r\n\r\nSe envía el Id de la editorial y el del libro a asociar en la URL de la petición.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /books/0 no existe.\".\r\n\r\n**Código http esperado: 200**"
+				"description": "**Release: Paso-4**\r\n\r\nAsocia un libro que no existe a una editorial en la aplicación. \r\n\r\nSe envía el Id de la editorial y el del libro a asociar en la URL de la petición.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /books/0 no existe.\".\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -326,7 +326,7 @@
 						"books"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nConsulta los libros de una editorial en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id de la editorial y el del libro a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+				"description": "**Release: Paso-4**\r\n\r\nConsulta los libros de una editorial en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id de la editorial y el del libro a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -370,7 +370,7 @@
 						"{{new_id_b}}"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nConsulta un libro de una editorial en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id de la editorial y del libro a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+				"description": "**Release: Paso-4**\r\n\r\nConsulta un libro de una editorial en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id de la editorial y del libro a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -413,7 +413,7 @@
 						"{{new_id_b}}"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nConsulta un libro que no esta asociado a una editorial en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El libro no está asociado a la editorial\".\r\n\r\n**Código http esperado: 412**"
+				"description": "**Release: Paso-4**\r\n\r\nConsulta un libro que no esta asociado a una editorial en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El libro no está asociado a la editorial\".\r\n\r\n**Código http esperado: 412**"
 			},
 			"response": []
 		},
@@ -455,7 +455,7 @@
 						"0"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nConsulta un libro que no existe de una editorial en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error.\r\n\r\n**Código http esperado: 404**"
+				"description": "**Release: Paso-4**\r\n\r\nConsulta un libro que no existe de una editorial en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error.\r\n\r\n**Código http esperado: 404**"
 			},
 			"response": []
 		},
@@ -503,7 +503,7 @@
 						"books"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nActualiza la lista de libros una editorial existente.\r\n\r\nSe envía el Id ne la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+				"description": "**Release: Paso-4**\r\n\r\nActualiza la lista de libros una editorial existente.\r\n\r\nSe envía el Id ne la URL de la petición.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -550,7 +550,7 @@
 						"books"
 					]
 				},
-				"description": "**Release: Paso-3**\r\n\r\nActualiza la lista de una editorial existente con libros que no existen. \r\n\r\nSe envía el Id en la URL de la petición.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /books/0 no existe.\".\r\n\r\n**Código http esperado: 200**"
+				"description": "**Release: Paso-4**\r\n\r\nActualiza la lista de una editorial existente con libros que no existen. \r\n\r\nSe envía el Id en la URL de la petición.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /books/0 no existe.\".\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -590,7 +590,7 @@
 						"{{new_id_b}}"
 					]
 				},
-				"description": "**Release: Paso-3**\n\nBorra un libro. Se envía el id del libro creado anteriormente.\n\n**Código HTTP esperado: 204**"
+				"description": "**Release: Paso-4**\n\nBorra un libro. Se envía el id del libro creado anteriormente.\n\n**Código HTTP esperado: 204**"
 			},
 			"response": []
 		},
@@ -630,7 +630,7 @@
 						"{{new_id_b2}}"
 					]
 				},
-				"description": "**Release: Paso-3**\n\nBorra un libro. Se envía el id del libro creado anteriormente.\n\n**Código HTTP esperado: 204**"
+				"description": "**Release: Paso-4**\n\nBorra un libro. Se envía el id del libro creado anteriormente.\n\n**Código HTTP esperado: 204**"
 			},
 			"response": []
 		},
@@ -669,7 +669,7 @@
 						"{{new_id_e}}"
 					]
 				},
-				"description": "**Release: Paso-3**\n\nBorra una editorial. Se envía el id de la editorial creada en la primera petición.\n\n**Código HTTP esperado: 204**"
+				"description": "**Release: Paso-4**\n\nBorra una editorial. Se envía el id de la editorial creada en la primera petición.\n\n**Código HTTP esperado: 204**"
 			},
 			"response": []
 		},
@@ -709,7 +709,7 @@
 						"{{new_id_e2}}"
 					]
 				},
-				"description": "**Release: Paso-3**\n\nBorra la editorial 2.\n\n**Código HTTP esperado: 204**"
+				"description": "**Release: Paso-4**\n\nBorra la editorial 2.\n\n**Código HTTP esperado: 204**"
 			},
 			"response": []
 		}

@@ -125,6 +125,7 @@ public class EditorialResource {
     }
 
     /**
+     *
      * Actualiza la editorial con el id recibido en la URL con la informacion
      * que se recibe en el cuerpo de la petición.
      *
@@ -195,7 +196,8 @@ public class EditorialResource {
     }
 
     /**
-     * Convierte una lista de entidades a DTO.
+     *
+     * lista de entidades a DTO.
      *
      * Este método convierte una lista de objetos EditorialEntity a una lista de
      * objetos EditorialDetailDTO (json)

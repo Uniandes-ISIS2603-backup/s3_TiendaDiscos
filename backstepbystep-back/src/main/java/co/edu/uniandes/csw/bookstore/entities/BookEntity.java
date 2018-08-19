@@ -24,9 +24,13 @@ SOFTWARE.
 package co.edu.uniandes.csw.bookstore.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -49,6 +53,10 @@ public class BookEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne
     private EditorialEntity editorial;
+
+    @PodamExclude
+    @OneToMany(mappedBy = "book", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<ReviewEntity> reviews = new ArrayList<ReviewEntity>();
 
     /**
      * Devuelve el nombre del libro.
@@ -156,5 +164,23 @@ public class BookEntity extends BaseEntity implements Serializable {
      */
     public void setEditorial(EditorialEntity editorialEntity) {
         this.editorial = editorialEntity;
+    }
+
+    /**
+     * Devuelve las reseñas del libro.
+     *
+     * @return Lista de entidades de tipo Reseña
+     */
+    public List<ReviewEntity> getReviews() {
+        return reviews;
+    }
+
+    /**
+     * Modifica las reseñas de un libro.
+     *
+     * @param reviews Las nuevas reseñas.
+     */
+    public void setReviews(List<ReviewEntity> reviews) {
+        this.reviews = reviews;
     }
 }

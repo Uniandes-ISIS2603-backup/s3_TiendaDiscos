@@ -29,8 +29,8 @@ import java.util.Date;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * Clase adaptador que formatea las fechas en formato legible utilizando las
- * convenciones: yyyy-MM-dd. Ej: 2018-02-12
+ * Clase adaptador que formatea las fechas en formato serialiable utilizando la
+ * convención: yyyy-MM-dd. Ej: 2018-02-12
  *
  * @author ISIS2603
  */

@@ -133,7 +133,7 @@ public class EditorialLogicTest {
 
     /**
      * Prueba para crear un Editorial
-     * 
+     *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
     @Test

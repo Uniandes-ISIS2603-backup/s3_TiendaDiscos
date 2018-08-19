@@ -131,7 +131,7 @@ public class BookLogicTest {
     }
 
     /**
-     * Prueba para crear un Book
+     * Prueba para crear un Book.
      *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
@@ -150,7 +150,7 @@ public class BookLogicTest {
     }
 
     /**
-     * Prueba para crear un Book con ISBN inválido
+     * Prueba para crear un Book con ISBN inválido.
      *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
@@ -163,7 +163,7 @@ public class BookLogicTest {
     }
 
     /**
-     * Prueba para crear un Book con ISBN inválido
+     * Prueba para crear un Book con ISBN inválido.
      *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
@@ -248,7 +248,7 @@ public class BookLogicTest {
     }
 
     /**
-     * Prueba para actualizar un Book
+     * Prueba para actualizar un Book.
      *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
@@ -267,7 +267,7 @@ public class BookLogicTest {
     }
 
     /**
-     * Prueba para actualizar un Book con ISBN inválido
+     * Prueba para actualizar un Book con ISBN inválido.
      *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
@@ -281,7 +281,7 @@ public class BookLogicTest {
     }
 
     /**
-     * Prueba para actualizar un Book con ISBN inválido
+     * Prueba para actualizar un Book con ISBN inválido.
      *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
@@ -295,7 +295,7 @@ public class BookLogicTest {
     }
 
     /**
-     * Prueba para eliminar un Book
+     * Prueba para eliminar un Book.
      *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */

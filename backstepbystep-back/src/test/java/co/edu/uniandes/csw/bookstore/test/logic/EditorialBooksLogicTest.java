@@ -160,7 +160,7 @@ public class EditorialBooksLogicTest {
 
     /**
      * Prueba para obtener una instancia de Books asociada a una instancia
-     * Editorial
+     * Editorial.
      *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */

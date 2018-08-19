@@ -1,0 +1,749 @@
+{
+	"info": {
+		"_postman_id": "e8f2ca25-a181-4d3e-85c8-2f39bf439b24",
+		"name": "Review Tests",
+		"description": "Colección de pruebas sobre el recurso Review",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"_postman_id": "f86c5fcf-6b12-410e-b3a3-86153083a51c",
+			"name": "Crear una editorial",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_e\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Norma\"}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/editorials",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"editorials"
+					]
+				},
+				"description": "**Release: Paso-4**\r\n\r\nCrea una nueva editorial. El recurso solo tiene de atributo \"name\" que debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "bf8d55cf-e689-428b-8c13-670c7b79490c",
+			"name": "Crear un libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "304084ed-d326-4e9b-b66a-8c2c95b18e0b",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_b\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Jorge Fondebrider traza un mundo fantastico con mapas de la geografia real y de sus mitologias, observando a los hombres lobo que han vivido en la imaginacion de Europa y America.\",\n    \"image\": \"https://static.iris.net.co/arcadia/upload/images/2017/7/31/64899_1.jpg\",\n    \"isbn\": \"930330149-8\",\n    \"editorial\": { \"id\": {{new_id_e}} },\n    \"name\": \"Historia de los hombres lobo 2\",\n    \"publishingdate\": \"2000-08-20T00:00:00-05:00\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books"
+					]
+				},
+				"description": "**Release: Paso-4**\r\n\r\nCrea un nuevo libro. El ISBN del recurso debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "e0e45b83-6df3-4dbc-891f-04f3a3faaa24",
+			"name": "Crearle una reseña a un libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_r\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Un review nueva para el libro\",\n    \"name\": \"Mi nueva review\",\n    \"source\": \"Universidad de los Andes\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/{{new_id_b}}/reviews",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"{{new_id_b}}",
+						"reviews"
+					]
+				},
+				"description": "**Release: Paso-4**\r\n\r\nCrea una nueva reseña. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "c8fc105d-01cb-4bb2-9fcc-59524f26b462",
+			"name": "Crearle una reseña 2 a un libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ce6821cb-f2e4-4db6-85d6-356b121aca52",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_r2\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Un resena antigua para el libro\",\n    \"name\": \"Mi antigua review\",\n    \"source\": \"Universidad de los Andes\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/{{new_id_b}}/reviews",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"{{new_id_b}}",
+						"reviews"
+					]
+				},
+				"description": "**Release: Paso-4**\r\n\r\nCrea una nueva reseña. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "79d5b958-edb7-4dba-8e85-1cd713e5c964",
+			"name": "Crearle una reseña a  un libro que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "235687ad-e750-4fea-b37f-0dccb2edc9bd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede asociar un review a un book que no existe.\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /books/0/reviews no existe\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Un resena antigua para el libro\",\n    \"name\": \"Mi antigua review\",\n    \"source\": \"Universidad de los Andes\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/0/reviews",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"0",
+						"reviews"
+					]
+				},
+				"description": "**Release: Paso-4**\r\n\r\nCrea un nueva nueva reseña pero con un libro que no existe. Verifica que se genera el error y el mensaje \"El recurso /books/0/reviews no existe\".\r\n\r\n**Código HTTP esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "a56d9b11-7cc0-4840-a1f7-a0d3080eb777",
+			"name": "Obtener las reseñas de un libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "030da90b-93b3-4d13-b4e8-db57d0af4c07",
+						"type": "text/javascript",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"no genera error en el Get All\"] = responseCode.code === 200;",
+							"tests[\"reviews count\"] = data.length >= 0;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/{{new_id_b}}/reviews",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"{{new_id_b}}",
+						"reviews"
+					]
+				},
+				"description": "**Release: Paso-4**\r\n\r\nConsulta las reseñas de un libro en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del libro a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "ac845e09-6896-4cc1-8ad7-29a0ae3201c7",
+			"name": "Obtener una reseña de un libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "15578bb7-15b6-4871-93b6-559ea819e22c",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/{{new_id_b}}/reviews/{{new_id_r}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"{{new_id_b}}",
+						"reviews",
+						"{{new_id_r}}"
+					]
+				},
+				"description": "**Release: Paso-4**\r\n\r\nConsulta una reseña de un libro en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del libro y de la reseña a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "9396a15a-a3e4-4ecf-b96c-268da39eece0",
+			"name": "Editarle una reseña a un libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "84b4ef5d-3e7d-4a61-80f4-231125db4e8f",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Tiene ahora un nombre la review\",\n    \"source\": \"Se edita la fuente de la review\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/{{new_id_b}}/reviews/{{new_id_r}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"{{new_id_b}}",
+						"reviews",
+						"{{new_id_r}}"
+					]
+				},
+				"description": "**Release: Paso-4**\r\n\r\nActualiza una reseña a un libro existente. Se envían los Ids de las entidades asociar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "d468ab36-985a-414f-a7ce-3f447d2309f5",
+			"name": "Editarle una reseña que no existe a un libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "02be10e6-750b-4b74-95e7-d927a166ec02",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede editar un review que no existe.\"] = responseCode.code === 404;",
+							"let id = pm.variables.get(\"new_id_b\");",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /books/\"+id+\"/reviews/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Tiene ahora un nombre la review\",\n    \"source\": \"Se edita la fuente de la review\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/{{new_id_b}}/reviews/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"{{new_id_b}}",
+						"reviews",
+						"0"
+					]
+				},
+				"description": "**Release: Paso-4**\r\n\r\nAsocia una reseña que no existe a un libro. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /reviews/0 no existe.\".\r\n\r\n**Código HTTP esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "dc4459fb-d62d-46de-a831-3e1a302689f7",
+			"name": "Editarle una reseña a un libro que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ce6fc66f-cb19-4e0d-bc0a-aff100e295ee",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede editar un review sobre un book que no existe.\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /books/0/reviews no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Tiene ahora un nombre la review\",\n    \"source\": \"Se edita la fuente de la review\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/0/reviews/{{new_id_r}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"0",
+						"reviews",
+						"{{new_id_r}}"
+					]
+				},
+				"description": "**Release: Paso-4**\r\n\r\nAsocia una reseña a un libro que no existe.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /books/0 no existe.\".\r\n\r\n**Código HTTP esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "48f78c2b-52c0-48e7-8da6-c4ee3ffc48cd",
+			"name": "Borrarle una reseña que no existe en un libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "edb58a8e-9d1a-4d6f-9942-6fe3c8a169e9",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No s epuede borrar un review que no existe.\"] = responseCode.code === 404;",
+							"let id = pm.variables.get(\"new_id_b\");",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /books/\"+id+\"/reviews/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/{{new_id_b}}/reviews/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"{{new_id_b}}",
+						"reviews",
+						"0"
+					]
+				},
+				"description": "**Release: Paso-4**\r\n\r\nBorra una reseña que no existe en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error.\r\n\r\n**Código http esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "e70c7e9e-b456-4640-9c87-a771f663b194",
+			"name": "Borrarle una reseña un libro que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0c199000-a389-4706-8406-5cdc8f12186b",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede borrar un review sobre un book que no existe.\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /books/0/reviews no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/0/reviews/{{new_id_r}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"0",
+						"reviews",
+						"{{new_id_r}}"
+					]
+				},
+				"description": "**Release: Paso-4**\r\n\r\nBorra una reseña a un libro que no existe en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /books/0/reviews no existe.\".\r\n\r\n**Código http esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "e9edce7c-28ae-41d1-93d0-4e9f72cc4705",
+			"name": "Borrarle una reseña a un libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2bb9aa81-6adb-4c8d-b7cd-20f8c7301f8d",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/{{new_id_b}}/reviews/{{new_id_r}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"{{new_id_b}}",
+						"reviews",
+						"{{new_id_r}}"
+					]
+				},
+				"description": "**Release: Paso-4**\n\nBorra una reseña asociada a un libro. Se envían los ids de la reseña y el libro creados anteriormente.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "111761a6-5585-42af-bba6-5ecccf2fef64",
+			"name": "Borrarle una reseña 2 a un libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "39e4ff08-1c18-4cab-a775-f054d1e7389a",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/{{new_id_b}}/reviews/{{new_id_r2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"{{new_id_b}}",
+						"reviews",
+						"{{new_id_r2}}"
+					]
+				},
+				"description": "**Release: Paso-4**\n\nBorra una reseña asociada a un libro. Se envían los ids de la reseña y el libro creado anteriormente.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "a82791bc-dc49-4599-8546-c4725477167f",
+			"name": "Borrar un libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2ec74fba-bc15-4973-99bd-0c1a86a28a2e",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/books/{{new_id_b}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"books",
+						"{{new_id_b}}"
+					]
+				},
+				"description": "**Release: Paso-4**\n\nBorra un libro. Se envía el id del libro creado anteriormente.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "6bcf86ee-1023-4a2b-a467-433c53f937f7",
+			"name": "Borrar una editorial",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d40b53c5-ed60-4b95-9432-09f2201a8509",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/editorials/{{new_id_e}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"editorials",
+						"{{new_id_e}}"
+					]
+				},
+				"description": "**Release: Paso-4**\n\nBorra una editorial. Se envía el id de la editorial creada en la primera petición.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "00d22f9f-0cad-4e06-8a85-ed1c41a4a1fc",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0d40a238-261c-43f6-a7fc-b63475c69de5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

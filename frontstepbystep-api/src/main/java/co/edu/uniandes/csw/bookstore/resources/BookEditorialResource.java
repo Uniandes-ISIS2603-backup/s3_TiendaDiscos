@@ -23,7 +23,7 @@ SOFTWARE.
  */
 package co.edu.uniandes.csw.bookstore.resources;
 
-import co.edu.uniandes.csw.bookstore.dtos.BookDTO;
+import co.edu.uniandes.csw.bookstore.dtos.BookDetailDTO;
 import co.edu.uniandes.csw.bookstore.dtos.EditorialDTO;
 import co.edu.uniandes.csw.bookstore.ejb.BookEditorialLogic;
 import co.edu.uniandes.csw.bookstore.ejb.BookLogic;
@@ -41,7 +41,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Clase que implementa el recurso "books/{id}/editorial".
+ * Clase que implementa el recurso "editorial/{id}/books".
  *
  * @author ISIS2603
  * @version 1.0
@@ -68,14 +68,14 @@ public class BookEditorialResource {
      * @param booksId Identificador del libro que se esta actualizando. Este
      * debe ser una cadena de dígitos.
      * @param editorial La editorial que se será del libro.
-     * @return JSON {@link BookDTO} - El arreglo de libros guardado en la
+     * @return JSON {@link BookDetailDTO} - El arreglo de libros guardado en la
      * editorial.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la editorial o el
      * libro.
      */
     @PUT
-    public BookDTO replaceEditorial(@PathParam("booksId") Long booksId, EditorialDTO editorial) {
+    public BookDetailDTO replaceEditorial(@PathParam("booksId") Long booksId, EditorialDTO editorial) {
         LOGGER.log(Level.INFO, "BookEditorialResource replaceEditorial: input: booksId{0} , Editorial:{1}", new Object[]{booksId, editorial.toString()});
         if (bookLogic.getBook(booksId) == null) {
             throw new WebApplicationException("El recurso /books/" + booksId + " no existe.", 404);
@@ -83,8 +83,8 @@ public class BookEditorialResource {
         if (editorialLogic.getEditorial(editorial.getId()) == null) {
             throw new WebApplicationException("El recurso /editorials/" + editorial.getId() + " no existe.", 404);
         }
-        BookDTO bookDTO = new BookDTO(bookEditorialLogic.replaceEditorial(booksId, editorial.getId()));
-        LOGGER.log(Level.INFO, "BookEditorialResource replaceEditorial: output: {0}", bookDTO.toString());
-        return bookDTO;
+        BookDetailDTO bookDetailDTO = new BookDetailDTO(bookEditorialLogic.replaceEditorial(booksId, editorial.getId()));
+        LOGGER.log(Level.INFO, "BookEditorialResource replaceEditorial: output: {0}", bookDetailDTO.toString());
+        return bookDetailDTO;
     }
 }

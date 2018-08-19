@@ -77,7 +77,6 @@ public class EditorialPersistenceTest {
     private List<EditorialEntity> data = new ArrayList<EditorialEntity>();
 
     /**
-     *
      * @return Devuelve el jar que Arquillian va a desplegar en el Glassfish
      * embebido. El jar contiene las clases de Editorial, el descriptor de la
      * base de datos y el archivo beans.xml para resolver la inyección de
@@ -154,6 +153,8 @@ public class EditorialPersistenceTest {
 
     /**
      * Prueba para consultar la lista de Editoriales.
+     *
+     *
      */
     @Test
     public void getEditorialsTest() {
@@ -172,6 +173,8 @@ public class EditorialPersistenceTest {
 
     /**
      * Prueba para consultar una Editorial.
+     *
+     *
      */
     @Test
     public void getEditorialTest() {
@@ -183,6 +186,8 @@ public class EditorialPersistenceTest {
 
     /**
      * Prueba para eliminar una Editorial.
+     *
+     *
      */
     @Test
     public void deleteEditorialTest() {
@@ -194,6 +199,8 @@ public class EditorialPersistenceTest {
 
     /**
      * Prueba para actualizar una Editorial.
+     *
+     *
      */
     @Test
     public void updateEditorialTest() {
@@ -212,6 +219,8 @@ public class EditorialPersistenceTest {
 
     /**
      * Prueba para consultar una Editorial por nombre.
+     *
+     *
      */
     @Test
     public void findEditorialByNameTest() {
