@@ -53,30 +53,16 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class EditorialLogicTest {
 
     private PodamFactory factory = new PodamFactoryImpl();
-    /**
-     * Inyección de la dependencia a la clase EditorialLogic cuyos métodos se
-     * van a probar.
-     */
+
     @Inject
     private EditorialLogic editorialLogic;
 
-    /**
-     * Contexto de Persistencia que se va a utilizar para acceder a la Base de
-     * datos por fuera de los métodos que se están probando.
-     */
     @PersistenceContext
     private EntityManager em;
 
-    /**
-     * Variable para marcar las transacciones del em anterior cuando se
-     * crean/borran datos para las pruebas.
-     */
     @Inject
     private UserTransaction utx;
 
-    /**
-     * Lista que tiene los datos de prueba.
-     */
     private List<EditorialEntity> data = new ArrayList<EditorialEntity>();
 
     /**
@@ -96,6 +82,7 @@ public class EditorialLogicTest {
 
     /**
      * Configuración inicial de la prueba.
+     *
      */
     @Before
     public void configTest() {
@@ -116,6 +103,7 @@ public class EditorialLogicTest {
 
     /**
      * Limpia las tablas que están implicadas en la prueba.
+     *
      */
     private void clearData() {
         em.createQuery("delete from EditorialEntity").executeUpdate();
@@ -124,6 +112,7 @@ public class EditorialLogicTest {
     /**
      * Inserta los datos iniciales para el correcto funcionamiento de las
      * pruebas.
+     *
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
@@ -131,12 +120,11 @@ public class EditorialLogicTest {
 
             em.persist(entity);
             data.add(entity);
-
         }
     }
 
     /**
-     * Prueba para crear un Editorial.
+     * Prueba para crear un Editorial
      *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
@@ -164,13 +152,59 @@ public class EditorialLogicTest {
     }
 
     /**
-     * Prueba para eliminar un Editorial.
-     *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * Prueba para consultar la lista de Editorials.
      */
     @Test
-    public void deleteEditorialTest() throws BusinessLogicException {
-        EditorialEntity entity = data.get(1);
+    public void getEditorialsTest() {
+        List<EditorialEntity> list = editorialLogic.getEditorials();
+        Assert.assertEquals(data.size(), list.size());
+        for (EditorialEntity entity : list) {
+            boolean found = false;
+            for (EditorialEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+
+    /**
+     * Prueba para consultar un Editorial.
+     */
+    @Test
+    public void getEditorialTest() {
+        EditorialEntity entity = data.get(0);
+        EditorialEntity resultEntity = editorialLogic.getEditorial(entity.getId());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
+        Assert.assertEquals(entity.getName(), resultEntity.getName());
+    }
+
+    /**
+     * Prueba para actualizar un Editorial.
+     */
+    @Test
+    public void updateEditorialTest() {
+        EditorialEntity entity = data.get(0);
+        EditorialEntity pojoEntity = factory.manufacturePojo(EditorialEntity.class);
+
+        pojoEntity.setId(entity.getId());
+
+        editorialLogic.updateEditorial(pojoEntity.getId(), pojoEntity);
+
+        EditorialEntity resp = em.find(EditorialEntity.class, entity.getId());
+
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getName(), resp.getName());
+    }
+
+    /**
+     * Prueba para eliminar un Editorial.
+     */
+    @Test
+    public void deleteEditorialTest() {
+        EditorialEntity entity = data.get(0);
         editorialLogic.deleteEditorial(entity.getId());
         EditorialEntity deleted = em.find(EditorialEntity.class, entity.getId());
         Assert.assertNull(deleted);

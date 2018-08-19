@@ -58,7 +58,7 @@ public class EditorialDTO implements Serializable{
     private String name;
 
     /**
-     * Constructor por defecto
+     * Constructor por defecto.
      */
     public EditorialDTO() {
     }

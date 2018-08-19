@@ -72,12 +72,11 @@ public class EditorialPersistenceTest {
     UserTransaction utx;
 
     /**
-     * Lista que tiene los datos de prueba.
+     * lista que tiene los datos de prueba.
      */
     private List<EditorialEntity> data = new ArrayList<EditorialEntity>();
 
     /**
-     *
      * @return Devuelve el jar que Arquillian va a desplegar en el Glassfish
      * embebido. El jar contiene las clases de Editorial, el descriptor de la
      * base de datos y el archivo beans.xml para resolver la inyección de
@@ -115,8 +114,6 @@ public class EditorialPersistenceTest {
 
     /**
      * Limpia las tablas que están implicadas en la prueba.
-     *
-     *
      */
     private void clearData() {
         em.createQuery("delete from EditorialEntity").executeUpdate();
@@ -125,8 +122,6 @@ public class EditorialPersistenceTest {
     /**
      * Inserta los datos iniciales para el correcto funcionamiento de las
      * pruebas.
-     *
-     *
      */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
@@ -141,9 +136,7 @@ public class EditorialPersistenceTest {
     }
 
     /**
-     * Prueba para crear un Editorial.
-     *
-     *
+     * Prueba para crear una Editorial.
      */
     @Test
     public void createEditorialTest() {
@@ -159,9 +152,36 @@ public class EditorialPersistenceTest {
     }
 
     /**
+     * Prueba para consultar la lista de Editoriales.
+     */
+    @Test
+    public void getEditorialsTest() {
+        List<EditorialEntity> list = editorialPersistence.findAll();
+        Assert.assertEquals(data.size(), list.size());
+        for (EditorialEntity ent : list) {
+            boolean found = false;
+            for (EditorialEntity entity : data) {
+                if (ent.getId().equals(entity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+
+    /**
+     * Prueba para consultar una Editorial.
+     */
+    @Test
+    public void getEditorialTest() {
+        EditorialEntity entity = data.get(0);
+        EditorialEntity newEntity = editorialPersistence.find(entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getName(), newEntity.getName());
+    }
+
+    /**
      * Prueba para eliminar una Editorial.
-     *
-     *
      */
     @Test
     public void deleteEditorialTest() {
@@ -172,15 +192,34 @@ public class EditorialPersistenceTest {
     }
 
     /**
-     * Prueba para consultar un Editorial por nombre.
-     *
-     *
+     * Prueba para actualizar una Editorial.
      */
     @Test
-    public void FindEditorialByNameTest() {
+    public void updateEditorialTest() {
+        EditorialEntity entity = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        EditorialEntity newEntity = factory.manufacturePojo(EditorialEntity.class);
+
+        newEntity.setId(entity.getId());
+
+        editorialPersistence.update(newEntity);
+
+        EditorialEntity resp = em.find(EditorialEntity.class, entity.getId());
+
+        Assert.assertEquals(newEntity.getName(), resp.getName());
+    }
+
+    /**
+     * Prueba para consultar una Editorial por nombre.
+     */
+    @Test
+    public void findEditorialByNameTest() {
         EditorialEntity entity = data.get(0);
         EditorialEntity newEntity = editorialPersistence.findByName(entity.getName());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getName(), newEntity.getName());
+
+        newEntity = editorialPersistence.findByName(null);
+        Assert.assertNull(newEntity);
     }
 }

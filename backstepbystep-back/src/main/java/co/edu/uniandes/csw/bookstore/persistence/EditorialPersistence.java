@@ -63,7 +63,54 @@ public class EditorialPersistence {
     }
 
     /**
+     * Devuelve todas las editoriales de la base de datos.
      *
+     * @return una lista con todas las editoriales que encuentre en la base de
+     * datos, "select u from EditorialEntity u" es como un "select * from
+     * EditorialEntity;" - "SELECT * FROM table_name" en SQL.
+     */
+    public List<EditorialEntity> findAll() {
+        LOGGER.log(Level.INFO, "Consultando todas las editoriales");
+        // Se crea un query para buscar todas las editoriales en la base de datos.
+        TypedQuery query = em.createQuery("select u from EditorialEntity u", EditorialEntity.class);
+        // Note que en el query se hace uso del método getResultList() que obtiene una lista de editoriales.
+        return query.getResultList();
+    }
+
+    /**
+     * Busca si hay alguna editorial con el id que se envía de argumento
+     *
+     * @param editorialsId: id correspondiente a la editorial buscada.
+     * @return una editorial.
+     */
+    public EditorialEntity find(Long editorialsId) {
+        LOGGER.log(Level.INFO, "Consultando editorial con id={0}", editorialsId);
+        /* Note que se hace uso del metodo "find" propio del EntityManager, el cual recibe como argumento 
+        el tipo de la clase y el objeto que nos hara el filtro en la base de datos en este caso el "id"
+        Suponga que es algo similar a "select * from EditorialEntity where id=id;" - "SELECT * FROM table_name WHERE condition;" en SQL.
+         */
+        return em.find(EditorialEntity.class, editorialsId);
+    }
+
+    /**
+     * Actualiza una editorial.
+     *
+     * @param editorialEntity: la editorial que viene con los nuevos cambios.
+     * Por ejemplo el nombre pudo cambiar. En ese caso, se haria uso del método
+     * update.
+     * @return una editorial con los cambios aplicados.
+     */
+    public EditorialEntity update(EditorialEntity editorialEntity) {
+        LOGGER.log(Level.INFO, "Actualizando editorial con id = {0}", editorialEntity.getId());
+        /* Note que hacemos uso de un método propio del EntityManager llamado merge() que recibe como argumento
+        la editorial con los cambios, esto es similar a 
+        "UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;" en SQL.
+         */
+        LOGGER.log(Level.INFO, "Saliendo de actualizar la editorial con id = {0}", editorialEntity.getId());
+        return em.merge(editorialEntity);
+    }
+
+    /**
      * Borra una editorial de la base de datos recibiendo como argumento el id
      * de la editorial
      *

@@ -26,6 +26,7 @@ package co.edu.uniandes.csw.bookstore.ejb;
 import co.edu.uniandes.csw.bookstore.entities.EditorialEntity;
 import co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.bookstore.persistence.EditorialPersistence;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -63,6 +64,53 @@ public class EditorialLogic {
         persistence.create(editorialEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación de la editorial");
         return editorialEntity;
+    }
+
+    /**
+     * Obtener todas las editoriales existentes en la base de datos.
+     *
+     * @return una lista de editoriales.
+     */
+    public List<EditorialEntity> getEditorials() {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todas las editoriales");
+        // Note que, por medio de la inyección de dependencias se llama al método "findAll()" que se encuentra en la persistencia.
+        List<EditorialEntity> editorials = persistence.findAll();
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todas las editoriales");
+        return editorials;
+    }
+
+    /**
+     * Obtener una editorial por medio de su id.
+     *
+     * @param editorialsId: id de la editorial para ser buscada.
+     * @return la editorial solicitada por medio de su id.
+     */
+    public EditorialEntity getEditorial(Long editorialsId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar la editorial con id = {0}", editorialsId);
+        // Note que, por medio de la inyección de dependencias se llama al método "find(id)" que se encuentra en la persistencia.
+        EditorialEntity editorialEntity = persistence.find(editorialsId);
+        if (editorialEntity == null) {
+            LOGGER.log(Level.SEVERE, "La editorial con el id = {0} no existe", editorialsId);
+        }
+        LOGGER.log(Level.INFO, "Termina proceso de consultar la editorial con id = {0}", editorialsId);
+        return editorialEntity;
+    }
+
+    /**
+     * Actualizar una editorial.
+     *
+     * @param editorialsId: id de la editorial para buscarla en la base de
+     * datos.
+     * @param editorialEntity: editorial con los cambios para ser actualizada,
+     * por ejemplo el nombre.
+     * @return la editorial con los cambios actualizados en la base de datos.
+     */
+    public EditorialEntity updateEditorial(Long editorialsId, EditorialEntity editorialEntity) {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar la editorial con id = {0}", editorialsId);
+        // Note que, por medio de la inyección de dependencias se llama al método "update(entity)" que se encuentra en la persistencia.
+        EditorialEntity newEntity = persistence.update(editorialEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar la editorial con id = {0}", editorialEntity.getId());
+        return newEntity;
     }
 
     /**

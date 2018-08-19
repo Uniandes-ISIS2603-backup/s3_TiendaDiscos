@@ -64,5 +64,4 @@ public class BusinessLogicExceptionMapper implements ExceptionMapper<BusinessLog
             return e;
         }
     }
-
 }

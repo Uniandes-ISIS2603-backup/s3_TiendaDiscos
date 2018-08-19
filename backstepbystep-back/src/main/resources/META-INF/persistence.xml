@@ -5,9 +5,7 @@
     <persistence-unit name="BookStorePU" transaction-type="JTA">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <jta-data-source>java:app/jdbc/bookstore</jta-data-source>
-        <class>co.edu.uniandes.csw.bookstore.entities.EditorialEntity</class>
-        <exclude-unlisted-classes>true</exclude-unlisted-classes>      
-        <shared-cache-mode>NONE</shared-cache-mode>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>        
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
             <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
