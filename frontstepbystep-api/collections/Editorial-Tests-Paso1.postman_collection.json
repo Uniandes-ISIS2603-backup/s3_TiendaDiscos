@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "8d87b166-2ab3-41e6-8ca2-896105d4303e",
+		"name": "Editorial Tests",
+		"description": "Colección de datos para los recursos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear una editorial",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f7ea127-6db9-4824-8c94-449dd267243d",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_name_e\",data.name);",
+							"postman.setGlobalVariable(\"new_id_e\",data.id);",
+							"tests[\"No genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Norma {{$randomInt}}\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/editorials",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"editorials"
+					]
+				},
+				"description": "**Release: Paso-1**\r\n\r\nCrea una nueva editorial. El recurso solo tiene un atributo \"name\" que debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta de la aplicación. \r\n\r\nPara la prueba, se crea un entero aleatorio que se concatena con el string \"norma\" y así evitar duplicados. El nombre y el id se guardan en variables para ser usados en la prueba del nombre duplicado y para borrar la editorial al final de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una editorial con el mismo nombre",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8c2a9e72-c643-4148-82d7-ba479fb95537",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe una Editorial con el nombre\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"{{new_name_e}}\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/editorials",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"editorials"
+					]
+				},
+				"description": "**Release: Paso-1**\r\n\r\nCrea una nueva editorial pero con un nombre que ya existe. Verifica que se genera el error y el mensaje \"Ya existe una Editorial con el nombre\".\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar una editorial",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "edf90e97-f95e-4543-9615-b3d29c770a27",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/frontstepbystep-api/api/editorials/{{new_id_e}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"frontstepbystep-api",
+						"api",
+						"editorials",
+						"{{new_id_e}}"
+					]
+				},
+				"description": "**Release: Paso-1**\n\nBorra una editorial, se envía el id de la editorial creada en la primera petición\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "95167821-78b3-419f-9f2b-68fef4369f35",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ff360673-381f-4319-aac6-e20378eb6c99",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
