@@ -57,14 +57,13 @@ public class EditorialBooksLogic {
      * @param booksId El id libro a guardar
      * @param editorialsId El id de la editorial en la cual se va a guardar el
      * libro.
-     * @return El libro agregado a la editorial.
+     * @return El libro creado.
      */
     public BookEntity addBook(Long booksId, Long editorialsId) {
         LOGGER.log(Level.INFO, "Inicia proceso de agregarle un libro a la editorial con id = {0}", editorialsId);
         EditorialEntity editorialEntity = editorialPersistence.find(editorialsId);
         BookEntity bookEntity = bookPersistence.find(booksId);
         bookEntity.setEditorial(editorialEntity);
-        editorialEntity.getBooks().add(bookEntity);
         LOGGER.log(Level.INFO, "Termina proceso de agregarle un libro a la editorial con id = {0}", editorialsId);
         return bookEntity;
     }
@@ -119,7 +118,6 @@ public class EditorialBooksLogic {
                 book.setEditorial(null);
             }
         }
-        editorialEntity.setBooks(books);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar la editorial con id = {0}", editorialsId);
         return books;
     }

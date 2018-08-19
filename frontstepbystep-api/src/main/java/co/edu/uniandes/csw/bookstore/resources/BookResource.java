@@ -63,13 +63,13 @@ public class BookResource {
     private static final Logger LOGGER = Logger.getLogger(BookResource.class.getName());
 
     @Inject
-    BookLogic bookLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    private BookLogic bookLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
     @Inject
-    EditorialLogic editorialLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    private EditorialLogic editorialLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
     @Inject
-    BookEditorialLogic bookEditorialLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    private BookEditorialLogic bookEditorialLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
     /**
      * Crea un nuevo libro con la informacion que se recibe en el cuerpo de la
@@ -159,12 +159,14 @@ public class BookResource {
      *
      * @param booksId Identificador del libro que se desea borrar. Este debe ser
      * una cadena de dígitos.
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     * cuando el libro tiene autores asociados.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el libro.
      */
     @DELETE
     @Path("{booksId: \\d+}")
-    public void deleteBook(@PathParam("booksId") Long booksId) {
+    public void deleteBook(@PathParam("booksId") Long booksId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "BookResource deleteBook: input: {0}", booksId);
         BookEntity entity = bookLogic.getBook(booksId);
         if (entity == null) {
@@ -197,8 +199,29 @@ public class BookResource {
     }
 
     /**
+     * Conexión con el servicio de autores para un libro.
+     * {@link BookAuthorsResource}
      *
-     * lista de entidades a DTO.
+     * Este método conecta la ruta de /books con las rutas de /authors que
+     * dependen del libro, es una redirección al servicio que maneja el segmento
+     * de la URL que se encarga de las reseñas.
+     *
+     * @param booksId El ID del libro con respecto al cual se accede al
+     * servicio.
+     * @return El servicio de autores para ese libro en paricular.\
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el libro.
+     */
+    @Path("{booksId: \\d+}/authors")
+    public Class<BookAuthorsResource> getBookAuthorsResource(@PathParam("booksId") Long booksId) {
+        if (bookLogic.getBook(booksId) == null) {
+            throw new WebApplicationException("El recurso /books/" + booksId + " no existe.", 404);
+        }
+        return BookAuthorsResource.class;
+    }
+
+    /**
+     * Convierte una lista de entidades a DTO.
      *
      * Este método convierte una lista de objetos BookEntity a una lista de
      * objetos BookDetailDTO (json)

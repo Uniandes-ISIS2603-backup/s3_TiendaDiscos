@@ -50,37 +50,21 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class EditorialPersistenceTest {
 
-    /**
-     * Inyección de la dependencia a la clase EditorialPersistence cuyos métodos
-     * se van a probar.
-     */
     @Inject
     private EditorialPersistence editorialPersistence;
 
-    /**
-     * Contexto de Persistencia que se va a utilizar para acceder a la Base de
-     * datos por fuera de los métodos que se están probando.
-     */
     @PersistenceContext
     private EntityManager em;
 
-    /**
-     * Variable para martcar las transacciones del em anterior cuando se
-     * crean/borran datos para las pruebas.
-     */
     @Inject
     UserTransaction utx;
 
-    /**
-     * Lista que tiene los datos de prueba.
-     */
     private List<EditorialEntity> data = new ArrayList<EditorialEntity>();
 
     /**
-     * @return Devuelve el jar que Arquillian va a desplegar en el Glassfish
-     * embebido. El jar contiene las clases de Editorial, el descriptor de la
-     * base de datos y el archivo beans.xml para resolver la inyección de
-     * dependencias.
+     * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
+     * El jar contiene las clases, el descriptor de la base de datos y el
+     * archivo beans.xml para resolver la inyección de dependencias.
      */
     @Deployment
     public static JavaArchive createDeployment() {
@@ -153,8 +137,6 @@ public class EditorialPersistenceTest {
 
     /**
      * Prueba para consultar la lista de Editoriales.
-     *
-     *
      */
     @Test
     public void getEditorialsTest() {
@@ -173,8 +155,6 @@ public class EditorialPersistenceTest {
 
     /**
      * Prueba para consultar una Editorial.
-     *
-     *
      */
     @Test
     public void getEditorialTest() {
@@ -186,8 +166,6 @@ public class EditorialPersistenceTest {
 
     /**
      * Prueba para eliminar una Editorial.
-     *
-     *
      */
     @Test
     public void deleteEditorialTest() {
@@ -199,8 +177,6 @@ public class EditorialPersistenceTest {
 
     /**
      * Prueba para actualizar una Editorial.
-     *
-     *
      */
     @Test
     public void updateEditorialTest() {
@@ -219,8 +195,6 @@ public class EditorialPersistenceTest {
 
     /**
      * Prueba para consultar una Editorial por nombre.
-     *
-     *
      */
     @Test
     public void findEditorialByNameTest() {

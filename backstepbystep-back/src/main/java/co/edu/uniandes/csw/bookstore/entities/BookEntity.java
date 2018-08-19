@@ -29,6 +29,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -57,6 +58,10 @@ public class BookEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToMany(mappedBy = "book", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<ReviewEntity> reviews = new ArrayList<ReviewEntity>();
+
+    @PodamExclude
+    @ManyToMany
+    private List<AuthorEntity> authors = new ArrayList<AuthorEntity>();
 
     /**
      * Devuelve el nombre del libro.
@@ -182,5 +187,23 @@ public class BookEntity extends BaseEntity implements Serializable {
      */
     public void setReviews(List<ReviewEntity> reviews) {
         this.reviews = reviews;
+    }
+
+    /**
+     * Devuelve los autores de un libro
+     *
+     * @return the authors
+     */
+    public List<AuthorEntity> getAuthors() {
+        return authors;
+    }
+
+    /**
+     * Modifica los autores de un libro
+     *
+     * @param authors the authors to set
+     */
+    public void setAuthors(List<AuthorEntity> authors) {
+        this.authors = authors;
     }
 }

@@ -147,7 +147,7 @@ public class BookEditorialLogicTest {
     }
 
     /**
-     * Prueba para desasociar un Book existente de un Editorial existente.
+     * Prueba para desasociar un Book existente de un Editorial existente
      *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */

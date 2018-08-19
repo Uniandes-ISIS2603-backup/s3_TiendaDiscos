@@ -24,6 +24,7 @@ SOFTWARE.
 package co.edu.uniandes.csw.bookstore.test.logic;
 
 import co.edu.uniandes.csw.bookstore.ejb.BookLogic;
+import co.edu.uniandes.csw.bookstore.entities.AuthorEntity;
 import co.edu.uniandes.csw.bookstore.entities.BookEntity;
 import co.edu.uniandes.csw.bookstore.persistence.BookPersistence;
 import co.edu.uniandes.csw.bookstore.entities.EditorialEntity;
@@ -109,6 +110,7 @@ public class BookLogicTest {
     private void clearData() {
         em.createQuery("delete from BookEntity").executeUpdate();
         em.createQuery("delete from EditorialEntity").executeUpdate();
+        em.createQuery("delete from AuthorEntity").executeUpdate();
     }
 
     /**
@@ -128,10 +130,14 @@ public class BookLogicTest {
             em.persist(entity);
             data.add(entity);
         }
+        AuthorEntity author = factory.manufacturePojo(AuthorEntity.class);
+        em.persist(author);
+        author.getBooks().add(data.get(1));
+        data.get(1).getAuthors().add(author);
     }
 
     /**
-     * Prueba para crear un Book.
+     * Prueba para crear un Book
      *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
@@ -150,7 +156,7 @@ public class BookLogicTest {
     }
 
     /**
-     * Prueba para crear un Book con ISBN inválido.
+     * Prueba para crear un Book con ISBN inválido
      *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
@@ -163,7 +169,7 @@ public class BookLogicTest {
     }
 
     /**
-     * Prueba para crear un Book con ISBN inválido.
+     * Prueba para crear un Book con ISBN inválido
      *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
@@ -305,5 +311,16 @@ public class BookLogicTest {
         bookLogic.deleteBook(entity.getId());
         BookEntity deleted = em.find(BookEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+
+    /**
+     * Prueba para eliminar un Book.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void deleteBookWithAuthorTest() throws BusinessLogicException {
+        BookEntity entity = data.get(1);
+        bookLogic.deleteBook(entity.getId());
     }
 }

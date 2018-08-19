@@ -57,7 +57,7 @@ public class ReviewResource {
     private static final Logger LOGGER = Logger.getLogger(ReviewResource.class.getName());
 
     @Inject
-    ReviewLogic reviewLogic;
+    private ReviewLogic reviewLogic;
 
     /**
      * Crea una nueva reseña con la informacion que se recibe en el cuerpo de la
@@ -68,9 +68,11 @@ public class ReviewResource {
      * @param review {@link ReviewDTO} - La reseña que se desea guardar.
      * @return JSON {@link ReviewDTO} - La reseña guardada con el atributo id
      * autogenerado.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando ya existe la reseña.
      */
     @POST
-    public ReviewDTO createReview(@PathParam("booksId") Long booksId, ReviewDTO review) {
+    public ReviewDTO createReview(@PathParam("booksId") Long booksId, ReviewDTO review) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ReviewResource createReview: input: {0}", review.toString());
         ReviewDTO nuevoReviewDTO = new ReviewDTO(reviewLogic.createReview(booksId, review.toEntity()));
         LOGGER.log(Level.INFO, "ReviewResource createReview: output: {0}", nuevoReviewDTO.toString());
@@ -125,14 +127,18 @@ public class ReviewResource {
      * @param reviewsId El ID de la reseña que se va a actualizar
      * @param review {@link ReviewDTO} - La reseña que se desea guardar.
      * @return JSON {@link ReviewDTO} - La reseña actualizada.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando ya existe la reseña.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la reseña.
      */
     @PUT
     @Path("{reviewsId: \\d+}")
-    public ReviewDTO updateReview(@PathParam("booksId") Long booksId, @PathParam("reviewsId") Long reviewsId, ReviewDTO review) {
+    public ReviewDTO updateReview(@PathParam("booksId") Long booksId, @PathParam("reviewsId") Long reviewsId, ReviewDTO review) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ReviewResource updateReview: input: booksId: {0} , reviewsId: {1} , review:{2}", new Object[]{booksId, reviewsId, review.toString()});
-        review.setId(reviewsId);
+        if (reviewsId.equals(review.getId())) {
+            throw new BusinessLogicException("Los ids del Review no coinciden.");
+        }
         ReviewEntity entity = reviewLogic.getReview(booksId, reviewsId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /books/" + booksId + "/reviews/" + reviewsId + " no existe.", 404);
@@ -164,6 +170,16 @@ public class ReviewResource {
         reviewLogic.deleteReview(booksId, reviewsId);
     }
 
+    /**
+     * Lista de entidades a DTO.
+     *
+     * Este método convierte una lista de objetos PrizeEntity a una lista de
+     * objetos ReviewDTO (json)
+     *
+     * @param entityList corresponde a la lista de reseñas de tipo Entity que
+     * vamos a convertir a DTO.
+     * @return la lista de reseñas en forma DTO (json)
+     */
     private List<ReviewDTO> listEntity2DTO(List<ReviewEntity> entityList) {
         List<ReviewDTO> list = new ArrayList<ReviewDTO>();
         for (ReviewEntity entity : entityList) {

@@ -60,10 +60,7 @@ public class BookEditorialLogic {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar libro con id = {0}", booksId);
         EditorialEntity editorialEntity = editorialPersistence.find(editorialsId);
         BookEntity bookEntity = bookPersistence.find(booksId);
-        EditorialEntity editorialAntigua = editorialPersistence.find(bookEntity.getEditorial().getId());
-        editorialAntigua.getBooks().remove(bookEntity);
         bookEntity.setEditorial(editorialEntity);
-        editorialEntity.getBooks().add(bookEntity);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar libro con id = {0}", bookEntity.getId());
         return bookEntity;
     }

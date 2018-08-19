@@ -23,6 +23,7 @@ SOFTWARE.
  */
 package co.edu.uniandes.csw.bookstore.dtos;
 
+import co.edu.uniandes.csw.bookstore.entities.AuthorEntity;
 import co.edu.uniandes.csw.bookstore.entities.BookEntity;
 import co.edu.uniandes.csw.bookstore.entities.ReviewEntity;
 import java.io.Serializable;
@@ -44,7 +45,8 @@ import java.util.List;
  *      "description": string,
  *      "publishingdate": date,
  *      "editorial": {@link EditorialDTO},
- *      "reviews": [{@link ReviewDTO}]
+ *      "reviews": [{@link ReviewDTO}],
+ *      "authors": [{@link AuthorDTO}]
  *   }
  * </pre> Por ejemplo un libro se representa asi:<br>
  *
@@ -103,6 +105,14 @@ import java.util.List;
  *                  }
  *              }
  *          }
+ *      ],
+ *      "authors": [
+ *          {
+ *              "id": 1,
+ *              "name: "Gabriel García Márquez",
+ *              "birthDate": "23091935",
+ *              "image": "mifoto.com"
+ *          }
  *      ]
  *   }
  *
@@ -114,6 +124,9 @@ public class BookDetailDTO extends BookDTO implements Serializable {
 
     // relación  cero o muchos reviews 
     private List<ReviewDTO> reviews;
+
+    // relación  cero o muchos author
+    private List<AuthorDTO> authors;
 
     public BookDetailDTO() {
         super();
@@ -132,6 +145,12 @@ public class BookDetailDTO extends BookDTO implements Serializable {
                 reviews.add(new ReviewDTO(entityReview));
             }
         }
+        if (bookEntity.getAuthors() != null) {
+            authors = new ArrayList<>();
+            for (AuthorEntity entityAuthor : bookEntity.getAuthors()) {
+                authors.add(new AuthorDTO(entityAuthor));
+            }
+        }
     }
 
     /**
@@ -148,6 +167,13 @@ public class BookDetailDTO extends BookDTO implements Serializable {
                 reviewsEntity.add(dtoReview.toEntity());
             }
             bookEntity.setReviews(reviewsEntity);
+        }
+        if (authors != null) {
+            List<AuthorEntity> authorsEntity = new ArrayList<>();
+            for (AuthorDTO dtoAuthor : authors) {
+                authorsEntity.add(dtoAuthor.toEntity());
+            }
+            bookEntity.setAuthors(authorsEntity);
         }
         return bookEntity;
     }
@@ -170,4 +196,21 @@ public class BookDetailDTO extends BookDTO implements Serializable {
         this.reviews = reviews;
     }
 
+    /**
+     * Devuelve los autores del libro
+     *
+     * @return DTO de Autores
+     */
+    public List<AuthorDTO> getAuthors() {
+        return authors;
+    }
+
+    /**
+     * Modifica los autores del libro
+     *
+     * @param authors Lista de autores
+     */
+    public void setAuthors(List<AuthorDTO> authors) {
+        this.authors = authors;
+    }
 }

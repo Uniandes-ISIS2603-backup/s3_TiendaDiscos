@@ -61,8 +61,8 @@ public class EditorialPersistence {
         LOGGER.log(Level.INFO, "Saliendo de crear una editorial nueva");
         return editorialEntity;
     }
-
-    /**
+	
+	/**
      * Devuelve todas las editoriales de la base de datos.
      *
      * @return una lista con todas las editoriales que encuentre en la base de
@@ -76,7 +76,7 @@ public class EditorialPersistence {
         // Note que en el query se hace uso del método getResultList() que obtiene una lista de editoriales.
         return query.getResultList();
     }
-
+	
     /**
      * Busca si hay alguna editorial con el id que se envía de argumento
      *
@@ -92,7 +92,7 @@ public class EditorialPersistence {
         return em.find(EditorialEntity.class, editorialsId);
     }
 
-    /**
+	 /**
      * Actualiza una editorial.
      *
      * @param editorialEntity: la editorial que viene con los nuevos cambios.
@@ -109,8 +109,9 @@ public class EditorialPersistence {
         LOGGER.log(Level.INFO, "Saliendo de actualizar la editorial con id = {0}", editorialEntity.getId());
         return em.merge(editorialEntity);
     }
-
+	
     /**
+     *
      * Borra una editorial de la base de datos recibiendo como argumento el id
      * de la editorial
      *
@@ -126,7 +127,7 @@ public class EditorialPersistence {
         em.remove(entity);
         LOGGER.log(Level.INFO, "Saliendo de borrar la editorial con id = {0}", editorialsId);
     }
-
+	
     /**
      * Busca si hay alguna editorial con el nombre que se envía de argumento
      *

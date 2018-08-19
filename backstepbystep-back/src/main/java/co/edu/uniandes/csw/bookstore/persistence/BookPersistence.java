@@ -97,6 +97,7 @@ public class BookPersistence {
     }
 
     /**
+     *
      * Borra un libro de la base de datos recibiendo como argumento el id del
      * libro
      *

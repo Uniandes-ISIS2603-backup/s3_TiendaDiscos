@@ -23,8 +23,8 @@ SOFTWARE.
  */
 package co.edu.uniandes.csw.bookstore.ejb;
 
+import co.edu.uniandes.csw.bookstore.entities.AuthorEntity;
 import co.edu.uniandes.csw.bookstore.entities.BookEntity;
-import co.edu.uniandes.csw.bookstore.entities.EditorialEntity;
 import co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.bookstore.persistence.BookPersistence;
 import co.edu.uniandes.csw.bookstore.persistence.EditorialPersistence;
@@ -60,11 +60,7 @@ public class BookLogic {
      */
     public BookEntity createBook(BookEntity bookEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del libro");
-        if (bookEntity.getEditorial() == null) {
-            throw new BusinessLogicException("La editorial es inválida");
-        }
-        EditorialEntity editorialEntity = editorialPersistence.find(bookEntity.getEditorial().getId());
-        if (editorialEntity == null) {
+        if (bookEntity.getEditorial() == null || editorialPersistence.find(bookEntity.getEditorial().getId()) == null) {
             throw new BusinessLogicException("La editorial es inválida");
         }
         if (!validateISBN(bookEntity.getIsbn())) {
@@ -74,7 +70,6 @@ public class BookLogic {
             throw new BusinessLogicException("El ISBN ya existe");
         }
         persistence.create(bookEntity);
-        editorialEntity.getBooks().add(bookEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del libro");
         return bookEntity;
     }
@@ -129,9 +124,14 @@ public class BookLogic {
      * Eliminar un libro por ID
      *
      * @param booksId El ID del libro a eliminar
+     * @throws BusinessLogicException si el libro tiene autores asociados
      */
-    public void deleteBook(Long booksId) {
+    public void deleteBook(Long booksId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el libro con id = {0}", booksId);
+        List<AuthorEntity> authors = getBook(booksId).getAuthors();
+        if (authors != null && !authors.isEmpty()) {
+            throw new BusinessLogicException("No se puede borrar el libro con id = " + booksId + " porque tiene autores asociados");
+        }
         persistence.delete(booksId);
         LOGGER.log(Level.INFO, "Termina proceso de borrar el libro con id = {0}", booksId);
     }

@@ -57,9 +57,11 @@ public class ReviewLogic {
      * @param reviewEntity Objeto de ReviewEntity con los datos nuevos
      * @param booksId id del Book el cual sera padre del nuevo Review.
      * @return Objeto de ReviewEntity con los datos nuevos y su ID.
+     * @throws BusinessLogicException si booksId no es el mismo que tiene el
+     * entity.
      *
      */
-    public ReviewEntity createReview(Long booksId, ReviewEntity reviewEntity) {
+    public ReviewEntity createReview(Long booksId, ReviewEntity reviewEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de crear review");
         BookEntity book = bookPersistence.find(booksId);
         reviewEntity.setBook(book);
@@ -100,18 +102,18 @@ public class ReviewLogic {
      * @param reviewEntity Instancia de ReviewEntity con los nuevos datos.
      * @param booksId id del Book el cual sera padre del Review actualizado.
      * @return Instancia de ReviewEntity con los datos actualizados.
+     *
      */
     public ReviewEntity updateReview(Long booksId, ReviewEntity reviewEntity) {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el review con id = {0} del libro con id = " + booksId, reviewEntity.getId());
         BookEntity bookEntity = bookPersistence.find(booksId);
-        ReviewEntity old = getReview(booksId, reviewEntity.getId());
         reviewEntity.setBook(bookEntity);
         persistence.update(reviewEntity);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar el review con id = {0} del libro con id = " + booksId, reviewEntity.getId());
         return reviewEntity;
     }
 
-   /**
+    /**
      * Elimina una instancia de Review de la base de datos.
      *
      * @param reviewsId Identificador de la instancia a eliminar.

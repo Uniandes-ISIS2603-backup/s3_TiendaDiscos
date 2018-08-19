@@ -61,7 +61,7 @@ public class ReviewPersistenceTest {
     UserTransaction utx;
 
     private List<ReviewEntity> data = new ArrayList<ReviewEntity>();
-    
+	
     private List<BookEntity> dataBook = new ArrayList<BookEntity>();
 
     /**

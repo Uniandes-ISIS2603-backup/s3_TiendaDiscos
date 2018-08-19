@@ -47,6 +47,8 @@ public class ReviewPersistence {
     protected EntityManager em;
 
     /**
+     * Crear una reseña
+     *
      * Crea una nueva reseña con la información recibida en la entidad.
      *
      * @param reviewEntity La entidad que representa la nueva reseña
@@ -60,6 +62,8 @@ public class ReviewPersistence {
     }
 
     /**
+     * Actualizar una reseña
+     *
      * Actualiza la entidad que recibe en la base de datos
      *
      * @param reviewEntity La entidad actualizada que se desea guardar
@@ -71,6 +75,8 @@ public class ReviewPersistence {
     }
 
     /**
+     * Eliminar una reseña
+     *
      * Elimina la reseña asociada al ID que recibe
      *
      * @param reviewsId El ID de la reseña que se desea borrar
@@ -82,8 +88,9 @@ public class ReviewPersistence {
         LOGGER.log(Level.INFO, "Saliendo de borrar El review con id = {0}", reviewsId);
     }
 
-    
     /**
+     * Buscar una reseña
+     *
      * Busca si hay alguna reseña asociada a un libro y con un ID específico
      *
      * @param booksId El ID del libro con respecto al cual se busca

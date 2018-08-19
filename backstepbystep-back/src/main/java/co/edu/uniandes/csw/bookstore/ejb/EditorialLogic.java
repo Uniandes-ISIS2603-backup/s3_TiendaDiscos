@@ -68,6 +68,7 @@ public class EditorialLogic {
     }
 
     /**
+     *
      * Obtener todas las editoriales existentes en la base de datos.
      *
      * @return una lista de editoriales.
@@ -81,6 +82,7 @@ public class EditorialLogic {
     }
 
     /**
+     *
      * Obtener una editorial por medio de su id.
      *
      * @param editorialsId: id de la editorial para ser buscada.
@@ -98,6 +100,7 @@ public class EditorialLogic {
     }
 
     /**
+     *
      * Actualizar una editorial.
      *
      * @param editorialsId: id de la editorial para buscarla en la base de

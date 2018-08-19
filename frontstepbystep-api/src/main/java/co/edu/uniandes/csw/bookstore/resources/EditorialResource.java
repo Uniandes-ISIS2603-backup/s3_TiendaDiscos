@@ -61,7 +61,7 @@ public class EditorialResource {
     private static final Logger LOGGER = Logger.getLogger(EditorialResource.class.getName());
 
     @Inject
-    EditorialLogic editorialLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    private EditorialLogic editorialLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
     /**
      * Crea una nueva editorial con la informacion que se recibe en el cuerpo de
@@ -125,7 +125,6 @@ public class EditorialResource {
     }
 
     /**
-     *
      * Actualiza la editorial con el id recibido en la URL con la informacion
      * que se recibe en el cuerpo de la petición.
      *
@@ -196,8 +195,7 @@ public class EditorialResource {
     }
 
     /**
-     *
-     * lista de entidades a DTO.
+     * Convierte una lista de entidades a DTO.
      *
      * Este método convierte una lista de objetos EditorialEntity a una lista de
      * objetos EditorialDetailDTO (json)

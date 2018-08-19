@@ -112,11 +112,11 @@ public class EditorialBooksResource {
      * @param booksId Identificador del libro que se esta buscando. Este debe
      * ser una cadena de dígitos.
      * @return JSON {@link BookDetailDTO} - El libro buscado
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el libro.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el libro en la
      * editorial.
-     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el libro.
      */
     @GET
     @Path("{booksId: \\d+}")
