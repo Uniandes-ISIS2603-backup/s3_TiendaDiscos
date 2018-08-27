@@ -17,11 +17,6 @@ public class ViniloDetailDTO extends ViniloDTO implements Serializable
      */
     public List<CancionDTO> canciones;
     
-    /**
-     * Relación de 0 a muchos comentarios.
-     */
-    private List<ComentarioDTO> comentarios;    
-    
     @Id
     private Long id;
 
@@ -32,15 +27,6 @@ public class ViniloDetailDTO extends ViniloDTO implements Serializable
    {
        super();
    }
-   
-   /**
-     * Devuelve los comentarios asociados al vinilo.
-     * @return Lista de DTOs de comentarios.
-     */
-    public List<ComentarioDTO> getComentarios()
-    {
-        return comentarios;
-    }
     
     /**
      * Devuelve las canciones asociadas al vinilo.
@@ -57,17 +43,6 @@ public class ViniloDetailDTO extends ViniloDTO implements Serializable
     public void setCanciones(List<CancionDTO> canciones) {
         this.canciones = canciones;
     }
-    
-    /**
-     * Modifica los comentarios del vinilo.
-     * @param comentarios Los nuevos comentarios.
-     */
-    public void setComentarios(List<ComentarioDTO> comentarios)
-    {
-        this.comentarios = comentarios;
-    }
-   
-     
     
     @Override
     public String toString() {
