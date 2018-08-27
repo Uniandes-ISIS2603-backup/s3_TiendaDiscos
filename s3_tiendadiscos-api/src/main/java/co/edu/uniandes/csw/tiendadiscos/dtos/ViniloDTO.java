@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 
 import java.io.Serializable;
@@ -14,14 +9,17 @@ import javax.persistence.Id;
 
 /**
  *
- * @author estudiante
+ * @author Andrés Felipe Hernández León
  */
-@Entity
-public class ViniloDTO implements Serializable {
+public class ViniloDTO implements Serializable 
+{
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    /**
+     * id único del vinilo.
+     */
     private Long id;
 
     /**
@@ -45,43 +43,131 @@ public class ViniloDTO implements Serializable {
     private String productora;
     
     /**
-     * Información adicional del 
+     * Información adicional del proveedor. 
      */
     private String informacionAdicional;
     
     /**
-     * 
+     * URI que redirige a la vista previa del vinilo si esta disponible.
      */
     private String previewURI;
 
+    /**
+     * Empty constructor.
+     */
+    public ViniloDTO()
+    {}
+    
+    /**
+     * Obtiene el atributo nombre. 
+     * @param nombre  atributo nombre.
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    /**
+     * Modifica el valor del del atributo artista.
+     * @param artista valor del atributo.
+     */
+    public void setArtista(String artista) {
+        this.artista = artista;
+    }
+
+    /**
+     * Modifica el valor del atributo fecha de lanzamiento.
+     * @param fechaLanzamiento nuevo valor del atributo.
+     */
+    public void setFechaLanzamiento(Date fechaLanzamiento) {
+        this.fechaLanzamiento = fechaLanzamiento;
+    }
+
+    /**
+     * Modifica el valor del atributo productora.
+     * @param productora nuevo valor del atributo.
+     */
+    public void setProductora(String productora) {
+        this.productora = productora;
+    }
+
+    /**
+     * Modifica la información adicional dada por el proveedor. 
+     * @param informacionAdicional nuevo valor del atributo.
+     */
+    public void setInformacionAdicional(String informacionAdicional) {
+        this.informacionAdicional = informacionAdicional;
+    }
+
+    /**
+     * Modifica el valor del atributo previewURI.
+     * @param previewURI nuevo valor del atributo.
+     */
+    public void setPreviewURI(String previewURI) {
+        this.previewURI = previewURI;
+    }
+    
+    /**
+     * Obtiene el atributo nombre.
+     * @return atributo nombre.
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Obtiene el atributo artista.
+     * @return atributo artista.
+     */
     public String getArtista() {
         return artista;
     }
 
+    /**
+     * Obtiene el atributo fecha de lanzamiento.
+     * @return atributo fechaLanzamiento.
+     */
     public Date getFechaLanzamiento() {
         return fechaLanzamiento;
     }
-
+    
+    /**
+     * Obtiene el atributo productora.
+     * @return atributo productora.
+     */
     public String getProductora() {
         return productora;
     }
 
+    /**
+     * Obtiene la información adicional del vinilo.
+     * @return atributo informacionAdicional.
+     */
     public String getInformacionAdicional() {
         return informacionAdicional;
     }
 
+    /**
+     * Obtiene el atributo previewURI.
+     * @return atributo previewURI.
+     */
     public String getPreviewURI() {
         return previewURI;
     }  
  
+    /**
+     * Obtiene el id único del vinilo.
+     * @return atributo id.
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Establece el valor del atributo id.
+     *
+     * @param id nuevo valor del atributo
+     *
+     */
     public void setId(Long id) {
         this.id = id;
     }
@@ -108,6 +194,6 @@ public class ViniloDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.uniandes.csw.tiendadiscos.dtos.ViniloDTO[ id=" + id + " ]";
+        return "";
     }    
 }
