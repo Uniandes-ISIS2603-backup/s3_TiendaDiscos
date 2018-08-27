@@ -1,24 +1,23 @@
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 
+import co.edu.uniandes.csw.tiendadiscos.entities.CancionEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
  * @author Andrés Hernández
  */
-@Entity
 public class ViniloDetailDTO extends ViniloDTO implements Serializable
 {
     /**
      * Relación de 1 a muchas canciones.
      */
     public List<CancionDTO> canciones;
-    
-    @Id
-    private Long id;
 
    /**
     * Constructor vacio.
@@ -27,6 +26,43 @@ public class ViniloDetailDTO extends ViniloDTO implements Serializable
    {
        super();
    }
+   
+   /**
+     * Constructor para transformar un Entity a un DTO
+     *
+     * @param viniloEntity La entidad de la editorial para transformar a DTO.
+     */
+   public ViniloDetailDTO(ViniloEntity viniloEntity)
+   {
+       super(viniloEntity);
+       if (viniloEntity != null)
+           if(viniloEntity.getCanciones() != null)
+           {
+               canciones = new ArrayList<>();
+               for (CancionEntity cancionEntity: viniloEntity.getCanciones())
+               {
+                   canciones.add(new CancionDTO(cancionEntity));
+               }
+           }
+   }
+   
+   /**
+     * Transformar un DTO a un Entity
+     *
+     * @return El DTO de la editorial para transformar a Entity
+     */
+    @Override
+    public ViniloEntity toEntity() {
+        ViniloEntity editorialEntity = super.toEntity();
+        if (canciones != null) {
+            List<CancionEntity> cancionesEntity = new ArrayList<>();
+            for (CancionDTO cancionDTO : canciones) {
+                cancionesEntity.add(cancionDTO.toEntity());
+            }
+            editorialEntity.setCanciones(cancionesEntity);
+        }
+        return editorialEntity;
+    }
     
     /**
      * Devuelve las canciones asociadas al vinilo.
@@ -40,20 +76,13 @@ public class ViniloDetailDTO extends ViniloDTO implements Serializable
      * Modifica las canciones del vinilo.
      * @param canciones nuevas canciones vinilo.
      */
-    public void setCanciones(List<CancionDTO> canciones) {
+    public void setCanciones(List<CancionDTO> canciones) 
+    {
         this.canciones = canciones;
     }
     
     @Override
     public String toString() {
-        return "co.edu.uniandes.csw.tiendadiscos.dtos.ViniloDetailDTO[ id=  ]";
-    }   
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }

@@ -1,16 +1,17 @@
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 
+import co.edu.uniandes.csw.tiendadiscos.entities.CancionEntity;
 import java.io.Serializable;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
  * @author Andrés Hernández León
  */
-@Entity
 public class CancionDTO implements Serializable 
 {
     private static final long serialVersionUID = 1L;
@@ -46,6 +47,42 @@ public class CancionDTO implements Serializable
      */
     public CancionDTO()
     {}
+    
+    /**
+     * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
+     * la entidad que viene de argumento.
+     *
+     * @param cancionEntity: Es la entidad que se va a convertir a DTO
+     */
+    public CancionDTO(CancionEntity cancionEntity)
+    {
+        if(cancionEntity != null)
+        {
+            this.descripcion = cancionEntity.getDescripcion();
+            this.duracion = cancionEntity.getDuracion();
+            this.id = cancionEntity.getId();
+            this.nombre = cancionEntity.getNombre();
+            this.previewURI = cancionEntity.getPreviewURI();
+        }
+    }
+    
+    /**
+     * Convertir DTO a Entity
+     *
+     * @return Un Entity con los valores del DTO
+     */
+    public CancionEntity toEntity()
+    {
+        //Creo el objeto entity vacio.
+        CancionEntity cancionEntity = new CancionEntity();
+        //Ahora le asigno los valores.
+        cancionEntity.setDescripcion(this.descripcion);
+        cancionEntity.setDuracion(this.duracion);
+        cancionEntity.setId(this.id);
+        cancionEntity.setNombre(this.nombre);
+        cancionEntity.setPreviewURI(this.previewURI);
+        return cancionEntity;
+    }
     
     /**
      * Modifica el valor del atributo nombre.
@@ -140,7 +177,7 @@ public class CancionDTO implements Serializable
 
     @Override
     public String toString() {
-        return "";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
     
 }

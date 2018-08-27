@@ -1,11 +1,11 @@
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 
+import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
@@ -57,6 +57,47 @@ public class ViniloDTO implements Serializable
      */
     public ViniloDTO()
     {}
+    
+    /**
+     * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
+     * la entidad que viene de argumento.
+     *
+     * @param viniloEntity: Es la entidad que se va a convertir a DTO
+     */
+    public ViniloDTO(ViniloEntity viniloEntity)
+    {
+        if (viniloEntity != null)
+        {
+            this.id = viniloEntity.getId();
+            this.artista = viniloEntity.getArtista();
+            this.fechaLanzamiento = viniloEntity.getFechaLanzamiento();
+            this.informacionAdicional = viniloEntity.getInformacionAdicional();
+            this.nombre = viniloEntity.getNombre();
+            this.previewURI = viniloEntity.getPreviewURI();
+            this.productora = viniloEntity.getProductora();
+        }
+    }
+    
+    /**
+     * Convertir DTO a Entity
+     *
+     * @return Un Entity con los valores del DTO
+     */
+    public ViniloEntity toEntity()
+    {
+        //Creo el objeto entity vacio.
+        ViniloEntity viniloEntity = new ViniloEntity();
+        //Ahora le asigno los valores.
+        viniloEntity.setArtista(this.artista);
+        viniloEntity.setFechaLanzamiento(this.fechaLanzamiento);
+        viniloEntity.setId(this.id);
+        viniloEntity.setInformacionAdicional(this.informacionAdicional);
+        viniloEntity.setNombre(this.nombre);
+        viniloEntity.setPreviewURI(this.previewURI);
+        viniloEntity.setProductora(this.productora);
+                
+        return viniloEntity;
+    }
     
     /**
      * Obtiene el atributo nombre. 
@@ -194,6 +235,6 @@ public class ViniloDTO implements Serializable
 
     @Override
     public String toString() {
-        return "";
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }    
 }
