@@ -1,0 +1,199 @@
+package co.edu.uniandes.csw.tiendadiscos.dtos;
+
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+/**
+ *
+ * @author Andrés Felipe Hernández León
+ */
+public class ViniloDTO implements Serializable 
+{
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    /**
+     * id único del vinilo.
+     */
+    private Long id;
+
+    /**
+     * Nombre del vinilo.
+     */
+    private String nombre;
+    
+    /**
+     * Nombre del artista del vinilo.
+     */
+    private String artista;
+    
+    /**
+     * Fecha de lanzamiento del vinilo.
+     */
+    private Date fechaLanzamiento;
+    
+    /**
+     * Productora que lanzó el vinilo.
+     */
+    private String productora;
+    
+    /**
+     * Información adicional del proveedor. 
+     */
+    private String informacionAdicional;
+    
+    /**
+     * URI que redirige a la vista previa del vinilo si esta disponible.
+     */
+    private String previewURI;
+
+    /**
+     * Empty constructor.
+     */
+    public ViniloDTO()
+    {}
+    
+    /**
+     * Obtiene el atributo nombre. 
+     * @param nombre  atributo nombre.
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    /**
+     * Modifica el valor del del atributo artista.
+     * @param artista valor del atributo.
+     */
+    public void setArtista(String artista) {
+        this.artista = artista;
+    }
+
+    /**
+     * Modifica el valor del atributo fecha de lanzamiento.
+     * @param fechaLanzamiento nuevo valor del atributo.
+     */
+    public void setFechaLanzamiento(Date fechaLanzamiento) {
+        this.fechaLanzamiento = fechaLanzamiento;
+    }
+
+    /**
+     * Modifica el valor del atributo productora.
+     * @param productora nuevo valor del atributo.
+     */
+    public void setProductora(String productora) {
+        this.productora = productora;
+    }
+
+    /**
+     * Modifica la información adicional dada por el proveedor. 
+     * @param informacionAdicional nuevo valor del atributo.
+     */
+    public void setInformacionAdicional(String informacionAdicional) {
+        this.informacionAdicional = informacionAdicional;
+    }
+
+    /**
+     * Modifica el valor del atributo previewURI.
+     * @param previewURI nuevo valor del atributo.
+     */
+    public void setPreviewURI(String previewURI) {
+        this.previewURI = previewURI;
+    }
+    
+    /**
+     * Obtiene el atributo nombre.
+     * @return atributo nombre.
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * Obtiene el atributo artista.
+     * @return atributo artista.
+     */
+    public String getArtista() {
+        return artista;
+    }
+
+    /**
+     * Obtiene el atributo fecha de lanzamiento.
+     * @return atributo fechaLanzamiento.
+     */
+    public Date getFechaLanzamiento() {
+        return fechaLanzamiento;
+    }
+    
+    /**
+     * Obtiene el atributo productora.
+     * @return atributo productora.
+     */
+    public String getProductora() {
+        return productora;
+    }
+
+    /**
+     * Obtiene la información adicional del vinilo.
+     * @return atributo informacionAdicional.
+     */
+    public String getInformacionAdicional() {
+        return informacionAdicional;
+    }
+
+    /**
+     * Obtiene el atributo previewURI.
+     * @return atributo previewURI.
+     */
+    public String getPreviewURI() {
+        return previewURI;
+    }  
+ 
+    /**
+     * Obtiene el id único del vinilo.
+     * @return atributo id.
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * Establece el valor del atributo id.
+     *
+     * @param id nuevo valor del atributo
+     *
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof ViniloDTO)) {
+            return false;
+        }
+        ViniloDTO other = (ViniloDTO) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "";
+    }    
+}
