@@ -10,7 +10,7 @@ import javax.persistence.Id;
  *
  * @author Laura Isabella Forero Camacho
  */
-@Entity
+
 public class TransaccionDTO implements Serializable 
 {
     private static final long serialVersionUID = 1L;
