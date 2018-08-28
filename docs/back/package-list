@@ -1,0 +1,5 @@
+co.edu.uniandes.csw.bookstore.ejb
+co.edu.uniandes.csw.bookstore.entities
+co.edu.uniandes.csw.bookstore.exceptions
+co.edu.uniandes.csw.bookstore.persistence
+co.edu.uniandes.csw.bookstore.podam

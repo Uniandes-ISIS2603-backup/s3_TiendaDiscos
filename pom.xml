@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>co.edu.uniandes.csw</groupId>
-    <artifactId>s3_vinylapp</artifactId>
+    <artifactId>backstepbystep</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
-    <name>s3_vinylapp</name>
+    <name>backstepbystep</name>
  
     <modules>
-        <module>s3_tiendadiscos-api</module>
-        <module>s3_tiendadiscos-back</module>
+        <module>backstepbystep-back</module>
+        <module>frontstepbystep-api</module>
     </modules>
     
     <repositories>
