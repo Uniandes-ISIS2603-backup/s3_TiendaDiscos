@@ -1,27 +1,23 @@
-package co.edu.uniandes.csw.tiendadiscos.dtos;
-
-import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package co.edu.uniandes.csw.tiendadiscos.entities;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
- * @author Andrés Felipe Hernández León
+ * @author Andrés Hernández.
  */
-public class ViniloDTO implements Serializable 
+@Entity
+public class ViniloEntity extends BaseEntity implements Serializable 
 {
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    /**
-     * id único del vinilo.
-     */
-    private Long id;
-
     /**
      * Nombre del vinilo.
      */
@@ -56,57 +52,12 @@ public class ViniloDTO implements Serializable
      * Calificación promedio del vinilo.
      */
     private Double calificacion;
-
-    /**
-     * Empty constructor.
-     */
-    public ViniloDTO()
-    {}
     
-    /**
-     * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
-     * la entidad que viene de argumento.
-     *
-     * @param viniloEntity: Es la entidad que se va a convertir a DTO
-     */
-    public ViniloDTO(ViniloEntity viniloEntity)
-    {
-        if (viniloEntity != null)
-        {
-            this.id = viniloEntity.getId();
-            this.artista = viniloEntity.getArtista();
-            this.fechaLanzamiento = viniloEntity.getFechaLanzamiento();
-            this.informacionAdicional = viniloEntity.getInformacionAdicional();
-            this.nombre = viniloEntity.getNombre();
-            this.previewURI = viniloEntity.getPreviewURI();
-            this.productora = viniloEntity.getProductora();
-            this.calificacion = viniloEntity.getCalificacion();                    
-        }
-    }
-    
-    /**
-     * Convertir DTO a Entity
-     *
-     * @return Un Entity con los valores del DTO
-     */
-    public ViniloEntity toEntity()
-    {
-        //Creo el objeto entity vacio.
-        ViniloEntity viniloEntity = new ViniloEntity();
-        //Ahora le asigno los valores.
-        viniloEntity.setArtista(this.artista);
-        viniloEntity.setFechaLanzamiento(this.fechaLanzamiento);
-        viniloEntity.setId(this.id);
-        viniloEntity.setInformacionAdicional(this.informacionAdicional);
-        viniloEntity.setNombre(this.nombre);
-        viniloEntity.setPreviewURI(this.previewURI);
-        viniloEntity.setProductora(this.productora);
-        viniloEntity.setCalificacion(this.calificacion);
-        
-        return viniloEntity;
-    }
-    
-    /**
+    // TODO 
+    @OneToMany(mappedBy = "")
+    private List<CancionEntity> canciones = new ArrayList<CancionEntity>();
+     
+     /**
      * Obtiene el atributo nombre. 
      * @param nombre  atributo nombre.
      */
@@ -155,6 +106,15 @@ public class ViniloDTO implements Serializable
     }
     
     /**
+     * Devuelve las canciones asociadas al vinilo.
+     * @return atributo canciones.
+     */
+    public List<CancionEntity> getCanciones() 
+    {
+        return canciones;
+    }
+    
+    /**
      * Obtiene el atributo calificacion.
      * @return atributo calificación.
      */
@@ -168,6 +128,15 @@ public class ViniloDTO implements Serializable
      */
     public void setCalificacion(Double calificacion) {
         this.calificacion = calificacion;
+    }
+
+    /**
+     * Modifica las canciones del vinilo.
+     * @param canciones nuevas canciones vinilo.
+     */
+    public void setCanciones(List<CancionEntity> canciones) 
+    {
+        this.canciones = canciones;
     }
     
     /**
@@ -216,48 +185,5 @@ public class ViniloDTO implements Serializable
      */
     public String getPreviewURI() {
         return previewURI;
-    }  
- 
-    /**
-     * Obtiene el id único del vinilo.
-     * @return atributo id.
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Establece el valor del atributo id.
-     *
-     * @param id nuevo valor del atributo
-     *
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ViniloDTO)) {
-            return false;
-        }
-        ViniloDTO other = (ViniloDTO) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }    
 }
