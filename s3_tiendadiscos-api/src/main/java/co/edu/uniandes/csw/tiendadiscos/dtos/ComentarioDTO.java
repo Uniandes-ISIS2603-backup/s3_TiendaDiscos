@@ -14,17 +14,18 @@ import javax.persistence.Id;
  */
 public class ComentarioDTO implements Serializable{
    
-    //Constantes
-    public static final String TRANSACCION = "transaccion";
-    public static final String VINILO = "vinilo";
-    public static final String CANCIÓN = "cancion";
-    public static final String USUARIO = "usuario";
     
     //Atributos
     private Long id;
-    private String tipo;
     private String contenido;
-    private Long id2; //Id del tipo al que se comenta
+    
+    private UsuarioDTO usuario;
+    
+    private ViniloDTO vinilo;
+    
+    private TransaccionDTO transaccion;
+    
+    private CancionDTO cancion;
     
     
     
@@ -35,18 +36,61 @@ public class ComentarioDTO implements Serializable{
     public ComentarioDTO(){    
     }
     
-   /* 
+   /** 
      * Constructor apartir de la entidad
      * @param comentarioEntity La entidad del comentario  
-     
+    */
     public ComentarioDTO(ComentarioEntity comentarioEntity)
     {
         if(comentarioEntity != null)
         {
             this.id = comentarioEntity.getId();
+            
+            this.contenido = comentarioEntity.getContenido();
+            
+            if(comentarioEntity.getVinilo() != null)
+                this.vinilo = new ViniloDTO(comentarioEntity.getVinilo());
+            else
+                this.vinilo = null;
+            
+            if(comentarioEntity.getCancion() != null)
+                this.cancion = new CancionDTO(comentarioEntity.getCancion());
+            else
+                this.cancion = null;
+            
+            if(comentarioEntity.getTransaccion() != null)
+                this.transaccion = new TransaccionDTO(comentarioEntity.getTransaccion());
+            else
+                this.transaccion = null;
+            
+            if(comentarioEntity.getUsuario() != null)
+                this.usuario = new UsuarioDTO(comentarioEntity.getUsuario());
+            else
+                this.usuario = null;
+            
         }
     }
-    */
+    
+    /**
+     * Convertir comentario a entidad
+     * @return entidad del comentario
+     */
+    public ComentarioEntity toEntity()
+    {
+        ComentarioEntity comentario = new ComentarioEntity();
+        comentario.setId(id);
+        comentario.setContenido(contenido);
+        if(this.transaccion!=null)
+            comentario.setTransacciono(this.transaccion.toEntity());
+        if(this.usuario!=null)
+            comentario.setUsuario(this.usuario.toEntity);
+        if(this.cancion!=null)
+            comentario.setCancion(this.cancion.toEntity());
+        if(this.vinilo!=null)
+            comentario.setVinilo(this.vinilo.toEntity());
+        
+        return comentario;
+    }
     
     /**
      * Devuelve el id del comentario
@@ -58,36 +102,50 @@ public class ComentarioDTO implements Serializable{
         return id;
     }
     
-    /**
-     * Devuelve el tipo del comentario
-     * 
-     * @return a quien va dirgido el comentario
-     */
-    public String getTipo()
-    {
-        return tipo;
-    }
+
     
     /**
      * Devuelve el id del comentario
      * 
      * @return el comentario
      */
-    public String darContenido()
+    public String getContenido()
     {
         return contenido;
     }
-    
-    /**
-     * Devuelve el id del comentario
-     * 
-     * @return id de la clase al cual se comenta
+        /**
+     * @return conexion con la transaccion
      */
-    public Long getId2()
+    public TransaccionDTO getTransaccion()
     {
-        return id2;
+        return transaccion;
     }
     
+    /**
+     * @return conexion con el usuario
+     */
+    public UsuarioDTO getUsuario()
+    {
+        return usuario;
+    }
+    /**
+     * @return conexion con el vinilo
+     */
+    public ViniloDTO getVinilo()
+    {
+        return vinilo;
+    }
+    
+    
+        
+    /**
+     * @return conexion con el vinilo
+     */
+    public CancionDTO getCancion()
+    {
+        return cancion;
+    }
+
     /**
      * Cambia el id del comentario
      * 
@@ -98,15 +156,7 @@ public class ComentarioDTO implements Serializable{
         this.id = id;
     }
     
-    /** Cambia el id de la clase comentada
-     * 
-     * @param id nuevo id2
-     */
-    public void setId2(Long id2)
-    {
-        this.id2 = id2;
-    }
-    
+
     /**
      * Cambia el contenido del comentario
      * 
@@ -116,15 +166,36 @@ public class ComentarioDTO implements Serializable{
     {
         this.contenido = contenido;
     }
-    
-    /**
-     * Cambia el tipo del comentario
-     * 
-     * @param tipo nuevo tipo
+ /** 
+     * @param usuario usuario al que se comenta
      */
-    public void setTipo(String tipo)
+    public void setUsuario(UsuarioDTO usuario)
     {
-        this.tipo = tipo;
+        this.usuario = usuario;
+    }
+    
+    /** 
+     * @param transaccion usuario al que se comenta
+     */
+    public void setTransacciono(TransaccionDTO transaccion)
+    {
+        this.transaccion = transaccion;
+    }
+    
+    /** 
+     * @param cancion usuario al que se comenta
+     */
+    public void setCancion(CancionDTO cancion)
+    {
+        this.cancion = cancion;
+    }
+    
+    /** 
+     * @param cancion usuario al que se comenta
+     */
+    public void setVinilo(ViniloDTO vinilo)
+    {
+        this.vinilo = vinilo;
     }
     
     @Override
