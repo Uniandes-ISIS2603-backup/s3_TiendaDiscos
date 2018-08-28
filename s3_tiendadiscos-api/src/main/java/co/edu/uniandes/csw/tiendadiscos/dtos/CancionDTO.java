@@ -41,6 +41,11 @@ public class CancionDTO implements Serializable
      * Descripción del proveedor.
      */
     private String descripcion;
+    
+    /**
+     * Calificación promedio del vinilo.
+     */
+    private Double calificacion;
 
     /**
      * Constructor vacio de CancionDTO.
@@ -63,6 +68,7 @@ public class CancionDTO implements Serializable
             this.id = cancionEntity.getId();
             this.nombre = cancionEntity.getNombre();
             this.previewURI = cancionEntity.getPreviewURI();
+            this.calificacion = cancionEntity.getCalificacion();                  
         }
     }
     
@@ -81,6 +87,8 @@ public class CancionDTO implements Serializable
         cancionEntity.setId(this.id);
         cancionEntity.setNombre(this.nombre);
         cancionEntity.setPreviewURI(this.previewURI);
+        cancionEntity.setCalificacion(this.calificacion);
+        
         return cancionEntity;
     }
     
@@ -158,6 +166,22 @@ public class CancionDTO implements Serializable
         return id;
     }
 
+    /**
+     * Obtiene el atributo calificacion.
+     * @return atributo calificación.
+     */
+    public Double getCalificacion() {
+        return calificacion;
+    }
+
+    /**
+     * Establece el valor del atributo calificación.
+     * @param calificacion nuevo valor de la calificación.
+     */
+    public void setCalificacion(Double calificacion) {
+        this.calificacion = calificacion;
+    }
+    
     /**
      * Establece el valor del atributo id.
      *

@@ -51,6 +51,11 @@ public class ViniloDTO implements Serializable
      * URI que redirige a la vista previa del vinilo si esta disponible.
      */
     private String previewURI;
+    
+    /**
+     * Calificación promedio del vinilo.
+     */
+    private Double calificacion;
 
     /**
      * Empty constructor.
@@ -75,6 +80,7 @@ public class ViniloDTO implements Serializable
             this.nombre = viniloEntity.getNombre();
             this.previewURI = viniloEntity.getPreviewURI();
             this.productora = viniloEntity.getProductora();
+            this.calificacion = viniloEntity.getCalificacion();                    
         }
     }
     
@@ -95,7 +101,8 @@ public class ViniloDTO implements Serializable
         viniloEntity.setNombre(this.nombre);
         viniloEntity.setPreviewURI(this.previewURI);
         viniloEntity.setProductora(this.productora);
-                
+        viniloEntity.setCalificacion(this.calificacion);
+        
         return viniloEntity;
     }
     
@@ -145,6 +152,22 @@ public class ViniloDTO implements Serializable
      */
     public void setPreviewURI(String previewURI) {
         this.previewURI = previewURI;
+    }
+    
+    /**
+     * Obtiene el atributo calificacion.
+     * @return atributo calificación.
+     */
+    public Double getCalificacion() {
+        return calificacion;
+    }
+
+    /**
+     * Establece el valor del atributo calificación.
+     * @param calificacion nuevo valor de la calificación.
+     */
+    public void setCalificacion(Double calificacion) {
+        this.calificacion = calificacion;
     }
     
     /**

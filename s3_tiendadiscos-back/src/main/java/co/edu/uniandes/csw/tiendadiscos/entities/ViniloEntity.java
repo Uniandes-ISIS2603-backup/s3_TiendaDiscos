@@ -48,6 +48,11 @@ public class ViniloEntity extends BaseEntity implements Serializable
      */
     private String previewURI;
     
+    /**
+     * Calificación promedio del vinilo.
+     */
+    private Double calificacion;
+    
     // TODO 
     @OneToMany(mappedBy = "")
     private List<CancionEntity> canciones = new ArrayList<CancionEntity>();
@@ -107,6 +112,22 @@ public class ViniloEntity extends BaseEntity implements Serializable
     public List<CancionEntity> getCanciones() 
     {
         return canciones;
+    }
+    
+    /**
+     * Obtiene el atributo calificacion.
+     * @return atributo calificación.
+     */
+    public Double getCalificacion() {
+        return calificacion;
+    }
+
+    /**
+     * Establece el valor del atributo calificación.
+     * @param calificacion nuevo valor de la calificación.
+     */
+    public void setCalificacion(Double calificacion) {
+        this.calificacion = calificacion;
     }
 
     /**

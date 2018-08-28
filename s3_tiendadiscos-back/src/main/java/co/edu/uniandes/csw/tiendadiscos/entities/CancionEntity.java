@@ -34,6 +34,11 @@ public class CancionEntity extends BaseEntity implements Serializable
     private String descripcion;
     
     /**
+     * Calificación promedio del vinilo.
+     */
+    private Double calificacion;
+    
+    /**
      * Modifica el valor del atributo nombre.
      * @param nombre nuevo valor del atributo.
      */
@@ -95,5 +100,21 @@ public class CancionEntity extends BaseEntity implements Serializable
      */
     public String getDescripcion() {
         return descripcion;
+    }
+    
+    /**
+     * Obtiene el atributo calificacion.
+     * @return atributo calificación.
+     */
+    public Double getCalificacion() {
+        return calificacion;
+    }
+
+    /**
+     * Establece el valor del atributo calificación.
+     * @param calificacion nuevo valor de la calificación.
+     */
+    public void setCalificacion(Double calificacion) {
+        this.calificacion = calificacion;
     }
 }
