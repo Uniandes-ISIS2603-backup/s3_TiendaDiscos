@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>co.edu.uniandes.csw</groupId>
-    <artifactId>backstepbystep</artifactId>
+    <artifactId>s3_vinylapp</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
-    <name>backstepbystep</name>
- 
+    <name>s3_vinylapp</name>
+    
     <modules>
-        <module>backstepbystep-back</module>
-        <module>frontstepbystep-api</module>
+        <module>s3_tiendadiscos-api</module>
+        <module>s3_tiendadiscos-back</module>
     </modules>
     
     <repositories>
@@ -29,8 +29,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <sonar.sourceEncoding>${project.build.sourceEncoding}</sonar.sourceEncoding>
-      
-    </properties>    
+        
+    </properties>
     
     <!-- Configuración para Arquillian -->
     <dependencyManagement>
@@ -44,7 +44,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <!-- Dependencias comunes a los proyectos -->
     <dependencies>
         
@@ -54,7 +53,7 @@
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
-        </dependency>    	
+        </dependency>
         
         
         <!-- Soporte para ToStringBuilder -->
@@ -63,7 +62,6 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.7</version>
         </dependency>
-
         <!-- Pruebas con JUnit -->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
@@ -74,9 +72,8 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
-            <scope>test</scope> 
+            <scope>test</scope>
         </dependency>
-
         <!-- Soporte para pruebas con Payara 4.x -->
         <dependency>
             <groupId>fish.payara.arquillian</groupId>
@@ -97,7 +94,7 @@
             <type>pom</type>
         </dependency>
         
-        <!-- Soporte para pruebas JSON con Podam  -->   
+        <!-- Soporte para pruebas JSON con Podam  -->
         <dependency>
             <groupId>uk.co.jemos.podam</groupId>
             <artifactId>podam</artifactId>
@@ -107,22 +104,22 @@
         
     </dependencies>
     <build>
-        <plugins> 
+        <plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.6.201602180812</version>        
+                <version>0.7.6.201602180812</version>
                 <executions>
                     <execution>
-                        <goals>  
+                        <goals>
                             <goal>prepare-agent</goal>
                             <goal>prepare-agent-integration</goal>
                             <goal>report</goal>
-                            <goal>report-integration</goal>    
+                            <goal>report-integration</goal>
                         </goals>
                     </execution>
                 </executions>
-            </plugin>  
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
