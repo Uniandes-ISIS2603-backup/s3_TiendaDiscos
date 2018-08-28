@@ -24,12 +24,12 @@ public class TransaccionDTO implements Serializable
     /**
      * id único del comprador.
      */
-    private Long compradorID;
+    private UsuarioDTO usuarioComprador;
     
     /**
      * id único del vendedor.
      */
-    private Long vendedorID;
+    private UsuarioDTO usuarioVendedor;
     
     /**
      * Forma de pago de la transaccion.
@@ -51,16 +51,16 @@ public class TransaccionDTO implements Serializable
      * Modifica el valor del atributo vendedorID.
      * @param vendedorID nuevo valor del atributo.
      */
-    public void setVendedorID(Long vendedor) {
-        this.vendedorID = vendedor;
+    public void setUsuarioVendedor(UsuarioDTO vendedor) {
+        this.usuarioVendedor = vendedor;
     }
 
     /**
      * Modifica el valor del atributo compradorID.
      * @param compradorID nuevo valor del atributo.
      */
-    public void setCompradorID(Long comprador) {
-        this.compradorID = comprador;
+    public void setUsuarioComprador(UsuarioDTO comprador) {
+        this.usuarioComprador = comprador;
     }
 
     /**
@@ -83,16 +83,16 @@ public class TransaccionDTO implements Serializable
      * Obtiene le atributo nombre.
      * @return atributo nombre.
      */
-    public Long getVendedorID() {
-        return vendedorID;
+    public UsuarioDTO getUsuarioVendedor() {
+        return usuarioVendedor;
     }
 
     /**
      * Retorna la duración de la cación.
      * @return atributo duración.
      */
-    public Long getCompradorID() {
-        return compradorID;
+    public UsuarioDTO getUsuarioComprador() {
+        return usuarioComprador;
     }
 
     /**
