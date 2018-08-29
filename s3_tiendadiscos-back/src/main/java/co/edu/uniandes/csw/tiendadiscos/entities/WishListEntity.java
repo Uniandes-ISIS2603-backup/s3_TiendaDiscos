@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -24,11 +26,17 @@ public class WishListEntity implements Serializable {
     private Long id;
     
     private Double costo;
+    
+    private List<ViniloEntity> vinilos;
 
     public Long getId() {
         return id;
     }
     
+    public List<ViniloEntity> getVinilos()
+    {
+        return vinilos;
+    }
     public Double getCosto()
     {
         return costo;
@@ -43,6 +51,10 @@ public class WishListEntity implements Serializable {
         this.costo = costo;
     }
     
+    public void setVinilos(List<ViniloEntity> vinilos)
+    {
+        this.vinilos =  vinilos;
+    }
     @Override
     public int hashCode() {
         int hash = 0;
