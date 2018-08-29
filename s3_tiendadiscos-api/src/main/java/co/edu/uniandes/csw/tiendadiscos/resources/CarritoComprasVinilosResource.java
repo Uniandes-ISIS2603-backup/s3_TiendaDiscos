@@ -29,13 +29,10 @@ public class CarritoComprasVinilosResource {
         return vinilo;
     }
     @GET
-    public ViniloDTO getViniloCarritoCompras(@PathParam("vinilosId") Long booksId){
+    public ViniloDTO getViniloCarritoCompras(@PathParam("vinilosId") Long vinilosId){
         return null;
     }
-    @GET
-    public ViniloDTO getVinilosCarritoCompras(){
-        return null;
-    }
+    
     @PUT
     @Path("vinilosId: \\d+")
     public ViniloDTO addViniloCarritoCompras(ViniloDTO vinilo){
