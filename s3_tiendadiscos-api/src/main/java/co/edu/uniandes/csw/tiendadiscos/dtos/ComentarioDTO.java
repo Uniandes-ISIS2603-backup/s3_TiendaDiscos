@@ -14,7 +14,9 @@ import javax.persistence.Id;
  */
 public class ComentarioDTO implements Serializable{
    
-    
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     //Atributos
     private Long id;
     private String contenido;
