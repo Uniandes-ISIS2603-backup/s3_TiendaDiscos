@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.tiendadiscos.dtos;
 
 
 import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
-import co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -120,6 +119,8 @@ public class UsuarioDTO implements Serializable {
         
         return usuarioEntity;  
     }
+    
+    
     public Long getId() {
         return id;
     }
