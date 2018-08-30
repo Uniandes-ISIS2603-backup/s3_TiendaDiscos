@@ -25,24 +25,21 @@ public class CarritoComprasVinilosResource {
     private static final Logger LOGGER = Logger.getLogger(CarritoComprasVinilosResource.class.getName());
     
     @POST
-    public ViniloDTO addViniloCarritoCompras(@PathParam("vinilosId") Long booksId, ViniloDTO vinilo){
+    public ViniloDTO addViniloCarritoCompras(@PathParam("vinilosId") Long vinilosId, ViniloDTO vinilo){
         return vinilo;
     }
     @GET
-    public ViniloDTO getViniloCarritoCompras(@PathParam("vinilosId") Long booksId){
+    public ViniloDTO getViniloCarritoCompras(@PathParam("vinilosId") Long vinilosId){
         return null;
     }
-    @GET
-    public ViniloDTO getVinilosCarritoCompras(){
-        return null;
-    }
+    
     @PUT
-    @Path("vinilosId: \\d+")
+    @Path("{vinilosId: \\d+}")
     public ViniloDTO addViniloCarritoCompras(ViniloDTO vinilo){
         return vinilo;
     }
     @DELETE
-    @Path("vinilosId: \\d+")
+    @Path("{vinilosId: \\d+}")
     public void deleteViniloCarritoCompras(ViniloDTO vinilo){
         
     }
