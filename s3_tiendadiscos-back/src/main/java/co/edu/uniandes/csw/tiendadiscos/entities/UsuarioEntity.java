@@ -19,6 +19,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     private String contrasenha;
     private String nombre;
     private String direccion;
+    private String rol;
     private Double calificacion;
     private WishListEntity wishList;
     //private CarritoDeComprasEntity id;
@@ -84,6 +85,14 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         this.direccion = direccion;
     }
 
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+    
     public Double getCalificacion() {
         return calificacion;
     }

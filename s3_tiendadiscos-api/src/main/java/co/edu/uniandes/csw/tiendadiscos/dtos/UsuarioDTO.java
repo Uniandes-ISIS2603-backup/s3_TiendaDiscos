@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 
 
+import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -56,12 +57,62 @@ public class UsuarioDTO implements Serializable {
     private String username;
     private String email;
     private String contrasenha;
-    private String name;
+    private String nombre;
     private String direccion;
     private String rol;
+    private Double calificacion;
+    
+    private WishListDTO wishList;
+    private BillingInformationDTO billingInformation;
+    private CarritoComprasDTO carritoCompras;
+
+   
 
     public UsuarioDTO(){
         
+    }
+    /**
+     * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
+     * la entidad que viene de argumento.
+     *
+     * @param userEntity: Es la entidad que se va a convertir a DTO
+     */
+    public UsuarioDTO(UsuarioEntity userEntity){
+        if(userEntity != null ){
+            this.id = userEntity.getId();
+            this.username = userEntity.getUsername();
+            this.email = userEntity.getEmail();
+            this.contrasenha = userEntity.getContrasenha();
+            this.nombre = userEntity.getNombre();
+            this.direccion = userEntity.getDireccion();
+            this.rol = userEntity.getRol();
+            this.calificacion = userEntity.getCalificacion();
+            
+            //this.wishList = userEntity.getWishList();
+            //this.carritoCompras = userEntity.getCarritoCompras();
+            //this.billingInformation = (BillingInfromationEntity)(userEntity.getBillingInformation());
+        }
+    }
+    /**
+     * Convertir DTO a Entity
+     *
+     * @return Un Entity con los valores del DTO
+     */
+    public UsuarioEntity toEntity(){
+      //Creo el objeto entity vacio.
+        UsuarioEntity usuarioEntity = new UsuarioEntity();
+        //Ahora le asigno los valores.
+        usuarioEntity.setId(this.id);
+        usuarioEntity.setUsername(this.username);
+        usuarioEntity.setEmail(this.email);
+        usuarioEntity.setContrasenha(this.contrasenha);
+        usuarioEntity.setNombre(this.nombre);
+        usuarioEntity.setDireccion(this.direccion);
+        usuarioEntity.setRol(this.rol);
+        usuarioEntity.setCalificacion(this.calificacion);
+
+        
+        return usuarioEntity;  
     }
     public Long getId() {
         return id;
@@ -94,15 +145,7 @@ public class UsuarioDTO implements Serializable {
     public void setContrasenha(String contrasenha) {
         this.contrasenha = contrasenha;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    
     public String getDireccion() {
         return direccion;
     }
@@ -118,6 +161,46 @@ public class UsuarioDTO implements Serializable {
     public void setRol(String rol) {
         this.rol = rol;
     }
+
+    public Double getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(Double calificacion) {
+        this.calificacion = calificacion;
+    }
+     public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public WishListDTO getWishList() {
+        return wishList;
+    }
+
+    public void setWishList(WishListDTO wishList) {
+        this.wishList = wishList;
+    }
+
+    public BillingInformationDTO getBillingInformation() {
+        return billingInformation;
+    }
+
+    public void setBillingInformation(BillingInformationDTO billingInformation) {
+        this.billingInformation = billingInformation;
+    }
+
+    public CarritoComprasDTO getCarritoCompras() {
+        return carritoCompras;
+    }
+
+    public void setCarritoCompras(CarritoComprasDTO carritoCompras) {
+        this.carritoCompras = carritoCompras;
+    }
+    
     
     @Override
     public String toString(){

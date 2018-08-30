@@ -34,7 +34,7 @@ public class UsuarioDetailDTO extends UsuarioDTO implements Serializable{
     }    
      /**
      * transforma un entity en un dto
-     * @param wish 
+     * @param usuario 
      */
     public UsuarioDetailDTO(UsuarioEntity usuario)
     {
