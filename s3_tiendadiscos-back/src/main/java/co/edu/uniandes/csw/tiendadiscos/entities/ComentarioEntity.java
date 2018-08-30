@@ -21,12 +21,12 @@ import uk.co.jemos.podam.common.PodamExclude;
  *
  * @author ISIS2603
  */
+@Entity
 public class ComentarioEntity extends BaseEntity implements Serializable{
     
     
     //Atributos
-    private Long id;
-     private String contenido;
+    private String contenido;
     
     //private TransaccionEntity transaccion;
     
@@ -40,16 +40,7 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     
             
      
-    
-   /**
-     * Devuelve el id del comentario
-     * 
-     * @return id el comentario
-     */
-    public Long getId()
-    {
-        return id;
-    }
+
     
     /**
      * @return conexion con la transaccion
@@ -97,14 +88,7 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
         return contenido;
     }
     
-    /** 
-     * @param id nuevo id
-     */
-    public void setId(Long id)
-    {
-        this.id = id;
-    }
-    
+
      
     /**
      * Cambia el contenido del comentario
