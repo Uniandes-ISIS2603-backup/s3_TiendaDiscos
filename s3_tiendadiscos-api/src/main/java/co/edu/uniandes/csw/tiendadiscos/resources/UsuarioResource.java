@@ -13,6 +13,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import static javax.ws.rs.HttpMethod.POST;
+import static javax.ws.rs.HttpMethod.DELETE;
 import javax.ws.rs.*;
 /**
  *
@@ -28,33 +29,33 @@ public class UsuarioResource {
     //EditorialLogic editorialLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
     @POST
-    public UsuarioDTO createTransaccion(UsuarioDTO usuario){
+    public UsuarioDTO createUsuario(UsuarioDTO usuario){
         return usuario;
     }
     
     @PUT
     @Path("{usuariosId: \\d+}")
-    public UsuarioDTO updateTransaccion(@PathParam("usuariosId") Long usuarioId,UsuarioDTO usuario){
+    public UsuarioDTO updateUsuario(@PathParam("usuariosId") Long usuarioId,UsuarioDTO usuario){
         
         return usuario;
     }
     
     @GET
     @Path("{usuariosId: \\d+}")
-    public UsuarioDTO getTransaccion(@PathParam("usuariosId") Long usuarioId){
+    public UsuarioDTO getUsuario(@PathParam("usuariosId") Long usuarioId){
         
         return null;
     }
     
     @GET
-    public UsuarioDTO getTransacciones(){
+    public UsuarioDTO getUsuarios(){
         
         return null;
     }
     
     @DELETE
     @Path("{usuariosId: \\d}")
-    public void deleteTransaccion(@PathParam("usuariosId") Long transaccionesId){
+    public void deleteUsuarios(@PathParam("usuariosId") Long usuarioId){
         
         
     }   

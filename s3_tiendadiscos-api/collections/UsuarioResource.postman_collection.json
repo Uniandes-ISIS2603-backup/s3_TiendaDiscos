@@ -1,0 +1,132 @@
+{
+	"info": {
+		"_postman_id": "6d483db7-c54c-4e16-b398-c26c0a89a568",
+		"name": "UsuarioResource",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"Rembrandtsx\",\n\t\"nombre\":\"Camilo Andres Salinas Martinez\",\n\t\"email\":\"iam@camilosalinas.me\",\n\t\"contrasenha\":\"ContraseñaDificilXD\",\n\t\"direccion\":\"cll 6 #1A 99 este Madrid Cund.\",\n\t\"rol\":\"ADMIN\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"Rembrandtsx\",\n\t\"nombre\":\"Camilo Andres Salinas Martinez\",\n\t\"email\":\"iam@camilosalinas.me\",\n\t\"contrasenha\":\"ContraseñaDificilXD\",\n\t\"direccion\":\"cll 6 #1A 99 este Madrid Cund.\",\n\t\"rol\":\"ADMIN\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\":\"hola\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\":\"hola\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
