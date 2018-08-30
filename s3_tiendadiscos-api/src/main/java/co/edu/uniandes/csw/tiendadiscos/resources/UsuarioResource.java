@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 
+
 import co.edu.uniandes.csw.tiendadiscos.dtos.UsuarioDTO;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
@@ -17,6 +18,44 @@ import javax.ws.rs.*;
  *
  * @author Camilo Andres Salinas Martinez 
  */
+@Path("usuarios")
+@Produces("application/json")
+@Consumes("application/json")
 public class UsuarioResource {
+    private static final Logger LOGGER = Logger.getLogger(UsuarioResource.class.getName());
     
+    //@Inject
+    //EditorialLogic editorialLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+
+    @POST
+    public UsuarioDTO createTransaccion(UsuarioDTO usuario){
+        return usuario;
+    }
+    
+    @PUT
+    @Path("{usuariosId: \\d+}")
+    public UsuarioDTO updateTransaccion(@PathParam("usuariosId") Long usuarioId,UsuarioDTO usuario){
+        
+        return usuario;
+    }
+    
+    @GET
+    @Path("{usuariosId: \\d+}")
+    public UsuarioDTO getTransaccion(@PathParam("usuariosId") Long usuarioId){
+        
+        return null;
+    }
+    
+    @GET
+    public UsuarioDTO getTransacciones(){
+        
+        return null;
+    }
+    
+    @DELETE
+    @Path("{usuariosId: \\d}")
+    public void deleteTransaccion(@PathParam("usuariosId") Long transaccionesId){
+        
+        
+    }   
 }
