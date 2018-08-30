@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.tiendadiscos.dtos;
 
 
 import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -88,9 +89,9 @@ public class UsuarioDTO implements Serializable {
             this.rol = userEntity.getRol();
             this.calificacion = userEntity.getCalificacion();
             
-            //this.wishList = userEntity.getWishList();
-            //this.carritoCompras = userEntity.getCarritoCompras();
-            //this.billingInformation = (BillingInfromationEntity)(userEntity.getBillingInformation());
+            this.wishList = new WishListDTO(userEntity.getWishList()) ;
+            //this.carritoCompras = new CarritoComprasDTO(userEntity.getCarritoCompras());
+            this.billingInformation = new BillingInformationDTO(userEntity.getBillingInformation());
         }
     }
     /**
@@ -110,7 +111,12 @@ public class UsuarioDTO implements Serializable {
         usuarioEntity.setDireccion(this.direccion);
         usuarioEntity.setRol(this.rol);
         usuarioEntity.setCalificacion(this.calificacion);
-
+        
+        WishListDTO wishListTemp = this.wishList;
+        usuarioEntity.setWishList(wishListTemp.toEntity());
+        
+        BillingInformationDTO billingInformationTemp = this.billingInformation;
+        usuarioEntity.setBillingInformation(billingInformationTemp.toEntity());
         
         return usuarioEntity;  
     }

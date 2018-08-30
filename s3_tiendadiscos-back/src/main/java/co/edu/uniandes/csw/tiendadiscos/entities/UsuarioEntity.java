@@ -25,8 +25,8 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     //private CarritoDeComprasEntity id;
     private BillingInformationEntity billingInformation;
     private List<ViniloEntity> vinilos;
-    //private List<TransaccionEntity> id;
-    //private List<ComentarioEntity>
+    //private List<TransaccionEntity> transacciones;
+    //private List<ComentarioEntity> comentarios;
 
     
     
