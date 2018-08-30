@@ -18,21 +18,15 @@ import java.util.List;
  * @author estudiante
  */
 @Entity
-public class WishListEntity implements Serializable {
+public class WishListEntity extends BaseEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+   
+
     
     private Double costo;
     
     private List<ViniloEntity> vinilos;
 
-    public Long getId() {
-        return id;
-    }
-    
     public List<ViniloEntity> getVinilos()
     {
         return vinilos;
@@ -42,9 +36,6 @@ public class WishListEntity implements Serializable {
         return costo;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
     
     public void setCosto(Double costo)
     {
@@ -54,30 +45,6 @@ public class WishListEntity implements Serializable {
     public void setVinilos(List<ViniloEntity> vinilos)
     {
         this.vinilos =  vinilos;
-    }
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof WishListEntity)) {
-            return false;
-        }
-        WishListEntity other = (WishListEntity) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity[ id=" + id + " ]";
     }
     
 }
