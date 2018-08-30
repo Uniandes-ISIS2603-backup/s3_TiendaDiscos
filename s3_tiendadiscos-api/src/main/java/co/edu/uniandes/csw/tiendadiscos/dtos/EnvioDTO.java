@@ -45,19 +45,34 @@ public class EnvioDTO implements Serializable {
    private Long id; 
    private String direccionEntrega; 
    private String estado; 
-    
+   
+   /**
+    * Constructor por defecto.
+    */
    public EnvioDTO(){
    }
    
-
+    /**
+     * Devuelve el ID de la editorial.
+     *
+     * @return the id
+     */
     public Long getId() {
         return id;
     }
-
+    /**
+     * Modifica el ID de la editorial.
+     *
+     * @param id the id to set
+     */
     public void setId(Long id) {
         this.id = id;
     }
-
+     /**
+     * Devuelve la direccion de entrega del envio.
+     *
+     * @return the direccionEntrega
+     */
     public String getDireccionEntrega() {
         return direccionEntrega;
     }

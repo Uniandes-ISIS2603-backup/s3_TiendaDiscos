@@ -9,6 +9,7 @@ package co.edu.uniandes.csw.tiendadiscos.dtos;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * UsuarioDTO Objeto de transferencia de datos de Usuario. Los DTO contienen las
  * representaciones de los JSON que se transfieren entre el cliente y el
