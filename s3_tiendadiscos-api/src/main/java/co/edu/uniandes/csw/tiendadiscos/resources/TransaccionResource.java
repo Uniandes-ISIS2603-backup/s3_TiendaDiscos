@@ -54,7 +54,7 @@ public class TransaccionResource{
     }
     
     @DELETE
-    @Path("{transaccionesId: \\d}")
+    @Path("{transaccionesId: \\d+}")
     public void deleteTransaccion(@PathParam("transaccionesId") Long transaccionesId){
         
         
