@@ -35,7 +35,7 @@ public class BillingInformationEntity extends BaseEntity implements Serializable
      * tarjetas de credito del Billing
      */
     //PODAM ??
-    @OneToMany(mappedBy = "no se", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    //@OneToMany(mappedBy = "no se", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<TarjetaCreditoEntity> tarjetas;
 
     /**
