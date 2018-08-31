@@ -54,13 +54,13 @@ public class UsuarioResource {
     }
     
     @DELETE
-    @Path("{usuariosId: \\d}")
+    @Path("{usuariosId: \\d+}")
     public void deleteUsuarios(@PathParam("usuariosId") Long usuarioId){
         
         
     } 
     
-     
+    
     @Path("{usuariosId: \\d+}/billingInformation")
     public Class<BillingInformationResource> getBillingInformationResource(@PathParam("usuariosId") Long usuariosId) {
  

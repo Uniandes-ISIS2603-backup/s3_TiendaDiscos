@@ -127,6 +127,37 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"1"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
