@@ -58,5 +58,13 @@ public class UsuarioResource {
     public void deleteUsuarios(@PathParam("usuariosId") Long usuarioId){
         
         
-    }   
+    } 
+    
+     
+    @Path("{usuariosId: \\d+}/billingInformation")
+    public Class<BillingInformationResource> getBillingInformationResource(@PathParam("usuariosId") Long usuariosId) {
+ 
+        return BillingInformationResource.class;
+    }
+    
 }
