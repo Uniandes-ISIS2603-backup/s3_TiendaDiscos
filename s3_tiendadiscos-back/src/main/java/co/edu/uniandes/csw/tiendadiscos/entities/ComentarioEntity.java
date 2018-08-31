@@ -88,7 +88,6 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
         return contenido;
     }
     
-
      
     /**
      * Cambia el contenido del comentario
