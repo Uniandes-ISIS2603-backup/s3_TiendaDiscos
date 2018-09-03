@@ -34,7 +34,7 @@ public class BillingInformationResource {
      */
     @GET
     public BillingInformationDTO getBilling() {
-        return null;
+        return new BillingInformationDTO();
     }
 
     /**

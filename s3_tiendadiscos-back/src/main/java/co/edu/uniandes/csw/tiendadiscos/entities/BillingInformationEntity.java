@@ -8,12 +8,14 @@ package co.edu.uniandes.csw.tiendadiscos.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 /**
  *
  * @author Kevin Blanco
  */
+@Entity
 public class BillingInformationEntity extends BaseEntity implements Serializable {
 
     /**
@@ -35,7 +37,6 @@ public class BillingInformationEntity extends BaseEntity implements Serializable
      * tarjetas de credito del Billing
      */
     //PODAM ??
-    //@OneToMany(mappedBy = "no se", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<TarjetaCreditoEntity> tarjetas;
 
     /**
