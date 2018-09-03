@@ -7,12 +7,13 @@ package co.edu.uniandes.csw.tiendadiscos.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Entity;
 
 /**
  *
  * @author Camilo Andres Salinas Martinez
  */
-
+@Entity
 public class UsuarioEntity extends BaseEntity implements Serializable{
     private String username;
     private String email;
