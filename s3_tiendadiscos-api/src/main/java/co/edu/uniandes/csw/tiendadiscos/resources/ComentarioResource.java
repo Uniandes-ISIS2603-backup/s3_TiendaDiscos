@@ -25,9 +25,8 @@ import javax.ws.rs.WebApplicationException;
  * @author Sebastian Martinez
  */
 @Path("comentarios")
-@Consumes("application/json")
 @Produces("application/json")
-@RequestScoped
+@Consumes("application/json")
 public class ComentarioResource {
     private static final Logger LOGGER = Logger.getLogger(ComentarioResource.class.getName());
     
@@ -51,7 +50,7 @@ public class ComentarioResource {
      * @throws WebApplicationException 
      */
     @GET
-    @Path("(comentariosId: \\d+")
+    @Path("{comentariosId: \\d+}")
     public ComentarioDTO getComentario(@PathParam("comentariosId") Long comentariosId) 
     {
         return null;
@@ -69,7 +68,7 @@ public class ComentarioResource {
      * @return 
      */
     @PUT
-    @Path("(comentarioId: \\d+")
+    @Path("{comentarioId: \\d+}")
     public ComentarioDTO putComentario(ComentarioDTO comentario)
     {
         return comentario;
