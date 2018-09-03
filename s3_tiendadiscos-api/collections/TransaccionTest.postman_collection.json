@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "1a746aa2-5c53-436e-8550-5326ef71ecc9",
+		"name": "TransaccionTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear una transaccion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b65ec2d-7900-4bab-815d-a8ed2a96938a",
+						"type": "text/javascript",
+						"exec": [
+							"var data=JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_estado_e\", data.estado);",
+							"postman.setGlobalVariable(\"new_formaDePago_e\", data.formaDePago);",
+							"tests['No genera error en el Post'] = responseCode.code===200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"id\" : \"1\",\r\n\r\n\"estado\" : \"peticion\",\r\n\r\n\"formaDePago\" : \"tarjeta-credito\"\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Crear una transaccion",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n\"estado\" : \"peticion\",\r\n\r\n\"formaDePago\" : \"tarjeta-credito\"\r\n\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/s3_tiendadiscos-api/api/transacciones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"s3_tiendadiscos-api",
+								"api",
+								"transacciones"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Obtener una transaccion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "710df1f5-a691-4877-b188-cc10e7966d21",
+						"type": "text/javascript",
+						"exec": [
+							"tests['No genera error en el Get'] = responseCode.code===204;"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "33da2e3a-346d-43d2-b592-4a8cafb31d2a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{id_transaccion}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"{{id_transaccion}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar transaccion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f0304ba1-bfe8-420a-9a3d-ee70bc97e873",
+						"type": "text/javascript",
+						"exec": [
+							"tests['No genera error en el Put'] = responseCode.code===200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\r\n\"estado\" : \"espera\",\r\n\r\n\"formaDePago\" : \"tarjeta-credito\"\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{id_transaccion}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"{{id_transaccion}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar transaccion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9d0cf2d8-3a11-4ece-bb3e-2264295d16b6",
+						"type": "text/javascript",
+						"exec": [
+							"tests['No genera error en el Delete'] = responseCode.code===204;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{id_transaccion}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"{{id_transaccion}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
