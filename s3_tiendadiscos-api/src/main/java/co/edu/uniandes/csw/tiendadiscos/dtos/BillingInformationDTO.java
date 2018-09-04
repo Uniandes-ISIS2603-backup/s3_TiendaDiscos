@@ -39,7 +39,9 @@ public class BillingInformationDTO  implements Serializable{
     /**
      * constructor vacio
      */
-    public BillingInformationDTO () {}
+    public BillingInformationDTO () {
+    
+    }
 
     /**
          * Construye una Billing Information apartir de la entity

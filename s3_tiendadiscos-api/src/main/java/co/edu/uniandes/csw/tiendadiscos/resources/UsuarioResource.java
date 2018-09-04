@@ -62,11 +62,11 @@ public class UsuarioResource {
         
     } 
     
-    
-    @Path("{usuariosId: \\d+}/billingInformation")
-    public Class<BillingInformationResource> getBillingInformationResource(@PathParam("usuariosId") Long usuariosId) {
- 
+      @Path("{usuariosId: \\d+}/billing")
+    public Class<BillingInformationResource> getReviewResource(@PathParam("usuariosId") Long booksId) {
+        
         return BillingInformationResource.class;
-    }
+}
+
     
 }

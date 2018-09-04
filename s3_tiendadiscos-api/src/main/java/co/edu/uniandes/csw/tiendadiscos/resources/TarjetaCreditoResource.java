@@ -6,20 +6,34 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.TarjetaCreditoDTO;
+import java.util.ArrayList;
 import java.util.List;
-import javax.ws.rs.*;
+import javax.enterprise.context.RequestScoped;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+
+
 
 /**
  *
  * @author Kevin Blanco
  */
+@Produces("application/json")
+@Consumes("application/json")
+@RequestScoped
 public class TarjetaCreditoResource {
 
     // Necesito el id de Billing ???
     @POST
-    public TarjetaCreditoDTO createTarjetaCredito(@PathParam("usuariosId") Long usuariosId) {
+    public TarjetaCreditoDTO createTarjetaCredito(@PathParam("usuariosId") Long usuariosId, TarjetaCreditoDTO tarjeta) {
 
-        return null;
+        return tarjeta;
     }
     
     /**
@@ -30,7 +44,7 @@ public class TarjetaCreditoResource {
     @GET
     public List<TarjetaCreditoDTO> getTarjetasCredito(@PathParam("usuariosId") Long usuariosId) {
 
-        return null;
+        return new ArrayList<TarjetaCreditoDTO>();
     }
     
     /**
@@ -43,7 +57,7 @@ public class TarjetaCreditoResource {
     @Path("{tarjetaCreditoId: \\d+}")
     public TarjetaCreditoDTO getTarjetaCredito(@PathParam("usuariosId") Long usuariosId, @PathParam("tarjetaCreditoId") Long tarjetaCreditoId) {
 
-        return null;
+        return new TarjetaCreditoDTO();
     }
 
     /**
@@ -53,8 +67,8 @@ public class TarjetaCreditoResource {
      * @return 
      */
     @PUT
-    public TarjetaCreditoDTO putTarjetaCredito(@PathParam("usuariosId") Long usuariosId, @PathParam("tarjetaCreditoId") Long tarjetaCreditoId) {
-        return null;
+    public TarjetaCreditoDTO putTarjetaCredito(@PathParam("usuariosId") Long usuariosId, @PathParam("tarjetaCreditoId") Long tarjetaCreditoId, TarjetaCreditoDTO tarjeta) {
+        return tarjeta;
 
     }
     
