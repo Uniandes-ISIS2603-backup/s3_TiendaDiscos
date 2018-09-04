@@ -14,8 +14,7 @@ import javax.persistence.Id;
 public class TransaccionDTO implements Serializable 
 {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+   
     /**
      * id único de la transaccion.
      */

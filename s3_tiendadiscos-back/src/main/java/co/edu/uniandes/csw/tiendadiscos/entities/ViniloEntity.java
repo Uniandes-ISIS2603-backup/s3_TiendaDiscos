@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -31,6 +33,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Fecha de lanzamiento del vinilo.
      */
+     @Temporal(TemporalType.DATE)
     private Date fechaLanzamiento;
     
     /**
@@ -54,8 +57,8 @@ public class ViniloEntity extends BaseEntity implements Serializable
     private Double calificacion;
     
     // TODO 
-    @OneToMany(mappedBy = "")
-    private List<CancionEntity> canciones = new ArrayList<CancionEntity>();
+ //   @OneToMany(mappedBy = "")
+//    private List<CancionEntity> canciones = new ArrayList<CancionEntity>();
      
      /**
      * Obtiene el atributo nombre. 
@@ -105,15 +108,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
         this.previewURI = previewURI;
     }
     
-    /**
-     * Devuelve las canciones asociadas al vinilo.
-     * @return atributo canciones.
-     */
-    public List<CancionEntity> getCanciones() 
-    {
-        return canciones;
-    }
-    
+  
     /**
      * Obtiene el atributo calificacion.
      * @return atributo calificación.
@@ -130,14 +125,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
         this.calificacion = calificacion;
     }
 
-    /**
-     * Modifica las canciones del vinilo.
-     * @param canciones nuevas canciones vinilo.
-     */
-    public void setCanciones(List<CancionEntity> canciones) 
-    {
-        this.canciones = canciones;
-    }
+   
     
     /**
      * Obtiene el atributo nombre.

@@ -8,12 +8,13 @@ package co.edu.uniandes.csw.tiendadiscos.resources;
 
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.UsuarioDTO;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
+
 import javax.ws.rs.Consumes;
-import static javax.ws.rs.HttpMethod.POST;
-import static javax.ws.rs.HttpMethod.DELETE;
+
 import javax.ws.rs.*;
 /**
  *
@@ -22,6 +23,7 @@ import javax.ws.rs.*;
 @Path("usuarios")
 @Produces("application/json")
 @Consumes("application/json")
+@RequestScoped
 public class UsuarioResource {
     private static final Logger LOGGER = Logger.getLogger(UsuarioResource.class.getName());
     
@@ -48,9 +50,9 @@ public class UsuarioResource {
     }
     
     @GET
-    public UsuarioDTO getUsuarios(){
+    public List<UsuarioDTO> getUsuarios(){
         
-        return null;
+        return new ArrayList<>();
     }
     
     @DELETE

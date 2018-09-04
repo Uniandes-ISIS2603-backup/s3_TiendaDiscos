@@ -15,8 +15,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class CancionDTO implements Serializable 
 {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+   
     /**
      * id único del vinilo.
      */

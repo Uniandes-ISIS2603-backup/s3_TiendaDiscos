@@ -6,6 +6,8 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.ComentarioDTO;
+import java.util.ArrayList;
+import java.util.List;
 //import co.edu.uniandes.csw.tiendadiscos.ejb.ComentarioLogic;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
@@ -51,35 +53,36 @@ public class ComentarioResource {
      * @throws WebApplicationException 
      */
     @GET
-    @Path("{comentariosId: \\d+}")
-    public ComentarioDTO getComentario(@PathParam("comentariosId") Long comentariosId) 
+    @Path("{comentarioId: \\d+}")
+    public ComentarioDTO getComentario(@PathParam("comentarioId") Long comentariosId) 
     {
         return null;
     }
     
     @GET
-    public ComentarioDTO getComentarios()
+    public List<ComentarioDTO> getComentarios()
     {
-        return null;
+        return new ArrayList<>();
     }
     
     /**
      * 
      * @param comentario
      * @return 
-     */
+    
     @PUT
     @Path("{comentarioId: \\d+}")
-    public ComentarioDTO putComentario(ComentarioDTO comentario)
+    public ComentarioDTO putComentario(@PathParam("comentarioId") Long comentarioId, ComentarioDTO comentario)
     {
         return comentario;
     }
-    
+     */
     /**
      * 
      */
     @DELETE
-    public void deleteComentario()
+    @Path("{comentarioId: \\d+}")
+    public void deleteComentario(@PathParam("comentarioId") Long comentariosId)
     {
         
     }

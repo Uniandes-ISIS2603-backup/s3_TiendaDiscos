@@ -35,15 +35,7 @@ public class ViniloDetailDTO extends ViniloDTO implements Serializable
    public ViniloDetailDTO(ViniloEntity viniloEntity)
    {
        super(viniloEntity);
-       if (viniloEntity != null)
-           if(viniloEntity.getCanciones() != null)
-           {
-               canciones = new ArrayList<>();
-               for (CancionEntity cancionEntity: viniloEntity.getCanciones())
-               {
-                   canciones.add(new CancionDTO(cancionEntity));
-               }
-           }
+     
    }
    
    /**
@@ -59,7 +51,7 @@ public class ViniloDetailDTO extends ViniloDTO implements Serializable
             for (CancionDTO cancionDTO : canciones) {
                 cancionesEntity.add(cancionDTO.toEntity());
             }
-            editorialEntity.setCanciones(cancionesEntity);
+   
         }
         return editorialEntity;
     }

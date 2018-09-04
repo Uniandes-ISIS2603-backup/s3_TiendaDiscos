@@ -33,8 +33,8 @@ public class BillingInformationResource {
      * @return 
      */
     @GET
-    public BillingInformationDTO getBilling() {
-        return new BillingInformationDTO();
+    public BillingInformationDTO getBilling(@PathParam("usuariosId") Long usuariosId) {
+        return null; //; new BillingInformationDTO();
     }
 
     /**
