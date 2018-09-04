@@ -12,6 +12,7 @@
     
     <modules>
         <module>s3_tiendadiscos-api</module>
+        <module>s3_tiendadiscos-back</module>
     </modules>
     
     <repositories>
