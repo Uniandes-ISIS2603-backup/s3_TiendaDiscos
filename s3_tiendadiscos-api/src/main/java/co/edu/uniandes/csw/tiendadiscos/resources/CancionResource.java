@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.tiendadiscos.dtos.CancionDTO;
 import java.util.logging.Logger;
 import co.edu.uniandes.csw.tiendadiscos.entities.*;
 import java.util.logging.Logger;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.websocket.server.PathParam;
 import javax.ws.rs.*;
@@ -16,6 +17,10 @@ import javax.ws.rs.*;
  *
  * @author Andrés Hernández
  */
+@Path("canciones")
+@Produces("application/json")
+@Consumes("application/json")
+@RequestScoped
 public class CancionResource {
     
     private static final Logger LOGGER = Logger.getLogger(CancionResource.class.getName());
@@ -27,21 +32,21 @@ public class CancionResource {
     }
     
     @GET
-    @Path("(cancionesId: \\d+)")
+    @Path("{cancionesId: \\d+}")
     public CancionDTO getCancion(@PathParam("cancionesId") Long cancionesId)
     {
         return null;
     }
-    
+    /*
     @PUT
-    @Path("(cancionesId: \\d+)")
-    public CancionDTO updateCancion(@PathParam("cancionesId") Long cancionesId)
+    @Path("{cancionesId: \\d+}")
+    public CancionDTO updateCancion(@PathParam("cancionesId") Long cancionesId, CancionDTO cancion)
     {
-        return null;
-    }
+        return cancion;
+    }*/
     
     @DELETE
-    @Path("(cancionesId: \\d+)")
+    @Path("{cancionesId: \\d+}")
     public void deleteTransaccion(@PathParam("cancionesId") Long cancionesId)
     {
         

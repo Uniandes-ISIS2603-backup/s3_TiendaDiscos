@@ -6,10 +6,13 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.ViniloDTO;
+import co.edu.uniandes.csw.tiendadiscos.dtos.ViniloDetailDTO;
 import co.edu.uniandes.csw.tiendadiscos.ejb.ViniloLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.*;
+import javax.enterprise.context.RequestScoped;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
-import javax.inject.Inject;
 import javax.websocket.server.PathParam;
 import javax.ws.rs.*;
 
@@ -18,14 +21,15 @@ import javax.ws.rs.*;
  * @author Andrés Hernández
  */
 @Path("vinilos")
-@Produces("aplication/json")
-@Consumes("aplication/json")
+@Produces("application/json")
+@Consumes("application/json")
+@RequestScoped
 public class ViniloResource 
 {
     private static final Logger LOGGER = Logger.getLogger(ViniloResource.class.getName());
     
-    @Inject
-    private ViniloLogic editorialLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+   // @Inject
+    //private ViniloLogic editorialLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
     
     /**
      * 
@@ -46,8 +50,8 @@ public class ViniloResource
      * @throws WebApplicationException 
      */
     @GET
-    @Path("(vinilosId: \\d+")
-    public ViniloDTO getVinilo(@PathParam("VinilosId") Long viniloId) throws WebApplicationException
+    @Path("{vinilosId: \\d+}")
+    public ViniloDTO getVinilo(@PathParam("vinilosId") Long viniloId) throws WebApplicationException
     {
         /*ViniloEntity viniloEntity = ViniloLogic.getVinilo(viniloId);
         if(viniloEntity == null)
@@ -60,25 +64,47 @@ public class ViniloResource
         return null;
     }
     
-    /**
-     * 
-     * @param vinilo
-     * @return 
-     */
-    @PUT
-    @Path("(vinilosId: \\d+")
-    public ViniloDTO putVinilo(ViniloDTO vinilo)
+    @GET
+    public List<ViniloDTO> getVinilos()
     {
-        return vinilo;
+        return null;
     }
     
     /**
      * 
+     * @param vinilosId
+     * @param vinilo
+     * @return 
+     *
+    @PUT
+    @Path("{vinilosId: \\d+}")
+    public ViniloDTO putVinilo(@PathParam("vinilosId") Long vinilosId , ViniloDTO vinilo)
+    {
+        return vinilo;
+    }/
+    
+    /**
+     * 
+     * @param vinilosId 
      */
     @DELETE
-    public void deleteVinilo()
+    @Path("{vinilosId: \\d+}")
+    public void deleteVinilo(@PathParam("vinilosId") Long vinilosId)
     {
         
     }
     
+    @Path("{vinilosId: \\d+}/canciones")
+    public Class<CancionViniloResource> getCancionViniloResource(@PathParam("vinilosId") Long vinilosId)
+    {
+        return CancionViniloResource.class;
+    }
+    
+    private List<ViniloDetailDTO> listEntity2DTO(List<ViniloEntity> entityList)
+    {
+        List<ViniloDetailDTO> list = new ArrayList<ViniloDetailDTO>();
+        for(ViniloEntity entity : entityList)
+            list.add(new ViniloDetailDTO(entity));
+        return list;
+    }
 }
