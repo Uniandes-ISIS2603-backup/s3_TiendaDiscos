@@ -6,64 +6,29 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.BillingInformationDTO;
-import co.edu.uniandes.csw.tiendadiscos.dtos.BillingInformationDetailDTO;
-import javax.ws.rs.*;
+import co.edu.uniandes.csw.tiendadiscos.dtos.UsuarioDTO;
+import java.util.ArrayList;
+import java.util.List;
+import javax.enterprise.context.RequestScoped;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 
 /**
  *
- * @author Kevin Blanco
+ * @author estudiante
  */
-@Produces("aplication/json")
-@Consumes("aplication/json")
+@Produces("application/json")
+@Consumes("application/json")
+@RequestScoped
 public class BillingInformationResource {
-
-    /**
-     * Crea el billing al usuario. Este solo se crea una vez y es unico
-     * @param usuariosId id asociado al billing
-     * @return 
-     */
-    @POST
-    public BillingInformationDTO createBillingInformation(@PathParam("usuariosId") Long usuariosId, BillingInformationDTO billingDto) {
-
-        return billingDto;
-    }
     
-    /**
-     * Retorna la informacion del billing 
-     * @return 
-     */
     @GET
-    public BillingInformationDTO getBilling(@PathParam("usuariosId") Long usuariosId) {
-        return null; //; new BillingInformationDTO();
+    public BillingInformationDTO getBilling(@PathParam("usuariosId") Long booksId){
+        
+        return new BillingInformationDTO();
     }
-
-    /**
-     * @GET public BillingInformationDetailDTO getAllBilling() { return null; }
-    *
-     */
     
-    
-    /**
-     * modifica la informacion del billing
-     * @return 
-     */
-    @PUT
-   public BillingInformationDTO putBilling () {
-       
-       return null;
-   }
-   
-   
-   /**
-    * retorna la tarjeta asociadas al billing con el id proporcionado
-    * @param usuarioId id del usuario
-    * @return 
-    */
-   @GET
-   @Path("/tarjetasDeCredito")
-   public Class<TarjetaCreditoResource> getTarjetaCreditoResource (@PathParam("usuariosId") Long usuariosId) {
-   
-   return TarjetaCreditoResource.class;
-   }
-   
 }
