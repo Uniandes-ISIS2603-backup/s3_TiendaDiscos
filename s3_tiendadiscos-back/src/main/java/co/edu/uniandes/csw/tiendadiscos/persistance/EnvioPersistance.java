@@ -6,23 +6,25 @@
 package co.edu.uniandes.csw.tiendadiscos.persistance;
 
 
-import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.EnvioEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
  * @author Camilo Andres Salinas Martinez
- *
  */
-public class UsuarioPersistance {
-     @PersistenceContext(unitName = "VinylAppPU")
+public class EnvioPersistance {
+    
+         @PersistenceContext(unitName = "VinylAppPU")
     protected EntityManager em;
 
-    public UsuarioEntity create(UsuarioEntity usuarioEntity) {
+    public EnvioEntity create(EnvioEntity envioEntity) {
 
-        em.persist(usuarioEntity);
-        return usuarioEntity;
+        em.persist(envioEntity);
+        return envioEntity;
     }
-
+    
+    
+    
 }
