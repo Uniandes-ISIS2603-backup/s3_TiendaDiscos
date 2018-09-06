@@ -6,16 +6,15 @@
 package co.edu.uniandes.csw.tiendadiscos.entities;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
 
 /**
  *
  * @author Laura Isabella Forero Camacho
  */
+@Entity
 public class TransaccionEntity extends BaseEntity implements Serializable{
-    /**
-     * id único de la transaccion.
-     */
-    private Long id;
+    
     
     /**
      * id único del comprador.
@@ -102,25 +101,10 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
     public String getFormaDePago() {
         return formaDePago;
     }   
-    
-    /**
-     * Obtiene el atributo id.
-     *
-     * @return atributo id.
-     *
-     */
-    public Long getId() {
-        return id;
-    }
 
-    /**
-     * Establece el valor del atributo id.
-     *
-     * @param id nuevo valor del atributo
-     *
-     */
-    public void setId(Long id) {
-        this.id = id;
+    public TransaccionEntity() {
     }
+    
+    
     
 }

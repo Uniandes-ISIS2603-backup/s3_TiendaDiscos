@@ -6,36 +6,28 @@
 package co.edu.uniandes.csw.tiendadiscos.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Entity;
 
 /**
  *
  * @author Laura Isabella Forero Camacho
  */
+@Entity
 public class CarritoComprasEntity extends BaseEntity implements Serializable{
-    /**
-     * id único de la transaccion.
-     */
-    private Long id;
-    
-    
-    /**
-     * Obtiene el atributo id.
-     *
-     * @return atributo id.
-     *
-     */
-    public Long getId() {
-        return id;
+
+    public CarritoComprasEntity() {
     }
     
-    /**
-     * Establece el valor del atributo id.
-     *
-     * @param id nuevo valor del atributo
-     *
-     */
-    public void setId(Long id) {
-        this.id = id;
+    private List<ViniloEntity> vinilos;
+    
+    public void setVinilosDeCarritoCompras(List<ViniloEntity> vinilos) {
+        this.vinilos = vinilos;
+    }
+
+    
+    public List<ViniloEntity>  getVinilosDeCarritoCompras() {
+        return vinilos;
     }
     
 }
