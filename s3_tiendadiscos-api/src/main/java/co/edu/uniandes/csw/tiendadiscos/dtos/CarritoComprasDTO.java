@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 
+import co.edu.uniandes.csw.tiendadiscos.entities.CarritoComprasEntity;
 import java.io.Serializable;
 
 /**
@@ -37,5 +38,11 @@ public class CarritoComprasDTO implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+    public CarritoComprasEntity toEntity()
+    {
+        CarritoComprasEntity carritoCompras = new CarritoComprasEntity();
+        carritoCompras.setId(this.id);
+        return carritoCompras;
     }
 }
