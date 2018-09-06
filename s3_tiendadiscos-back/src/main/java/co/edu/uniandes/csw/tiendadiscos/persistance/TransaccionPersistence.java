@@ -1,4 +1,4 @@
-package co.edu.uniandes.csw.tiendadiscos.persistance;
+/*package co.edu.uniandes.csw.tiendadiscos.persistance;
 
 
 import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
@@ -19,10 +19,10 @@ import sun.util.logging.PlatformLogger;
 /**
  *
  * @author Laura Isabella Forero Camacho
- */
+ 
 @Stateless
 public class TransaccionPersistence {
-    
+  /*  
     @Inject
     private TransaccionPersistence TransaccionPersistence;
 
@@ -35,3 +35,4 @@ public class TransaccionPersistence {
        return transaccionEntity;
    } 
 }
+*/

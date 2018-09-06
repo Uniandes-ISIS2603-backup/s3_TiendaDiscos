@@ -30,6 +30,7 @@ import javax.ws.rs.*;
 @Path("comentarios")
 @Produces("application/json")
 @Consumes("application/json")
+@RequestScoped
 public class ComentarioResource {
     private static final Logger LOGGER = Logger.getLogger(ComentarioResource.class.getName());
     
@@ -53,10 +54,10 @@ public class ComentarioResource {
      * @throws WebApplicationException 
      */
     @GET
-    @Path("{comentarioId: \\d+}")
-    public ComentarioDTO getComentario(@PathParam("comentarioId") Long comentariosId) 
+    @Path("{comentariosId: \\d+}")
+    public ComentarioDTO getComentario(@PathParam("comentariosId") Long comentariosId) 
     {
-        return null;
+        return new ComentarioDTO();
     }
     
     @GET
@@ -69,14 +70,14 @@ public class ComentarioResource {
      * 
      * @param comentario
      * @return 
-    
+    *//*
     @PUT
     @Path("{comentarioId: \\d+}")
     public ComentarioDTO putComentario(@PathParam("comentarioId") Long comentarioId, ComentarioDTO comentario)
     {
         return comentario;
     }
-     */
+*/
     /**
      * 
      */

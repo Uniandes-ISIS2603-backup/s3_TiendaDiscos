@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  *
- * @author estudiante
+ * @author Sebastian Martinez
  */
 public class WishListDetailDTO extends WishListDTO implements Serializable{
     

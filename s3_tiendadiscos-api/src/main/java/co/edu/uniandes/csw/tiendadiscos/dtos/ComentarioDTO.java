@@ -58,7 +58,7 @@ public class ComentarioDTO implements Serializable{
             else
                 this.cancion = null;
             
-/*            if(comentarioEntity.getTransaccion() != null)
+            if(comentarioEntity.getTransaccion() != null)
                 this.transaccion = new TransaccionDTO(comentarioEntity.getTransaccion());
             else
                 this.transaccion = null;
@@ -66,7 +66,7 @@ public class ComentarioDTO implements Serializable{
             if(comentarioEntity.getUsuario() != null)
                 this.usuario = new UsuarioDTO(comentarioEntity.getUsuario());
             else
-                this.usuario = null;*/
+                this.usuario = null;
             
         }
     }
@@ -80,10 +80,10 @@ public class ComentarioDTO implements Serializable{
         ComentarioEntity comentario = new ComentarioEntity();
         comentario.setId(id);
         comentario.setContenido(contenido);
-      /*  if(this.transaccion!=null)
+        if(this.transaccion!=null)
             comentario.setTransacciono(this.transaccion.toEntity());
         if(this.usuario!=null)
-            comentario.setUsuario(this.usuario.toEntity);*/
+            comentario.setUsuario(this.usuario.toEntity());
         if(this.cancion!=null)
             comentario.setCancion(this.cancion.toEntity());
         if(this.vinilo!=null)
@@ -177,7 +177,7 @@ public class ComentarioDTO implements Serializable{
     /** 
      * @param transaccion usuario al que se comenta
      */
-    public void setTransacciono(TransaccionDTO transaccion)
+    public void setTransaccion(TransaccionDTO transaccion)
     {
         this.transaccion = transaccion;
     }
@@ -197,12 +197,5 @@ public class ComentarioDTO implements Serializable{
     {
         this.vinilo = vinilo;
     }
-    
-    @Override
-    public int hashCode()
-    {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+   
 }

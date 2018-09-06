@@ -6,12 +6,13 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.WishListDTO;
-import co.edu.uniandes.csw.tiendadiscos.dtos.TransaccionDTO;
 import java.util.logging.Logger;
+import javax.websocket.server.PathParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
@@ -19,7 +20,7 @@ import javax.ws.rs.Produces;
  *
  * @author Sebastian Martinez
  */
-@Path("usuarios/usuariosId/whisLists")
+@Path("whisList")
 @Consumes("application/json")
 @Produces("application/json")
 public class WishListResource {
@@ -33,8 +34,7 @@ public class WishListResource {
     
     
     @GET
-    //Solo existe una wishList por usuario
-    public TransaccionDTO getWishList(){
+    public WishListDTO getWishList(){
         
         return null;
     }
@@ -42,10 +42,17 @@ public class WishListResource {
    
     
     @DELETE
-    //Solo existe un carrito de compras por usuario no es necesario tener un id de este.
-    public void deleteWishList(){
-        
-        
+    public boolean deleteWishList(){
+        return true;
     }
-    
+    /**
+     * 
+     * @param comentario
+     * @return 
+    */
+    @PUT
+    public WishListDTO putComentario( WishListDTO comentario)
+    {
+        return comentario;
+    }
 }

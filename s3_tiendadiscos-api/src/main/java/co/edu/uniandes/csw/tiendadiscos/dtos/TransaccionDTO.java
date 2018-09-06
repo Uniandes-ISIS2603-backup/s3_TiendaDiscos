@@ -129,6 +129,7 @@ public class TransaccionDTO implements Serializable
      */
     public void setId(Long id) {
         this.id = id;
+
     }
 
     public TransaccionEntity toEntity()
@@ -138,10 +139,6 @@ public class TransaccionDTO implements Serializable
         transaccion.setEstado(estado);
         transaccion.setFormaDePago(formaDePago);
         
-      /*  if(this.transaccion!=null)
-            comentario.setTransacciono(this.transaccion.toEntity());
-        if(this.usuario!=null)
-            comentario.setUsuario(this.usuario.toEntity);*/
         if(this.usuarioComprador!=null)
             transaccion.setUsuarioComprador(this.usuarioComprador.toEntity());
         if(this.usuarioVendedor!=null)
@@ -150,5 +147,22 @@ public class TransaccionDTO implements Serializable
         return transaccion;
     }
     
+    public TransaccionDTO(TransaccionEntity transaccion)
+    {
+        if(transaccion!=null)
+        {
+            this.id = transaccion.getId();
+            this.estado = transaccion.getEstado();
+            this.formaDePago = transaccion.getFormaDePago();
+            if(transaccion.getUsuarioComprador()!=null)
+                this.usuarioComprador = new UsuarioDTO(transaccion.getUsuarioComprador());
+            else
+                this.usuarioComprador = null;
+            if(transaccion.getUsuarioVendedor() !=null)
+                this.usuarioVendedor = new UsuarioDTO(transaccion.getUsuarioVendedor());
+            else
+                this.usuarioVendedor = null;
+        }
+    }
     
 }

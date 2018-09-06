@@ -19,7 +19,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  /**
  * Clase que representa un comentario en la persistencia y permite su serialización
  *
- * @author ISIS2603
+ * @author Sebastian Martinez
  */
 @Entity
 public class ComentarioEntity extends BaseEntity implements Serializable{
@@ -28,7 +28,7 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     //Atributos
     private String contenido;
     
-    //private TransaccionEntity transaccion;
+    private TransaccionEntity transaccion;
     
     private UsuarioEntity usuario;
     
@@ -45,11 +45,11 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     /**
      * @return conexion con la transaccion
      */
-    //@ManyToOne
-    //public TransaccionEntity getTransaccion()
-    //{
-    //    return transaccion;
-    //}
+    @ManyToOne
+    public TransaccionEntity getTransaccion()
+    {
+        return transaccion;
+    }
     
     /**
      * @return conexion con el usuario
@@ -109,10 +109,10 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     /** 
      * @param transaccion usuario al que se comenta
      */
-    //public void setTransacciono(TransaccionEntity transaccion)
-    //{
-    //    this.transaccion = transaccion;
-    //}
+    public void setTransacciono(TransaccionEntity transaccion)
+    {
+        this.transaccion = transaccion;
+    }
     
     /** 
      * @param cancion usuario al que se comenta
