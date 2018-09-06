@@ -13,9 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Andrés Hernández León
  */
 public class CancionDTO implements Serializable 
-{
-    private static final long serialVersionUID = 1L;
-   
+{   
     /**
      * id único del vinilo.
      */
