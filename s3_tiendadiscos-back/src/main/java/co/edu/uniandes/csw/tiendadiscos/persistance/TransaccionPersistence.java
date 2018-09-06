@@ -1,14 +1,15 @@
-/*package co.edu.uniandes.csw.tiendadiscos.persistance;
+package co.edu.uniandes.csw.tiendadiscos.persistance;
 
 
 import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import sun.util.logging.PlatformLogger;
+
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,15 +20,17 @@ import sun.util.logging.PlatformLogger;
 /**
  *
  * @author Laura Isabella Forero Camacho
- 
+ */
 @Stateless
 public class TransaccionPersistence {
-  /*  
+   
     @Inject
     private TransaccionPersistence TransaccionPersistence;
 
     @PersistenceContext
     private EntityManager em;
+    
+    private static final Logger LOGGER = Logger.getLogger(ComentarioPersistence.class.getName());
 
    public TransaccionEntity create(TransaccionEntity transaccionEntity){
        em.persist(transaccionEntity);
@@ -35,4 +38,3 @@ public class TransaccionPersistence {
        return transaccionEntity;
    } 
 }
-*/
