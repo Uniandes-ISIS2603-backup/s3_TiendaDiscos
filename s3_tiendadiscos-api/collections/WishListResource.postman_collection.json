@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "f1b514d1-6fb8-4126-88d2-fb067749a98b",
+		"name": "WishListResource",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/s3_tiendadiscos-api/api/whisList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/whisList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"whisList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/s3_tiendadiscos-api/api/whisList",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"totalCost\" : 45\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/whisList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"whisList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/s3_tiendadiscos-api/api/whisList",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"totalCost\" : 45\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/whisList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"whisList"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
