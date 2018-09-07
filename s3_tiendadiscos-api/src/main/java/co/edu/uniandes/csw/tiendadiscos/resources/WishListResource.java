@@ -20,7 +20,6 @@ import javax.ws.rs.Produces;
  *
  * @author Sebastian Martinez
  */
-@Path("whisList")
 @Consumes("application/json")
 @Produces("application/json")
 public class WishListResource {
@@ -36,7 +35,7 @@ public class WishListResource {
     @GET
     public WishListDTO getWishList(){
         
-        return null;
+        return new WishListDTO();
     }
     
    
@@ -47,12 +46,12 @@ public class WishListResource {
     }
     /**
      * 
-     * @param comentario
+     * @param whislist
      * @return 
     */
     @PUT
-    public WishListDTO putComentario( WishListDTO comentario)
+    public WishListDTO putComentario( WishListDTO whislist)
     {
-        return comentario;
+        return whislist;
     }
 }

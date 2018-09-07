@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.ComentarioDTO;
+import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
 //import co.edu.uniandes.csw.tiendadiscos.ejb.ComentarioLogic;
@@ -27,7 +28,6 @@ import javax.ws.rs.*;
  *
  * @author Sebastian Martinez
  */
-@Path("comentarios")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
@@ -57,7 +57,7 @@ public class ComentarioResource {
     @Path("{comentariosId: \\d+}")
     public ComentarioDTO getComentario(@PathParam("comentariosId") Long comentariosId) 
     {
-        return new ComentarioDTO();
+        return null;
     }
     
     @GET
@@ -70,14 +70,15 @@ public class ComentarioResource {
      * 
      * @param comentario
      * @return 
-    *//*
-    @PUT
+    */
+ /*   @PUT
     @Path("{comentarioId: \\d+}")
-    public ComentarioDTO putComentario(@PathParam("comentarioId") Long comentarioId, ComentarioDTO comentario)
+    public ComentarioDTO putComentario(@PathParam("comentarioId") Long comentarioId, ComentarioDTO comentario)throws BusinessLogicException
     {
+        
         return comentario;
     }
-*/
+
     /**
      * 
      */
