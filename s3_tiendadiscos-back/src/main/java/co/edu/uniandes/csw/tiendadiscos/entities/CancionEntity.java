@@ -6,6 +6,10 @@
 package co.edu.uniandes.csw.tiendadiscos.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -38,6 +42,14 @@ public class CancionEntity extends BaseEntity implements Serializable
      */
     private Double calificacion;
     
+    @PodamExclude
+    @ManyToOne()
+    private ViniloEntity vinilo;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "comentario")
+    private List<ComentarioEntity> comentarios;    
+    
     /**
      * Modifica el valor del atributo nombre.
      * @param nombre nuevo valor del atributo.
@@ -68,6 +80,32 @@ public class CancionEntity extends BaseEntity implements Serializable
      */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+    
+    /**
+     * Establece el valor del atributo calificación.
+     * @param calificacion nuevo valor de la calificación.
+     */
+    public void setCalificacion(Double calificacion) {
+        this.calificacion = calificacion;
+    }
+    
+    /**
+     * Modifica el vinilo al que pertenece la canción.
+     * @param vinilo El nuevo vinilo.
+     */
+    public void setVinilo(ViniloEntity vinilo)
+    {
+        this.vinilo = vinilo;
+    }
+    
+    /**
+     * Modifica los comentarios de la canción.
+     * @param comentarios Los nuevos comentarios.
+     */
+    public void setComentarios(List<ComentarioEntity> comentarios)
+    {
+        this.comentarios = comentarios;
     }
 
     /**
@@ -109,12 +147,22 @@ public class CancionEntity extends BaseEntity implements Serializable
     public Double getCalificacion() {
         return calificacion;
     }
-
+    
     /**
-     * Establece el valor del atributo calificación.
-     * @param calificacion nuevo valor de la calificación.
+     * Devuelve el vinilo al que pertenece la canción.
+     * @return Una entidad de vinilo.
      */
-    public void setCalificacion(Double calificacion) {
-        this.calificacion = calificacion;
+    public ViniloEntity getVinilo()
+    {
+        return vinilo;
+    }
+    
+    /**
+     * Devuelve los comentarios que referencian a la canción.
+     * @return La lista de entidades de tipo Comentario.
+     */
+    public List<ComentarioEntity> getComentarios()
+    {
+        return comentarios;
     }
 }

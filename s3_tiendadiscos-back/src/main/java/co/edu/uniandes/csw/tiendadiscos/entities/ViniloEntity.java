@@ -10,8 +10,11 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -33,7 +36,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Fecha de lanzamiento del vinilo.
      */
-     @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date fechaLanzamiento;
     
     /**
@@ -56,10 +59,26 @@ public class ViniloEntity extends BaseEntity implements Serializable
      */
     private Double calificacion;
     
-    // TODO 
- //   @OneToMany(mappedBy = "")
-//    private List<CancionEntity> canciones = new ArrayList<CancionEntity>();
-     
+    @PodamExclude
+    @OneToMany(mappedBy = "vinilo")
+    private List<CancionEntity> canciones = new ArrayList<CancionEntity>();
+    
+    @PodamExclude
+    @ManyToMany(mappedBy = "")
+    private List<WishListEntity> wishLists;
+    
+    @PodamExclude
+    @ManyToMany(mappedBy = "")
+    private List<CarritoComprasEntity> carritosDeCompras;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "comentario")
+    private List<ComentarioEntity> comentarios;
+    
+    @PodamExclude
+    @ManyToOne
+    private UsuarioEntity usuario;
+    
      /**
      * Obtiene el atributo nombre. 
      * @param nombre  atributo nombre.
@@ -108,15 +127,6 @@ public class ViniloEntity extends BaseEntity implements Serializable
         this.previewURI = previewURI;
     }
     
-  
-    /**
-     * Obtiene el atributo calificacion.
-     * @return atributo calificación.
-     */
-    public Double getCalificacion() {
-        return calificacion;
-    }
-
     /**
      * Establece el valor del atributo calificación.
      * @param calificacion nuevo valor de la calificación.
@@ -124,8 +134,50 @@ public class ViniloEntity extends BaseEntity implements Serializable
     public void setCalificacion(Double calificacion) {
         this.calificacion = calificacion;
     }
-
-   
+    
+    /**
+     * Modifica las canciones del vinilo.
+     * @param canciones Las nuevas Canciones.
+     */
+    public void setCanciones(List<CancionEntity> canciones) {
+        this.canciones = canciones;
+    }
+    
+    /**
+     * Establece las WishList a las que pertenece el vinilo.
+     * @param wishLists Lista de entidades de tipo WishList.
+     */
+    public void setWishlists(List<WishListEntity> wishLists)
+    {
+        this.wishLists = wishLists;
+    }
+    
+    /**
+     * Establece los carritos de compras a los que pertenece el vinilo.
+     * @param carritosDeCompras Lista de entidades de tipo CarritoDeCompras.
+     */
+    public void setCarritosDeCompras(List<CarritoComprasEntity> carritosDeCompras)
+    {
+        this.carritosDeCompras = carritosDeCompras;
+    }
+    
+    /**
+     * Modifica los comentarios del vinilo.
+     * @param comentarios Los nuevos comentarios.
+     */
+    public void setComentarios(List<ComentarioEntity> comentarios)
+    {
+        this.comentarios = comentarios;
+    }
+    
+    /**
+     * Modifica el usuario dueño del vinilo.
+     * @param usuario Nuevo usuario del vinilo.
+     */
+    public void setUsuario(UsuarioEntity usuario)
+    {
+        this.usuario = usuario;
+    }
     
     /**
      * Obtiene el atributo nombre.
@@ -173,5 +225,58 @@ public class ViniloEntity extends BaseEntity implements Serializable
      */
     public String getPreviewURI() {
         return previewURI;
-    }    
+    }
+    
+    /**
+     * Obtiene el atributo calificacion.
+     * @return atributo calificación.
+     */
+    public Double getCalificacion() {
+        return calificacion;
+    }
+    
+    /**
+     * Obtiene las canciones del vinilo.
+     * @return canciones del vinilo.
+     */
+    public List<CancionEntity> getCanciones() 
+    {
+        return canciones;
+    }
+    
+    /**
+     * Devuelve las wishList a las que pertenece el vinilo.
+     * @return Lista de entidades de tipo WishList.
+     */
+    public List<WishListEntity> getWishLists()
+    {
+        return wishLists;
+    }
+    
+    /**
+     * Devuelve los carritos de compras a los que pertenece el vinilo.
+     * @return Lista de entidades de tipo Carrito de Compras. 
+     */
+    public List<CarritoComprasEntity> getCarritosDeCompras()
+    {
+        return carritosDeCompras;
+    }
+    
+    /**
+     * Devuelve los comentarios que referencian a la canción.
+     * @return La lista de entidades de tipo Comentario.
+     */
+    public List<ComentarioEntity> getComentarios()
+    {
+        return comentarios;
+    }
+    
+    /**
+     * Devuelve el usuario al que pertenece el vinilo.
+     * @return 
+     */
+    public UsuarioEntity getUsuario()
+    {
+        return usuario;
+    }
 }
