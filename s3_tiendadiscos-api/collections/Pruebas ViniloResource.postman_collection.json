@@ -1,0 +1,224 @@
+{
+	"info": {
+		"_postman_id": "ca3d229f-bbb7-4297-ad55-d06ed6104a22",
+		"name": "Pruebas ViniloResource",
+		"description": "Pruebas para el recurso de vinilo.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Obtener lista vinilos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "679c66a0-532b-4fbe-bf5c-d22411fdf7e4",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Manda null\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/vinilos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos"
+					]
+				},
+				"description": "Como por ahora esta desconectado de la lógica, debe retornar null al momento de pedir la lista."
+			},
+			"response": []
+		},
+		{
+			"name": "Post vinilos.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96a0fb40-3b42-4075-863b-be96b9f71c71",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id\", data.id);",
+							"postman.setGlobalVariable(\"new_nombre\" ,  data.nombre);",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"id\" : 1 , \r\n\r\n\"nombre\": \"The wall\" ,\r\n\r\n\"fechaLanzamiento\": \"1979\" ,\r\n\r\n\"artista\" : \"Pink Floyd\" ,\r\n\r\n\"precio\" : 50000.0 ,\r\n\r\n\"productora\" : \"Columbia Records\" ,\r\n\r\n\"informacionAdicional\" : \"Nunca ha sido abierto.\" ,\r\n\r\n\"previewURI\" : \"URI\" ,\r\n\r\n\"calificacion\": 5.0\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/vinilos/?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						""
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Retorna el JSON que es enviado."
+			},
+			"response": []
+		},
+		{
+			"name": "Get vinilo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d90a0724-3661-46f3-8d5e-56d50202d9ec",
+						"type": "text/javascript",
+						"exec": [
+							"tests [\"Manda null con el id por parámetro.\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"id\" : 1 , \r\n\r\n\"nombre\": \"The wall\" ,\r\n\r\n\"fechaLanzamiento\": \"1979\" ,\r\n\r\n\"artista\" : \"Pink Floyd\" ,\r\n\r\n\"precio\" : 50000.0 ,\r\n\r\n\"productora\" : \"Columbia Records\" ,\r\n\r\n\"informacionAdicional\" : \"Nunca ha sido abierto.\" ,\r\n\r\n\"previewURI\" : \"URI\" ,\r\n\r\n\"calificacion\": 5.0\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/vinilos?vinilosId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos"
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1"
+						}
+					]
+				},
+				"description": "Obtiene el vinilo con el id dado por parámetro."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Vinilo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b1cbf2c-a93c-4b84-b09a-4944da481f8c",
+						"type": "text/javascript",
+						"exec": [
+							"tests [\"no manda error.\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/vinilos?vinilosId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos"
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

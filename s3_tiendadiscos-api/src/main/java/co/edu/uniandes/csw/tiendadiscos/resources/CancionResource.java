@@ -6,20 +6,20 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.CancionDTO;
-import java.util.logging.Logger;
-import co.edu.uniandes.csw.tiendadiscos.entities.*;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.websocket.server.PathParam;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 /**
  *
  * @author Andrés Hernández
  */
 @Path("canciones")
-@Produces("application/json")
-@Consumes("application/json")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 @RequestScoped
 public class CancionResource {
     
@@ -29,6 +29,12 @@ public class CancionResource {
     public CancionDTO createCancion(CancionDTO cancion)
     {
         return cancion;
+    }
+    
+    @GET
+    public List<CancionDTO> getCanciones()
+    {
+        return null;
     }
     
     @GET

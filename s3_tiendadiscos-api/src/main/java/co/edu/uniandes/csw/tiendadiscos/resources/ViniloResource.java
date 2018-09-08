@@ -15,21 +15,22 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.websocket.server.PathParam;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author Andrés Hernández
  */
 @Path("vinilos")
-@Produces("application/json")
-@Consumes("application/json")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
 public class ViniloResource 
 {
     private static final Logger LOGGER = Logger.getLogger(ViniloResource.class.getName());
     
    // @Inject
-    //private ViniloLogic editorialLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    //private ViniloLogic viniloLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
     
     /**
      * 
@@ -45,13 +46,13 @@ public class ViniloResource
     
     /**
      * 
-     * @param viniloId
+     * @param vinilosId
      * @return
      * @throws WebApplicationException 
      */
     @GET
     @Path("{vinilosId: \\d+}")
-    public ViniloDTO getVinilo(@PathParam("vinilosId") Long viniloId) throws WebApplicationException
+    public ViniloDTO getVinilo(@PathParam("vinilosId") Long vinilosId)
     {
         /*ViniloEntity viniloEntity = ViniloLogic.getVinilo(viniloId);
         if(viniloEntity == null)
@@ -84,9 +85,9 @@ public class ViniloResource
     }/
     
     /**
-     * 
-     * @param vinilosId 
-     */
+    * 
+    * @param vinilosId 
+    */
     @DELETE
     @Path("{vinilosId: \\d+}")
     public void deleteVinilo(@PathParam("vinilosId") Long vinilosId)

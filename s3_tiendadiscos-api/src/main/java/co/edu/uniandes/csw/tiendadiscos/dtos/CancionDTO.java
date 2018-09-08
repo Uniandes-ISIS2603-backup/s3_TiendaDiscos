@@ -2,9 +2,6 @@ package co.edu.uniandes.csw.tiendadiscos.dtos;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.CancionEntity;
 import java.io.Serializable;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -120,6 +117,34 @@ public class CancionDTO implements Serializable
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+    
+    /**
+     * Establece el valor del atributo calificación.
+     * @param calificacion nuevo valor de la calificación.
+     */
+    public void setCalificacion(Double calificacion) {
+        this.calificacion = calificacion;
+    }
+    
+    /**
+     * Establece el valor del atributo id.
+     *
+     * @param id nuevo valor del atributo
+     *
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    /**
+     * Obtiene el atributo id.
+     *
+     * @return atributo id.
+     *
+     */
+    public Long getId() {
+        return id;
+    }
 
     /**
      * Obtiene le atributo nombre.
@@ -151,17 +176,7 @@ public class CancionDTO implements Serializable
      */
     public String getDescripcion() {
         return descripcion;
-    }   
-    
-    /**
-     * Obtiene el atributo id.
-     *
-     * @return atributo id.
-     *
-     */
-    public Long getId() {
-        return id;
-    }
+    }      
 
     /**
      * Obtiene el atributo calificacion.
@@ -169,24 +184,6 @@ public class CancionDTO implements Serializable
      */
     public Double getCalificacion() {
         return calificacion;
-    }
-
-    /**
-     * Establece el valor del atributo calificación.
-     * @param calificacion nuevo valor de la calificación.
-     */
-    public void setCalificacion(Double calificacion) {
-        this.calificacion = calificacion;
-    }
-    
-    /**
-     * Establece el valor del atributo id.
-     *
-     * @param id nuevo valor del atributo
-     *
-     */
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @Override

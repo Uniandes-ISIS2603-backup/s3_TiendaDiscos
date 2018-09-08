@@ -152,19 +152,29 @@ public class ViniloDTO implements Serializable
     }
     
     /**
-     * Obtiene el atributo calificacion.
-     * @return atributo calificación.
-     */
-    public Double getCalificacion() {
-        return calificacion;
-    }
-
-    /**
      * Establece el valor del atributo calificación.
      * @param calificacion nuevo valor de la calificación.
      */
     public void setCalificacion(Double calificacion) {
         this.calificacion = calificacion;
+    }
+    
+    /**
+     * Establece el valor del atributo id.
+     *
+     * @param id nuevo valor del atributo
+     *
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    /**
+     * Obtiene el atributo calificacion.
+     * @return atributo calificación.
+     */
+    public Double getCalificacion() {
+        return calificacion;
     }
     
     /**
@@ -221,16 +231,6 @@ public class ViniloDTO implements Serializable
      */
     public Long getId() {
         return id;
-    }
-
-    /**
-     * Establece el valor del atributo id.
-     *
-     * @param id nuevo valor del atributo
-     *
-     */
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @Override
