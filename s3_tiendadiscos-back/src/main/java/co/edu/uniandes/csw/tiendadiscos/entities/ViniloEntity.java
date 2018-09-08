@@ -62,13 +62,13 @@ public class ViniloEntity extends BaseEntity implements Serializable
     @PodamExclude
     @OneToMany(mappedBy = "vinilo")
     private List<CancionEntity> canciones = new ArrayList<CancionEntity>();
-    
+    /**
     @PodamExclude
-    @ManyToMany(mappedBy = "")
+    @ManyToMany(mappedBy = "wishList")
     private List<WishListEntity> wishLists;
     
     @PodamExclude
-    @ManyToMany(mappedBy = "")
+    @ManyToMany(mappedBy = "carritoDeCompras")
     private List<CarritoComprasEntity> carritosDeCompras;
     
     @PodamExclude
@@ -77,7 +77,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     
     @PodamExclude
     @ManyToOne
-    private UsuarioEntity usuario;
+    private UsuarioEntity usuario;*/
     
      /**
      * Obtiene el atributo nombre. 
@@ -146,7 +146,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Establece las WishList a las que pertenece el vinilo.
      * @param wishLists Lista de entidades de tipo WishList.
-     */
+     *
     public void setWishlists(List<WishListEntity> wishLists)
     {
         this.wishLists = wishLists;
@@ -155,7 +155,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Establece los carritos de compras a los que pertenece el vinilo.
      * @param carritosDeCompras Lista de entidades de tipo CarritoDeCompras.
-     */
+     *
     public void setCarritosDeCompras(List<CarritoComprasEntity> carritosDeCompras)
     {
         this.carritosDeCompras = carritosDeCompras;
@@ -164,7 +164,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Modifica los comentarios del vinilo.
      * @param comentarios Los nuevos comentarios.
-     */
+     *
     public void setComentarios(List<ComentarioEntity> comentarios)
     {
         this.comentarios = comentarios;
@@ -173,11 +173,11 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Modifica el usuario dueño del vinilo.
      * @param usuario Nuevo usuario del vinilo.
-     */
+     *
     public void setUsuario(UsuarioEntity usuario)
     {
         this.usuario = usuario;
-    }
+    }*/
     
     /**
      * Obtiene el atributo nombre.
@@ -247,7 +247,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Devuelve las wishList a las que pertenece el vinilo.
      * @return Lista de entidades de tipo WishList.
-     */
+     *
     public List<WishListEntity> getWishLists()
     {
         return wishLists;
@@ -256,7 +256,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Devuelve los carritos de compras a los que pertenece el vinilo.
      * @return Lista de entidades de tipo Carrito de Compras. 
-     */
+     
     public List<CarritoComprasEntity> getCarritosDeCompras()
     {
         return carritosDeCompras;
@@ -265,7 +265,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Devuelve los comentarios que referencian a la canción.
      * @return La lista de entidades de tipo Comentario.
-     */
+     *
     public List<ComentarioEntity> getComentarios()
     {
         return comentarios;
@@ -274,9 +274,9 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Devuelve el usuario al que pertenece el vinilo.
      * @return 
-     */
+     *
     public UsuarioEntity getUsuario()
     {
         return usuario;
-    }
+    }*/
 }
