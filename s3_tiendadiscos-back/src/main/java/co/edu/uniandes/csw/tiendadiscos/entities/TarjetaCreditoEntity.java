@@ -8,16 +8,23 @@ package co.edu.uniandes.csw.tiendadiscos.entities;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
  * @author Kevin Blanco
  */
 @Entity
+
 public class TarjetaCreditoEntity extends BaseEntity implements Serializable {
 
+    @PodamExclude
+    @ManyToOne
+    private BillingInformationEntity billing;
+    
     /**
      * numero de la tarjeta
      */
@@ -43,6 +50,8 @@ public class TarjetaCreditoEntity extends BaseEntity implements Serializable {
      * Codigo CVC de la tarjeta
      */
     private Integer cvc;
+    
+    
 
     /**
      * retorna numero de la tarjeta
@@ -52,6 +61,8 @@ public class TarjetaCreditoEntity extends BaseEntity implements Serializable {
     public Integer getNumero() {
         return numero;
     }
+    
+   
 
     /**
      * modifica numero de la tarjeta

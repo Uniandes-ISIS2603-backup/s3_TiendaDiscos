@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
  */
 /**
  *
- * @author estudiante
+ * @author Kevin Blanco
  */
 @Stateless
 public class BillingInformationPersistence {
