@@ -18,15 +18,12 @@ import javax.persistence.PersistenceContext;
 @Stateless 
 public class ComentarioPersistence {
 
-    private static final Logger LOGGER = Logger.getLogger(ComentarioPersistence.class.getName());
         
     @PersistenceContext(unitName = "VinylAppPU")
     protected EntityManager em;
     
     public ComentarioEntity create(ComentarioEntity comentarioEntity) {
-        LOGGER.log(Level.INFO, "Creando un comentario nuevo");
         em.persist(comentarioEntity);
-        LOGGER.log(Level.INFO, "Libro creado");
         return comentarioEntity;
     }
 
