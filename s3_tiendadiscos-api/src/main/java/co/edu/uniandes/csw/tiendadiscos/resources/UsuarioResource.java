@@ -63,19 +63,19 @@ public class UsuarioResource {
     } 
     
     @Path("{usuariosId: \\d+}/billing")
-    public Class<BillingInformationResource> getReviewResource(@PathParam("usuariosId") Long booksId) {
+    public Class<BillingInformationResource> getReviewResource(@PathParam("usuariosId") Long usuariosId) {
         
         return BillingInformationResource.class;
     }
     
     @Path("{usuariosId: \\d+}/comentarios")
-    public Class<ComentarioResource> getComentariosResource(@PathParam("usuariosId") Long booksId) {
+    public Class<ComentarioResource> getComentariosResource(@PathParam("usuariosId") Long usuariosId) {
         
         return ComentarioResource.class;
     }
 
     @Path("{usuariosId: \\d+}/wishlist")
-    public Class<WishListResource> getWishListResource(@PathParam("usuariosId") Long booksId) {
+    public Class<WishListResource> getWishListResource(@PathParam("usuariosId") Long usuariosId) {
         
         return WishListResource.class;
     }

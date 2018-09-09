@@ -62,9 +62,7 @@ public class UsuarioDTO implements Serializable {
     private String rol;
     private Double calificacion;
     
-    private WishListDTO wishList;
-    private BillingInformationDTO billingInformation;
-    private CarritoComprasDTO carritoCompras;
+
 
    
 
@@ -87,10 +85,7 @@ public class UsuarioDTO implements Serializable {
             this.direccion = userEntity.getDireccion();
             this.rol = userEntity.getRol();
             this.calificacion = userEntity.getCalificacion();
-            
-            this.wishList = new WishListDTO(userEntity.getWishList()) ;
-            //this.carritoCompras = new CarritoComprasDTO(userEntity.getCarritoCompras());
-            this.billingInformation = new BillingInformationDTO(userEntity.getBillingInformation());
+          
         }
     }
     /**
@@ -111,11 +106,7 @@ public class UsuarioDTO implements Serializable {
         usuarioEntity.setRol(this.rol);
         usuarioEntity.setCalificacion(this.calificacion);
         
-        WishListDTO wishListTemp = this.wishList;
-        usuarioEntity.setWishList(wishListTemp.toEntity());
-        
-        BillingInformationDTO billingInformationTemp = this.billingInformation;
-        usuarioEntity.setBillingInformation(billingInformationTemp.toEntity());
+       
         
         return usuarioEntity;  
     }
@@ -184,30 +175,6 @@ public class UsuarioDTO implements Serializable {
         this.nombre = nombre;
     }
 
-    public WishListDTO getWishList() {
-        return wishList;
-    }
-
-    public void setWishList(WishListDTO wishList) {
-        this.wishList = wishList;
-    }
-
-    public BillingInformationDTO getBillingInformation() {
-        return billingInformation;
-    }
-
-    public void setBillingInformation(BillingInformationDTO billingInformation) {
-        this.billingInformation = billingInformation;
-    }
-
-    public CarritoComprasDTO getCarritoCompras() {
-        return carritoCompras;
-    }
-
-    public void setCarritoCompras(CarritoComprasDTO carritoCompras) {
-        this.carritoCompras = carritoCompras;
-    }
-    
     
     @Override
     public String toString(){
