@@ -29,7 +29,7 @@ import javax.ws.rs.Produces;
 public class BillingInformationResource {
     
     @GET
-    public BillingInformationDTO getBilling(@PathParam("usuariosId") Long booksId){
+    public BillingInformationDTO getBilling(@PathParam("usuariosId") Long usuariosId){
         
         return new BillingInformationDTO();
     }
@@ -40,14 +40,14 @@ public class BillingInformationResource {
     }
     
     @PUT
-    public BillingInformationDTO updateBilling (BillingInformationDTO billing) {
+    public BillingInformationDTO updateBilling (@PathParam("usuarioId") Long usuarioId,BillingInformationDTO billing) {
     
     return billing ;
     }
     
-    @DELETE 
-    public void deleteBilling (){
-    
+    @DELETE
+    public void deleteBilling (@PathParam("usuarioId") Long usuarioId){
+        
     }
     
       @Path("/tarjetasDeCredito")

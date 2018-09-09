@@ -44,7 +44,7 @@ public class TarjetaCreditoDTO {
     /**
      * Codigo CVC de la tarjeta
      */
-    private Integer cvc;
+    private String cvc;
 
     /**
      * Constructor vacio
@@ -160,7 +160,7 @@ public class TarjetaCreditoDTO {
      *
      * @return codigio CVC de la tarjeta
      */
-    public Integer getCvc() {
+    public String getCvc() {
         return cvc;
     }
 
@@ -169,7 +169,7 @@ public class TarjetaCreditoDTO {
      *
      * @param cvc nuevo codigo CVC de la tarjeta
      */
-    public void setCvc(Integer cvc) {
+    public void setCvc(String cvc) {
         this.cvc = cvc;
     }
 

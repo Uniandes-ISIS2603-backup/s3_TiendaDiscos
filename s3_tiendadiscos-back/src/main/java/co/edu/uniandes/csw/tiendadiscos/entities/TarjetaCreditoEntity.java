@@ -49,7 +49,7 @@ public class TarjetaCreditoEntity extends BaseEntity implements Serializable {
     /**
      * Codigo CVC de la tarjeta
      */
-    private Integer cvc;
+    private String cvc;
     
     
 
@@ -132,7 +132,7 @@ public class TarjetaCreditoEntity extends BaseEntity implements Serializable {
      *
      * @return codigio CVC de la tarjeta
      */
-    public Integer getCvc() {
+    public String getCvc() {
         return cvc;
     }
 
@@ -141,7 +141,7 @@ public class TarjetaCreditoEntity extends BaseEntity implements Serializable {
      *
      * @param cvc nuevo codigo CVC de la tarjeta
      */
-    public void setCvc(Integer cvc) {
+    public void setCvc(String cvc) {
         this.cvc = cvc;
     }
 

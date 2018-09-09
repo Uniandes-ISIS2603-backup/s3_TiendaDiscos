@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "500c9238-5850-46a6-9bd8-4a880cff2c57",
+		"name": "BillingInformation PRUEBAS POSTMAN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1/billing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8e9b3b69-d2d3-4e23-b97b-6d6f3b5ae894",
+						"type": "text/javascript",
+						"exec": [
+							"tests['No genera error en el Get'] = responseCode.code===200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n\t\"username\": \"algo\",\n\t\"nombre\": \"KEvin \", \n\t\"email\" : \"algo@algo.com\",\n\t\"contraseña\" : \"contraseña\",\n\t\"direccion\" : \"calel \", \n\t\"rol\" : \"ADMIN\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1/billing",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"1",
+						"billing"
+					]
+				},
+				"description": "GET DE BILLING"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb2e79ef-a4d0-4da6-82ad-27ab1d956d74",
+						"type": "text/javascript",
+						"exec": [
+							"var data=JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_cuentaAhorro_e\", data.cuentaAhorro);",
+							"tests['No genera error en el Post'] = responseCode.code===200;",
+							"\t\t\t\t\t\t"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n\t\"cuentaAhorro\":\"123321123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1/billing",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"1",
+						"billing"
+					]
+				},
+				"description": "POST BILLING"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "62747f30-8e20-4770-9cda-1096f91d579a",
+						"type": "text/javascript",
+						"exec": [
+							"tests['No genera error en el Put'] = responseCode.code===200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n\t\"cuentaAhorro\":\"123321123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1/billing/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"1",
+						"billing",
+						""
+					]
+				},
+				"description": "put BILLING"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f3f26f51-626b-4edf-a32e-cf7f437cba2c",
+						"type": "text/javascript",
+						"exec": [
+							"tests['No genera error en el Delete'] = responseCode.code===204;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1/billing/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"1",
+						"billing",
+						""
+					]
+				},
+				"description": "DELETE BILLING"
+			},
+			"response": []
+		}
+	]
+}

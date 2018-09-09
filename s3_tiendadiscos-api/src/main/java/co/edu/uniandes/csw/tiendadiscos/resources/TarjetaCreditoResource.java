@@ -67,9 +67,9 @@ public class TarjetaCreditoResource {
      * @return 
      */
     @PUT
-    public TarjetaCreditoDTO putTarjetaCredito(@PathParam("usuariosId") Long usuariosId, @PathParam("tarjetaCreditoId") Long tarjetaCreditoId, TarjetaCreditoDTO tarjeta) {
+    @Path("{tarjetaId: \\d+}")
+    public TarjetaCreditoDTO putTarjetaCredito(@PathParam("usuariosId") Long usuariosId, @PathParam("tarjetaId") Long tarjetaCreditoId, TarjetaCreditoDTO tarjeta) {
         return tarjeta;
-
     }
     
     /**
@@ -78,8 +78,8 @@ public class TarjetaCreditoResource {
      * @param tarjetaCreditoId  id tarjeta 
      */
     @DELETE
-    public void deleteTarjetaCredito(@PathParam("usuariosId") Long usuariosId, @PathParam("tarjetaCreditoId") Long tarjetaCreditoId) {
-    
+    @Path("{tarjetaId: \\d+}")
+    public void deleteTarjetaCredito( @PathParam("tarjetaId") Long tarjetaId) {
     
     }
 
