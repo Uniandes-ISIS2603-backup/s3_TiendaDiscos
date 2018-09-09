@@ -6,7 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.test.persistence;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.BillingInformationEntity;
-import co.edu.uniandes.csw.tiendadiscos.persistance.BillingInformationPersistence;
+import co.edu.uniandes.csw.tiendadiscos.persistence.BillingInformationPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;

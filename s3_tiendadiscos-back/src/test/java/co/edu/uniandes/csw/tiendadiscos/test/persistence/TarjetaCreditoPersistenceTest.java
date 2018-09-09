@@ -7,7 +7,7 @@ package co.edu.uniandes.csw.tiendadiscos.test.persistence;
 
 
 import co.edu.uniandes.csw.tiendadiscos.entities.TarjetaCreditoEntity;
-import co.edu.uniandes.csw.tiendadiscos.persistance.TarjetaCreditoPersistence;
+import co.edu.uniandes.csw.tiendadiscos.persistence.TarjetaCreditoPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;

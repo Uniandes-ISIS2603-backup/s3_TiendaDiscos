@@ -6,7 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.test.persistence;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
-import co.edu.uniandes.csw.tiendadiscos.persistance.ViniloPersistence;
+import co.edu.uniandes.csw.tiendadiscos.persistence.ViniloPersistence;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

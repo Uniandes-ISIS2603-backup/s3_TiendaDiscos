@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.tiendadiscos.persistance;
+package co.edu.uniandes.csw.tiendadiscos.persistence;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.TarjetaCreditoEntity;
 import java.util.logging.Level;

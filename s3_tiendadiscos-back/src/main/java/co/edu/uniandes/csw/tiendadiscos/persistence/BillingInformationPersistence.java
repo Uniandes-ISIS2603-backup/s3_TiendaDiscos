@@ -1,4 +1,4 @@
-package co.edu.uniandes.csw.tiendadiscos.persistance;
+package co.edu.uniandes.csw.tiendadiscos.persistence;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.BillingInformationEntity;
 import java.util.logging.Level;

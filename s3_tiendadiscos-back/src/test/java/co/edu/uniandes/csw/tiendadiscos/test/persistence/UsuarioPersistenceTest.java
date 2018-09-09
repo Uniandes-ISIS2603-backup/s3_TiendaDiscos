@@ -9,6 +9,6 @@ package co.edu.uniandes.csw.tiendadiscos.test.persistence;
  *
  * @author Camilo Andres Salinas Martinez
  */
-public class EnvioPersistanceTest {
+public class UsuarioPersistenceTest {
     
 }

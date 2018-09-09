@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.test.persistence;
 import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
-import co.edu.uniandes.csw.tiendadiscos.persistance.TransaccionPersistence;
+import co.edu.uniandes.csw.tiendadiscos.persistence.TransaccionPersistence;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
