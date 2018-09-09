@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.tiendadiscos.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -19,11 +21,15 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
     /**
      * id único del comprador.
      */
+    @PodamExclude
+    @ManyToOne
     private UsuarioEntity usuarioComprador;
     
     /**
      * id único del vendedor.
      */
+    @PodamExclude
+    @ManyToOne
     private UsuarioEntity usuarioVendedor;
     
     /**

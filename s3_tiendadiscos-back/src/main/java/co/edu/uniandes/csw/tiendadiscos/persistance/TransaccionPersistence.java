@@ -27,12 +27,13 @@ public class TransaccionPersistence {
     @Inject
     private TransaccionPersistence TransaccionPersistence;
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "VinylAppPU")
     private EntityManager em;
     
     private static final Logger LOGGER = Logger.getLogger(ComentarioPersistence.class.getName());
 
    public TransaccionEntity create(TransaccionEntity transaccionEntity){
+       LOGGER.log(Level.INFO, "Creando una transaccion nueva");
        em.persist(transaccionEntity);
        LOGGER.log(Level.INFO, "Saliendo de crear una transaccion nueva");
        return transaccionEntity;

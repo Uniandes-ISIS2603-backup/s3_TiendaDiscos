@@ -61,7 +61,7 @@ public class BillingInformationPersistenceTest {
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(BillingInformationEntity.class.getPackage())
-                .addPackage(BillingInformationEntity.class.getPackage())
+                .addPackage(BillingInformationPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }

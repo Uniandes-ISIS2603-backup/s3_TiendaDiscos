@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.TransaccionDTO;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -48,7 +49,7 @@ public class TransaccionResource{
     }
     
     @GET
-    public TransaccionDTO getTransacciones(){
+    public List<TransaccionDTO> getTransacciones(){
         
         return null;
     }
