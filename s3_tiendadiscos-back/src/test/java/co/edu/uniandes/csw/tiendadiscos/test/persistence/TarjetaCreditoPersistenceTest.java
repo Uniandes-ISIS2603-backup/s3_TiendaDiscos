@@ -5,8 +5,9 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.test.persistence;
 
-import co.edu.uniandes.csw.tiendadiscos.entities.BillingInformationEntity;
-import co.edu.uniandes.csw.tiendadiscos.persistance.BillingInformationPersistence;
+
+import co.edu.uniandes.csw.tiendadiscos.entities.TarjetaCreditoEntity;
+import co.edu.uniandes.csw.tiendadiscos.persistance.TarjetaCreditoPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -33,10 +34,10 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Kevin Blanco
  */
 @RunWith(Arquillian.class)
-public class BillingInformationPersistenceTest {
+public class TarjetaCreditoPersistenceTest {
 
     @Inject
-    private BillingInformationPersistence billingPersistence;
+    private TarjetaCreditoPersistence tarjetaPersistence;
 
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
@@ -51,17 +52,17 @@ public class BillingInformationPersistenceTest {
      */
     @Inject
     UserTransaction utx;
-
+    
     /**
      * Lista que tiene los datos de prueba.
      */
-    private List<BillingInformationEntity> data = new ArrayList<BillingInformationEntity>();
+    private List<TarjetaCreditoEntity> data = new ArrayList<TarjetaCreditoEntity>();
 
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(BillingInformationEntity.class.getPackage())
-                .addPackage(BillingInformationPersistence.class.getPackage())
+                .addPackage(TarjetaCreditoEntity.class.getPackage())
+                .addPackage(TarjetaCreditoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -91,10 +92,10 @@ public class BillingInformationPersistenceTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from BillingInformationEntity").executeUpdate();
+        em.createQuery("delete from TarjetaCreditoEntity").executeUpdate();
     }
-
-    /**
+    
+        /**
      * Inserta los datos iniciales para el correcto funcionamiento de las
      * pruebas.
      */
@@ -102,68 +103,69 @@ public class BillingInformationPersistenceTest {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
 
-            BillingInformationEntity entity = factory.manufacturePojo(BillingInformationEntity.class);
+            TarjetaCreditoEntity entity = factory.manufacturePojo(TarjetaCreditoEntity.class);
 
             em.persist(entity);
 
             data.add(entity);
         }
     }
+    
 
     /**
-     * Prueba para crear un billing.
+     * Prueba para crear una Tarjeta.
      */
     @Test
-    public void createBillingTest() {
+    public void createTarjetaTest() {
         PodamFactory factory = new PodamFactoryImpl();
-        BillingInformationEntity newEntity = factory.manufacturePojo(BillingInformationEntity.class);
-        BillingInformationEntity result = billingPersistence.create(newEntity);
+        TarjetaCreditoEntity newEntity = factory.manufacturePojo(TarjetaCreditoEntity.class);
+        TarjetaCreditoEntity result = tarjetaPersistence.create(newEntity);
 
         Assert.assertNotNull(result);
 
-        BillingInformationEntity entity = em.find(BillingInformationEntity.class, result.getId());
+        TarjetaCreditoEntity entity = em.find(TarjetaCreditoEntity.class, result.getId());
 
-        Assert.assertEquals(newEntity.getCuentaAhorro(), entity.getCuentaAhorro());
+        Assert.assertEquals(newEntity.getNumero(), entity.getNumero());
     }
-
-    /**
-     * Prueba para consultar un billing.
+    
+       /**
+     * Prueba para consultar una tarjeta.
      */
     @Test
-    public void getBillingTest() {
-        BillingInformationEntity entity = data.get(0);
-        BillingInformationEntity newEntity = billingPersistence.find(entity.getId());
+    public void getTarjetaTest() {
+        TarjetaCreditoEntity entity = data.get(0);
+        TarjetaCreditoEntity newEntity = tarjetaPersistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getCuentaAhorro(), newEntity.getCuentaAhorro());
+        Assert.assertEquals(entity.getNumero(), newEntity.getNumero());
     }
     
       /**
-     * Prueba para eliminar un Billing.
+     * Prueba para eliminar una Tarjeta.
      */
     @Test
     public void deleteBillingTest() {
-        BillingInformationEntity entity = data.get(0);
-        billingPersistence.delete(entity.getId());
-        BillingInformationEntity deleted = em.find(BillingInformationEntity.class, entity.getId());
+        TarjetaCreditoEntity entity = data.get(0);
+        tarjetaPersistence.delete(entity.getId());
+        TarjetaCreditoEntity deleted = em.find(TarjetaCreditoEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
     /**
-     * Prueba para actualizar un billing.
+     * Prueba para actualizar una Tarjeta.
      */
     @Test
     public void updateBillingTest() {
-        BillingInformationEntity entity = data.get(0);
+        TarjetaCreditoEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
-        BillingInformationEntity newEntity = factory.manufacturePojo(BillingInformationEntity.class);
+        TarjetaCreditoEntity newEntity = factory.manufacturePojo(TarjetaCreditoEntity.class);
 
         newEntity.setId(entity.getId());
 
-        billingPersistence.update(newEntity);
+        tarjetaPersistence.update(newEntity);
 
-        BillingInformationEntity resp = em.find(BillingInformationEntity.class, entity.getId());
+        TarjetaCreditoEntity resp = em.find(TarjetaCreditoEntity.class, entity.getId());
 
-        Assert.assertEquals(newEntity.getCuentaAhorro(), resp.getCuentaAhorro());
+        Assert.assertEquals(newEntity.getNumero(), resp.getNumero());
     }
 
 }
