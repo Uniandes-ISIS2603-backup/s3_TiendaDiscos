@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -25,6 +26,7 @@ public class WishListEntity extends BaseEntity implements Serializable {
     
     private Double costo;
     
+    @OneToMany
     private List<ViniloEntity> vinilos;
 
     public List<ViniloEntity> getVinilos()
