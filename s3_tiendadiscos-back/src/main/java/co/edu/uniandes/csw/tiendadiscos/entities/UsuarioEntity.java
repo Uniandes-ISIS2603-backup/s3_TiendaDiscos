@@ -8,6 +8,10 @@ package co.edu.uniandes.csw.tiendadiscos.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -22,12 +26,22 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     private String direccion;
     private String rol;
     private Double calificacion;
+    
+    @PodamExclude
+    @OneToOne
     private WishListEntity wishList;
     //private CarritoDeComprasEntity id;
     private BillingInformationEntity billingInformation;
     private List<ViniloEntity> vinilos;
     //private List<TransaccionEntity> transacciones;
-    //private List<ComentarioEntity> comentarios;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "usuarioDestino")
+    private List<ComentarioEntity> comentariosR;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "usuarioInicio")
+    private List<ComentarioEntity> comentariosH;
 
     
     
@@ -126,4 +140,21 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         this.vinilos = vinilos;
     }
     
+    public void setComentariosR(List<ComentarioEntity> comentariosR)
+    {
+        this.comentariosR = comentariosR;
+    }
+    
+    public void setComentariosH(List<ComentarioEntity> comentariosH)
+    {
+        this.comentariosH = comentariosH;
+    }
+    public List<ComentarioEntity> getComentariosR()
+    {
+        return comentariosR;
+    }
+    public List<ComentarioEntity> getComentariosH()
+    {
+        return comentariosH;
+    }
 }

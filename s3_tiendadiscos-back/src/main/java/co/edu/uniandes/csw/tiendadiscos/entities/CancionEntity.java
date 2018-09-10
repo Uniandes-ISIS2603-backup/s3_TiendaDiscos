@@ -47,10 +47,10 @@ public class CancionEntity extends BaseEntity implements Serializable
     @PodamExclude
     @ManyToOne()
     private ViniloEntity vinilo;
-    /**
+    
     @PodamExclude
-    @OneToMany(mappedBy = "comentario")
-    private List<ComentarioEntity> comentarios;    */
+    @OneToMany(mappedBy = "cancion")
+    private List<ComentarioEntity> comentarios;    
     
     /**
      * Modifica el valor del atributo nombre.
@@ -104,11 +104,11 @@ public class CancionEntity extends BaseEntity implements Serializable
     /**
      * Modifica los comentarios de la canción.
      * @param comentarios Los nuevos comentarios.
-     *
+     */
     public void setComentarios(List<ComentarioEntity> comentarios)
     {
         this.comentarios = comentarios;
-    }*/
+    }
 
     /**
      * Obtiene le atributo nombre.
@@ -162,9 +162,9 @@ public class CancionEntity extends BaseEntity implements Serializable
     /**
      * Devuelve los comentarios que referencian a la canción.
      * @return La lista de entidades de tipo Comentario.
-     *
+     */
     public List<ComentarioEntity> getComentarios()
     {
         return comentarios;
-    }*/
+    }
 }

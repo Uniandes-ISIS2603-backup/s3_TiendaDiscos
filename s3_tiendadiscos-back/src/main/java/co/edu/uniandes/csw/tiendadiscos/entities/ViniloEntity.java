@@ -62,19 +62,19 @@ public class ViniloEntity extends BaseEntity implements Serializable
     @PodamExclude
     @OneToMany(mappedBy = "vinilo")
     private List<CancionEntity> canciones = new ArrayList<CancionEntity>();
-    /**
-    @PodamExclude
-    @ManyToMany(mappedBy = "wishList")
-    private List<WishListEntity> wishLists;
     
+    @PodamExclude
+    @ManyToMany
+    private List<WishListEntity> wishLists;
+    /*
     @PodamExclude
     @ManyToMany(mappedBy = "carritoDeCompras")
     private List<CarritoComprasEntity> carritosDeCompras;
-    
+    */
     @PodamExclude
-    @OneToMany(mappedBy = "comentario")
+    @OneToMany(mappedBy = "vinilo")
     private List<ComentarioEntity> comentarios;
-    
+    /*
     @PodamExclude
     @ManyToOne
     private UsuarioEntity usuario;*/
@@ -146,7 +146,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Establece las WishList a las que pertenece el vinilo.
      * @param wishLists Lista de entidades de tipo WishList.
-     *
+     */
     public void setWishlists(List<WishListEntity> wishLists)
     {
         this.wishLists = wishLists;
@@ -164,7 +164,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Modifica los comentarios del vinilo.
      * @param comentarios Los nuevos comentarios.
-     *
+     */
     public void setComentarios(List<ComentarioEntity> comentarios)
     {
         this.comentarios = comentarios;
@@ -247,7 +247,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Devuelve las wishList a las que pertenece el vinilo.
      * @return Lista de entidades de tipo WishList.
-     *
+     */
     public List<WishListEntity> getWishLists()
     {
         return wishLists;
@@ -265,7 +265,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Devuelve los comentarios que referencian a la canción.
      * @return La lista de entidades de tipo Comentario.
-     *
+     */
     public List<ComentarioEntity> getComentarios()
     {
         return comentarios;

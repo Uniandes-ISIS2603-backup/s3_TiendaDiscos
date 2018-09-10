@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.tiendadiscos.entities;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -32,6 +33,9 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
     @ManyToOne
     private UsuarioEntity usuarioVendedor;
     
+    @PodamExclude
+    @OneToOne
+    private ComentarioEntity comentario;
     /**
      * Forma de pago de la transaccion.
      */
@@ -42,7 +46,10 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
      */
     private String estado;
 
-    
+    private void setComentario(ComentarioEntity comentario)
+    {
+        this.comentario = comentario;
+    }
     
     /**
      * Modifica el valor del atributo vendedorID.
@@ -108,7 +115,9 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
         return formaDePago;
     }   
 
-    
+    public ComentarioEntity getComentario(){
+        return comentario;
+    }
     public TransaccionEntity() {
     }
     

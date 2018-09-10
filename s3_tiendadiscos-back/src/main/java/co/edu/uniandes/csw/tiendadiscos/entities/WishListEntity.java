@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -26,9 +28,14 @@ public class WishListEntity extends BaseEntity implements Serializable {
     
     private Double costo;
     
+    @PodamExclude
     @OneToMany
     private List<ViniloEntity> vinilos;
-
+    
+    @PodamExclude
+    @OneToOne
+    private UsuarioEntity usuario;
+    
     public List<ViniloEntity> getVinilos()
     {
         return vinilos;
@@ -38,7 +45,10 @@ public class WishListEntity extends BaseEntity implements Serializable {
         return costo;
     }
 
-    
+    public UsuarioEntity getUsuario()
+    {
+        return usuario;
+    }
     public void setCosto(Double costo)
     {
         this.costo = costo;
@@ -48,5 +58,8 @@ public class WishListEntity extends BaseEntity implements Serializable {
     {
         this.vinilos =  vinilos;
     }
-    
+    public void setUsuario(UsuarioEntity usuario)
+    {
+        this.usuario = usuario;
+    }
 }

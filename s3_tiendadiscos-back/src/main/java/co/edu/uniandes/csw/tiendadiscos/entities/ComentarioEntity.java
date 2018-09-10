@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
  /**
  * Clase que representa un comentario en la persistencia y permite su serialización
@@ -22,15 +23,23 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     //Atributos
     private String contenido;
     
+    @PodamExclude
     @OneToOne
     private TransaccionEntity transaccion;
     
+    @PodamExclude
     @ManyToOne
-    private UsuarioEntity usuario;
+    private UsuarioEntity usuarioDestino;
     
+    @PodamExclude
+    @ManyToOne
+    private UsuarioEntity usuarioInicio;
+    
+    @PodamExclude
     @ManyToOne
     private ViniloEntity vinilo;
     
+    @PodamExclude
     @ManyToOne
     private CancionEntity cancion;
     
@@ -41,7 +50,11 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     }
     public UsuarioEntity getUsuario()
     {
-        return usuario;
+        return usuarioDestino;
+    }
+    public UsuarioEntity getUsuarioI()
+    {
+        return usuarioInicio;
     }
     public ViniloEntity getVinilo()
     {
@@ -59,9 +72,13 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     {
         this.contenido = contenido;
     }
+    public void setUsuarioI(UsuarioEntity usuario)
+    {
+        this.usuarioInicio = usuario;
+    }
     public void setUsuario(UsuarioEntity usuario)
     {
-        this.usuario = usuario;
+        this.usuarioDestino = usuario;
     }
     public void setTransacciono(TransaccionEntity transaccion)
     {
