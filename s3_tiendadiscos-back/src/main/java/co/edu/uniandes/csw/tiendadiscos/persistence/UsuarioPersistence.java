@@ -7,8 +7,12 @@ package co.edu.uniandes.csw.tiendadiscos.persistence;
 
 
 import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -16,13 +20,60 @@ import javax.persistence.PersistenceContext;
  *
  */
 public class UsuarioPersistence {
-     @PersistenceContext(unitName = "VinylAppPU")
+    private static final Logger LOGGER = Logger.getLogger(UsuarioPersistence.class.getName());
+    @PersistenceContext(unitName = "VinylAppPU")
     protected EntityManager em;
-
+    
+    
+    
+    /**
+     * Crea un usuario en la base de datos
+     * @param UsuarioEntity objeto author que se creará en la base de datos
+     * @return devuelve la entidad creada con un id dado por la base de datos.
+     */
     public UsuarioEntity create(UsuarioEntity usuarioEntity) {
-
+        LOGGER.log(Level.INFO, "Creando un Usuario nuevo");     
         em.persist(usuarioEntity);
+        LOGGER.log(Level.INFO, "Usuario creado");
         return usuarioEntity;
+    }
+    /**
+     * Devuelve todas los usuarios de la base de datos.
+     * @return una lista con todas los usuarios que encuentre en la base de datos
+     */
+    public List<UsuarioEntity> findAll() {
+        LOGGER.log(Level.INFO, "Consultando todos los autores");
+        TypedQuery query = em.createQuery("select u from UsuarioEntity u", UsuarioEntity.class);
+        return query.getResultList();
+    }
+     /**
+     * Busca si hay algun usuario con el id que se envía de argumento
+     *
+     * @param usuarioId: id correspondiente a la author buscada.
+     * @return un usuario.
+     */
+    public UsuarioEntity find(Long usuarioId) {
+        LOGGER.log(Level.INFO, "Consultando el usuario con id={0}", usuarioId);
+        return em.find(UsuarioEntity.class, usuarioId);
+    }
+     /**
+     * Actualiza una usuario.
+     * @param usuarioEntity: la usuario que viene con los nuevos cambios.
+     * @return una usuario con los cambios aplicados.
+     */
+    public UsuarioEntity update(UsuarioEntity usuarioEntity) {
+        LOGGER.log(Level.INFO, "Actualizando el usuario con id={0}", usuarioEntity.getId());
+
+        return em.merge(usuarioEntity);
+    }
+     /**
+     * Borra un usuario de la base de datos recibiendo como argumento el id del usuario.
+     * @param usuarioId: id correspondiente a la usuario a borrar.
+     */
+    public void delete(Long usuarioId) {
+        LOGGER.log(Level.INFO, "Borrando el usuario con id={0}", usuarioId);       
+        UsuarioEntity usuarioEntity = em.find(UsuarioEntity.class, usuarioId);
+        em.remove(usuarioEntity);
     }
 
 }
