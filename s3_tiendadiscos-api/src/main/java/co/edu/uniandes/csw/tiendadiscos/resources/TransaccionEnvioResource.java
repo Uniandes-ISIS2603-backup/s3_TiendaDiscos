@@ -5,44 +5,45 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
-
 import co.edu.uniandes.csw.tiendadiscos.dtos.EnvioDTO;
-import javax.enterprise.context.RequestScoped;
+import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author Camilo Andres Salinas Martinez
  */
-@Produces("application/json")
-@Consumes("application/json")
-@RequestScoped
-public class EnvioResource {
-    @GET
-    public EnvioDTO getEnvio(){
-        
-        return new EnvioDTO();
-    }
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+public class TransaccionEnvioResource {
+    private static final Logger LOGGER = Logger.getLogger(TransaccionEnvioResource.class.getName());
     
-    @POST 
-    public EnvioDTO createEnvio (EnvioDTO envio) {
+    
+    
+    @POST
+    public EnvioDTO crearEnvio(EnvioDTO envio){
+        
         return envio;
     }
     
+    @GET
+    public EnvioDTO obtenerEnvio(){
+        return null;
+    }
+    
     @PUT
-    public EnvioDTO updateEnvio (EnvioDTO envio) {
-    
-    return envio ;
+    public EnvioDTO actualizarEnvio(EnvioDTO envio){
+        return envio;
     }
-    
     @DELETE
-    public void deleteEnvio (){
-        
+    public void eliminarEnvio(){
     }
+    
+    
 }
