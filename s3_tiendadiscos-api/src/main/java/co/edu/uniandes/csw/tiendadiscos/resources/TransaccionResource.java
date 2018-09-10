@@ -61,9 +61,9 @@ public class TransaccionResource{
         
     }
     @Path("{transaccionesId: \\d+}/envio")
-    public Class<TransaccionEnvioResource> getTransaccionEnvioResource(@PathParam("transaccionesId") Long transaccionId){
+    public Class<EnvioResource> getTransaccionEnvioResource(@PathParam("transaccionesId") Long transaccionId){
         
-        return TransaccionEnvioResource.class;
+        return EnvioResource.class;
     
     }
     
