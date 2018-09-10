@@ -8,18 +8,23 @@ package co.edu.uniandes.csw.tiendadiscos.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
  * @author Laura Isabella Forero Camacho
  */
 @Entity
-public class CarritoComprasEntity extends BaseEntity implements Serializable{
+public class CarritoDeComprasEntity extends BaseEntity implements Serializable{
 
-    public CarritoComprasEntity() {
-    }
     
+    
+    /**@PodamExclude
+    @ManyToMany
     private List<ViniloEntity> vinilos;
+    
     
     public void setVinilosDeCarritoCompras(List<ViniloEntity> vinilos) {
         this.vinilos = vinilos;
@@ -29,5 +34,8 @@ public class CarritoComprasEntity extends BaseEntity implements Serializable{
     public List<ViniloEntity>  getVinilosDeCarritoCompras() {
         return vinilos;
     }
+    **/
     
+    public CarritoDeComprasEntity() {
+    }
 }

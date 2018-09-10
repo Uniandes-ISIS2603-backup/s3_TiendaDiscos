@@ -5,8 +5,7 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
-import co.edu.uniandes.csw.tiendadiscos.dtos.CarritoComprasDTO;
-import co.edu.uniandes.csw.tiendadiscos.dtos.TransaccionDTO;
+import co.edu.uniandes.csw.tiendadiscos.dtos.CarritoDeComprasDTO;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
@@ -27,20 +26,21 @@ import javax.ws.rs.Produces;
 @Produces("application/json")
 @RequestScoped
 
-public class CarritoComprasResource {
+public class CarritoDeComprasResource {
     
-    private static final Logger LOGGER = Logger.getLogger(CarritoComprasResource.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CarritoDeComprasResource.class.getName());
     
      @POST
-    public CarritoComprasDTO createCarritoCompras(CarritoComprasDTO carritoCompras){
+    public CarritoDeComprasDTO createCarritoCompras(CarritoDeComprasDTO carritoCompras){
         return carritoCompras;
     }
     
     
     
     @GET
-    //Solo existe un carrito de compras por usuario no es necesario tener un id de este.
-    public TransaccionDTO getCarritoCompras(){
+    @Path("{carritoDeComprasId: \\d+}")
+//Solo existe un carrito de compras por usuario no es necesario tener un id de este.
+    public CarritoDeComprasDTO getCarritoCompras(@PathParam("carritoDeComprasId") Long carritoDeComprasId){
         
         return null;
     }
@@ -49,7 +49,8 @@ public class CarritoComprasResource {
     
     @DELETE
     //Solo existe un carrito de compras por usuario no es necesario tener un id de este.
-    public void deleteCarritoCompras(){
+    @Path("{carritoDeComprasId: \\d+}")
+    public void deleteCarritoCompras(@PathParam("carritoDeComprasId") Long carritoDeComprasId){
         
         
     }

@@ -29,7 +29,7 @@ public class UsuarioDetailDTO extends UsuarioDTO implements Serializable{
     
     private BillingInformationDTO billingInformation;
     
-    private CarritoComprasDTO carritoCompras;
+    private CarritoDeComprasDTO carritoCompras;
     
     /**
      * Constructor que llama al contructor de UsuarioDetail
@@ -93,11 +93,11 @@ public class UsuarioDetailDTO extends UsuarioDTO implements Serializable{
         this.billingInformation = billingInformation;
     }
 
-    public CarritoComprasDTO getCarritoCompras() {
+    public CarritoDeComprasDTO getCarritoCompras() {
         return carritoCompras;
     }
 
-    public void setCarritoCompras(CarritoComprasDTO carritoCompras) {
+    public void setCarritoCompras(CarritoDeComprasDTO carritoCompras) {
         this.carritoCompras = carritoCompras;
     }
     

@@ -108,6 +108,7 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
         return formaDePago;
     }   
 
+    
     public TransaccionEntity() {
     }
     

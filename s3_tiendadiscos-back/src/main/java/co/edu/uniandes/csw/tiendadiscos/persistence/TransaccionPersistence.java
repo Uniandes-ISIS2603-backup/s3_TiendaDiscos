@@ -30,7 +30,7 @@ public class TransaccionPersistence {
     @PersistenceContext(unitName = "VinylAppPU")
     private EntityManager em;
     
-    private static final Logger LOGGER = Logger.getLogger(ComentarioPersistence.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(TransaccionPersistence.class.getName());
 
    public TransaccionEntity create(TransaccionEntity transaccionEntity){
        LOGGER.log(Level.INFO, "Creando una transaccion nueva");
@@ -38,4 +38,26 @@ public class TransaccionPersistence {
        LOGGER.log(Level.INFO, "Saliendo de crear una transaccion nueva");
        return transaccionEntity;
    } 
+   public TransaccionEntity find(Long transaccionId) {
+        LOGGER.log(Level.INFO, "Consultando transaccion con id={0}", transaccionId);
+        return em.find(TransaccionEntity.class, transaccionId);
+
+    }
+
+    public TransaccionEntity update(TransaccionEntity transaccionEntity) {
+        LOGGER.log(Level.INFO, "Actualizando transaccion con id={0}", transaccionEntity.getId());
+
+        LOGGER.log(Level.INFO, "Saliendo de actualizar transaccion con id = {0}", transaccionEntity.getId());
+
+        return em.merge(transaccionEntity);
+
+    }
+
+    public void delete(Long transaccionId) {
+        LOGGER.log(Level.INFO, "Borrando transaccion con id={0}", transaccionId);
+        TransaccionEntity transaccionEntity = find( transaccionId);
+        em.remove(transaccionEntity);
+        LOGGER.log(Level.INFO, "Saliendo de borrar transaccion con id = {0}",  transaccionId);
+
+    }
 }

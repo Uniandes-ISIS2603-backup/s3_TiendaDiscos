@@ -14,11 +14,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author estudiante
  */
-public class CarritoComprasDetailDTO extends CarritoComprasDTO implements Serializable {
+public class CarritoDeComprasDetailDTO extends CarritoDeComprasDTO implements Serializable {
     
     private List<ViniloDTO> vinilos;
  
-    public CarritoComprasDetailDTO(){
+    public CarritoDeComprasDetailDTO(){
     
 }
     public List<ViniloDTO> getBooks() {

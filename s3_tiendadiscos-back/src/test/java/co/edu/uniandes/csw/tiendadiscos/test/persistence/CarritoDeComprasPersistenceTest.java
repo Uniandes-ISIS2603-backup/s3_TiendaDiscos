@@ -25,7 +25,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author estudiante
  */
 @RunWith(Arquillian.class)
-public class TransaccionPersistenceTest {
+public class CarritoDeComprasPersistenceTest {
      @Inject
     private TransaccionPersistence transaccionPersistence;
     
@@ -69,5 +69,6 @@ public class TransaccionPersistenceTest {
         TransaccionEntity result= transaccionPersistence.create(newEntity);
         Assert.assertNotNull(result);
     }
+    
     
 }

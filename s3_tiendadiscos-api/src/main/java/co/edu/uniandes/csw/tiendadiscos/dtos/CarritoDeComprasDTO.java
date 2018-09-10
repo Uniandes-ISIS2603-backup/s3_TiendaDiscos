@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 
-import co.edu.uniandes.csw.tiendadiscos.entities.CarritoComprasEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.CarritoDeComprasEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -14,13 +14,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author estudiante
  */
-public class CarritoComprasDTO implements Serializable {
+public class CarritoDeComprasDTO implements Serializable {
     /**
      * id único de la transaccion.
      */
     private Long id;
     
-    public CarritoComprasDTO() {
+    public CarritoDeComprasDTO() {
     }
     /**
      * Obtiene el atributo id.
@@ -41,13 +41,13 @@ public class CarritoComprasDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    public CarritoComprasEntity toEntity()
+    public CarritoDeComprasEntity toEntity()
     {
-        CarritoComprasEntity carritoCompras = new CarritoComprasEntity();
+        CarritoDeComprasEntity carritoCompras = new CarritoDeComprasEntity();
         carritoCompras.setId(this.id);
         return carritoCompras;
     }
-    public CarritoComprasDTO(CarritoComprasEntity carritoCompras){
+    public CarritoDeComprasDTO(CarritoDeComprasEntity carritoCompras){
         if(carritoCompras!=null){
             this.id= carritoCompras.getId();
         }

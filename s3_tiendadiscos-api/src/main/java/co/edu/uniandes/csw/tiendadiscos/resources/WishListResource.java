@@ -23,7 +23,7 @@ import javax.ws.rs.Produces;
 @Consumes("application/json")
 @Produces("application/json")
 public class WishListResource {
-    private static final Logger LOGGER = Logger.getLogger(CarritoComprasResource.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(WishListResource.class.getName());
     
     @POST
     public WishListDTO createWishList(WishListDTO wishList){

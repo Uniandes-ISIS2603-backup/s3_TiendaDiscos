@@ -1,7 +1,7 @@
 package co.edu.uniandes.csw.tiendadiscos.persistence;
 
 
-import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.CarritoDeComprasEntity;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -22,20 +22,42 @@ import javax.persistence.PersistenceContext;
  * @author Laura Isabella Forero Camacho
  */
 @Stateless
-public class TransaccionPersistence {
+public class CarritoDeComprasPersistence {
    
     @Inject
-    private TransaccionPersistence TransaccionPersistence;
+    private CarritoDeComprasPersistence carritoDeComprasPersistence;
 
     @PersistenceContext(unitName = "VinylAppPU")
     private EntityManager em;
     
-    private static final Logger LOGGER = Logger.getLogger(ComentarioPersistence.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CarritoDeComprasPersistence.class.getName());
 
-   public TransaccionEntity create(TransaccionEntity transaccionEntity){
-       LOGGER.log(Level.INFO, "Creando una transaccion nueva");
-       em.persist(transaccionEntity);
-       LOGGER.log(Level.INFO, "Saliendo de crear una transaccion nueva");
-       return transaccionEntity;
+   public CarritoDeComprasEntity create(CarritoDeComprasEntity carritoDeComprasEntity){
+       LOGGER.log(Level.INFO, "Creando un carrito de compra nuevo");
+       em.persist(carritoDeComprasEntity);
+       LOGGER.log(Level.INFO, "Saliendo de crear un carrito de compras nuevo");
+       return carritoDeComprasEntity;
    } 
+   public CarritoDeComprasEntity find(Long carritoDeComprasId) {
+        LOGGER.log(Level.INFO, "Consultando CarritoDeCompras con id={0}", carritoDeComprasId);
+        return em.find(CarritoDeComprasEntity.class, carritoDeComprasId);
+
+    }
+
+    public CarritoDeComprasEntity update(CarritoDeComprasEntity carritoDeComprasEntity) {
+        LOGGER.log(Level.INFO, "Actualizando CarritoDeCompras con id={0}", carritoDeComprasEntity.getId());
+
+        LOGGER.log(Level.INFO, "Saliendo de actualizar CarritoDeCompras con id = {0}", carritoDeComprasEntity.getId());
+
+        return em.merge(carritoDeComprasEntity);
+
+    }
+
+    public void delete(Long carritoDeComprasId) {
+        LOGGER.log(Level.INFO, "Borrando un carrito de compras con id={0}", carritoDeComprasId);
+        CarritoDeComprasEntity carritoDeComprasEntity = find( carritoDeComprasId);
+        em.remove(carritoDeComprasEntity);
+        LOGGER.log(Level.INFO, "Saliendo de borrar carrito compras con id = {0}",  carritoDeComprasId);
+
+    }
 }
