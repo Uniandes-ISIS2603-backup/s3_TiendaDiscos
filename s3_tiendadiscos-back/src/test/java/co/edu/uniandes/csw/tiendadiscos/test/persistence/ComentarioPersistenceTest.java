@@ -21,6 +21,7 @@ import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 import co.edu.uniandes.csw.tiendadiscos.entities.ComentarioEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity;
 import co.edu.uniandes.csw.tiendadiscos.persistence.ComentarioPersistence;
 
 
@@ -40,6 +41,8 @@ public class ComentarioPersistenceTest {
     @Inject
     UserTransaction utx;
     
+    private List<ComentarioEntity> data = new ArrayList<ComentarioEntity>();
+    
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -58,11 +61,61 @@ public class ComentarioPersistenceTest {
 
         Assert.assertNotNull(result);
 
-        //ComentarioEntity entity = em.find(ComentarioEntity.class, result.getId());
+        ComentarioEntity entity = em.find(ComentarioEntity.class, result.getId());
 
-        //Assert.assertEquals(newEntity.getContenido(),entity.getContenido());
+        Assert.assertEquals(newEntity.getContenido(),entity.getContenido());
     }
     
+    @Test
+    public void update()
+    {
+        ComentarioEntity entity = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        ComentarioEntity newEntity = factory.manufacturePojo(ComentarioEntity.class);
+        newEntity.setId(entity.getId());
+        comentarioPersistence.update(newEntity);
+        ComentarioEntity result = em.find(ComentarioEntity.class,entity.getId());
+        Assert.assertEquals(newEntity.getContenido(), result.getContenido());
+        Assert.assertEquals(entity.getId(), result.getId());
+    }
+    
+    @Test
+    public void getTest()
+    {
+        ComentarioEntity entity= data.get(0);
+        ComentarioEntity comentario = comentarioPersistence.find(entity.getId());
+        Assert.assertNotNull(comentario);
+        Assert.assertEquals(entity.getContenido(),comentario.getContenido());
+        Assert.assertEquals(entity.getCancion()==null,comentario.getCancion()==null);
+        Assert.assertEquals(entity.getVinilo()==null,comentario.getVinilo()==null);
+        Assert.assertEquals(entity.getUsuario()==null,comentario.getUsuario()==null);
+        Assert.assertEquals(entity.getUsuarioI()==null,comentario.getUsuarioI()==null);
+        Assert.assertEquals(entity.getTransaccion()==null,comentario.getTransaccion()==null);
+    }
+    @Test
+    public void getAllTest()
+    {
+        List<ComentarioEntity> lista = comentarioPersistence.findAll();
+        Assert.assertEquals(lista.size(), data.size());
+
+        for(ComentarioEntity wish : lista)
+        {
+            boolean probar=false;
+            for(ComentarioEntity wish2 : data)
+            {
+                if(wish.getId().equals(wish2.getId()))
+                    probar=true;
+            }
+            Assert.assertTrue(probar);
+       }
+    }
+    @Test
+    public void deleteTest()
+    {
+        ComentarioEntity entity = data.get(0);
+        comentarioPersistence.delete(entity.getId());
+        Assert.assertNull(em.find(ComentarioEntity.class, entity.getId()));
+    }
     @Before
     public void configTest() {
         try {
@@ -98,6 +151,7 @@ public class ComentarioPersistenceTest {
             ComentarioEntity entity = factory.manufacturePojo(ComentarioEntity.class);
 
             em.persist(entity);
+            data.add(entity);
         }
     }
     

@@ -111,4 +111,57 @@ public class WishListPersistenceTest {
             Assert.assertTrue(probar);
        }
     }
+    @Test
+    public void getTest()
+    {
+        WishListEntity entity = data.get(0);
+        WishListEntity result = wishPersistence.find(entity.getId());
+        Assert.assertNotNull(result);
+        Assert.assertEquals(entity.getCosto(), result.getCosto());
+        
+        List<ViniloEntity> vinilos = entity.getVinilos();
+        List<ViniloEntity> viniloss = result.getVinilos();
+        for(ViniloEntity vinilo : vinilos)
+        {
+            boolean probar = false;
+            for(ViniloEntity vinilo2 : vinilos)
+            {
+                if(vinilo.getId().equals(vinilo2.getId()))
+                    probar = true;
+            }
+            Assert.assertTrue(probar);
+        }
+    }
+    
+    @Test
+    public void updateTest()
+    {
+        WishListEntity entity = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        WishListEntity newEntity = factory.manufacturePojo(WishListEntity.class);
+        newEntity.setId(entity.getId());
+        wishPersistence.update(newEntity);
+        WishListEntity result = em.find(WishListEntity.class,entity.getId());
+        Assert.assertEquals(newEntity.getCosto(), result.getCosto());
+        Assert.assertEquals(entity.getId(), result.getId());
+        List<ViniloEntity> vinilos = entity.getVinilos();
+        List<ViniloEntity> viniloss = result.getVinilos();
+        for(ViniloEntity vinilo : vinilos)
+        {
+            boolean probar = false;
+            for(ViniloEntity vinilo2 : viniloss)
+            {
+                if(vinilo.getId().equals(vinilo2.getId()))
+                    probar = true;
+            }
+            Assert.assertTrue(probar);
+        }
+    }
+    @Test
+    public void deleteTest()
+    {
+        WishListEntity entity =data.get(0);
+        wishPersistence.delete(entity.getId());
+        Assert.assertNull(em.find(WishListEntity.class, entity.getId()));
+    }
 }

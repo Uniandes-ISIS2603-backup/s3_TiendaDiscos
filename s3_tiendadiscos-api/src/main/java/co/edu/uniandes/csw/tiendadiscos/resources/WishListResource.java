@@ -6,6 +6,8 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.WishListDTO;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.websocket.server.PathParam;
 import javax.ws.rs.Consumes;
@@ -32,13 +34,18 @@ public class WishListResource {
     
     
     
-    @GET
-    public WishListDTO getWishList(){
+    @GET 
+    @Path("{wishListId: \\d+}")
+    public WishListDTO getWishList(@PathParam("wishListId") Long wishListId){
         
         return new WishListDTO();
     }
     
-   
+    @GET 
+    public List<WishListDTO> getWishLists(){
+        
+        return new ArrayList<WishListDTO>();
+    }
     
     @DELETE
     public boolean deleteWishList(){
@@ -50,7 +57,8 @@ public class WishListResource {
      * @return 
     */
     @PUT
-    public WishListDTO putComentario( WishListDTO whislist)
+    @Path("{wishListId: \\d+}")    
+    public WishListDTO putComentario( @PathParam("wishListId") Long wishListId,WishListDTO whislist)
     {
         return whislist;
     }

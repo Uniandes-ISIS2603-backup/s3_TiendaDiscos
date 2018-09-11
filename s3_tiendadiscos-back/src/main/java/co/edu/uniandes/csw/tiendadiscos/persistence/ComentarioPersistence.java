@@ -5,11 +5,14 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.persistence;
 import co.edu.uniandes.csw.tiendadiscos.entities.ComentarioEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -26,5 +29,25 @@ public class ComentarioPersistence {
         em.persist(comentarioEntity);
         return comentarioEntity;
     }
-
+    
+    public ComentarioEntity update(ComentarioEntity comentarioEntity)
+    {
+        em.merge(comentarioEntity);
+        return comentarioEntity;
+    }
+    
+    public void delete(Long id)
+    {
+        ComentarioEntity temp = em.find(ComentarioEntity.class,id);
+        em.remove(temp);
+    }
+    public ComentarioEntity find(Long id)
+    {
+        return em.find(ComentarioEntity.class,id);
+    }
+    public List<ComentarioEntity> findAll()
+    {
+        TypedQuery<ComentarioEntity> q = em.createQuery("select u from ComentarioEntity u",ComentarioEntity.class);
+        return q.getResultList();
+    }
 }

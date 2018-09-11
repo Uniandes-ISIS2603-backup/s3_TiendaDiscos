@@ -71,9 +71,9 @@ public class ComentarioResource {
      * @param comentario
      * @return 
     */
- /*   @PUT
+    @PUT
     @Path("{comentarioId: \\d+}")
-    public ComentarioDTO putComentario(@PathParam("comentarioId") Long comentarioId, ComentarioDTO comentario)throws BusinessLogicException
+    public ComentarioDTO putComentario(@PathParam("comentarioId") Long comentarioId, ComentarioDTO comentario)
     {
         
         return comentario;
