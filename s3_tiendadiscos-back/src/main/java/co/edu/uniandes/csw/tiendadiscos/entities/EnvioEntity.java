@@ -17,6 +17,11 @@ public class EnvioEntity extends BaseEntity implements Serializable{
     
     private String direccionEntrega;
     private String direccionSalida;
+    private String estado;
+    
+    @PodamExclude
+    @OneToOne
+    private TransaccionEntity transaccion;
 
     public String getDireccionSalida() {
         return direccionSalida;
@@ -33,12 +38,6 @@ public class EnvioEntity extends BaseEntity implements Serializable{
     public void setTransaccion(TransaccionEntity transaccion) {
         this.transaccion = transaccion;
     }
-    private String estado;
-    
-    @PodamExclude
-    @OneToOne
-    private TransaccionEntity transaccion;
-    
 
     public String getDireccionEntrega() {
         return direccionEntrega;

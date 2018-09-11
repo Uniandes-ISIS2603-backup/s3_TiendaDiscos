@@ -46,10 +46,19 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
      */
     private String estado;
     
-    
-//    @PodamExclude
-//    @OneToOne
-//    private EnvioEntity envio;
+
+   
+    @PodamExclude
+    @OneToOne
+    private EnvioEntity envio;
+
+    public EnvioEntity getEnvio() {
+        return envio;
+    }
+
+    public void setEnvio(EnvioEntity envio) {
+        this.envio = envio;
+    }
 
     private void setComentario(ComentarioEntity comentario)
     {
@@ -123,8 +132,7 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
     public ComentarioEntity getComentario(){
         return comentario;
     }
-    public TransaccionEntity() {
-    }
+
     
     
     

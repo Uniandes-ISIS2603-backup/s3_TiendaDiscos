@@ -44,7 +44,6 @@ public class WishListPersistenceTest {
     
     private List<WishListEntity> data = new ArrayList<WishListEntity>();
     
-    private List<ViniloEntity> dataVinilo = new ArrayList<ViniloEntity>();
     
     @Deployment
     public static JavaArchive createDeployment()

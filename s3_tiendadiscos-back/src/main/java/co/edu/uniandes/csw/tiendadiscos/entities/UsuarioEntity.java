@@ -36,7 +36,14 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     private BillingInformationEntity billingInformation;
   
     //private List<ViniloEntity> vinilos;
-    //private List<TransaccionEntity> transacciones;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "usuarioVendedor")
+    private List<TransaccionEntity> transaccionesR;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "usuarioComprador")
+    private List<TransaccionEntity> transaccionesG;
     
     @PodamExclude
     @OneToMany(mappedBy = "usuarioDestino")
@@ -45,11 +52,32 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @OneToMany(mappedBy = "usuarioInicio")
     private List<ComentarioEntity> comentariosH;
+    
+    
+    
+    
+    
+
+    public List<TransaccionEntity> getTransaccionesR() {
+        return transaccionesR;
+    }
+
+    public void setTransaccionesR(List<TransaccionEntity> transaccionesR) {
+        this.transaccionesR = transaccionesR;
+    }
+
+    public List<TransaccionEntity> getTransaccionesG() {
+        return transaccionesG;
+    }
+
+    public void setTransaccionesG(List<TransaccionEntity> transaccionesG) {
+        this.transaccionesG = transaccionesG;
+    }
 
     
     
     
-    
+
     /**
      * Obtiene el Username del Usuario
      */

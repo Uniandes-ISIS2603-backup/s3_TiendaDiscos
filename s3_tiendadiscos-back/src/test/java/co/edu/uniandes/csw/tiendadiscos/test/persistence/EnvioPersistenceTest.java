@@ -30,7 +30,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class EnvioPersistenceTest {
-@Inject
+    @Inject
     private EnvioPersistence envioPersistence;
 
     @PersistenceContext
