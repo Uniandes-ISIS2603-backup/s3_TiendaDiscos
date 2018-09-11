@@ -49,13 +49,13 @@ public class UsuarioDetailDTO extends UsuarioDTO implements Serializable{
         this.wishList = new WishListDTO(userEntity.getWishList()) ;
         //this.carritoCompras = new CarritoComprasDTO(userEntity.getCarritoCompras());
         this.billingInformation = new BillingInformationDTO(userEntity.getBillingInformation());
-        if(userEntity.getVinilos() != null){
-            vinilos = new ArrayList<>();
-            for(ViniloEntity actual : userEntity.getVinilos())
-            {
-                vinilos.add(new ViniloDTO(actual));
-            }
-        }
+//        if(userEntity.getVinilos() != null){
+//            vinilos = new ArrayList<>();
+//            for(ViniloEntity actual : userEntity.getVinilos())
+//            {
+//                vinilos.add(new ViniloDTO(actual));
+//            }
+// }
        
     
     }

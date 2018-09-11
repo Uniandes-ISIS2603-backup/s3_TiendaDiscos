@@ -45,6 +45,11 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
      * Estado de la transaccion.
      */
     private String estado;
+    
+    
+//    @PodamExclude
+//    @OneToOne
+//    private EnvioEntity envio;
 
     private void setComentario(ComentarioEntity comentario)
     {

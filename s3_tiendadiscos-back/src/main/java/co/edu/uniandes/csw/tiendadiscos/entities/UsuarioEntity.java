@@ -31,8 +31,11 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     @OneToOne
     private WishListEntity wishList;
     //private CarritoDeComprasEntity id;
+    @PodamExclude
+    @OneToOne
     private BillingInformationEntity billingInformation;
-    private List<ViniloEntity> vinilos;
+  
+    //private List<ViniloEntity> vinilos;
     //private List<TransaccionEntity> transacciones;
     
     @PodamExclude
@@ -132,13 +135,13 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         this.billingInformation = billingInformation;
     }
 
-    public List<ViniloEntity> getVinilos() {
-        return vinilos;
-    }
-
-    public void setVinilos(List<ViniloEntity> vinilos) {
-        this.vinilos = vinilos;
-    }
+//    public List<ViniloEntity> getVinilos() {
+//        return vinilos;
+//    }
+//
+//    public void setVinilos(List<ViniloEntity> vinilos) {
+//        this.vinilos = vinilos;
+//    }
     
     public void setComentariosR(List<ComentarioEntity> comentariosR)
     {

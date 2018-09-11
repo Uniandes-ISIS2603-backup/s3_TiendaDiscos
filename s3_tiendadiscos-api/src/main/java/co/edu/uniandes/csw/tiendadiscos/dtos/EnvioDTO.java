@@ -42,7 +42,8 @@ public class EnvioDTO implements Serializable {
        PROGRESO,
        RECIBIDO
    }
-   private Long id; 
+   private Long id;
+   private String direccionSalida; 
    private String direccionEntrega; 
    private String estado; 
    
@@ -80,7 +81,13 @@ public class EnvioDTO implements Serializable {
     public void setDireccionEntrega(String direccionEntrega) {
         this.direccionEntrega = direccionEntrega;
     }
+    public String getDireccionSalida() {
+        return direccionSalida;
+    }
 
+    public void setDireccionSalida(String direccionSalida) {
+        this.direccionSalida = direccionEntrega;
+    }
     public String getEstado() {
         return estado;
     }
@@ -88,7 +95,7 @@ public class EnvioDTO implements Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
+    
     @Override
     public String toString(){
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);

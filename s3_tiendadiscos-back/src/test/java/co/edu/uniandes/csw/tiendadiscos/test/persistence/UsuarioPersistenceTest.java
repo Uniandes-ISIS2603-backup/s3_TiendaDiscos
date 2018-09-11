@@ -150,7 +150,7 @@ public class UsuarioPersistenceTest {
      * Prueba para actualizar un Usuario.
      */
     @Test
-    public void updateAuthorTest() {
+    public void updateUsuarioTest() {
         UsuarioEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
         UsuarioEntity newEntity = factory.manufacturePojo(UsuarioEntity.class);
@@ -168,7 +168,7 @@ public class UsuarioPersistenceTest {
      * Prueba para eliminar un Usuario.
      */
     @Test
-    public void deleteAuthorTest() {
+    public void deleteUsuarioTest() {
         UsuarioEntity entity = data.get(0);
         usuarioPersistence.delete(entity.getId());
         UsuarioEntity deleted = em.find(UsuarioEntity.class, entity.getId());

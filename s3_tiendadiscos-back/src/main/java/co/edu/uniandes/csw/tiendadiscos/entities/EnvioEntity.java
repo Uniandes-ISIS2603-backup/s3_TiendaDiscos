@@ -6,6 +6,8 @@
 package co.edu.uniandes.csw.tiendadiscos.entities;
 
 import java.io.Serializable;
+import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -14,7 +16,29 @@ import java.io.Serializable;
 public class EnvioEntity extends BaseEntity implements Serializable{
     
     private String direccionEntrega;
+    private String direccionSalida;
+
+    public String getDireccionSalida() {
+        return direccionSalida;
+    }
+
+    public void setDireccionSalida(String direccionSalida) {
+        this.direccionSalida = direccionSalida;
+    }
+
+    public TransaccionEntity getTransaccion() {
+        return transaccion;
+    }
+
+    public void setTransaccion(TransaccionEntity transaccion) {
+        this.transaccion = transaccion;
+    }
     private String estado;
+    
+    @PodamExclude
+    @OneToOne
+    private TransaccionEntity transaccion;
+    
 
     public String getDireccionEntrega() {
         return direccionEntrega;
