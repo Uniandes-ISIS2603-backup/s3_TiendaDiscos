@@ -39,14 +39,8 @@ public class EnvioPersistenceTest {
     @Inject
     UserTransaction utx;
     
-    
-    private List<EnvioEntity> data = new ArrayList<>();
+    private List<EnvioEntity> data = new ArrayList<EnvioEntity>();
 
-    /**
-     * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
-     * El jar contiene las clases, el descriptor de la base de datos y el
-     * archivo beans.xml para resolver la inyección de dependencias.
-     */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -55,7 +49,8 @@ public class EnvioPersistenceTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-     /**
+
+    /**
      * Configuración inicial de la prueba.
      */
     @Before
@@ -82,25 +77,29 @@ public class EnvioPersistenceTest {
     private void clearData() {
         em.createQuery("delete from EnvioEntity").executeUpdate();
     }
-
-    /**
+    
+        /**
      * Inserta los datos iniciales para el correcto funcionamiento de las
      * pruebas.
      */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
+
             EnvioEntity entity = factory.manufacturePojo(EnvioEntity.class);
 
             em.persist(entity);
+
             data.add(entity);
         }
     }
-     /**
-     * Prueba para crear un Usuario.
+    
+
+    /**
+     * Prueba para crear una Envio.
      */
     @Test
-    public void createUsuarioTest() {
+    public void createEnvioTest() {
         PodamFactory factory = new PodamFactoryImpl();
         EnvioEntity newEntity = factory.manufacturePojo(EnvioEntity.class);
         EnvioEntity result = envioPersistence.create(newEntity);
@@ -110,27 +109,35 @@ public class EnvioPersistenceTest {
         EnvioEntity entity = em.find(EnvioEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getDireccionEntrega(), entity.getDireccionEntrega());
-        
     }
-
-   
-    /**
-     * Prueba para consultar un Usuario.
+    
+       /**
+     * Prueba para consultar una Envio.
      */
     @Test
     public void getEnvioTest() {
         EnvioEntity entity = data.get(0);
         EnvioEntity newEntity = envioPersistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getDireccionEntrega(), newEntity.getDireccionEntrega());
         Assert.assertEquals(entity.getEstado(), newEntity.getEstado());
+    }
+    
+      /**
+     * Prueba para eliminar una Envio.
+     */
+    @Test
+    public void deleteEnvioTest() {
+        EnvioEntity entity = data.get(0);
+        envioPersistence.delete(entity.getId());
+        EnvioEntity deleted = em.find(EnvioEntity.class, entity.getId());
+        Assert.assertNull(deleted);
     }
 
     /**
-     * Prueba para actualizar un Usuario.
+     * Prueba para actualizar una Envio.
      */
     @Test
-    public void updateUsuarioTest() {
+    public void updateEnvioTest() {
         EnvioEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
         EnvioEntity newEntity = factory.manufacturePojo(EnvioEntity.class);
@@ -141,17 +148,7 @@ public class EnvioPersistenceTest {
 
         EnvioEntity resp = em.find(EnvioEntity.class, entity.getId());
 
-        Assert.assertEquals(newEntity.getDireccionEntrega(), resp.getDireccionEntrega());
+        Assert.assertEquals(newEntity.getDireccionSalida(), resp.getDireccionSalida());
     }
 
-    /**
-     * Prueba para eliminar un Usuario.
-     */
-    @Test
-    public void deleteUsuarioTest() {
-        EnvioEntity entity = data.get(0);
-        envioPersistence.delete(entity.getId());
-        EnvioEntity deleted = em.find(EnvioEntity.class, entity.getId());
-        Assert.assertNull(deleted);
-    }
 }

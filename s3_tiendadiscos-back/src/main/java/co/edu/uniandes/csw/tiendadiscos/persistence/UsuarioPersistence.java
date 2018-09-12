@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 /**
  *
@@ -31,6 +32,7 @@ public class UsuarioPersistence {
      * @param UsuarioEntity objeto author que se creará en la base de datos
      * @return devuelve la entidad creada con un id dado por la base de datos.
      */
+    @Transactional
     public UsuarioEntity create(UsuarioEntity usuarioEntity) {
         LOGGER.log(Level.INFO, "Creando un Usuario nuevo");     
         em.persist(usuarioEntity);
@@ -61,6 +63,7 @@ public class UsuarioPersistence {
      * @param usuarioEntity: la usuario que viene con los nuevos cambios.
      * @return una usuario con los cambios aplicados.
      */
+    @Transactional
     public UsuarioEntity update(UsuarioEntity usuarioEntity) {
         LOGGER.log(Level.INFO, "Actualizando el usuario con id={0}", usuarioEntity.getId());
 
@@ -70,6 +73,7 @@ public class UsuarioPersistence {
      * Borra un usuario de la base de datos recibiendo como argumento el id del usuario.
      * @param usuarioId: id correspondiente a la usuario a borrar.
      */
+    @Transactional
     public void delete(Long usuarioId) {
         LOGGER.log(Level.INFO, "Borrando el usuario con id={0}", usuarioId);       
         UsuarioEntity usuarioEntity = em.find(UsuarioEntity.class, usuarioId);

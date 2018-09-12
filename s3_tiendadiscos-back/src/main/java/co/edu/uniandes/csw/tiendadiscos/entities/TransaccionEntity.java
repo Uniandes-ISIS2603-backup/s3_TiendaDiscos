@@ -36,6 +36,9 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @OneToOne
     private ComentarioEntity comentario;
+    @PodamExclude
+    @OneToOne
+    private EnvioEntity envio;
     /**
      * Forma de pago de la transaccion.
      */
@@ -48,9 +51,7 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
     
 
    
-    @PodamExclude
-    @OneToOne
-    private EnvioEntity envio;
+
 
     public EnvioEntity getEnvio() {
         return envio;

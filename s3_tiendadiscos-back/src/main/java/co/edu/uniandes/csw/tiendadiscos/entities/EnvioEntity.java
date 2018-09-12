@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.entities;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -13,6 +14,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  *
  * @author Camilo Andres Salinas Martinez
  */
+@Entity
 public class EnvioEntity extends BaseEntity implements Serializable{
     
     private String direccionEntrega;

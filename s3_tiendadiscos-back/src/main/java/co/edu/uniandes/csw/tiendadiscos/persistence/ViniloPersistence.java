@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 /**
  *
@@ -27,6 +28,7 @@ public class ViniloPersistence {
     @PersistenceContext(unitName= "VinylAppPU")
     protected EntityManager em;
     
+    @Transactional
     public ViniloEntity create(ViniloEntity viniloEntity)
     {
         LOGGER.log(Level.INFO, "Creando un libro nuevo");

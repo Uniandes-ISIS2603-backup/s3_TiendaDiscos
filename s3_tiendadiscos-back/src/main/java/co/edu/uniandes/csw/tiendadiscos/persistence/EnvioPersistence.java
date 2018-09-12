@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 /**
  *
@@ -28,49 +29,58 @@ public class EnvioPersistence {
      * @param EnvioEntity objeto author que se creará en la base de datos
      * @return devuelve la entidad creada con un id dado por la base de datos.
      */
+    @Transactional
     public EnvioEntity create(EnvioEntity envioEntity) {
-        LOGGER.log(Level.INFO, "Creando un Envio nuevo");     
+        LOGGER.log(Level.INFO, "Creando una tarjeta nueva");
         em.persist(envioEntity);
-        LOGGER.log(Level.INFO, "Envio creado");
+        LOGGER.log(Level.INFO, "Saliendo de crear una tarjeta nueva ");
         return envioEntity;
     }
-    /**
-     * Devuelve todas los envios de la base de datos.
-     * @return una lista con todas los usuarios que encuentre en la base de datos
-     */
-    public List<EnvioEntity> findAll() {
-        LOGGER.log(Level.INFO, "Consultando todos los autores");
-        TypedQuery query = em.createQuery("select u from EnvioEntity u", EnvioEntity.class);
-        return query.getResultList();
-    }
+
      /**
      * Busca si hay algun envio con el id que se envía de argumento
      *
      * @param envioId: id correspondiente a la author buscada.
      * @return un usuario.
      */
-    public EnvioEntity find(Long envioId) {
-        LOGGER.log(Level.INFO, "Consultando el envio con id={0}", envioId);
+     public EnvioEntity find(Long envioId) {
+        LOGGER.log(Level.INFO, "Consultando Envio con id={0}", envioId);
         return em.find(EnvioEntity.class, envioId);
+
     }
      /**
      * Actualiza una envio.
      * @param envioEntity: la usuario que viene con los nuevos cambios.
      * @return una usuario con los cambios aplicados.
      */
+     @Transactional
     public EnvioEntity update(EnvioEntity envioEntity) {
-        LOGGER.log(Level.INFO, "Actualizando el envio con id={0}", envioEntity.getId());
+        LOGGER.log(Level.INFO, "Actualizando tarjeta con id={0}", envioEntity.getId());
+
+        LOGGER.log(Level.INFO, "Saliendo de actualizar tarjeta con id = {0}", envioEntity.getId());
 
         return em.merge(envioEntity);
+
     }
      /**
      * Borra un envio de la base de datos recibiendo como argumento el id del envio.
      * @param envioId: id correspondiente a la usuario a borrar.
      */
+    @Transactional
     public void delete(Long envioId) {
-        LOGGER.log(Level.INFO, "Borrando el envio con id={0}", envioId);       
-        EnvioEntity envioEntity = em.find(EnvioEntity.class, envioId);
+        LOGGER.log(Level.INFO, "Borrando tarjeta con id={0}", envioId);
+        EnvioEntity envioEntity = find(envioId);
         em.remove(envioEntity);
-    }
+        LOGGER.log(Level.INFO, "Saliendo de borrar tarjeta con id = {0}", envioId);
 
+    }
+ 
+    
+    
+
+
+
+
+
+    
 }
