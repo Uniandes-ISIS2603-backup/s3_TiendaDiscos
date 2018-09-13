@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.test.persistence;
 
-
 import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import co.edu.uniandes.csw.tiendadiscos.persistence.ViniloPersistence;
 import java.util.ArrayList;
@@ -38,11 +37,11 @@ public class ViniloPersistenceTest {
     @PersistenceContext
     private EntityManager em;
 
-
     @Inject
     UserTransaction utx;
     
     private List<ViniloEntity> data = new ArrayList<ViniloEntity>();
+    
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -56,7 +55,8 @@ public class ViniloPersistenceTest {
      * Configuración inicial de la prueba.
      */
     @Before
-    public void configTest() {
+    public void configTest() 
+    {
         try {
             utx.begin();
             em.joinTransaction();
@@ -80,7 +80,7 @@ public class ViniloPersistenceTest {
         em.createQuery("delete from ViniloEntity").executeUpdate();
     }
     
-        /**
+    /**
      * Inserta los datos iniciales para el correcto funcionamiento de las
      * pruebas.
      */
@@ -98,10 +98,10 @@ public class ViniloPersistenceTest {
     
 
     /**
-     * Prueba para crear una Envio.
+     * Prueba para crear una Vinilo.
      */
     @Test
-    public void createEnvioTest() {
+    public void createViniloTest() {
         PodamFactory factory = new PodamFactoryImpl();
         ViniloEntity newEntity = factory.manufacturePojo(ViniloEntity.class);
         ViniloEntity result = viniloPersistence.create(newEntity);
@@ -111,5 +111,42 @@ public class ViniloPersistenceTest {
         ViniloEntity entity = em.find(ViniloEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
+    }
+    
+    /**
+     * Prueba para consultar la lista de Vinilos.
+     */
+    @Test
+    public void getVinilosTest() {
+        List<ViniloEntity> list = viniloPersistence.findAll();
+        Assert.assertEquals(data.size(), list.size());
+        for (ViniloEntity ent : list) {
+            boolean found = false;
+            for (ViniloEntity entity : data) {
+                if (ent.getId().equals(entity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+    
+    /**
+     * Prueba para consultar un Usuario.
+     */
+    @Test
+    public void getUsuarioTest() {
+        ViniloEntity entity = data.get(0);
+        ViniloEntity newEntity = viniloPersistence.find(entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getId(), newEntity.getId());
+        Assert.assertEquals(entity.getNombre(), newEntity.getNombre());
+        Assert.assertEquals(entity.getArtista(), newEntity.getArtista());
+        Assert.assertEquals(entity.getCalificacion(), newEntity.getCalificacion());
+        Assert.assertEquals(entity.getFechaLanzamiento(), newEntity.getFechaLanzamiento());
+        Assert.assertEquals(entity.getInformacionAdicional(), newEntity.getInformacionAdicional());
+        Assert.assertEquals(entity.getPreviewURI(), newEntity.getPreviewURI());
+        Assert.assertEquals(entity.getProductora(), newEntity.getProductora());
+        Assert.assertEquals(entity.getPrecio(), newEntity.getPrecio());
     }
 }
