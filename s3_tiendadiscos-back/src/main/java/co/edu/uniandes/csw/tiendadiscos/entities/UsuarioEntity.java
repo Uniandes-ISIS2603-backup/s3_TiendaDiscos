@@ -34,8 +34,9 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @OneToOne
     private BillingInformationEntity billingInformation;
-  
-    //private List<ViniloEntity> vinilos;
+    @PodamExclude
+    @OneToMany(mappedBy="usuario")
+    private List<ViniloEntity> vinilos;
     
     @PodamExclude
     @OneToMany(mappedBy = "usuarioVendedor")
