@@ -36,8 +36,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Fecha de lanzamiento del vinilo.
      */
-    @Temporal(TemporalType.DATE)
-    private Date fechaLanzamiento;
+    private String fechaLanzamiento;
     
     /**
      * Productora que lanzó el vinilo.
@@ -107,7 +106,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
      * Modifica el valor del atributo fecha de lanzamiento.
      * @param fechaLanzamiento nuevo valor del atributo.
      */
-    public void setFechaLanzamiento(Date fechaLanzamiento) {
+    public void setFechaLanzamiento(String fechaLanzamiento) {
         this.fechaLanzamiento = fechaLanzamiento;
     }
 
@@ -217,7 +216,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
      * Obtiene el atributo fecha de lanzamiento.
      * @return atributo fechaLanzamiento.
      */
-    public Date getFechaLanzamiento() {
+    public String getFechaLanzamiento() {
         return fechaLanzamiento;
     }
     
