@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.test.persistence;
 
 
+import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity;
 import co.edu.uniandes.csw.tiendadiscos.persistence.WishListPersistence;
@@ -44,6 +45,8 @@ public class WishListPersistenceTest {
     
     private List<WishListEntity> data = new ArrayList<WishListEntity>();
     
+    private List<UsuarioEntity> dataUsuario = new ArrayList<UsuarioEntity>();
+    
     
     @Deployment
     public static JavaArchive createDeployment()
@@ -62,9 +65,14 @@ public class WishListPersistenceTest {
             utx.begin();
             em.joinTransaction();
             em.createQuery("delete from WishListEntity").executeUpdate();
+            em.createQuery("delete from UsuarioEntity").executeUpdate();
             PodamFactory factory = new PodamFactoryImpl();
             for (int i = 0; i < 3; i++) {
+                UsuarioEntity temp = factory.manufacturePojo(UsuarioEntity.class);
+                em.persist(temp);
+                dataUsuario.add(temp);
                 WishListEntity entity = factory.manufacturePojo(WishListEntity.class);
+                entity.setUsuario(temp);
                 em.persist(entity);
                 data.add(entity);
             }
@@ -93,28 +101,12 @@ public class WishListPersistenceTest {
         Assert.assertEquals(newEntity.getCosto(), entity.getCosto());
     }
     
-    @Test
-    public void getAllTest()
-    {
-        List<WishListEntity> lista = wishPersistence.findAll();
-        Assert.assertEquals(lista.size(), data.size());
 
-        for(WishListEntity wish : lista)
-        {
-            boolean probar=false;
-            for(WishListEntity wish2 : data)
-            {
-                if(wish.getId().equals(wish2.getId()))
-                    probar=true;
-            }
-            Assert.assertTrue(probar);
-       }
-    }
     @Test
     public void getTest()
     {
         WishListEntity entity = data.get(0);
-        WishListEntity result = wishPersistence.find(entity.getId());
+        WishListEntity result = wishPersistence.find(dataUsuario.get(0).getId());
         Assert.assertNotNull(result);
         Assert.assertEquals(entity.getCosto(), result.getCosto());
         
@@ -123,7 +115,7 @@ public class WishListPersistenceTest {
         for(ViniloEntity vinilo : vinilos)
         {
             boolean probar = false;
-            for(ViniloEntity vinilo2 : vinilos)
+            for(ViniloEntity vinilo2 : viniloss)
             {
                 if(vinilo.getId().equals(vinilo2.getId()))
                     probar = true;

@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.tiendadiscos.persistence;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -44,14 +45,17 @@ public class WishListPersistence {
         em.remove(wish);
     }
     
-    public WishListEntity find(Long id)
+    public WishListEntity find(Long usuarioId)
     {
-        WishListEntity wish = em.find(WishListEntity.class, id);
-        return wish;
-    }
-    public List<WishListEntity> findAll()
-    {
-        TypedQuery<WishListEntity> q = em.createQuery("select u from WishListEntity u",WishListEntity.class);
-        return q.getResultList();
+        
+        TypedQuery<WishListEntity> q = em.createQuery("select p from WishListEntity p", WishListEntity.class);
+        List<WishListEntity> results = q.getResultList();
+        WishListEntity wish = null;
+        for(WishListEntity temp : results)
+        {
+            if(temp.getId().equals(usuarioId))
+                wish = temp;
+        }
+       return wish;
     }
 }
