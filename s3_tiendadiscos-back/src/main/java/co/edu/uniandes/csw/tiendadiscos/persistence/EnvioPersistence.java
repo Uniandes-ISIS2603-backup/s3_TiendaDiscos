@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.tiendadiscos.entities.EnvioEntity;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -19,6 +20,7 @@ import javax.transaction.Transactional;
  *
  * @author Camilo Andres Salinas Martinez
  */
+@Stateless
 public class EnvioPersistence {
     private static final Logger LOGGER = Logger.getLogger(EnvioPersistence.class.getName());
     @PersistenceContext(unitName = "VinylAppPU")
@@ -29,7 +31,7 @@ public class EnvioPersistence {
      * @param EnvioEntity objeto author que se creará en la base de datos
      * @return devuelve la entidad creada con un id dado por la base de datos.
      */
-    @Transactional
+    
     public EnvioEntity create(EnvioEntity envioEntity) {
         LOGGER.log(Level.INFO, "Creando una tarjeta nueva");
         em.persist(envioEntity);
@@ -53,7 +55,7 @@ public class EnvioPersistence {
      * @param envioEntity: la usuario que viene con los nuevos cambios.
      * @return una usuario con los cambios aplicados.
      */
-     @Transactional
+     
     public EnvioEntity update(EnvioEntity envioEntity) {
         LOGGER.log(Level.INFO, "Actualizando tarjeta con id={0}", envioEntity.getId());
 
@@ -66,7 +68,7 @@ public class EnvioPersistence {
      * Borra un envio de la base de datos recibiendo como argumento el id del envio.
      * @param envioId: id correspondiente a la usuario a borrar.
      */
-    @Transactional
+    
     public void delete(Long envioId) {
         LOGGER.log(Level.INFO, "Borrando tarjeta con id={0}", envioId);
         EnvioEntity envioEntity = find(envioId);

@@ -28,7 +28,7 @@ public class ViniloPersistence {
     @PersistenceContext(unitName= "VinylAppPU")
     protected EntityManager em;
     
-    @Transactional
+    
     public ViniloEntity create(ViniloEntity viniloEntity)
     {
         LOGGER.log(Level.INFO, "Creando un libro nuevo");
