@@ -17,7 +17,7 @@ public class ViniloDetailDTO extends ViniloDTO implements Serializable
     /**
      * Relación de 1 a muchas canciones.
      */
-    public List<CancionDTO> canciones;
+    private List<CancionDTO> canciones;
 
    /**
     * Constructor vacio.
