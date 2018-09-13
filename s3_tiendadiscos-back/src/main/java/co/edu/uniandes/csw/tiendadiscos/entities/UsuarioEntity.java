@@ -32,7 +32,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     private WishListEntity wishList;
     //private CarritoDeComprasEntity id;
     @PodamExclude
-    @OneToOne
+    @OneToOne(mappedBy = "usuario")
     private BillingInformationEntity billingInformation;
   
     //private List<ViniloEntity> vinilos;
