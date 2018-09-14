@@ -36,8 +36,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Fecha de lanzamiento del vinilo.
      */
-    @Temporal(TemporalType.DATE)
-    private Date fechaLanzamiento;
+    private String fechaLanzamiento;
     
     /**
      * Productora que lanzó el vinilo.
@@ -59,6 +58,11 @@ public class ViniloEntity extends BaseEntity implements Serializable
      */
     private Double calificacion;
     
+    /**
+     * Precio del vinilo.
+     */
+    private Double precio;
+    
     @PodamExclude
     @OneToMany(mappedBy = "vinilo")
     private List<CancionEntity> canciones = new ArrayList<CancionEntity>();
@@ -66,23 +70,26 @@ public class ViniloEntity extends BaseEntity implements Serializable
     @PodamExclude
     @ManyToMany
     private List<WishListEntity> wishLists;
+    
     /*
     @PodamExclude
     @ManyToMany(mappedBy = "carritoDeCompras")
     private List<CarritoComprasEntity> carritosDeCompras;
     */
+    
     @PodamExclude
     @OneToMany(mappedBy = "vinilo")
     private List<ComentarioEntity> comentarios;
-    /*
+    
+    
     @PodamExclude
     @ManyToOne
-    private UsuarioEntity usuario;*/
+    private UsuarioEntity usuario;
     
      /**
      * Obtiene el atributo nombre. 
      * @param nombre  atributo nombre.
-     */
+     */    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -99,7 +106,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
      * Modifica el valor del atributo fecha de lanzamiento.
      * @param fechaLanzamiento nuevo valor del atributo.
      */
-    public void setFechaLanzamiento(Date fechaLanzamiento) {
+    public void setFechaLanzamiento(String fechaLanzamiento) {
         this.fechaLanzamiento = fechaLanzamiento;
     }
 
@@ -133,6 +140,16 @@ public class ViniloEntity extends BaseEntity implements Serializable
      */
     public void setCalificacion(Double calificacion) {
         this.calificacion = calificacion;
+    }
+    
+    /**
+     * Establece el precio del vinilo.
+     * 
+     * @param precio nuevo valor del atributo.
+     */
+    public void setPrecio(Double precio)
+    {
+        this.precio = precio;
     }
     
     /**
@@ -173,11 +190,11 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Modifica el usuario dueño del vinilo.
      * @param usuario Nuevo usuario del vinilo.
-     *
+     */
     public void setUsuario(UsuarioEntity usuario)
     {
         this.usuario = usuario;
-    }*/
+    }
     
     /**
      * Obtiene el atributo nombre.
@@ -199,7 +216,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
      * Obtiene el atributo fecha de lanzamiento.
      * @return atributo fechaLanzamiento.
      */
-    public Date getFechaLanzamiento() {
+    public String getFechaLanzamiento() {
         return fechaLanzamiento;
     }
     
@@ -245,6 +262,15 @@ public class ViniloEntity extends BaseEntity implements Serializable
     }
     
     /**
+     * Obtiene el precio del vinilo.
+     * @return atributo precio.
+     */
+    public Double getPrecio()
+    {
+        return precio;
+    }
+    
+    /**
      * Devuelve las wishList a las que pertenece el vinilo.
      * @return Lista de entidades de tipo WishList.
      */
@@ -274,9 +300,9 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Devuelve el usuario al que pertenece el vinilo.
      * @return 
-     *
+     */
     public UsuarioEntity getUsuario()
     {
         return usuario;
-    }*/
+    }
 }

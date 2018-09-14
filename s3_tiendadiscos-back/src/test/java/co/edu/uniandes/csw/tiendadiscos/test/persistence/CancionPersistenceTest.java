@@ -5,8 +5,8 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.test.persistence;
 
-import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
-import co.edu.uniandes.csw.tiendadiscos.persistence.ViniloPersistence;
+import co.edu.uniandes.csw.tiendadiscos.entities.CancionEntity;
+import co.edu.uniandes.csw.tiendadiscos.persistence.CancionPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -23,16 +23,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
- /**
 /**
  *
  * @author Andrés Hernández
  */
 @RunWith(Arquillian.class)
-public class ViniloPersistenceTest {
+public class CancionPersistenceTest {
     
     @Inject
-    private ViniloPersistence viniloPersistence;
+    private CancionPersistence cancionPersistence;
     
     @PersistenceContext
     private EntityManager em;
@@ -40,13 +39,13 @@ public class ViniloPersistenceTest {
     @Inject
     UserTransaction utx;
     
-    private List<ViniloEntity> data = new ArrayList<ViniloEntity>();
+    private List<CancionEntity> data = new ArrayList<CancionEntity>();
     
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(ViniloEntity.class.getPackage())
-                .addPackage(ViniloPersistence.class.getPackage())
+                .addPackage(CancionEntity.class.getPackage())
+                .addPackage(CancionPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -77,7 +76,7 @@ public class ViniloPersistenceTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from ViniloEntity").executeUpdate();
+        em.createQuery("delete from CancionEntity").executeUpdate();
     }
     
     /**
@@ -88,7 +87,7 @@ public class ViniloPersistenceTest {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
 
-            ViniloEntity entity = factory.manufacturePojo(ViniloEntity.class);
+            CancionEntity entity = factory.manufacturePojo(CancionEntity.class);
 
             em.persist(entity);
 
@@ -103,12 +102,12 @@ public class ViniloPersistenceTest {
     @Test
     public void createViniloTest() {
         PodamFactory factory = new PodamFactoryImpl();
-        ViniloEntity newEntity = factory.manufacturePojo(ViniloEntity.class);
-        ViniloEntity result = viniloPersistence.create(newEntity);
+        CancionEntity newEntity = factory.manufacturePojo(CancionEntity.class);
+        CancionEntity result = cancionPersistence.create(newEntity);
 
         Assert.assertNotNull(result);
 
-        ViniloEntity entity = em.find(ViniloEntity.class, result.getId());
+        CancionEntity entity = em.find(CancionEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }
@@ -118,11 +117,11 @@ public class ViniloPersistenceTest {
      */
     @Test
     public void getVinilosTest() {
-        List<ViniloEntity> list = viniloPersistence.findAll();
+        List<CancionEntity> list = cancionPersistence.findAll();
         Assert.assertEquals(data.size(), list.size());
-        for (ViniloEntity ent : list) {
+        for (CancionEntity ent : list) {
             boolean found = false;
-            for (ViniloEntity entity : data) {
+            for (CancionEntity entity : data) {
                 if (ent.getId().equals(entity.getId())) {
                     found = true;
                 }
@@ -136,18 +135,13 @@ public class ViniloPersistenceTest {
      */
     @Test
     public void getViniloTest() {
-        ViniloEntity entity = data.get(0);
-        ViniloEntity newEntity = viniloPersistence.find(entity.getId());
+        CancionEntity entity = data.get(0);
+        CancionEntity newEntity = cancionPersistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getId(), newEntity.getId());
         Assert.assertEquals(entity.getNombre(), newEntity.getNombre());
-        Assert.assertEquals(entity.getArtista(), newEntity.getArtista());
         Assert.assertEquals(entity.getCalificacion(), newEntity.getCalificacion());
-        Assert.assertEquals(entity.getFechaLanzamiento(), newEntity.getFechaLanzamiento());
-        Assert.assertEquals(entity.getInformacionAdicional(), newEntity.getInformacionAdicional());
         Assert.assertEquals(entity.getPreviewURI(), newEntity.getPreviewURI());
-        Assert.assertEquals(entity.getProductora(), newEntity.getProductora());
-        Assert.assertEquals(entity.getPrecio(), newEntity.getPrecio());
     }
     
     /**
@@ -156,15 +150,15 @@ public class ViniloPersistenceTest {
     @Test
     public void updateViniloTest()
     {
-        ViniloEntity entity = data.get(0);
+        CancionEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
-        ViniloEntity newEntity = factory.manufacturePojo(ViniloEntity.class);
+        CancionEntity newEntity = factory.manufacturePojo(CancionEntity.class);
 
         newEntity.setId(entity.getId());
 
-        viniloPersistence.update(newEntity);
+        cancionPersistence.update(newEntity);
 
-        ViniloEntity resp = em.find(ViniloEntity.class, entity.getId());
+        CancionEntity resp = em.find(CancionEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getNombre(), resp.getNombre());
     }
@@ -174,9 +168,9 @@ public class ViniloPersistenceTest {
      */
     @Test
     public void deleteViniloTest() {
-        ViniloEntity entity = data.get(0);
-        viniloPersistence.delete(entity.getId());
-        ViniloEntity deleted = em.find(ViniloEntity.class, entity.getId());
+        CancionEntity entity = data.get(0);
+        cancionPersistence.delete(entity.getId());
+        CancionEntity deleted = em.find(CancionEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 }

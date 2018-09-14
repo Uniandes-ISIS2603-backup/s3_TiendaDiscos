@@ -16,7 +16,9 @@ public class ViniloDTO implements Serializable
 
     private static final long serialVersionUID = 1L;
   
-    
+    /**
+     * id unico del vinilo.
+     */
     private Long id;
 
     /**
@@ -32,7 +34,7 @@ public class ViniloDTO implements Serializable
     /**
      * Fecha de lanzamiento del vinilo.
      */
-    private Date fechaLanzamiento;
+    private String fechaLanzamiento;
     
     /**
      * Productora que lanzó el vinilo.
@@ -54,6 +56,11 @@ public class ViniloDTO implements Serializable
      */
     private Double calificacion;
 
+    /**
+     * Precio del vinilo.
+     */
+    private Double precio;
+    
     /**
      * Empty constructor.
      */
@@ -78,6 +85,7 @@ public class ViniloDTO implements Serializable
             this.previewURI = viniloEntity.getPreviewURI();
             this.productora = viniloEntity.getProductora();
             this.calificacion = viniloEntity.getCalificacion();                    
+            this.precio = viniloEntity.getPrecio();
         }
     }
     
@@ -99,6 +107,7 @@ public class ViniloDTO implements Serializable
         viniloEntity.setPreviewURI(this.previewURI);
         viniloEntity.setProductora(this.productora);
         viniloEntity.setCalificacion(this.calificacion);
+        viniloEntity.setPrecio(this.precio);
         
         return viniloEntity;
     }
@@ -123,7 +132,7 @@ public class ViniloDTO implements Serializable
      * Modifica el valor del atributo fecha de lanzamiento.
      * @param fechaLanzamiento nuevo valor del atributo.
      */
-    public void setFechaLanzamiento(Date fechaLanzamiento) {
+    public void setFechaLanzamiento(String fechaLanzamiento) {
         this.fechaLanzamiento = fechaLanzamiento;
     }
 
@@ -170,6 +179,16 @@ public class ViniloDTO implements Serializable
     }
     
     /**
+     * Establece el precio del vinilo.
+     * 
+     * @param precio nuevo valor del atributo.
+     */
+    public void setPrecio(Double precio)
+    {
+        this.precio = precio;
+    }
+    
+    /**
      * Obtiene el atributo calificacion.
      * @return atributo calificación.
      */
@@ -197,7 +216,7 @@ public class ViniloDTO implements Serializable
      * Obtiene el atributo fecha de lanzamiento.
      * @return atributo fechaLanzamiento.
      */
-    public Date getFechaLanzamiento() {
+    public String getFechaLanzamiento() {
         return fechaLanzamiento;
     }
     
@@ -232,25 +251,14 @@ public class ViniloDTO implements Serializable
     public Long getId() {
         return id;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ViniloDTO)) {
-            return false;
-        }
-        ViniloDTO other = (ViniloDTO) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    
+    /**
+     * Obtiene el precio del vinilo.
+     * @return atributo precio.
+     */
+    public Double getPrecio()
+    {
+        return precio;
     }
 
     @Override
