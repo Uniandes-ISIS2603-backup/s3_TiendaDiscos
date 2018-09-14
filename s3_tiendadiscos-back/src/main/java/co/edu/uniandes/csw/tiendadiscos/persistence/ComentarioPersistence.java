@@ -45,9 +45,17 @@ public class ComentarioPersistence {
     {
         return em.find(ComentarioEntity.class,id);
     }
-    public List<ComentarioEntity> findAll()
+    public List<ComentarioEntity> findAllHechos(Long usuarioId)
     {
-        TypedQuery<ComentarioEntity> q = em.createQuery("select u from ComentarioEntity u",ComentarioEntity.class);
+        TypedQuery<ComentarioEntity> q = em.createQuery("select u from ComentarioEntity u where (u.usuarioInicio.id = :usuarioId)",ComentarioEntity.class);
+        q.setParameter("usuarioId", usuarioId);
+        return q.getResultList();
+    }
+    
+        public List<ComentarioEntity> findAllRecibidos(Long usuarioId)
+    {
+        TypedQuery<ComentarioEntity> q = em.createQuery("select u from ComentarioEntity u where (u.usuarioDestino.id = :usuarioId)",ComentarioEntity.class);
+        q.setParameter("usuarioId", usuarioId);
         return q.getResultList();
     }
 }

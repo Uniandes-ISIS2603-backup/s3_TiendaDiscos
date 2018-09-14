@@ -21,6 +21,7 @@ import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 import co.edu.uniandes.csw.tiendadiscos.entities.ComentarioEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity;
 import co.edu.uniandes.csw.tiendadiscos.persistence.ComentarioPersistence;
 
@@ -43,6 +44,7 @@ public class ComentarioPersistenceTest {
     
     private List<ComentarioEntity> data = new ArrayList<ComentarioEntity>();
     
+    private List<UsuarioEntity> dataUsuario = new ArrayList<UsuarioEntity>();
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -93,15 +95,32 @@ public class ComentarioPersistenceTest {
         Assert.assertEquals(entity.getTransaccion()==null,comentario.getTransaccion()==null);
     }
     @Test
-    public void getAllTest()
-    {
-        List<ComentarioEntity> lista = comentarioPersistence.findAll();
-        Assert.assertEquals(lista.size(), data.size());
-
+    public void getAllHTest()
+    {   Long a = dataUsuario.get(0).getId();
+        List<ComentarioEntity> lista = comentarioPersistence.findAllHechos(a);
+        List<ComentarioEntity> lista2 = dataUsuario.get(0).getComentariosH();
+        Assert.assertEquals(lista.size(), lista2.size());
         for(ComentarioEntity wish : lista)
         {
             boolean probar=false;
-            for(ComentarioEntity wish2 : data)
+            for(ComentarioEntity wish2 : lista2)
+            {
+                if(wish.getId().equals(wish2.getId()))
+                    probar=true;
+            }
+            Assert.assertTrue(probar);
+       }
+    }
+    @Test
+    public void getAllRTest()
+    {   Long a = dataUsuario.get(0).getId();
+        List<ComentarioEntity> lista = comentarioPersistence.findAllRecibidos(a);
+        List<ComentarioEntity> lista2 = dataUsuario.get(0).getComentariosR();
+        Assert.assertEquals(lista.size(), lista2.size());
+        for(ComentarioEntity wish : lista)
+        {
+            boolean probar=false;
+            for(ComentarioEntity wish2 : lista2)
             {
                 if(wish.getId().equals(wish2.getId()))
                     probar=true;
@@ -139,6 +158,7 @@ public class ComentarioPersistenceTest {
     */ 
     private void clearData() {
         em.createQuery("delete from ComentarioEntity").executeUpdate();
+        em.createQuery("delete from UsuarioEntity").executeUpdate();
     }
 
     /**
@@ -148,11 +168,16 @@ public class ComentarioPersistenceTest {
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
-            ComentarioEntity entity = factory.manufacturePojo(ComentarioEntity.class);
-
-            em.persist(entity);
-            data.add(entity);
+            UsuarioEntity temp = factory.manufacturePojo(UsuarioEntity.class);
+            em.persist(temp);
+            dataUsuario.add(temp);
+            for(int j = 0; j <3;j++){
+                ComentarioEntity entity = factory.manufacturePojo(ComentarioEntity.class);
+                em.persist(entity);
+                data.add(entity);
+            }
         }
+
     }
     
 }
