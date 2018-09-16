@@ -18,7 +18,6 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Kevin Blanco
  */
 @Entity
-
 public class TarjetaCreditoEntity extends BaseEntity implements Serializable {
 
     @PodamExclude
@@ -50,6 +49,21 @@ public class TarjetaCreditoEntity extends BaseEntity implements Serializable {
      * Codigo CVC de la tarjeta
      */
     private String cvc;
+
+    /**
+     * Retorna billing asociado a la tarjeta
+     * @return  billing asociado a la tarjeta
+     */
+    public BillingInformationEntity getBilling() {
+        return billing;
+    }
+    /**
+     * modifica billing asociado a la tarjeta
+     * @param billing billing que se agregara a la tarjeta 
+     */
+    public void setBilling(BillingInformationEntity billing) {
+        this.billing = billing;
+    }
     
     
 

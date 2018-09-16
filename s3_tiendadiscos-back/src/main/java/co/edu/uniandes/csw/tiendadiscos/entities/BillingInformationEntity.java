@@ -47,6 +47,22 @@ public class BillingInformationEntity extends BaseEntity implements Serializable
     @OneToMany(mappedBy = "billing", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<TarjetaCreditoEntity> tarjetas;
 
+    
+    /**
+     * devuelve el usuario asociado al billing 
+    */
+    public UsuarioEntity getUsuario() {
+        return usuario;
+    }
+    
+    /**
+     * Modifica el usuario asociado al billing 
+     * @param usuario usuario nuevo para el billing
+     */
+    public void setUsuario(UsuarioEntity usuario) {
+        this.usuario = usuario;
+    }  
+    
     /**
      * retorna cuenta de ahorro asociada al billing
      *

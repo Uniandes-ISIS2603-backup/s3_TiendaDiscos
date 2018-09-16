@@ -39,6 +39,8 @@ public class BillingInformationDTO  implements Serializable{
     /**
      * constructor vacio
      */
+    
+    private UsuarioDTO usuario;
     public BillingInformationDTO () {
     
     }
@@ -119,6 +121,21 @@ public class BillingInformationDTO  implements Serializable{
     public void setRecieved(Double recieved) {
         
         this.recieved = recieved;
+    }
+
+    /**
+     * devuelve el usuario asociado al billing 
+    */
+    public UsuarioDTO getUsuario() {
+        return usuario;
+    }
+    
+    /**
+     * Modifica el usuario asociado al billing 
+     * @param usuario usuario nuevo para el billing
+     */
+    public void setUsuario(UsuarioDTO usuario) {
+        this.usuario = usuario;
     }
     
     

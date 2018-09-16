@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.BillingInformationDTO;
+import co.edu.uniandes.csw.tiendadiscos.dtos.BillingInformationDetailDTO;
 import co.edu.uniandes.csw.tiendadiscos.dtos.UsuarioDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +30,9 @@ import javax.ws.rs.Produces;
 public class BillingInformationResource {
     
     @GET
-    public BillingInformationDTO getBilling(@PathParam("usuariosId") Long usuariosId){
+    public BillingInformationDetailDTO getBilling(@PathParam("usuariosId") Long usuariosId){
         
-        return new BillingInformationDTO();
+        return new BillingInformationDetailDTO();
     }
     
     @POST 
@@ -40,7 +41,7 @@ public class BillingInformationResource {
     }
     
     @PUT
-    public BillingInformationDTO updateBilling (@PathParam("usuarioId") Long usuarioId,BillingInformationDTO billing) {
+    public BillingInformationDetailDTO updateBilling (@PathParam("usuarioId") Long usuarioId,BillingInformationDetailDTO billing) {
     
     return billing ;
     }

@@ -46,6 +46,9 @@ public class TarjetaCreditoDTO {
      */
     private String cvc;
 
+    private BillingInformationDTO billing;
+    
+    
     /**
      * Constructor vacio
      */
@@ -172,6 +175,24 @@ public class TarjetaCreditoDTO {
     public void setCvc(String cvc) {
         this.cvc = cvc;
     }
+    /**
+     * Retorna billing asociado a la tarjeta
+     * @return billing asociado a la tarjeta
+     */
+    public BillingInformationDTO getBilling() {
+        return billing;
+    }
+
+    /**
+     * modifica billing asociado a la tarjeta
+     * @param billing billing que sera asociado a la tarjeta
+     */
+    public void setBilling(BillingInformationDTO billing) {
+        this.billing = billing;
+    }
+    
+    
+    
 
     /**
      * convierte DTO a Entity
