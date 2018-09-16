@@ -38,7 +38,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *      "contrasenha": "12341321wsadfsda",
  *      "name": "John Doe",
  *      "direccion": "cll 21 #12321",
- *      "rol": "ADMIN"
+ *      "rol": "ADMIN",
+ *      "wishList":{},
+ *      "billingInfo":{},
+ *      "carritoDeCompras":{}
  *   }
  *
  * </pre>
@@ -61,8 +64,14 @@ public class UsuarioDTO implements Serializable {
     private String direccion;
     private String rol;
     private Double calificacion;
-    
 
+   
+    
+    private WishListDTO wishList;
+    
+    private BillingInformationDTO billingInformation;
+    
+    private CarritoDeComprasDTO carritoCompras;
 
    
 
@@ -85,6 +94,10 @@ public class UsuarioDTO implements Serializable {
             this.direccion = userEntity.getDireccion();
             this.rol = userEntity.getRol();
             this.calificacion = userEntity.getCalificacion();
+            this.carritoCompras = new CarritoDeComprasDTO(userEntity.getCarritoCompras());
+            this.billingInformation = new BillingInformationDTO(userEntity.getBillingInformation());
+            this.wishList = new WishListDTO(userEntity.getWishList());
+            
           
         }
     }
@@ -105,7 +118,18 @@ public class UsuarioDTO implements Serializable {
         usuarioEntity.setDireccion(this.direccion);
         usuarioEntity.setRol(this.rol);
         usuarioEntity.setCalificacion(this.calificacion);
-        
+        if(this.wishList !=null){
+            WishListDTO wishListTemp = this.wishList;
+            usuarioEntity.setWishList(wishListTemp.toEntity());
+        }    
+        if(this.billingInformation !=null){
+            BillingInformationDTO billingInformationTemp = this.billingInformation;
+            usuarioEntity.setBillingInformation(billingInformationTemp.toEntity());
+        }
+        if(this.carritoCompras != null){
+            CarritoDeComprasDTO carritoComprasTemp = this.carritoCompras;
+            usuarioEntity.setCarritoCompras(carritoComprasTemp.toEntity());
+        }
        
         
         return usuarioEntity;  
@@ -174,7 +198,29 @@ public class UsuarioDTO implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    public WishListDTO getWishList() {
+        return wishList;
+    }
 
+    public void setWishList(WishListDTO wishList) {
+        this.wishList = wishList;
+    }
+
+    public BillingInformationDTO getBillingInformation() {
+        return billingInformation;
+    }
+
+    public void setBillingInformation(BillingInformationDTO billingInformation) {
+        this.billingInformation = billingInformation;
+    }
+
+    public CarritoDeComprasDTO getCarritoCompras() {
+        return carritoCompras;
+    }
+
+    public void setCarritoCompras(CarritoDeComprasDTO carritoCompras) {
+        this.carritoCompras = carritoCompras;
+    }
     
     @Override
     public String toString(){

@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.test.persistence;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.EnvioEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
 import co.edu.uniandes.csw.tiendadiscos.persistence.EnvioPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class EnvioPersistenceTest {
     UserTransaction utx;
     
     private List<EnvioEntity> data = new ArrayList<EnvioEntity>();
+    private List<TransaccionEntity> dataTransaccion = new ArrayList<TransaccionEntity>();
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -76,6 +78,7 @@ public class EnvioPersistenceTest {
      */
     private void clearData() {
         em.createQuery("delete from EnvioEntity").executeUpdate();
+        em.createQuery("delete from TransaccionEntity").executeUpdate();
     }
     
         /**
@@ -86,10 +89,18 @@ public class EnvioPersistenceTest {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
 
-            EnvioEntity entity = factory.manufacturePojo(EnvioEntity.class);
+            TransaccionEntity entity = factory.manufacturePojo(TransaccionEntity.class);
 
             em.persist(entity);
 
+            dataTransaccion.add(entity);
+        }
+        for (int i = 0; i < 3; i++) {
+            EnvioEntity entity = factory.manufacturePojo(EnvioEntity.class);
+            if (i == 0) {
+                entity.setTransaccion(dataTransaccion.get(0));
+            }
+            em.persist(entity);
             data.add(entity);
         }
     }
@@ -117,7 +128,7 @@ public class EnvioPersistenceTest {
     @Test
     public void getEnvioTest() {
         EnvioEntity entity = data.get(0);
-        EnvioEntity newEntity = envioPersistence.find(entity.getId());
+        EnvioEntity newEntity = envioPersistence.find(dataTransaccion.get(0).getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getEstado(), newEntity.getEstado());
     }

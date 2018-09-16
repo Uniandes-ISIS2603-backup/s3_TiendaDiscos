@@ -30,7 +30,9 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @OneToOne
     private WishListEntity wishList;
-    //private CarritoDeComprasEntity id;
+    @PodamExclude
+    @OneToOne
+    private CarritoDeComprasEntity carritoCompras;
     @PodamExclude
     @OneToOne(mappedBy = "usuario")
     private BillingInformationEntity billingInformation;
@@ -120,6 +122,14 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         return nombre;
     }
 
+    public CarritoDeComprasEntity getCarritoCompras() {
+        return carritoCompras;
+    }
+
+    public void setCarritoCompras(CarritoDeComprasEntity carritoCompras) {
+        this.carritoCompras = carritoCompras;
+    }
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -164,13 +174,13 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         this.billingInformation = billingInformation;
     }
 
-//    public List<ViniloEntity> getVinilos() {
-//        return vinilos;
-//    }
-//
-//    public void setVinilos(List<ViniloEntity> vinilos) {
-//        this.vinilos = vinilos;
-//    }
+    public List<ViniloEntity> getVinilos() {
+        return vinilos;
+      }
+
+    public void setVinilos(List<ViniloEntity> vinilos) {
+        this.vinilos = vinilos;
+    }
     
     public void setComentariosR(List<ComentarioEntity> comentariosR)
     {

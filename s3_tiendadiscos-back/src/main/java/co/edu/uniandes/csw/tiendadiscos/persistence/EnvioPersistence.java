@@ -45,11 +45,20 @@ public class EnvioPersistence {
      * @param envioId: id correspondiente a la author buscada.
      * @return un usuario.
      */
-     public EnvioEntity find(Long envioId) {
-        LOGGER.log(Level.INFO, "Consultando Envio con id={0}", envioId);
-        return em.find(EnvioEntity.class, envioId);
-
-    }
+     public EnvioEntity find(Long usuarioId) {
+        TypedQuery<EnvioEntity> q = em.createQuery("select p from EnvioEntity p where(p.transaccion.id = :usuarioid)", EnvioEntity.class);
+        q.setParameter("usuarioid", usuarioId);
+        List<EnvioEntity> results = q.getResultList();
+        EnvioEntity envio = null;
+        if (results == null) {
+            envio = null;
+        } else if (results.isEmpty()) {
+            envio = null;
+        } else if (results.size() >= 1) {
+            envio = results.get(0);
+        }
+        return envio;
+        }
      /**
      * Actualiza una envio.
      * @param envioEntity: la usuario que viene con los nuevos cambios.
@@ -71,7 +80,7 @@ public class EnvioPersistence {
     
     public void delete(Long envioId) {
         LOGGER.log(Level.INFO, "Borrando tarjeta con id={0}", envioId);
-        EnvioEntity envioEntity = find(envioId);
+        EnvioEntity envioEntity = em.find(EnvioEntity.class, envioId);
         em.remove(envioEntity);
         LOGGER.log(Level.INFO, "Saliendo de borrar tarjeta con id = {0}", envioId);
 

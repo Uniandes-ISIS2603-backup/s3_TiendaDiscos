@@ -25,11 +25,7 @@ public class UsuarioDetailDTO extends UsuarioDTO implements Serializable{
     /*Relación 0 a muchos comentarios*/
     private List<ComentarioDTO> comentario;
     
-    private WishListDTO wishList;
-    
-    private BillingInformationDTO billingInformation;
-    
-    private CarritoDeComprasDTO carritoCompras;
+
     
     /**
      * Constructor que llama al contructor de UsuarioDetail
@@ -46,29 +42,21 @@ public class UsuarioDetailDTO extends UsuarioDTO implements Serializable{
     {
         super(userEntity);
           
-        this.wishList = new WishListDTO(userEntity.getWishList()) ;
-        //this.carritoCompras = new CarritoComprasDTO(userEntity.getCarritoCompras());
-        this.billingInformation = new BillingInformationDTO(userEntity.getBillingInformation());
-//        if(userEntity.getVinilos() != null){
-//            vinilos = new ArrayList<>();
-//            for(ViniloEntity actual : userEntity.getVinilos())
-//            {
-//                vinilos.add(new ViniloDTO(actual));
-//            }
-// }
+ 
+        if(userEntity.getVinilos() != null){
+           vinilos = new ArrayList<>();
+            for(ViniloEntity actual : userEntity.getVinilos())
+            {
+                vinilos.add(new ViniloDTO(actual));
+            }
+        
+    }
        
     
     }
     public UsuarioEntity toEntity(){
          UsuarioEntity usuarioEntity =super.toEntity();
-        if(this.wishList !=null){
-            WishListDTO wishListTemp = this.wishList;
-            usuarioEntity.setWishList(wishListTemp.toEntity());
-        }    
-        if(this.billingInformation !=null){
-            BillingInformationDTO billingInformationTemp = this.billingInformation;
-            usuarioEntity.setBillingInformation(billingInformationTemp.toEntity());
-        }
+        
         
         
         
@@ -77,29 +65,5 @@ public class UsuarioDetailDTO extends UsuarioDTO implements Serializable{
     }
     
     
-    public WishListDTO getWishList() {
-        return wishList;
-    }
 
-    public void setWishList(WishListDTO wishList) {
-        this.wishList = wishList;
-    }
-
-    public BillingInformationDTO getBillingInformation() {
-        return billingInformation;
-    }
-
-    public void setBillingInformation(BillingInformationDTO billingInformation) {
-        this.billingInformation = billingInformation;
-    }
-
-    public CarritoDeComprasDTO getCarritoCompras() {
-        return carritoCompras;
-    }
-
-    public void setCarritoCompras(CarritoDeComprasDTO carritoCompras) {
-        this.carritoCompras = carritoCompras;
-    }
-    
-    
 }

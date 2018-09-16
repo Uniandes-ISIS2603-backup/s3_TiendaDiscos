@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.tiendadiscos.resources;
 
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.UsuarioDTO;
+import co.edu.uniandes.csw.tiendadiscos.dtos.UsuarioDetailDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -44,15 +45,15 @@ public class UsuarioResource {
     
     @GET
     @Path("{usuariosId: \\d+}")
-    public UsuarioDTO getUsuario(@PathParam("usuariosId") Long usuarioId){
+    public UsuarioDetailDTO getUsuario(@PathParam("usuariosId") Long usuarioId){
         
         return null;
     }
     
     @GET
-    public List<UsuarioDTO> getUsuarios(){
+    public List<UsuarioDetailDTO> getUsuarios(){
         
-        return new ArrayList<>();
+        return new ArrayList<UsuarioDetailDTO>();
     }
     
     @DELETE
