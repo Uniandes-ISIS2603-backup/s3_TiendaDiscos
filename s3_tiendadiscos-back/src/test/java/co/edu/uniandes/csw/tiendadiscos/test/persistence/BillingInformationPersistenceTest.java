@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.test.persistence;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.BillingInformationEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.persistence.BillingInformationPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,8 @@ public class BillingInformationPersistenceTest {
     /**
      * Lista que tiene los datos de prueba.
      */
-    private List<BillingInformationEntity> data = new ArrayList<BillingInformationEntity>();
+        private List<UsuarioEntity> dataUsuario = new ArrayList<UsuarioEntity>();
+    private List<BillingInformationEntity> dataBilling = new ArrayList<BillingInformationEntity>();
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -92,6 +94,8 @@ public class BillingInformationPersistenceTest {
      */
     private void clearData() {
         em.createQuery("delete from BillingInformationEntity").executeUpdate();
+        em.createQuery("delete from UsuarioEntity").executeUpdate();
+
     }
 
     /**
@@ -101,12 +105,18 @@ public class BillingInformationPersistenceTest {
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
-
-            BillingInformationEntity entity = factory.manufacturePojo(BillingInformationEntity.class);
-
+            UsuarioEntity entity = factory.manufacturePojo(UsuarioEntity.class);
             em.persist(entity);
+            dataUsuario.add(entity);
+        }
 
-            data.add(entity);
+        for (int i = 0; i < 3; i++) {
+            BillingInformationEntity entity = factory.manufacturePojo(BillingInformationEntity.class);
+            if (i == 0 ){
+            entity.setUsuario(dataUsuario.get(0));
+            }
+            em.persist(entity);
+            dataBilling.add(entity);
         }
     }
 
@@ -131,18 +141,18 @@ public class BillingInformationPersistenceTest {
      */
     @Test
     public void getBillingTest() {
-        BillingInformationEntity entity = data.get(0);
-        BillingInformationEntity newEntity = billingPersistence.find(entity.getId());
+        BillingInformationEntity entity = dataBilling.get(0);
+        BillingInformationEntity newEntity = billingPersistence.find(dataUsuario.get(0).getId(),entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getCuentaAhorro(), newEntity.getCuentaAhorro());
     }
-    
-      /**
+
+    /**
      * Prueba para eliminar un Billing.
      */
     @Test
     public void deleteBillingTest() {
-        BillingInformationEntity entity = data.get(0);
+        BillingInformationEntity entity = dataBilling.get(0);
         billingPersistence.delete(entity.getId());
         BillingInformationEntity deleted = em.find(BillingInformationEntity.class, entity.getId());
         Assert.assertNull(deleted);
@@ -153,7 +163,7 @@ public class BillingInformationPersistenceTest {
      */
     @Test
     public void updateBillingTest() {
-        BillingInformationEntity entity = data.get(0);
+        BillingInformationEntity entity = dataBilling.get(0);
         PodamFactory factory = new PodamFactoryImpl();
         BillingInformationEntity newEntity = factory.manufacturePojo(BillingInformationEntity.class);
 

@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.test.persistence;
 
-
+import co.edu.uniandes.csw.tiendadiscos.entities.BillingInformationEntity;
 import co.edu.uniandes.csw.tiendadiscos.entities.TarjetaCreditoEntity;
 import co.edu.uniandes.csw.tiendadiscos.persistence.TarjetaCreditoPersistence;
 import java.util.ArrayList;
@@ -52,11 +52,13 @@ public class TarjetaCreditoPersistenceTest {
      */
     @Inject
     UserTransaction utx;
-    
+
     /**
-     * Lista que tiene los datos de prueba.
+     * Listas que tiene los datos de prueba.
      */
-    private List<TarjetaCreditoEntity> data = new ArrayList<TarjetaCreditoEntity>();
+    private List<BillingInformationEntity> dataBilling = new ArrayList<BillingInformationEntity>();
+
+    private List<TarjetaCreditoEntity> dataTarjeta = new ArrayList<TarjetaCreditoEntity>();
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -93,24 +95,29 @@ public class TarjetaCreditoPersistenceTest {
      */
     private void clearData() {
         em.createQuery("delete from TarjetaCreditoEntity").executeUpdate();
+        em.createQuery("delete from BillingInformationEntity").executeUpdate();
     }
-    
-        /**
+
+    /**
      * Inserta los datos iniciales para el correcto funcionamiento de las
      * pruebas.
      */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
-
-            TarjetaCreditoEntity entity = factory.manufacturePojo(TarjetaCreditoEntity.class);
-
+            BillingInformationEntity entity = factory.manufacturePojo(BillingInformationEntity.class);
             em.persist(entity);
-
-            data.add(entity);
+            dataBilling.add(entity);
+        }
+        for (int i = 0; i < 3; i++) {
+            TarjetaCreditoEntity entity = factory.manufacturePojo(TarjetaCreditoEntity.class);
+            if (i == 0) {
+                entity.setBilling(dataBilling.get(0));
+            }
+            em.persist(entity);
+            dataTarjeta.add(entity);
         }
     }
-    
 
     /**
      * Prueba para crear una Tarjeta.
@@ -126,25 +133,30 @@ public class TarjetaCreditoPersistenceTest {
         TarjetaCreditoEntity entity = em.find(TarjetaCreditoEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getNumero(), entity.getNumero());
+        Assert.assertEquals(newEntity.getCvc(), entity.getCvc());
+        Assert.assertEquals(newEntity.getName(), entity.getName());
+
     }
-    
-       /**
+
+    /**
      * Prueba para consultar una tarjeta.
      */
     @Test
     public void getTarjetaTest() {
-        TarjetaCreditoEntity entity = data.get(0);
-        TarjetaCreditoEntity newEntity = tarjetaPersistence.find(entity.getId());
+        TarjetaCreditoEntity entity = dataTarjeta.get(0);
+        TarjetaCreditoEntity newEntity = em.find(TarjetaCreditoEntity.class, entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getNumero(), newEntity.getNumero());
+        Assert.assertEquals(entity.getCvc(), newEntity.getCvc());
+
     }
-    
-      /**
+
+    /**
      * Prueba para eliminar una Tarjeta.
      */
     @Test
     public void deleteBillingTest() {
-        TarjetaCreditoEntity entity = data.get(0);
+        TarjetaCreditoEntity entity = dataTarjeta.get(0);
         tarjetaPersistence.delete(entity.getId());
         TarjetaCreditoEntity deleted = em.find(TarjetaCreditoEntity.class, entity.getId());
         Assert.assertNull(deleted);
@@ -155,7 +167,7 @@ public class TarjetaCreditoPersistenceTest {
      */
     @Test
     public void updateBillingTest() {
-        TarjetaCreditoEntity entity = data.get(0);
+        TarjetaCreditoEntity entity = dataTarjeta.get(0);
         PodamFactory factory = new PodamFactoryImpl();
         TarjetaCreditoEntity newEntity = factory.manufacturePojo(TarjetaCreditoEntity.class);
 
@@ -166,6 +178,8 @@ public class TarjetaCreditoPersistenceTest {
         TarjetaCreditoEntity resp = em.find(TarjetaCreditoEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getNumero(), resp.getNumero());
+        Assert.assertEquals(newEntity.getCvc(), resp.getCvc());
+
     }
 
 }
