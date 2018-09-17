@@ -86,7 +86,7 @@ public class EnvioDTO implements Serializable {
     }
 
     public void setDireccionSalida(String direccionSalida) {
-        this.direccionSalida = direccionEntrega;
+        this.direccionSalida = direccionSalida;
     }
     public String getEstado() {
         return estado;
