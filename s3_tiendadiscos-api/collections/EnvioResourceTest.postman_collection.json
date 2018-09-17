@@ -1,0 +1,137 @@
+{
+	"info": {
+		"_postman_id": "a9b4f870-dbcf-42c7-a577-0382a25585e6",
+		"name": "EnvioResource",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/s3_tiendadiscos-api/api/transacciones/1/envio",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/transacciones/1/envio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"1",
+						"envio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/s3_tiendadiscos-api/api/transacciones/1/envio",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"direccionEntrega\":\"Calle 6 #22-22\",\n\t\"direccionSalida\":\"Calle 164 #12-24\",\n\t\"estado\":\"PENDIENTE\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/transacciones/1/envio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"1",
+						"envio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/s3_tiendadiscos-api/api/transacciones/1/envio",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"direccionEntrega\":\"Calle 6 #22-22\",\n\t\"direccionSalida\":\"Calle 164 #12-24\",\n\t\"estado\":\"PENDIENTE\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/transacciones/1/envio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"1",
+						"envio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/s3_tiendadiscos-api/api/transacciones/1/envio",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"Rembrandtsx\",\n\t\"nombre\":\"Camilo Andres Salinas Martinez\",\n\t\"email\":\"iam@camilosalinas.me\",\n\t\"contrasenha\":\"ContraseñaDificilXD\",\n\t\"direccion\":\"cll 6 #1A 99 este Madrid Cund.\",\n\t\"rol\":\"ADMIN\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/transacciones/1/envio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"1",
+						"envio"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
