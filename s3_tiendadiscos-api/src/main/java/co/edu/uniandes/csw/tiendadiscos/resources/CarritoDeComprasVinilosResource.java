@@ -20,27 +20,25 @@ import javax.ws.rs.core.MediaType;
 @Path("usuarios/usuariosId/carritosCompras/vinilos")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class CarritoComprasVinilosResource {
+public class CarritoDeComprasVinilosResource {
     
-    private static final Logger LOGGER = Logger.getLogger(CarritoComprasVinilosResource.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CarritoDeComprasVinilosResource.class.getName());
     
     @POST
+    @Path("{vinilosId: \\d+}")
     public ViniloDTO addViniloCarritoCompras(@PathParam("vinilosId") Long vinilosId, ViniloDTO vinilo){
         return vinilo;
     }
     @GET
+    @Path("{vinilosId: \\d+}")
     public ViniloDTO getViniloCarritoCompras(@PathParam("vinilosId") Long vinilosId){
         return null;
     }
     
-    @PUT
-    @Path("{vinilosId: \\d+}")
-    public ViniloDTO addViniloCarritoCompras(ViniloDTO vinilo){
-        return vinilo;
-    }
+   
     @DELETE
     @Path("{vinilosId: \\d+}")
-    public void deleteViniloCarritoCompras(ViniloDTO vinilo){
+    public void deleteViniloCarritoCompras(@PathParam("vinilosId") Long vinilosId){
         
     }
 

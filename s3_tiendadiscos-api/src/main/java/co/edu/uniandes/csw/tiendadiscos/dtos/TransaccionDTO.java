@@ -43,11 +43,19 @@ public class TransaccionDTO implements Serializable
      */
     private String estado;
 
+    
+    
+    
+    private ViniloDTO vinilo;
+    
     /**
      * Constructor vacio de TransaccionDTO.
      */
     public TransaccionDTO()
     {}
+    
+    
+    
     
     /**
      * Modifica el valor del atributo vendedorID.
@@ -81,6 +89,10 @@ public class TransaccionDTO implements Serializable
         this.estado = estado;
     }
 
+    
+    public void setVinilo(ViniloDTO vinilo) {
+        this.vinilo = vinilo;
+    }
     /**
      * Obtiene le atributo nombre.
      * @return atributo nombre.
@@ -123,6 +135,10 @@ public class TransaccionDTO implements Serializable
         return id;
     }
 
+    
+    public ViniloDTO getViniloDTO() {
+        return vinilo;
+    }
     /**
      * Establece el valor del atributo id.
      *
@@ -141,11 +157,14 @@ public class TransaccionDTO implements Serializable
         transaccion.setEstado(estado);
         transaccion.setFormaDePago(formaDePago);
         
+        
         if(this.usuarioComprador!=null)
             transaccion.setUsuarioComprador(this.usuarioComprador.toEntity());
         if(this.usuarioVendedor!=null)
              transaccion.setUsuarioComprador(this.usuarioVendedor.toEntity());
         
+        if(this.vinilo!=null)
+             transaccion.setVinilo(this.vinilo.toEntity());
         return transaccion;
     }
     
@@ -164,6 +183,10 @@ public class TransaccionDTO implements Serializable
                 this.usuarioVendedor = new UsuarioDTO(transaccion.getUsuarioVendedor());
             else
                 this.usuarioVendedor = null;
+            if(transaccion.getVinilo() !=null)
+                this.vinilo = new ViniloDTO(transaccion.getVinilo());
+            else
+                this.vinilo = null;
         }
     }
     @Override

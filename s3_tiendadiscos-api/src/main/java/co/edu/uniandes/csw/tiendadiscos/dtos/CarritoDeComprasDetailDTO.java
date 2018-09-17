@@ -18,11 +18,18 @@ public class CarritoDeComprasDetailDTO extends CarritoDeComprasDTO implements Se
     
     private List<ViniloDTO> vinilos;
  
+    private List<TransaccionDTO> transacciones;
+    
+    
     public CarritoDeComprasDetailDTO(){
     
 }
     public List<ViniloDTO> getBooks() {
         return vinilos;
+    }
+    
+    public List<TransaccionDTO> getTransacciones() {
+        return transacciones;
     }
 
     /**
@@ -34,6 +41,10 @@ public class CarritoDeComprasDetailDTO extends CarritoDeComprasDTO implements Se
         this.vinilos = vinilos;
     }
 
+    public void setTransacciones(List<TransaccionDTO> transacciones) {
+        this.transacciones = transacciones;
+    }
+    
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);

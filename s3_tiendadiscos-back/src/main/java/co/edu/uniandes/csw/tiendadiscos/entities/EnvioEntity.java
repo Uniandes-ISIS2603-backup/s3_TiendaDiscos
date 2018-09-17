@@ -56,6 +56,8 @@ public class EnvioEntity extends BaseEntity implements Serializable{
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+   
     
     
     

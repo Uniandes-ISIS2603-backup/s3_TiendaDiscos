@@ -33,12 +33,19 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
     @ManyToOne
     private UsuarioEntity usuarioVendedor;
     
+    
     @PodamExclude
     @OneToOne
     private ComentarioEntity comentario;
+    
+    
     @PodamExclude
     @OneToOne
     private EnvioEntity envio;
+    
+    @PodamExclude
+    @ManyToOne
+    private ViniloEntity vinilo;
     /**
      * Forma de pago de la transaccion.
      */
@@ -49,7 +56,10 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
      */
     private String estado;
     
-
+    
+    @PodamExclude
+    @ManyToOne
+    private CarritoDeComprasEntity carritoDeCompras;
    
 
 
@@ -59,6 +69,13 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
 
     public void setEnvio(EnvioEntity envio) {
         this.envio = envio;
+    }
+    public ViniloEntity getVinilo() {
+        return vinilo;
+    }
+
+    public void setVinilo(ViniloEntity vinilo) {
+        this.vinilo = vinilo;
     }
 
     private void setComentario(ComentarioEntity comentario)

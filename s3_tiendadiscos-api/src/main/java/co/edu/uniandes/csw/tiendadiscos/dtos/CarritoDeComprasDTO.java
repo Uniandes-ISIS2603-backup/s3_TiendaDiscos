@@ -20,6 +20,9 @@ public class CarritoDeComprasDTO implements Serializable {
      */
     private Long id;
     
+    private Double totalCost;
+
+    
     public CarritoDeComprasDTO() {
     }
     /**
@@ -32,6 +35,9 @@ public class CarritoDeComprasDTO implements Serializable {
         return id;
     }
     
+    public Double getTotalCost() {
+        return totalCost;
+    }
     /**
      * Establece el valor del atributo id.
      *
@@ -41,15 +47,21 @@ public class CarritoDeComprasDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+    
+    public void setTotalCost(Double totalCost) {
+        this.totalCost = totalCost;
+    }
     public CarritoDeComprasEntity toEntity()
     {
         CarritoDeComprasEntity carritoCompras = new CarritoDeComprasEntity();
         carritoCompras.setId(this.id);
+        carritoCompras.setTotalCostDeCarritoCompras(this.totalCost);
         return carritoCompras;
     }
     public CarritoDeComprasDTO(CarritoDeComprasEntity carritoCompras){
         if(carritoCompras!=null){
             this.id= carritoCompras.getId();
+            this.totalCost = carritoCompras.getTotalCostDeCarritoCompras();
         }
     }
     @Override
