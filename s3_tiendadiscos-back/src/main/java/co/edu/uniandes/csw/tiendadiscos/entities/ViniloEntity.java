@@ -12,8 +12,6 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -36,7 +34,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Fecha de lanzamiento del vinilo.
      */
-    private String fechaLanzamiento;
+    private Date fechaLanzamiento;
     
     /**
      * Productora que lanzó el vinilo.
@@ -71,11 +69,14 @@ public class ViniloEntity extends BaseEntity implements Serializable
     @ManyToMany
     private List<WishListEntity> wishLists;
     
-    /*
     @PodamExclude
-    @ManyToMany(mappedBy = "carritoDeCompras")
-    private List<CarritoComprasEntity> carritosDeCompras;
-    */
+    @ManyToMany
+    private List<CarritoDeComprasEntity> carritosDeCompras;
+    
+    @PodamExclude
+    @OneToMany(mappedBy ="vinilo")
+    private List<TransaccionEntity> transacciones;
+    
     
     @PodamExclude
     @OneToMany(mappedBy = "vinilo")
@@ -106,7 +107,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
      * Modifica el valor del atributo fecha de lanzamiento.
      * @param fechaLanzamiento nuevo valor del atributo.
      */
-    public void setFechaLanzamiento(String fechaLanzamiento) {
+    public void setFechaLanzamiento(Date fechaLanzamiento) {
         this.fechaLanzamiento = fechaLanzamiento;
     }
 
@@ -172,10 +173,19 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Establece los carritos de compras a los que pertenece el vinilo.
      * @param carritosDeCompras Lista de entidades de tipo CarritoDeCompras.
-     *
-    public void setCarritosDeCompras(List<CarritoComprasEntity> carritosDeCompras)
+     */
+    public void setCarritosDeCompras(List<CarritoDeComprasEntity> carritosDeCompras)
     {
         this.carritosDeCompras = carritosDeCompras;
+    }
+    
+    /**
+     * Establece las transacciones con las que esta asociado el vinilo.
+     * @param transacciones Lista de entidades de tipo Transaccion.
+     */
+    public void setTransacciones(List<TransaccionEntity> transacciones)
+    {
+        this.transacciones = transacciones;
     }
     
     /**
@@ -216,7 +226,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
      * Obtiene el atributo fecha de lanzamiento.
      * @return atributo fechaLanzamiento.
      */
-    public String getFechaLanzamiento() {
+    public Date getFechaLanzamiento() {
         return fechaLanzamiento;
     }
     
@@ -282,10 +292,19 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Devuelve los carritos de compras a los que pertenece el vinilo.
      * @return Lista de entidades de tipo Carrito de Compras. 
-     
-    public List<CarritoComprasEntity> getCarritosDeCompras()
+     */
+    public List<CarritoDeComprasEntity> getCarritosDeCompras()
     {
         return carritosDeCompras;
+    }
+    
+    /**
+     * Devuelve las transacciones asociadas al vinilo.
+     * @return Lista de entidades de transaccion.
+     */
+    public List<TransaccionEntity> getTransacciones()
+    {
+        return transacciones;
     }
     
     /**

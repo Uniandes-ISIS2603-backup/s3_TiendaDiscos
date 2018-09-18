@@ -34,7 +34,7 @@ public class ViniloDTO implements Serializable
     /**
      * Fecha de lanzamiento del vinilo.
      */
-    private String fechaLanzamiento;
+    private Date fechaLanzamiento;
     
     /**
      * Productora que lanzó el vinilo.
@@ -132,7 +132,7 @@ public class ViniloDTO implements Serializable
      * Modifica el valor del atributo fecha de lanzamiento.
      * @param fechaLanzamiento nuevo valor del atributo.
      */
-    public void setFechaLanzamiento(String fechaLanzamiento) {
+    public void setFechaLanzamiento(Date fechaLanzamiento) {
         this.fechaLanzamiento = fechaLanzamiento;
     }
 
@@ -216,7 +216,7 @@ public class ViniloDTO implements Serializable
      * Obtiene el atributo fecha de lanzamiento.
      * @return atributo fechaLanzamiento.
      */
-    public String getFechaLanzamiento() {
+    public Date getFechaLanzamiento() {
         return fechaLanzamiento;
     }
     
