@@ -71,7 +71,7 @@ public class ComentarioLogic{
      *
      */
     public void deleteComentario(Long usuarioId, Long entity) throws BusinessLogicException {
-        ComentarioEntity old = getComentario(usuarioId, entity);
+        ComentarioEntity old = getComentario(entity, usuarioId);
         if (old == null) {
             throw new BusinessLogicException("El comentario con id = " + entity + " no esta asociado a el usuario con id = " + usuarioId);
         }
