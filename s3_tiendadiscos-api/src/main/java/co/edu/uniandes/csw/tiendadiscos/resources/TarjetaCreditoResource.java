@@ -5,10 +5,16 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
+import co.edu.uniandes.csw.tiendadiscos.dtos.BillingInformationDTO;
 import co.edu.uniandes.csw.tiendadiscos.dtos.TarjetaCreditoDTO;
+import co.edu.uniandes.csw.tiendadiscos.ejb.TarjetaCreditoLogic;
+import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -28,12 +34,18 @@ import javax.ws.rs.Produces;
 @Consumes("application/json")
 @RequestScoped
 public class TarjetaCreditoResource {
+    
+    private static final Logger LOGGER = Logger.getLogger(TarjetaCreditoResource.class.getName());
 
-    // Necesito el id de Billing ???
+    @Inject
+    private TarjetaCreditoLogic tarjetaLogic;
+    
     @POST
-    public TarjetaCreditoDTO createTarjetaCredito(@PathParam("usuariosId") Long usuariosId, TarjetaCreditoDTO tarjeta) {
-
-        return tarjeta;
+    public TarjetaCreditoDTO createTarjetaCredito(@PathParam("usuariosId") Long usuariosId, TarjetaCreditoDTO tarjeta) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "TarjetaResource createTarjeta: input: {0}", tarjeta.toString());
+        TarjetaCreditoDTO nuevoTarjetaDTO = new TarjetaCreditoDTO(tarjetaLogic.createTarjeta(usuariosId, tarjeta.toEntity()));
+        LOGGER.log(Level.INFO, "TarjetaResource createTarjeta: output: {0}", nuevoTarjetaDTO.toString());
+        return nuevoTarjetaDTO;
     }
     
     /**
