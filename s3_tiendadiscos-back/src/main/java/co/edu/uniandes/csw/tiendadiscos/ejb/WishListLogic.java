@@ -51,7 +51,7 @@ public class WishListLogic {
     }
     
     
-    public void delete(Long id)throws BusinessLogicException{
+    public void delete(Long id){
         wishPersitence.delete(id);
     }
     

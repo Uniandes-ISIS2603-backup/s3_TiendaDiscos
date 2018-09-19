@@ -70,10 +70,10 @@ public class ComentarioLogic{
      * @throws BusinessLogicException Si la reseña no esta asociada al libro.
      *
      */
-    public void deleteComentario(Long usuarioId, Long entity) throws BusinessLogicException {
-        ComentarioEntity old = getComentario(entity, usuarioId);
+    public void deleteComentario(Long usuarioId, Long comentarioId) throws BusinessLogicException {
+        ComentarioEntity old = getComentario(comentarioId, usuarioId);
         if (old == null) {
-            throw new BusinessLogicException("El comentario con id = " + entity + " no esta asociado a el usuario con id = " + usuarioId);
+            throw new BusinessLogicException("El comentario con id = " + comentarioId + " no esta asociado a el usuario con id = " + usuarioId);
         }
         persitence.delete(old.getId());
     }
