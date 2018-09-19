@@ -103,8 +103,9 @@ public class UsuarioPersistence {
      */
     
     public void delete(Long usuarioId) {
-        LOGGER.log(Level.INFO, "Borrando el usuario con id={0}", usuarioId);       
+        LOGGER.log(Level.INFO, "Borrando el usuario con id={0}", usuarioId);     
         UsuarioEntity usuarioEntity = em.find(UsuarioEntity.class, usuarioId);
+        System.out.println("usr "+ usuarioEntity);
         em.remove(usuarioEntity);
     }
 

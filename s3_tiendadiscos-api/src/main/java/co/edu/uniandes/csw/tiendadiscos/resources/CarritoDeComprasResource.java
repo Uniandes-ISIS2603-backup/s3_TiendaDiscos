@@ -21,7 +21,6 @@ import javax.ws.rs.Produces;
  *
  * @author Laura Isabella Forero Camacho
  */
-@Path("usuarios/usuariosId/carritosdecompras")
 @Consumes("application/json")
 @Produces("application/json")
 @RequestScoped

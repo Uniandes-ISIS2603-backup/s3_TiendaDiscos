@@ -80,5 +80,10 @@ public class UsuarioResource {
         
         return WishListResource.class;
     }
+    @Path("{usuariosId: \\d+}/carritoDeCompras")
+    public Class<CarritoDeComprasResource> geCarritoDeComprasResource(@PathParam("usuariosId") Long usuariosId) {
+        
+        return CarritoDeComprasResource.class;
+    }
     
 }

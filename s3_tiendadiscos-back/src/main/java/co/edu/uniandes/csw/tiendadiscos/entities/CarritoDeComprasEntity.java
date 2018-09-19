@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.tiendadiscos.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -29,7 +30,7 @@ public class CarritoDeComprasEntity extends BaseEntity implements Serializable{
     private List<ViniloEntity> vinilos;
     
     @PodamExclude
-    @OneToMany
+    @OneToMany(mappedBy = "carritoDeCompras")
     private List<TransaccionEntity> transacciones;
     
     @PodamExclude
