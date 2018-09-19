@@ -40,8 +40,7 @@ public class WishListLogic {
     
     public WishListEntity get(Long usuarioId)
     {
-        UsuarioEntity usuario = usuarioPersistence.find(usuarioId);
-        return usuario.getWishList();
+        return wishPersitence.find(usuarioId);
     }
     
     public WishListEntity update(WishListEntity wish,Long usuarioId)
@@ -52,12 +51,8 @@ public class WishListLogic {
     }
     
     
-    public void delete(Long usuarioId)throws BusinessLogicException{
-        UsuarioEntity temp = usuarioPersistence.find(usuarioId);
-        if(temp.getWishList()==null){
-            throw new BusinessLogicException("El usuario con id: "+usuarioId+" no tiene wishList");
-        }
-        usuarioPersistence.delete(usuarioId);
+    public void delete(Long id)throws BusinessLogicException{
+        wishPersitence.delete(id);
     }
     
     
