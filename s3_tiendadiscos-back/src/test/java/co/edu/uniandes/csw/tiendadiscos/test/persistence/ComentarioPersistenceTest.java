@@ -85,7 +85,7 @@ public class ComentarioPersistenceTest {
     public void getTest()
     {
         ComentarioEntity entity= data.get(0);
-        ComentarioEntity comentario = comentarioPersistence.find(entity.getId());
+        ComentarioEntity comentario = comentarioPersistence.find(entity.getId(),dataUsuario.get(0).getId());
         Assert.assertNotNull(comentario);
         Assert.assertEquals(entity.getContenido(),comentario.getContenido());
         Assert.assertEquals(entity.getCancion()==null,comentario.getCancion()==null);
@@ -98,29 +98,11 @@ public class ComentarioPersistenceTest {
     public void getAllHTest()
     {   Long a = dataUsuario.get(0).getId();
         List<ComentarioEntity> lista = comentarioPersistence.findAllHechos(a);
-        List<ComentarioEntity> lista2 = dataUsuario.get(0).getComentariosH();
-        Assert.assertEquals(lista.size(), lista2.size());
+        Assert.assertEquals(lista.size(), data.size());
         for(ComentarioEntity wish : lista)
         {
             boolean probar=false;
-            for(ComentarioEntity wish2 : lista2)
-            {
-                if(wish.getId().equals(wish2.getId()))
-                    probar=true;
-            }
-            Assert.assertTrue(probar);
-       }
-    }
-    @Test
-    public void getAllRTest()
-    {   Long a = dataUsuario.get(0).getId();
-        List<ComentarioEntity> lista = comentarioPersistence.findAllRecibidos(a);
-        List<ComentarioEntity> lista2 = dataUsuario.get(0).getComentariosR();
-        Assert.assertEquals(lista.size(), lista2.size());
-        for(ComentarioEntity wish : lista)
-        {
-            boolean probar=false;
-            for(ComentarioEntity wish2 : lista2)
+            for(ComentarioEntity wish2 : data)
             {
                 if(wish.getId().equals(wish2.getId()))
                     probar=true;
@@ -171,11 +153,13 @@ public class ComentarioPersistenceTest {
             UsuarioEntity temp = factory.manufacturePojo(UsuarioEntity.class);
             em.persist(temp);
             dataUsuario.add(temp);
-            for(int j = 0; j <3;j++){
-                ComentarioEntity entity = factory.manufacturePojo(ComentarioEntity.class);
-                em.persist(entity);
-                data.add(entity);
-            }
+
+        }
+        for(int j = 0; j <3;j++){
+            ComentarioEntity entity = factory.manufacturePojo(ComentarioEntity.class);
+            entity.setUsuarioI(dataUsuario.get(0));
+            em.persist(entity);
+            data.add(entity);
         }
 
     }
