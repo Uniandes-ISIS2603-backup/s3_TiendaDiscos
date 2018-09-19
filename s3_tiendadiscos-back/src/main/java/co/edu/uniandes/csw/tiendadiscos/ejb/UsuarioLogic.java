@@ -29,12 +29,12 @@ public class UsuarioLogic {
 
     
     @Inject
-    private UsuarioPersistence usuariPerseistence;
+    private UsuarioPersistence usuarioPersistence;
     
     public UsuarioEntity createUsuario(UsuarioEntity usuarioEntity)throws BusinessLogicException{
         LOGGER.log(Level.INFO, "Inicia proceso de creación del usuario");
         //Verifica que el email no esté en uso
-        if(usuariPerseistence.findByEmail(usuarioEntity.getEmail())!=null){
+        if(usuarioPersistence.findByEmail(usuarioEntity.getEmail())!=null){
             throw new BusinessLogicException("Este email ya está en uso por otro usuario");
         }
         //Verifica que la contraseña no contenga el nombre del usuario
@@ -53,9 +53,64 @@ public class UsuarioLogic {
         if(usuarioEntity.getContrasenha().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")){
             throw new BusinessLogicException("La contraseña no cumple los parametros de seguridad minimos.");
         }
-        usuariPerseistence.create(usuarioEntity);
+        usuarioPersistence.create(usuarioEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del usuario");
         return usuarioEntity;
     }
+    /**
+     * Obtiene la lista de los registros de usuarios.
+     *
+     * @return Colección de objetos de UsuarioEntity.
+     */
+    public List<UsuarioEntity> getUsuarios() {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los usuarios");
+        List<UsuarioEntity> lista = usuarioPersistence.findAll();
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los usuarios");
+        return lista;
+    }
     
+    /**
+     * Obtiene los datos de una instancia de Usuario a partir de su ID.
+     *
+     * @param usuariId Identificador de la instancia a consultar
+     * @return Instancia de UsuarioEntity con los datos del Usuario consultado.
+     */
+    public UsuarioEntity getUsuario(Long usuarioId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el usuario con id = {0}", usuarioId);
+        UsuarioEntity usuarioEntity = usuarioPersistence.find(usuarioId);
+        if (usuarioEntity == null) {
+            LOGGER.log(Level.SEVERE, "el usuario con el id = {0} no existe", usuarioId);
+        }
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el usuario con id = {0}", usuarioId);
+        return usuarioEntity;
+    }
+    /**
+     * Actualiza la información de una instancia de Usuario.
+     *
+     * @param usuarioId Identificador de la instancia a actualizar
+     * @param usuarioEntity Instancia de UsuarioEntity con los nuevos datos.
+     * @return Instancia de UsuarioEntity con los datos actualizados.
+     */
+    public UsuarioEntity updateAuthor(Long usuarioId, UsuarioEntity usuarioEntity) {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el usuario con id = {0}", usuarioId);
+        UsuarioEntity newUsuarioEntity = usuarioPersistence.update(usuarioEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el usuario con id = {0}", usuarioId);
+        return newUsuarioEntity;
+    }
+    /**
+     * Elimina una instancia de Usuario de la base de datos.
+     *
+     * @param usuarioId Identificador de la instancia a eliminar.
+     * @throws BusinessLogicException si el usuario tiene libros asociados.
+     */
+    public void deleteUsuario(Long usuarioId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el usuario con id = {0}", usuarioId);
+        UsuarioEntity usuario = getUsuario(usuarioId);
+        if (usuario != null) {
+          usuarioPersistence.delete(usuarioId); 
+        }
+       
+        
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el autor con id = {0}", usuarioId);
+    }
 }
