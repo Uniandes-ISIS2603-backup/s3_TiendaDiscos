@@ -62,7 +62,9 @@ public class TarjetaCreditoPersistence {
 
     public void delete(Long tarjetaId) {
         LOGGER.log(Level.INFO, "Borrando tarjeta con id={0}", tarjetaId);
+        
         TarjetaCreditoEntity tarjetaEntity = em.find(TarjetaCreditoEntity.class, tarjetaId);
+        
         em.remove(tarjetaEntity);
         LOGGER.log(Level.INFO, "Saliendo de borrar tarjeta con id = {0}", tarjetaId);
 

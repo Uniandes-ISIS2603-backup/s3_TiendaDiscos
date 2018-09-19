@@ -49,7 +49,8 @@ public class BillingInformationLogic {
             //Esta exception la produce usuario BORRAR
             throw new BusinessLogicException("No existe el usuario con ese id");
 
-        } if (usuario.getBillingInformation() == null) {
+        }
+        if (usuario.getBillingInformation() == null) {
             throw new BusinessLogicException("El usuario ya tiene una Billing asignada");
         }
         usuario.setBillingInformation(billing);
@@ -59,15 +60,14 @@ public class BillingInformationLogic {
 
     }
 
-    public BillingInformationEntity getBilling(Long usuariosId){
+    public BillingInformationEntity getBilling(Long usuariosId) {
         UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
-        
-        
+
         //Usuario nul necesito la logic del usuario para poder probar
         // Error 
-            if (usuario == null) {
-                throw new WebApplicationException("pailas", 404);
-            }
+        if (usuario == null) {
+            throw new WebApplicationException("pailas", 404);
+        }
         BillingInformationEntity billing = usuario.getBillingInformation();
         Long billingId = billing.getId();
         LOGGER.log(Level.INFO, "Inicia proceso de consultar el billing con id = {0}", billingId);
@@ -76,26 +76,30 @@ public class BillingInformationLogic {
         }
         return billing;
     }
-    
+
     //BILLING ID ???
     public BillingInformationEntity updateBilling(Long usuariosId, BillingInformationEntity billing) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el billing del usuario con id = {0}", usuariosId);
-        
-        if(usuarioPersistence.find(usuariosId).getBillingInformation()== null){
+
+        if (usuarioPersistence.find(usuariosId).getBillingInformation() == null) {
             throw new BusinessLogicException("El usuario no tiene asociado un billing");
         }
-       
+
         BillingInformationEntity newEntity = persistence.update(billing);
-        
+
         //Usuario maneja exception de que exista 
-        
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar la editorial con id = {0}", newEntity.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el billing con id = {0}", newEntity.getId());
         return newEntity;
     }
-    
-     public void deleteBilling(Long usuariosId) throws BusinessLogicException {
+
+    public void deleteBilling(Long usuariosId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el billing  del usuario con id = {0}", usuariosId);
-        persistence.delete(usuarioPersistence.find(usuariosId).getBillingInformation().getId());
+        BillingInformationEntity billing = usuarioPersistence.find(usuariosId).getBillingInformation();
+        if (billing == null) {
+            throw new BusinessLogicException("El usuario no tiene un billing asociado");
+        }
+
+        persistence.delete(billing.getId());
         LOGGER.log(Level.INFO, "Termina proceso de borrar el billing del usuario con id  = {0}", usuariosId);
     }
 }

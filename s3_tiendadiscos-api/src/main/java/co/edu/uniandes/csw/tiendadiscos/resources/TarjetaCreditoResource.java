@@ -91,7 +91,7 @@ public class TarjetaCreditoResource {
      */
     @DELETE
     @Path("{tarjetaId: \\d+}")
-    public void deleteTarjetaCredito( @PathParam("tarjetaId") Long tarjetaId) {
+    public void deleteTarjetaCredito( @PathParam("usuariosId") Long usuariosId,@PathParam("tarjetaId") Long tarjetaId) {
     
     }
 
