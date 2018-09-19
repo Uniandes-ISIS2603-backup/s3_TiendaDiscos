@@ -100,7 +100,7 @@ public class CancionPersistenceTest {
      * Prueba para crear una Vinilo.
      */
     @Test
-    public void createViniloTest() {
+    public void createCancionTest() {
         PodamFactory factory = new PodamFactoryImpl();
         CancionEntity newEntity = factory.manufacturePojo(CancionEntity.class);
         CancionEntity result = cancionPersistence.create(newEntity);
@@ -116,7 +116,7 @@ public class CancionPersistenceTest {
      * Prueba para consultar la lista de Vinilos.
      */
     @Test
-    public void getVinilosTest() {
+    public void getCancionesTest() {
         List<CancionEntity> list = cancionPersistence.findAll();
         Assert.assertEquals(data.size(), list.size());
         for (CancionEntity ent : list) {
@@ -134,7 +134,7 @@ public class CancionPersistenceTest {
      * Prueba para consultar un Usuario.
      */
     @Test
-    public void getViniloTest() {
+    public void getCancionTest() {
         CancionEntity entity = data.get(0);
         CancionEntity newEntity = cancionPersistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
@@ -148,7 +148,7 @@ public class CancionPersistenceTest {
      * Prueba para actualizar un Vinilo.
      */
     @Test
-    public void updateViniloTest()
+    public void updateCancionTest()
     {
         CancionEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
@@ -167,7 +167,7 @@ public class CancionPersistenceTest {
      * Prueba para eliminar un Usuario.
      */
     @Test
-    public void deleteViniloTest() {
+    public void deleteCancionTest() {
         CancionEntity entity = data.get(0);
         cancionPersistence.delete(entity.getId());
         CancionEntity deleted = em.find(CancionEntity.class, entity.getId());

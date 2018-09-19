@@ -45,7 +45,7 @@ public class CancionEntity extends BaseEntity implements Serializable
     private Double calificacion;
     
     @PodamExclude
-    @ManyToOne()
+    @ManyToOne
     private ViniloEntity vinilo;
     
     @PodamExclude

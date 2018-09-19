@@ -10,8 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import org.eclipse.persistence.annotations.CascadeOnDelete;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -62,7 +64,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     private Double precio;
     
     @PodamExclude
-    @OneToMany(mappedBy = "vinilo")
+    @OneToMany(mappedBy = "vinilo", cascade = CascadeType.REMOVE)
     private List<CancionEntity> canciones = new ArrayList<CancionEntity>();
     
     @PodamExclude
