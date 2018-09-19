@@ -14,7 +14,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
+
 
 /**
  *
@@ -59,6 +59,32 @@ public class UsuarioPersistence {
     public UsuarioEntity find(Long usuarioId) {
         LOGGER.log(Level.INFO, "Consultando el usuario con id={0}", usuarioId);
         return em.find(UsuarioEntity.class, usuarioId);
+    }
+    /**
+     * Busca si hay algun usuario con el email que se envía de argumento
+     *
+     * @param email: email del usuario que se está buscando
+     * @return null si no existe ningun usuario con el email del argumento. Si
+     * existe alguno devuelve el primero.
+     */
+    public UsuarioEntity findByEmail(String email) {
+        LOGGER.log(Level.INFO, "Consultando libros por isbn ", email);
+        // Se crea un query para buscar usuarios con el email que recibe el método como argumento. ":email" es un placeholder que debe ser remplazado
+        TypedQuery query = em.createQuery("Select e From UsuarioEntity e where e.email = :email", UsuarioEntity.class);
+        // Se remplaza el placeholder ":email" con el valor del argumento 
+        query = query.setParameter("email", email);
+        // Se invoca el query se obtiene la lista resultado
+        List<UsuarioEntity> sameEmail = query.getResultList();
+        UsuarioEntity result;
+        if (sameEmail == null) {
+            result = null;
+        } else if (sameEmail.isEmpty()) {
+            result = null;
+        } else {
+            result = sameEmail.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar usuarios por email ",email);
+        return result;
     }
      /**
      * Actualiza una usuario.

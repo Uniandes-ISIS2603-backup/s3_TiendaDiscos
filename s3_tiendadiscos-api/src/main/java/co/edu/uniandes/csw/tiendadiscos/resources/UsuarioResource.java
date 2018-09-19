@@ -47,7 +47,7 @@ public class UsuarioResource {
     @Path("{usuariosId: \\d+}")
     public UsuarioDetailDTO getUsuario(@PathParam("usuariosId") Long usuarioId){
         
-        return null;
+        return new UsuarioDetailDTO();
     }
     
     @GET

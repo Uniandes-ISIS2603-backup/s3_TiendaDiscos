@@ -145,6 +145,19 @@ public class UsuarioPersistenceTest {
         Assert.assertEquals(entity.getDireccion(), newEntity.getDireccion());
         Assert.assertEquals(entity.getEmail(), newEntity.getEmail());
     }
+    /**
+     * Prueba para consultar un Usuario por email.
+     */
+    @Test
+    public void findBookByEmailTest() {
+        UsuarioEntity entity = data.get(0);
+        UsuarioEntity newEntity = usuarioPersistence.findByEmail(entity.getEmail());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getEmail(), newEntity.getEmail());
+
+        newEntity = usuarioPersistence.findByEmail(null);
+        Assert.assertNull(newEntity);
+    }
 
     /**
      * Prueba para actualizar un Usuario.

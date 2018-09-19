@@ -95,10 +95,55 @@ public class UsuarioDetailDTO extends UsuarioDTO implements Serializable{
              }
                  usuarioEntity.setComentariosH(comentariosEntity);
          }
-        
+        if(transaccionesGeneradas!=null){
+            List<TransaccionEntity> transaccionesGeneradasEntity = new ArrayList<>();
+            for(TransaccionDTO transaccionDTO: transaccionesGeneradas){
+                transaccionesGeneradasEntity.add(transaccionDTO.toEntity());
+            }
+            usuarioEntity.setTransaccionesG(transaccionesGeneradasEntity);
+        }
+        if(transaccionesRecibidas!=null){
+            List<TransaccionEntity> transaccionesRecibidasEntity = new ArrayList<>();
+            for(TransaccionDTO transaccionDTO: transaccionesRecibidas){
+                transaccionesRecibidasEntity.add(transaccionDTO.toEntity());
+            }
+            usuarioEntity.setTransaccionesR(transaccionesRecibidasEntity);
+        }
         
         
         return usuarioEntity;
+    }
+
+    public List<ViniloDTO> getVinilos() {
+        return vinilos;
+    }
+
+    public void setVinilos(List<ViniloDTO> vinilos) {
+        this.vinilos = vinilos;
+    }
+
+    public List<TransaccionDTO> getTransaccionesRecibidas() {
+        return transaccionesRecibidas;
+    }
+
+    public void setTransaccionesRecibidas(List<TransaccionDTO> transaccionesRecibidas) {
+        this.transaccionesRecibidas = transaccionesRecibidas;
+    }
+
+    public List<TransaccionDTO> getTransaccionesGeneradas() {
+        return transaccionesGeneradas;
+    }
+
+    public void setTransaccionesGeneradas(List<TransaccionDTO> transaccionesGeneradas) {
+        this.transaccionesGeneradas = transaccionesGeneradas;
+    }
+
+    public List<ComentarioDTO> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<ComentarioDTO> comentarios) {
+        this.comentarios = comentarios;
     }
     
     
