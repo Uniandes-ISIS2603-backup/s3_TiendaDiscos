@@ -6,6 +6,9 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.TransaccionDTO;
+import co.edu.uniandes.csw.tiendadiscos.ejb.TransaccionLogic;
+import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
+import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
@@ -26,38 +29,44 @@ public class TransaccionResource{
     private static final Logger LOGGER = Logger.getLogger(TransaccionResource.class.getName());
     
 
-    //@Inject
-    //EditorialLogic editorialLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    @Inject
+    TransaccionLogic logic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
     @POST
-    public TransaccionDTO createTransaccion(TransaccionDTO transaccion){
-        return transaccion;
+    public TransaccionDTO createTransaccion(TransaccionDTO transaccion) throws BusinessLogicException{
+        TransaccionDTO nuevoCarritoDeComprasDTO = new  TransaccionDTO(logic.createCarritoDeCompras(transaccion.toEntity()));
+        return nuevoCarritoDeComprasDTO;
     }
     
     @PUT
     @Path("{transaccionesId: \\d+}")
     public TransaccionDTO updateTransaccion(@PathParam("transaccionesId") Long transaccionesId,TransaccionDTO transaccion){
         
-        return transaccion;
+        TransaccionEntity entity = logic.get(transaccionesId);
+        
+        TransaccionDTO transaccion2 = new TransaccionDTO(logic.update(transaccion.toEntity(), transaccionesId));
+        return transaccion2;
     }
     
     @GET
     @Path("{transaccionesId: \\d+}")
     public TransaccionDTO getTransaccion(@PathParam("transaccionesId") Long transaccionesId){
-        
-        return null;
+        TransaccionEntity entity = logic.get(transaccionesId);
+        //if(entity==null)
+        //   throw new WebApplicationException("El recurso /transacciones no existe/"+ transaccionesId+ " .");
+        TransaccionDTO nuevo = new TransaccionDTO(entity);
+        return nuevo;
     }
     
     @GET
     public List<TransaccionDTO> getTransacciones(){
-        
         return null;
     }
     
     @DELETE
     @Path("{transaccionesId: \\d+}")
-    public void deleteTransaccion(@PathParam("transaccionesId") Long transaccionesId){
-        
+    public void deleteTransaccion(@PathParam("transaccionesId") Long transaccionesId) throws BusinessLogicException{
+        logic.delete(transaccionesId);
         
     }
     @Path("{transaccionesId: \\d+}/envio")
