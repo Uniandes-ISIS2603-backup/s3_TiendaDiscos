@@ -42,12 +42,12 @@ public class EnvioPersistence {
      /**
      * Busca si hay algun envio con el id que se envía de argumento
      *
-     * @param envioId: id correspondiente a la author buscada.
+     * @param transaccionId: id correspondiente a la author buscada.
      * @return un usuario.
      */
-     public EnvioEntity find(Long usuarioId) {
-        TypedQuery<EnvioEntity> q = em.createQuery("select p from EnvioEntity p where(p.transaccion.id = :usuarioid)", EnvioEntity.class);
-        q.setParameter("usuarioid", usuarioId);
+     public EnvioEntity find(Long transaccionId) {
+        TypedQuery<EnvioEntity> q = em.createQuery("select p from EnvioEntity p where(p.transaccion.id = :transaccionid)", EnvioEntity.class);
+        q.setParameter("transaccionid", transaccionId);
         List<EnvioEntity> results = q.getResultList();
         EnvioEntity envio = null;
         if (results == null) {

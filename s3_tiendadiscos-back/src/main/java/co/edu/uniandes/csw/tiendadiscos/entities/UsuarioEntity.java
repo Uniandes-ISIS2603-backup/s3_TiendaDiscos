@@ -29,32 +29,32 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     private Double calificacion;
     
     @PodamExclude
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
     private WishListEntity wishList;
     @PodamExclude
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
     private CarritoDeComprasEntity carritoCompras;
     @PodamExclude
-    @OneToOne(mappedBy = "usuario")
+    @OneToOne(mappedBy = "usuario",cascade = CascadeType.REMOVE, orphanRemoval = true)
     private BillingInformationEntity billingInformation;
     @PodamExclude
-    @OneToMany(mappedBy="usuario")
+    @OneToMany(mappedBy="usuario",cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<ViniloEntity> vinilos;
     
     @PodamExclude
-    @OneToMany(mappedBy = "usuarioVendedor")
+    @OneToMany(mappedBy = "usuarioVendedor",cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<TransaccionEntity> transaccionesR;
     
     @PodamExclude
-    @OneToMany(mappedBy = "usuarioComprador")
+    @OneToMany(mappedBy = "usuarioComprador",cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<TransaccionEntity> transaccionesG;
     
     @PodamExclude
-    @OneToMany(mappedBy = "usuarioDestino")
+    @OneToMany(mappedBy = "usuarioDestino",cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<ComentarioEntity> comentariosR;
     
     @PodamExclude
-    @OneToMany(mappedBy = "usuarioInicio")
+    @OneToMany(mappedBy = "usuarioInicio",cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<ComentarioEntity> comentariosH;
     
     
