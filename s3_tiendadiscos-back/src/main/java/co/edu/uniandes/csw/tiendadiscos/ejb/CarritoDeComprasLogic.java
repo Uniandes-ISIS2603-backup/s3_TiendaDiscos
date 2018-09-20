@@ -21,7 +21,7 @@ import javax.inject.Inject;
 @Stateless
 public class CarritoDeComprasLogic {
     
-  /**  @Inject
+   @Inject
     public CarritoDeComprasPersistence carritoComprasPersitence;
     
     @Inject
@@ -42,8 +42,8 @@ public class CarritoDeComprasLogic {
     
     public CarritoDeComprasEntity get(Long usuarioId)
     {
-        UsuarioEntity usuario = usuarioPersistence.find(usuarioId);
-        return usuario.getCarritoCompras();
+        return usuarioPersistence.find(usuarioId).getCarritoCompras();
+        
     }
     
     public CarritoDeComprasEntity update(CarritoDeComprasEntity carritoCompras,Long usuarioId)
@@ -54,14 +54,16 @@ public class CarritoDeComprasLogic {
     }
     
     
-    public void delete(Long usuarioId)throws BusinessLogicException{
+    public void delete(Long usuarioId) {//throws BusinessLogicException{
         UsuarioEntity temp = usuarioPersistence.find(usuarioId);
+        /**System.out.println("voyyyyy"+ temp);
+
         if(temp.getCarritoCompras()==null){
             throw new BusinessLogicException("El usuario con id: "+usuarioId+" no tiene carrito de compras");
-        }
-        usuarioPersistence.delete(usuarioId);
+        }**/
+        carritoComprasPersitence.delete(usuarioId);
     }
     
-    **/
+   
     
 }
