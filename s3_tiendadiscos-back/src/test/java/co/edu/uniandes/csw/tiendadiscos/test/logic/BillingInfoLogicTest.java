@@ -29,24 +29,24 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author estudiante
+ * @author Kevin Blanco
  */
 @RunWith(Arquillian.class)
 public class BillingInfoLogicTest {
-
+    
     private PodamFactory factory = new PodamFactoryImpl();
-
+    
     @Inject
     private BillingInformationLogic billingLogic;
-
+    
     @PersistenceContext
     private EntityManager em;
-
+    
     @Inject
     private UserTransaction utx;
-
+    
     private List<BillingInformationEntity> data = new ArrayList<BillingInformationEntity>();
-
+    
     private List<UsuarioEntity> dataUsuario = new ArrayList<UsuarioEntity>();
 
     /**
@@ -97,24 +97,24 @@ public class BillingInfoLogicTest {
      * pruebas.
      */
     private void insertData() {
-
-        for (int i = 0; i < 3; i++) {
+        
+        for (int i = 0; i < 4; i++) {
             UsuarioEntity entity = factory.manufacturePojo(UsuarioEntity.class);
             em.persist(entity);
             dataUsuario.add(entity);
         }
-
+        
         for (int i = 0; i < 3; i++) {
             BillingInformationEntity entity = factory.manufacturePojo(BillingInformationEntity.class);
             entity.setUsuario(dataUsuario.get(i));
             em.persist(entity);
             data.add(entity);
-          
+            
         }
     }
 
     /**
-     * Prueba para crear un Review.
+     * Prueba para crear un Billing.
      *
      * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
      */
@@ -135,7 +135,7 @@ public class BillingInfoLogicTest {
      * Prueba para consultar un Billing.
      */
     @Test
-    public void getReviewTest() {
+    public void getBillingTest() {
         BillingInformationEntity entity = data.get(1);
         BillingInformationEntity resultEntity = billingLogic.getBilling(dataUsuario.get(1).getId());
         Assert.assertNotNull(resultEntity);
@@ -144,6 +144,51 @@ public class BillingInfoLogicTest {
         Assert.assertEquals(resultEntity.getUsuario().getId(), entity.getUsuario().getId());
     }
 
-    
+    /**
+     * Prueba para actualizar un Billing.
+     */
+    @Test
+    public void updateBillingTest() throws BusinessLogicException {
+        BillingInformationEntity entity = data.get(0);
+        BillingInformationEntity pojoEntity = factory.manufacturePojo(BillingInformationEntity.class);
+        
+        pojoEntity.setId(entity.getId());
+        pojoEntity.setCuentaAhorro("321321");
+        pojoEntity.setUsuario(entity.getUsuario());
+        
+        billingLogic.updateBilling(dataUsuario.get(0).getId(), pojoEntity);
+        
+        BillingInformationEntity resp = em.find(BillingInformationEntity.class, entity.getId());
+        
+        Assert.assertNotNull(resp);
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getCuentaAhorro(), resp.getCuentaAhorro());
+        Assert.assertEquals(pojoEntity.getUsuario().getId(), resp.getUsuario().getId());
+    }
+
+    /**
+     * Prueba para eliminar un Billing.
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
+    @Test
+    public void deleteBillingTest() throws BusinessLogicException {
+        BillingInformationEntity entity = data.get(0);
+        billingLogic.deleteBilling(dataUsuario.get(0).getId());
+        BillingInformationEntity deleted = em.find(BillingInformationEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+    }
+
+    /**
+     * Prueba para eliminarle un billing a un usuario que no tiene un billing
+     * asociado
+     *
+     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void deletebillingConUsuarioNoTieneNingunoAsociadoTest() throws BusinessLogicException {
+        UsuarioEntity entity = dataUsuario.get(3);
+        billingLogic.deleteBilling(entity.getId());
+    }
     
 }
