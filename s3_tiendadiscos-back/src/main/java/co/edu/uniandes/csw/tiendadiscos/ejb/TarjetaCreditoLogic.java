@@ -62,7 +62,8 @@ public class TarjetaCreditoLogic {
 
     public TarjetaCreditoEntity getTarjeta(Long usuariosId, Long tarjetaId) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar la tarjeta con id = {0}", tarjetaId);
-        TarjetaCreditoEntity tarjeta = persistence.find(usuariosId, tarjetaId);
+        
+        TarjetaCreditoEntity tarjeta = persistence.find(usuarioPersistence.find(usuariosId).getBillingInformation().getId(), tarjetaId);
         if (tarjeta == null) {
             LOGGER.log(Level.SEVERE, "La tarjeta con el id = {0} no existe", tarjetaId);
         }

@@ -43,11 +43,11 @@ public class BillingInformationResource {
     private BillingInformationLogic billingLogic;
 
     @GET
-    public BillingInformationDetailDTO getBilling(@PathParam("usuariosId") Long usuariosId ) {
+    public BillingInformationDetailDTO getBilling(@PathParam("usuariosId") Long usuariosId) {
         LOGGER.log(Level.INFO, "BillingInformationResource getBilling: input: {0}", usuariosId);
         BillingInformationEntity billingEntity = billingLogic.getBilling(usuariosId);
         if (billingEntity == null) {
-            throw new WebApplicationException("El recurso /usurios/"+ usuariosId + "/billing  no existe.", 404);
+            throw new WebApplicationException("El recurso /usurios/" + usuariosId + "/billing  no existe.", 404);
         }
         BillingInformationDetailDTO detailDTO = new BillingInformationDetailDTO(billingEntity);
         LOGGER.log(Level.INFO, "BillingInformationResource getBilling: output: {0}", detailDTO.toString());
@@ -55,7 +55,7 @@ public class BillingInformationResource {
     }
 
     @POST
-    public BillingInformationDTO createBilling(@PathParam("usuariosId") Long usuariosId, BillingInformationDTO billig)throws BusinessLogicException {
+    public BillingInformationDTO createBilling(@PathParam("usuariosId") Long usuariosId, BillingInformationDTO billig) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "BillingInformationResource createBilling: input: {0}", billig.toString());
         BillingInformationDTO nuevoBillingDTO = new BillingInformationDTO(billingLogic.createBilling(usuariosId, billig.toEntity()));
         LOGGER.log(Level.INFO, "BillingInformationResource createBilling: output: {0}", nuevoBillingDTO.toString());
@@ -63,14 +63,28 @@ public class BillingInformationResource {
     }
 
     @PUT
-    public BillingInformationDetailDTO updateBilling(@PathParam("usuariosId") Long usuariosId, BillingInformationDetailDTO billing) {
+    public BillingInformationDetailDTO updateBilling(@PathParam("usuariosId") Long usuariosId, BillingInformationDetailDTO billing) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "BillingResource updateBilling: input: usuariosId: {0} , billing: {1}", new Object[]{usuariosId, billing.toString()});
+        if (usuariosId.equals(billing.getUsuario().getId())) {
+            throw new BusinessLogicException("Los ids de los usuarios dueños no coinciden.");
+        }
+        BillingInformationEntity entity = billingLogic.getBilling(usuariosId);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /usuarios/" + usuariosId + "/billing  no existe.", 404);
 
-        return billing;
+        }
+        BillingInformationDetailDTO billingDTO = new BillingInformationDetailDTO(billingLogic.updateBilling(usuariosId, billing.toEntity()));
+        LOGGER.log(Level.INFO, "BillingResource updateBilling: output:{0}", billingDTO.toString());
+        return billingDTO;
     }
 
     @DELETE
-    public void deleteBilling(@PathParam("usuariosId") Long usuariosId) {
-
+    public void deleteBilling(@PathParam("usuariosId") Long usuariosId) throws BusinessLogicException {
+      BillingInformationEntity entity = billingLogic.getBilling(usuariosId);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /usuarios/" + usuariosId + "/billing  no existe.", 404);
+        }
+        billingLogic.deleteBilling(usuariosId);
     }
 
     @Path("/tarjetasDeCredito")

@@ -34,12 +34,12 @@ public class TarjetaCreditoPersistence {
 
     public TarjetaCreditoEntity find(Long billingId, Long tarjetaId) {
         LOGGER.log(Level.INFO, "Consultando tarjeta con id={0} del billing con id = " + billingId, tarjetaId);
-   TypedQuery<TarjetaCreditoEntity> q = em.createQuery("select p from TarjetaCreditoPersistence p where (p.billing.id = :billingId) and (p.id = :tarjetaId)", TarjetaCreditoEntity.class);
+        TypedQuery<TarjetaCreditoEntity> q = em.createQuery("select p from TarjetaCreditoEntity p where (p.billing.id = :billingId) and (p.id = :tarjetaId)", TarjetaCreditoEntity.class);
         q.setParameter("billingId", billingId);
         q.setParameter("tarjetaId", tarjetaId);
         List<TarjetaCreditoEntity> results = q.getResultList();
         TarjetaCreditoEntity tarjeta = null;
-  
+
         if (results == null) {
             tarjeta = null;
         } else if (results.isEmpty()) {
@@ -62,9 +62,9 @@ public class TarjetaCreditoPersistence {
 
     public void delete(Long tarjetaId) {
         LOGGER.log(Level.INFO, "Borrando tarjeta con id={0}", tarjetaId);
-        
+
         TarjetaCreditoEntity tarjetaEntity = em.find(TarjetaCreditoEntity.class, tarjetaId);
-        
+
         em.remove(tarjetaEntity);
         LOGGER.log(Level.INFO, "Saliendo de borrar tarjeta con id = {0}", tarjetaId);
 
