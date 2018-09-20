@@ -9,10 +9,13 @@ package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.UsuarioDTO;
 import co.edu.uniandes.csw.tiendadiscos.dtos.UsuarioDetailDTO;
+import co.edu.uniandes.csw.tiendadiscos.ejb.UsuarioLogic;
+import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 
 import javax.ws.rs.Consumes;
 
@@ -28,12 +31,15 @@ import javax.ws.rs.*;
 public class UsuarioResource {
     private static final Logger LOGGER = Logger.getLogger(UsuarioResource.class.getName());
     
-    //@Inject
-    //EditorialLogic editorialLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    @Inject
+    UsuarioLogic usuarioLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
     @POST
-    public UsuarioDTO createUsuario(UsuarioDTO usuario){
-        return usuario;
+    public UsuarioDTO createUsuario(UsuarioDTO usuario)throws BusinessLogicException{
+        UsuarioDTO usuarioDTO = new UsuarioDTO(usuarioLogic.createUsuario(usuario.toEntity()));
+        
+        
+        return usuarioDTO;
     }
     
     @PUT
