@@ -27,13 +27,13 @@ public class WishListLogic {
     public UsuarioPersistence usuarioPersistence;
     
     
-    public WishListEntity createWishList(Long usuarioId,WishListEntity entity)throws BusinessLogicException
+    public WishListEntity createWishList(Long usuarioId,WishListEntity entity)//throws BusinessLogicException
     {
         UsuarioEntity usuario = usuarioPersistence.find(usuarioId);
-        if(wishPersitence.find(usuarioId)!=null)
+    /*    if(wishPersitence.find(usuarioId)!=null)
         {
             throw new BusinessLogicException("El usuario ya tiene una wishList");
-        }
+        }*/
         entity.setUsuario(usuario);
         return wishPersitence.create(entity);
     }

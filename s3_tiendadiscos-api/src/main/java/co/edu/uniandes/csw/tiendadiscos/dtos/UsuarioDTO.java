@@ -94,10 +94,18 @@ public class UsuarioDTO implements Serializable {
             this.direccion = userEntity.getDireccion();
             this.rol = userEntity.getRol();
             this.calificacion = userEntity.getCalificacion();
-            this.carritoCompras = new CarritoDeComprasDTO(userEntity.getCarritoCompras());
-            this.billingInformation = new BillingInformationDTO(userEntity.getBillingInformation());
-            this.wishList = new WishListDTO(userEntity.getWishList());
-            
+            if(this.carritoCompras!=null)
+                this.carritoCompras = new CarritoDeComprasDTO(userEntity.getCarritoCompras());
+            else
+                this.carritoCompras = null;
+            if(this.billingInformation !=null)
+                this.billingInformation = new BillingInformationDTO(userEntity.getBillingInformation());
+            else
+                this.billingInformation = null;
+            if(this.wishList!=null)
+                this.wishList = new WishListDTO(userEntity.getWishList());
+            else
+                this.wishList=null;
           
         }
     }

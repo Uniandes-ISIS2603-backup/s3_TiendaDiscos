@@ -36,18 +36,18 @@ public class WishListResource {
    private WishListLogic logic;
     
     @POST
-    public WishListDTO createWishList(@PathParam("usuarioId") Long usuarioId,WishListDTO wishList)throws BusinessLogicException{
-        WishListDTO nuevoWishListDTO = new WishListDTO(logic.createWishList(usuarioId, wishList.toEntity()));
+    public WishListDTO createWishList(@PathParam("usuariosId") Long usuariosId,WishListDTO wishList)throws BusinessLogicException{
+        WishListDTO nuevoWishListDTO = new WishListDTO(logic.createWishList(usuariosId, wishList.toEntity()));
         return nuevoWishListDTO;
     }
     
     
     
     @GET 
-    public WishListDTO getWishList(@PathParam("usuarioId") Long usuarioId)throws BusinessLogicException{
-        WishListEntity entity = logic.get(usuarioId);
+    public WishListDTO getWishList(@PathParam("usuariosId") Long usuariosId)throws BusinessLogicException{
+        WishListEntity entity = logic.get(usuariosId);
         if(entity==null)
-            throw new WebApplicationException("El recurso /usuario/"+ usuarioId+ " no tiene wishList");
+            throw new WebApplicationException("El recurso /usuario/"+ usuariosId+ " no tiene wishList");
         WishListDTO nuevo = new WishListDTO(entity);
         return nuevo;
     }
@@ -58,22 +58,21 @@ public class WishListResource {
         logic.delete(wishListId);
 
     }
+    
     /**
      * 
+     * @param usuariosId
      * @param whislist
      * @return 
     */
     @PUT
     @Path("{wishListId: \\d+}")    
-    public WishListDTO putComentario(@PathParam("usuarioId") Long usuarioId, @PathParam("wishListId") Long wishListId,WishListDTO whislist)throws BusinessLogicException
+    public WishListDTO putWishlist(@PathParam("usuariosId") Long usuariosId, WishListDTO whislist)throws BusinessLogicException
     {
-        if (wishListId.equals(whislist.getId())) {
-            throw new BusinessLogicException("Los ids del Review no coinciden.");
-        }
-        WishListEntity entity = logic.get(usuarioId);
+        WishListEntity entity = logic.get(usuariosId);
         if(entity==null)
-            throw new WebApplicationException("El recurso /usuario/"+ usuarioId+ " no tiene wishList");
-        WishListDTO comentario = new WishListDTO(logic.update(whislist.toEntity(), usuarioId));
+            throw new WebApplicationException("El recurso /usuario/"+ usuariosId+ " no tiene wishList");
+        WishListDTO comentario = new WishListDTO(logic.update(whislist.toEntity(), usuariosId));
         return comentario;
     }
 }
