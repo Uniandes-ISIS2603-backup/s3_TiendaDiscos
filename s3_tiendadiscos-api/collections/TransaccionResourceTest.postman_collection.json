@@ -11,13 +11,24 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4b65ec2d-7900-4bab-815d-a8ed2a96938a",
+						"id": "9ee58a75-bdbc-440d-b5bb-085a122b25bc",
 						"type": "text/javascript",
 						"exec": [
 							"var data=JSON.parse(responseBody);",
 							"postman.setGlobalVariable(\"new_estado_e\", data.estado);",
 							"postman.setGlobalVariable(\"new_formaDePago_e\", data.formaDePago);",
+							"pm.globals.set(\"id_transaccion\", data.id);",
 							"tests['No genera error en el Post'] = responseCode.code===200;",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a26da82d-828c-4730-9c5e-a1e8bf5df849",
+						"type": "text/javascript",
+						"exec": [
 							""
 						]
 					}
@@ -33,15 +44,15 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\r\n\"id\" : \"1\",\r\n\r\n\"estado\" : \"peticion\",\r\n\r\n\"formaDePago\" : \"tarjeta-credito\"\r\n\r\n}"
+					"raw": "{\r\n\"id\":1,\r\n\r\n\"estado\" : \"peticion\",\r\n\r\n\"formaDePago\" : \"tarjeta-credito\"\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones",
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/transacciones",
 					"protocol": "http",
 					"host": [
-						"{{ip}}"
+						"localhost"
 					],
-					"port": "{{puerto}}",
+					"port": "8080",
 					"path": [
 						"s3_tiendadiscos-api",
 						"api",
@@ -94,20 +105,20 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "710df1f5-a691-4877-b188-cc10e7966d21",
+						"id": "76c84165-9524-4dc8-a6b1-c6746ffd7343",
 						"type": "text/javascript",
 						"exec": [
-							"tests['No genera error en el Get'] = responseCode.code===204;"
+							"tests['No genera error en el Get'] = responseCode.code===200;"
 						]
 					}
 				},
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "33da2e3a-346d-43d2-b592-4a8cafb31d2a",
+						"id": "08943710-2ba3-4c12-b46d-471ae6bd15ae",
 						"type": "text/javascript",
 						"exec": [
-							""
+							"pm.globals.get(\"id_transaccion\");"
 						]
 					}
 				}
@@ -117,13 +128,14 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{id_transaccion}}",
+					"raw": "http://localhost:8080//s3_tiendadiscos-api/api/transacciones/{{id_transaccion}}",
 					"protocol": "http",
 					"host": [
-						"{{ip}}"
+						"localhost"
 					],
-					"port": "{{puerto}}",
+					"port": "8080",
 					"path": [
+						"",
 						"s3_tiendadiscos-api",
 						"api",
 						"transacciones",
@@ -146,6 +158,16 @@
 							""
 						]
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "42243234-0e14-405d-aba0-c3329cde90ff",
+						"type": "text/javascript",
+						"exec": [
+							"pm.globals.get(\"id_transaccion\");"
+						]
+					}
 				}
 			],
 			"request": {
@@ -161,13 +183,14 @@
 					"raw": "{\r\n\r\n\r\n\"estado\" : \"espera\",\r\n\r\n\"formaDePago\" : \"tarjeta-credito\"\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{id_transaccion}}",
+					"raw": "http://localhost:8080//s3_tiendadiscos-api/api/transacciones/{{id_transaccion}}",
 					"protocol": "http",
 					"host": [
-						"{{ip}}"
+						"localhost"
 					],
-					"port": "{{puerto}}",
+					"port": "8080",
 					"path": [
+						"",
 						"s3_tiendadiscos-api",
 						"api",
 						"transacciones",
@@ -190,6 +213,16 @@
 							""
 						]
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6c7367b4-53cc-4f88-be59-10de745ea706",
+						"type": "text/javascript",
+						"exec": [
+							"pm.globals.get(\"id_transaccion\");"
+						]
+					}
 				}
 			],
 			"request": {
@@ -197,12 +230,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{id_transaccion}}",
+					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/transacciones/{{id_transaccion}}",
 					"protocol": "http",
 					"host": [
-						"{{ip}}"
+						"localhost"
 					],
-					"port": "{{puerto}}",
+					"port": "8080",
 					"path": [
 						"s3_tiendadiscos-api",
 						"api",

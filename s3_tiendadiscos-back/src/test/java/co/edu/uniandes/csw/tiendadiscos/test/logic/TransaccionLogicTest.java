@@ -125,7 +125,7 @@ public class TransaccionLogicTest {
      * Prueba para actualizar un Review.
      */
     @Test
-    public void updateTest() {
+    public void updateTest() throws BusinessLogicException {
         TransaccionEntity entity = data.get(0);
         
         logic.update( entity,entity.getId());

@@ -27,7 +27,7 @@ public class TransaccionLogic {
     
     
     
-    public TransaccionEntity createCarritoDeCompras(TransaccionEntity entity)throws BusinessLogicException
+    public TransaccionEntity create(TransaccionEntity entity)throws BusinessLogicException
     {
         if(transaccionPersistence.find(entity.getId())!=null)
         {
@@ -42,8 +42,11 @@ public class TransaccionLogic {
         return transaccionPersistence.find(transaccionId);
     }
     
-    public TransaccionEntity update(TransaccionEntity transaccion,Long transaccionId)
-    {
+    public TransaccionEntity update(TransaccionEntity transaccion,Long transaccionId) throws BusinessLogicException
+    {   TransaccionEntity temp = transaccionPersistence.find(transaccionId);
+        if(temp==null){
+            throw new BusinessLogicException("No existe una transacción con este id.");
+        }
         transaccionPersistence.update(transaccion);
         return transaccion;
     }
@@ -55,10 +58,6 @@ public class TransaccionLogic {
             throw new BusinessLogicException("No existe una transacción con este id.");
         }
         transaccionPersistence.delete(transaccionId);
-    }
-
-    public TransaccionEntity update(TransaccionEntity toEntity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

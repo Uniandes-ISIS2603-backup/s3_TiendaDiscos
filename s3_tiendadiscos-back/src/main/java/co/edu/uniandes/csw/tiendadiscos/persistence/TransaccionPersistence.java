@@ -46,10 +46,9 @@ public class TransaccionPersistence {
 
     public TransaccionEntity update(TransaccionEntity transaccionEntity) {
         LOGGER.log(Level.INFO, "Actualizando transaccion con id={0}", transaccionEntity.getId());
-
+        TransaccionEntity updateTransaccion=em.merge(transaccionEntity);
         LOGGER.log(Level.INFO, "Saliendo de actualizar transaccion con id = {0}", transaccionEntity.getId());
-
-        return em.merge(transaccionEntity);
+        return updateTransaccion;
 
     }
 
