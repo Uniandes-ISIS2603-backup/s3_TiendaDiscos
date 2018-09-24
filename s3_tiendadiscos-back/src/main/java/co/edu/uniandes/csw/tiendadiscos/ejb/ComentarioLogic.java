@@ -11,7 +11,6 @@ import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tiendadiscos.persistence.ComentarioPersistence;
 import co.edu.uniandes.csw.tiendadiscos.persistence.UsuarioPersistence;
 import java.util.List;
-import java.util.logging.Level;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 

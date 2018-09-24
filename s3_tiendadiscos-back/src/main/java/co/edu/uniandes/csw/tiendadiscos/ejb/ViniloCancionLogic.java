@@ -81,7 +81,7 @@ public class ViniloCancionLogic {
      */
     public List<CancionEntity> replaceCanciones(Long vinilosId, List<CancionEntity> list)
     {
-        LOGGER.log(Level.INFO, "Inicia el proceso de reemplazar las canciones del vinilo con id = {0{", vinilosId);
+        LOGGER.log(Level.INFO, "Inicia el proceso de reemplazar las canciones del vinilo con id = {0}", vinilosId);
         ViniloEntity viniloEntity = viniloPersistence.find(vinilosId);
         viniloEntity.setCanciones(list);
         LOGGER.log(Level.INFO, "Termina el proceso de reemplazar las canciones del vinilo con el id = {0}", vinilosId);

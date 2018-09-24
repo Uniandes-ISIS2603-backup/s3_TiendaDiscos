@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.tiendadiscos.ejb;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.CancionEntity;
 import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
+import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tiendadiscos.persistence.ViniloPersistence;
 import java.util.logging.Logger;
 import java.util.List;
@@ -33,12 +34,13 @@ public class ViniloLogic {
      * @param viniloEntity Vinilo que se desea registrar.
      * @return vinilo que se agrego a persistence.
      */
-    public ViniloEntity createVinilo(ViniloEntity viniloEntity)
+    public ViniloEntity createVinilo(ViniloEntity viniloEntity) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación del vinilo.");
         // No hay reglas de negocio que impidan crear un vinilo.
         // Se procede a crear el vinilo.
-        
+        if(viniloEntity.getNombre().equals("") || viniloEntity.getPrecio() < 0 || viniloEntity.getProductora().equals("") || viniloEntity.getArtista().equals("") )
+            throw new BusinessLogicException("El vinilo no cumple con los requisitos para ser creado.");
         persistence.create(viniloEntity);
         LOGGER.log(Level.INFO, "Termina el proceso de creación del vinilo.");
         return viniloEntity;
@@ -82,9 +84,9 @@ public class ViniloLogic {
      */
     public ViniloEntity updateVinilo(Long viniloId, ViniloEntity viniloEntity)
     {
-        LOGGER.log(Level.INFO, "Inicia el proceso de actualizar el vinilo con el id = {0'", viniloId);
+        LOGGER.log(Level.INFO, "Inicia el proceso de actualizar el vinilo con el id = {0}", viniloId);
         ViniloEntity newEntity = persistence.update(viniloEntity);
-        LOGGER.log(Level.INFO, "Termina el proceso de actualizar el vinilo con el id = {0'", viniloId);
+        LOGGER.log(Level.INFO, "Termina el proceso de actualizar el vinilo con el id = {0}", viniloId);
         return newEntity;
     }
     

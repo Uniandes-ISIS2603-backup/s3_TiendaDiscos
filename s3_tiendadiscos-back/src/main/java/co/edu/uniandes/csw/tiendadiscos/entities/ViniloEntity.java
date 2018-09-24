@@ -13,7 +13,6 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import org.eclipse.persistence.annotations.CascadeOnDelete;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
