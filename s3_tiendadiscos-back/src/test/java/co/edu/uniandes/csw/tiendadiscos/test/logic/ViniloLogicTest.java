@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.tiendadiscos.test.logic;
 
 import co.edu.uniandes.csw.tiendadiscos.ejb.ViniloLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
+import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tiendadiscos.persistence.ViniloPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +106,7 @@ public class ViniloLogicTest {
      * Prueba para crear un vinilo.
      */
     @Test
-    public void createViniloTest()
+    public void createViniloTest() throws BusinessLogicException
     {
         ViniloEntity newEntity = factory.manufacturePojo(ViniloEntity.class);
         ViniloEntity result = viniloLogic.createVinilo(newEntity);
