@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1",
+			"name": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/1",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -20,12 +20,12 @@
 					"raw": "{\n\t\"username\":\"Rembrandtsx\",\n\t\"nombre\":\"Camilo Andres Salinas Martinez\",\n\t\"email\":\"iam@camilosalinas.me\",\n\t\"contrasenha\":\"ContraseñaDificilXD\",\n\t\"direccion\":\"cll 6 #1A 99 este Madrid Cund.\",\n\t\"rol\":\"ADMIN\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_tiendadiscos-api",
 						"api",
@@ -37,7 +37,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios",
+			"name": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -51,12 +51,12 @@
 					"raw": "{\n\t\"username\":\"Rembrandtsx\",\n\t\"nombre\":\"Camilo Andres Salinas Martinez\",\n\t\"email\":\"iam@camilosalinas.me\",\n\t\"contrasenha\":\"ContraseñaDificilXD\",\n\t\"direccion\":\"cll 6 #1A 99 este Madrid Cund.\",\n\t\"rol\":\"ADMIN\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_tiendadiscos-api",
 						"api",
@@ -67,7 +67,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1",
+			"name": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/1",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -81,12 +81,12 @@
 					"raw": "{\n\t\"nombre\":\"hola\"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_tiendadiscos-api",
 						"api",
@@ -98,7 +98,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/",
+			"name": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -112,12 +112,12 @@
 					"raw": "{\n\t\"nombre\":\"hola\"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_tiendadiscos-api",
 						"api",
@@ -129,7 +129,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1",
+			"name": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/1",
 			"request": {
 				"method": "DELETE",
 				"header": [
@@ -143,12 +143,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_tiendadiscos-api",
 						"api",

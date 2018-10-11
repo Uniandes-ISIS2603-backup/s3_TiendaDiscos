@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:8080/s3_tiendadiscos-api/api/comentarios",
+			"name": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/comentarios",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -20,12 +20,12 @@
 					"raw": "{\n\t\"totalCost\" : 45\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/comentarios",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/comentarios",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_tiendadiscos-api",
 						"api",
@@ -36,7 +36,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/s3_tiendadiscos-api/api/comentarios",
+			"name": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/comentarios",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -50,12 +50,12 @@
 					"raw": "{\n\t\"contenido\" : \"hola mundo\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/comentarios",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/comentarios",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_tiendadiscos-api",
 						"api",

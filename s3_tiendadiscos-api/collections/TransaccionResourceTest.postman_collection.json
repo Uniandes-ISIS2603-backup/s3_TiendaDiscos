@@ -47,12 +47,12 @@
 					"raw": "{\r\n\"id\":1,\r\n\r\n\"estado\" : \"peticion\",\r\n\r\n\"formaDePago\" : \"tarjeta-credito\"\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/transacciones",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_tiendadiscos-api",
 						"api",
@@ -77,12 +77,12 @@
 							"raw": "{\r\n\r\n\"estado\" : \"peticion\",\r\n\r\n\"formaDePago\" : \"tarjeta-credito\"\r\n\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/s3_tiendadiscos-api/api/transacciones",
+							"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ip}}"
 							],
-							"port": "8080",
+							"port": "{{puerto}}",
 							"path": [
 								"s3_tiendadiscos-api",
 								"api",
@@ -128,12 +128,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080//s3_tiendadiscos-api/api/transacciones/{{id_transaccion}}",
+					"raw": "http://{{ip}}:{{puerto}}//s3_tiendadiscos-api/api/transacciones/{{id_transaccion}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"",
 						"s3_tiendadiscos-api",
@@ -183,12 +183,12 @@
 					"raw": "{\r\n\r\n\r\n\"estado\" : \"espera\",\r\n\r\n\"formaDePago\" : \"tarjeta-credito\"\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080//s3_tiendadiscos-api/api/transacciones/{{id_transaccion}}",
+					"raw": "http://{{ip}}:{{puerto}}//s3_tiendadiscos-api/api/transacciones/{{id_transaccion}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"",
 						"s3_tiendadiscos-api",
@@ -230,12 +230,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/transacciones/{{id_transaccion}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{id_transaccion}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_tiendadiscos-api",
 						"api",

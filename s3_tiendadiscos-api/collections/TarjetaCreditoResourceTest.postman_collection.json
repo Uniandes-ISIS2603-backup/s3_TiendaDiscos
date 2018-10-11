@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1/billing",
+			"name": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/1/billing",
 			"event": [
 				{
 					"listen": "test",
@@ -53,7 +53,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1/billing",
+			"name": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/1/billing",
 			"event": [
 				{
 					"listen": "test",
@@ -109,7 +109,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1/billing",
+			"name": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/1/billing",
 			"event": [
 				{
 					"listen": "test",
@@ -157,7 +157,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/s3_tiendadiscos-api/api/usuarios/1/billing",
+			"name": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/1/billing",
 			"event": [
 				{
 					"listen": "test",

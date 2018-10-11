@@ -38,12 +38,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/vinilos",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_tiendadiscos-api",
 						"api",
@@ -89,12 +89,12 @@
 					"raw": "{\r\n\r\n\"id\" : 1 , \r\n\r\n\"nombre\": \"The wall\" ,\r\n\r\n\"fechaLanzamiento\": \"1979\" ,\r\n\r\n\"artista\" : \"Pink Floyd\" ,\r\n\r\n\"precio\" : 50000.0 ,\r\n\r\n\"productora\" : \"Columbia Records\" ,\r\n\r\n\"informacionAdicional\" : \"Nunca ha sido abierto.\" ,\r\n\r\n\"previewURI\" : \"URI\" ,\r\n\r\n\"calificacion\": 5.0\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/vinilos/?",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/?",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_tiendadiscos-api",
 						"api",
@@ -145,12 +145,12 @@
 					"raw": "{\r\n\r\n\"id\" : 1 , \r\n\r\n\"nombre\": \"The wall\" ,\r\n\r\n\"fechaLanzamiento\": \"1979\" ,\r\n\r\n\"artista\" : \"Pink Floyd\" ,\r\n\r\n\"precio\" : 50000.0 ,\r\n\r\n\"productora\" : \"Columbia Records\" ,\r\n\r\n\"informacionAdicional\" : \"Nunca ha sido abierto.\" ,\r\n\r\n\"previewURI\" : \"URI\" ,\r\n\r\n\"calificacion\": 5.0\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/vinilos?vinilosId=1",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos?vinilosId=1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_tiendadiscos-api",
 						"api",
@@ -199,12 +199,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_tiendadiscos-api/api/vinilos?vinilosId=1",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos?vinilosId=1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_tiendadiscos-api",
 						"api",
