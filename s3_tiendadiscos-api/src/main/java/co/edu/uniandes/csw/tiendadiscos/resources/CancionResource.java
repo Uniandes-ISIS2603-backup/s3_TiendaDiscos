@@ -9,7 +9,6 @@ import co.edu.uniandes.csw.tiendadiscos.dtos.CancionDTO;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.websocket.server.PathParam;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
