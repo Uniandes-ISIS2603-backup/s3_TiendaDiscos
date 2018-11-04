@@ -6,10 +6,10 @@
 package co.edu.uniandes.csw.tiendadiscos.ejb;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.BillingInformationEntity;
-import co.edu.uniandes.csw.tiendadiscos.entities.TarjetaCreditoEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.MedioDePagoEntity;
 import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.tiendadiscos.persistence.TarjetaCreditoPersistence;
+import co.edu.uniandes.csw.tiendadiscos.persistence.MedioDePagoPersistence;
 import co.edu.uniandes.csw.tiendadiscos.persistence.UsuarioPersistence;
 import java.util.Date;
 import java.util.List;
@@ -23,17 +23,17 @@ import javax.inject.Inject;
  * @author Kevin Blanco
  */
 @Stateless
-public class TarjetaCreditoLogic {
+public class MedioDePagoLogic {
 
     private static final Logger LOGGER = Logger.getLogger(BillingInformationLogic.class.getName());
 
     @Inject
-    private TarjetaCreditoPersistence persistence;
+    private MedioDePagoPersistence persistence;
 
     @Inject
     private UsuarioPersistence usuarioPersistence;
 
-    public TarjetaCreditoEntity createTarjeta(Long usuariosId, TarjetaCreditoEntity tarjeta) throws BusinessLogicException {
+    public MedioDePagoEntity createTarjeta(Long usuariosId, MedioDePagoEntity tarjeta) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de la tarjeta");
         UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
         if (usuario == null) {
@@ -60,17 +60,17 @@ public class TarjetaCreditoLogic {
 
     }
 
-    public TarjetaCreditoEntity getTarjeta(Long usuariosId, Long tarjetaId) {
+    public MedioDePagoEntity getTarjeta(Long usuariosId, Long tarjetaId) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar la tarjeta con id = {0}", tarjetaId);
         
-        TarjetaCreditoEntity tarjeta = persistence.find(usuarioPersistence.find(usuariosId).getBillingInformation().getId(), tarjetaId);
+        MedioDePagoEntity tarjeta = persistence.find(usuarioPersistence.find(usuariosId).getBillingInformation().getId(), tarjetaId);
         if (tarjeta == null) {
             LOGGER.log(Level.SEVERE, "La tarjeta con el id = {0} no existe", tarjetaId);
         }
         return tarjeta;
     }
 
-    public List<TarjetaCreditoEntity> getTarjetas(Long usuariosId) throws BusinessLogicException {
+    public List<MedioDePagoEntity> getTarjetas(Long usuariosId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar las tarjetas del usuario con id = {0}", usuariosId);
         UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
 
@@ -82,7 +82,7 @@ public class TarjetaCreditoLogic {
         return billing.getTarjetas();
     }
 
-    public TarjetaCreditoEntity updateTarjeta(Long usuariosId, Long tarjetaId, TarjetaCreditoEntity tarjeta) throws BusinessLogicException {
+    public MedioDePagoEntity updateTarjeta(Long usuariosId, Long tarjetaId, MedioDePagoEntity tarjeta) throws BusinessLogicException {
 
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar la tarjeta con id" + tarjetaId + " del usuario con id = {0}", usuariosId);
         UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
@@ -104,7 +104,7 @@ public class TarjetaCreditoLogic {
             throw new BusinessLogicException("Fecha invalida");
         }
 
-        TarjetaCreditoEntity newEntity = persistence.update(tarjeta);
+        MedioDePagoEntity newEntity = persistence.update(tarjeta);
 
         //Usuario maneja exception de que exista 
         LOGGER.log(Level.INFO, "Termina proceso de actualizar la tarjeta con id = {0}", newEntity.getId());
@@ -115,7 +115,7 @@ public class TarjetaCreditoLogic {
     public void deleteTarjeta(Long usuariosId, Long tarjetaId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar la tarjeta con id " + tarjetaId+" del usuario con id = {0}", usuariosId);
         BillingInformationEntity billing = usuarioPersistence.find(usuariosId).getBillingInformation();
-        TarjetaCreditoEntity tarjeta = persistence.find(billing.getId(),tarjetaId);
+        MedioDePagoEntity tarjeta = persistence.find(billing.getId(),tarjetaId);
         
         if (tarjeta == null){
             throw new BusinessLogicException("La tarjeta con id " + tarjetaId + "no existe");

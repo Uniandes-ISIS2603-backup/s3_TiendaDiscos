@@ -18,7 +18,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Kevin Blanco
  */
 @Entity
-public class TarjetaCreditoEntity extends BaseEntity implements Serializable {
+public class MedioDePagoEntity extends BaseEntity implements Serializable {
 
     @PodamExclude
     @ManyToOne
@@ -48,6 +48,16 @@ public class TarjetaCreditoEntity extends BaseEntity implements Serializable {
      * Codigo CVC de la tarjeta
      */
     private String cvc;
+    
+    private String imagen;
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
 
     /**
      * Retorna billing asociado a la tarjeta

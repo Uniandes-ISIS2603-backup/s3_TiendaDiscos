@@ -24,7 +24,7 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     private String contenido;
     
     @PodamExclude
-    @OneToOne
+    @ManyToOne
     private TransaccionEntity transaccion;
     
     @PodamExclude

@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 
-import co.edu.uniandes.csw.tiendadiscos.entities.TarjetaCreditoEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.MedioDePagoEntity;
 import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -14,7 +14,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author Kevin Blanco
  */
-public class TarjetaCreditoDTO {
+public class MedioDePagoDTO {
 
     /**
      * id único de la tarjeta de credito.
@@ -45,14 +45,16 @@ public class TarjetaCreditoDTO {
      * Codigo CVC de la tarjeta
      */
     private String cvc;
+    
+    private String imagen;
 
-    private BillingInformationDTO billing;
+    
     
     
     /**
      * Constructor vacio
      */
-    public TarjetaCreditoDTO() {
+    public MedioDePagoDTO() {
     }
 
     /**
@@ -60,9 +62,15 @@ public class TarjetaCreditoDTO {
      *
      * @param tarjetaCreditoEntity DTO a completar
      */
-    public TarjetaCreditoDTO(TarjetaCreditoEntity tarjetaCreditoEntity) {
+    public MedioDePagoDTO(MedioDePagoEntity tarjetaCreditoEntity) {
         if (tarjetaCreditoEntity != null) {
             this.id = tarjetaCreditoEntity.getId();
+            this.fechaVencimiento = tarjetaCreditoEntity.getFechaVencimiento();
+            this.cvc = tarjetaCreditoEntity.getCvc();
+            this.imagen = tarjetaCreditoEntity.getImagen();
+            this.name = tarjetaCreditoEntity.getName();
+            this.numero = tarjetaCreditoEntity.getNumero();
+            this.numeroVerificacion = tarjetaCreditoEntity.getNumeroVerificacion();
             //TERMINAR
 
         }
@@ -175,20 +183,13 @@ public class TarjetaCreditoDTO {
     public void setCvc(String cvc) {
         this.cvc = cvc;
     }
-    /**
-     * Retorna billing asociado a la tarjeta
-     * @return billing asociado a la tarjeta
-     */
-    public BillingInformationDTO getBilling() {
-        return billing;
+
+    public String getImagen() {
+        return imagen;
     }
 
-    /**
-     * modifica billing asociado a la tarjeta
-     * @param billing billing que sera asociado a la tarjeta
-     */
-    public void setBilling(BillingInformationDTO billing) {
-        this.billing = billing;
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
     
     
@@ -199,14 +200,15 @@ public class TarjetaCreditoDTO {
      *
      * @return Entity con los valores del DTO
      */
-    public TarjetaCreditoEntity toEntity() {
-        TarjetaCreditoEntity tarjetaCreditoEntity = new TarjetaCreditoEntity();
+    public MedioDePagoEntity toEntity() {
+        MedioDePagoEntity tarjetaCreditoEntity = new MedioDePagoEntity();
         tarjetaCreditoEntity.setId(this.id);
         tarjetaCreditoEntity.setName(this.name);
         tarjetaCreditoEntity.setFechaVencimiento(this.getFechaVencimiento());
         tarjetaCreditoEntity.setNumeroVerificacion(getNumeroVerificacion());
         tarjetaCreditoEntity.setNumero(getNumero());
         tarjetaCreditoEntity.setCvc(this.getCvc());
+        tarjetaCreditoEntity.setImagen(this.imagen);
         return tarjetaCreditoEntity;
     }
 

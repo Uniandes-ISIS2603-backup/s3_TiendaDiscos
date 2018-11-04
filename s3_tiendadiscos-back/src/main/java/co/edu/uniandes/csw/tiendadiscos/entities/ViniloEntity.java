@@ -63,7 +63,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     private Double precio;
     
     @PodamExclude
-    @OneToMany(mappedBy = "vinilo", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "vinilo", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CancionEntity> canciones = new ArrayList<CancionEntity>();
     
     @PodamExclude
@@ -75,12 +75,12 @@ public class ViniloEntity extends BaseEntity implements Serializable
     private List<CarritoDeComprasEntity> carritosDeCompras;
     
     @PodamExclude
-    @OneToMany(mappedBy ="vinilo")
+    @OneToMany(mappedBy ="vinilo", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<TransaccionEntity> transacciones;
     
     
     @PodamExclude
-    @OneToMany(mappedBy = "vinilo")
+    @OneToMany(mappedBy = "vinilo", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<ComentarioEntity> comentarios;
     
     

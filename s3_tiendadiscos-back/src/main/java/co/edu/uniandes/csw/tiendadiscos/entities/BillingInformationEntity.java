@@ -45,7 +45,7 @@ public class BillingInformationEntity extends BaseEntity implements Serializable
     
     @PodamExclude
     @OneToMany(mappedBy = "billing", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<TarjetaCreditoEntity> tarjetas;
+    private List<MedioDePagoEntity> tarjetas;
 
     
     /**
@@ -123,7 +123,7 @@ public class BillingInformationEntity extends BaseEntity implements Serializable
      *
      * @return Lista de entidades de tipo Reseña
      */
-    public List<TarjetaCreditoEntity> getTarjetas() {
+    public List<MedioDePagoEntity> getTarjetas() {
         return tarjetas;
     }
 
@@ -132,7 +132,7 @@ public class BillingInformationEntity extends BaseEntity implements Serializable
      *
      * @param tarjetas nuevas tarjetas para el Billing
      */
-    public void setTarjetas(List<TarjetaCreditoEntity> tarjetas) {
+    public void setTarjetas(List<MedioDePagoEntity> tarjetas) {
         this.tarjetas = tarjetas;
     }
 }

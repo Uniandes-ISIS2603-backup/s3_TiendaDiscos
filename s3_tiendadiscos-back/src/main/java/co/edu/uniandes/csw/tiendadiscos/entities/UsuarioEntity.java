@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -26,19 +27,23 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     private String nombre;
     private String direccion;
     private String rol;
+    private String imagen;
     private Double calificacion;
     
     @PodamExclude
-    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
     private WishListEntity wishList;
+    
     @PodamExclude
-    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
     private CarritoDeComprasEntity carritoCompras;
+    
     @PodamExclude
-    @OneToOne(mappedBy = "usuario",cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
     private BillingInformationEntity billingInformation;
+    
     @PodamExclude
-    @OneToMany(mappedBy="usuario",cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy="usuario",cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<ViniloEntity> vinilos;
     
     @PodamExclude
@@ -50,11 +55,11 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     private List<TransaccionEntity> transaccionesG;
     
     @PodamExclude
-    @OneToMany(mappedBy = "usuarioDestino",cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuarioDestino",cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<ComentarioEntity> comentariosR;
     
     @PodamExclude
-    @OneToMany(mappedBy = "usuarioInicio",cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuarioInicio",cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<ComentarioEntity> comentariosH;
     
     
@@ -78,7 +83,14 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         this.transaccionesG = transaccionesG;
     }
 
-    
+    public String getImagen(){
+        
+        return imagen;
+    }
+    public void setImagen(String imagen){
+        
+        this.imagen= imagen;
+    }
     
     
 
@@ -102,6 +114,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     public String getEmail() {
         return email;
     }
+ 
     /**
      * Modifica el email del usuario
      *

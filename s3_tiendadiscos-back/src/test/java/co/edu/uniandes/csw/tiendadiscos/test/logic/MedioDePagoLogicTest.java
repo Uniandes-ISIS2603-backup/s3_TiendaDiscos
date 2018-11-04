@@ -5,12 +5,12 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.test.logic;
 
-import co.edu.uniandes.csw.tiendadiscos.ejb.TarjetaCreditoLogic;
+import co.edu.uniandes.csw.tiendadiscos.ejb.MedioDePagoLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.BillingInformationEntity;
-import co.edu.uniandes.csw.tiendadiscos.entities.TarjetaCreditoEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.MedioDePagoEntity;
 import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.tiendadiscos.persistence.TarjetaCreditoPersistence;
+import co.edu.uniandes.csw.tiendadiscos.persistence.MedioDePagoPersistence;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,12 +34,12 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Kevin Blanco
  */
 @RunWith(Arquillian.class)
-public class TarjetaCreditoLogicTest {
+public class MedioDePagoLogicTest {
 
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
-    private TarjetaCreditoLogic tarjetaLogic;
+    private MedioDePagoLogic tarjetaLogic;
 
     @PersistenceContext
     private EntityManager em;
@@ -47,7 +47,7 @@ public class TarjetaCreditoLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<TarjetaCreditoEntity> dataTarjeta = new ArrayList<TarjetaCreditoEntity>();
+    private List<MedioDePagoEntity> dataTarjeta = new ArrayList<MedioDePagoEntity>();
 
     private List<BillingInformationEntity> dataBilling = new ArrayList<BillingInformationEntity>();
 
@@ -61,9 +61,9 @@ public class TarjetaCreditoLogicTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(TarjetaCreditoEntity.class.getPackage())
-                .addPackage(TarjetaCreditoLogic.class.getPackage())
-                .addPackage(TarjetaCreditoPersistence.class.getPackage())
+                .addPackage(MedioDePagoEntity.class.getPackage())
+                .addPackage(MedioDePagoLogic.class.getPackage())
+                .addPackage(MedioDePagoPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -118,7 +118,7 @@ public class TarjetaCreditoLogicTest {
         }
 
         for (int i = 0; i < 3; i++) {
-            TarjetaCreditoEntity entity = factory.manufacturePojo(TarjetaCreditoEntity.class);
+            MedioDePagoEntity entity = factory.manufacturePojo(MedioDePagoEntity.class);
             entity.setBilling(dataBilling.get(0));
             em.persist(entity);
             dataTarjeta.add(entity);
@@ -134,15 +134,15 @@ public class TarjetaCreditoLogicTest {
      */
     @Test
     public void createTarjetaTest() throws BusinessLogicException {
-        TarjetaCreditoEntity newEntity = factory.manufacturePojo(TarjetaCreditoEntity.class);
+        MedioDePagoEntity newEntity = factory.manufacturePojo(MedioDePagoEntity.class);
         newEntity.setBilling(dataBilling.get(0));
         newEntity.setNumeroVerificacion(newEntity.getNumero());
         Date fecha = new Date();
         newEntity.setFechaVencimiento(new Date(fecha.getTime() + 10000));
 
-        TarjetaCreditoEntity result = tarjetaLogic.createTarjeta(dataBilling.get(1).getId(), newEntity);
+        MedioDePagoEntity result = tarjetaLogic.createTarjeta(dataBilling.get(1).getId(), newEntity);
         Assert.assertNotNull(result);
-        TarjetaCreditoEntity entity = em.find(TarjetaCreditoEntity.class, result.getId());
+        MedioDePagoEntity entity = em.find(MedioDePagoEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getBilling().getId(), entity.getBilling().getId());
         Assert.assertEquals(newEntity.getName(), entity.getName());
@@ -158,11 +158,11 @@ public class TarjetaCreditoLogicTest {
      */
     @Test
     public void getTarjetasTest() throws BusinessLogicException {
-        List<TarjetaCreditoEntity> list = tarjetaLogic.getTarjetas(dataUsuario.get(0).getId());
+        List<MedioDePagoEntity> list = tarjetaLogic.getTarjetas(dataUsuario.get(0).getId());
         Assert.assertEquals(dataTarjeta.size(), list.size());
-        for (TarjetaCreditoEntity entity : list) {
+        for (MedioDePagoEntity entity : list) {
             boolean found = false;
-            for (TarjetaCreditoEntity storedEntity : dataTarjeta) {
+            for (MedioDePagoEntity storedEntity : dataTarjeta) {
                 if (entity.getId().equals(storedEntity.getId())) {
                     found = true;
                 }
@@ -176,10 +176,10 @@ public class TarjetaCreditoLogicTest {
      */
     @Test
     public void getTarjetaTest() {
-        TarjetaCreditoEntity entity = dataTarjeta.get(0);
+        MedioDePagoEntity entity = dataTarjeta.get(0);
         Long algo1 = dataUsuario.get(0).getId();
         Long algo2 = entity.getId();
-        TarjetaCreditoEntity resultEntity = tarjetaLogic.getTarjeta(dataUsuario.get(0).getId(), entity.getId());
+        MedioDePagoEntity resultEntity = tarjetaLogic.getTarjeta(dataUsuario.get(0).getId(), entity.getId());
         Assert.assertNotNull(resultEntity);
 
         Assert.assertEquals(resultEntity.getId(), entity.getId());
@@ -195,8 +195,8 @@ public class TarjetaCreditoLogicTest {
      */
     @Test
     public void updateTarjetaTest() throws BusinessLogicException {
-        TarjetaCreditoEntity entity = dataTarjeta.get(0);
-        TarjetaCreditoEntity pojoEntity = factory.manufacturePojo(TarjetaCreditoEntity.class);
+        MedioDePagoEntity entity = dataTarjeta.get(0);
+        MedioDePagoEntity pojoEntity = factory.manufacturePojo(MedioDePagoEntity.class);
 
         pojoEntity.setId(entity.getId());
         pojoEntity.setBilling(dataBilling.get(0));
@@ -206,7 +206,7 @@ public class TarjetaCreditoLogicTest {
 
         tarjetaLogic.updateTarjeta(dataUsuario.get(0).getId(), entity.getId(), pojoEntity);
 
-        TarjetaCreditoEntity resp = em.find(TarjetaCreditoEntity.class, entity.getId());
+        MedioDePagoEntity resp = em.find(MedioDePagoEntity.class, entity.getId());
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
@@ -224,9 +224,9 @@ public class TarjetaCreditoLogicTest {
      */
     @Test
     public void deleteTarjetaTest() throws BusinessLogicException {
-        TarjetaCreditoEntity entity = dataTarjeta.get(0);
+        MedioDePagoEntity entity = dataTarjeta.get(0);
         tarjetaLogic.deleteTarjeta(dataUsuario.get(0).getId(), entity.getId());
-        TarjetaCreditoEntity deleted = em.find(TarjetaCreditoEntity.class, entity.getId());
+        MedioDePagoEntity deleted = em.find(MedioDePagoEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
     

@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.tiendadiscos.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -49,7 +50,7 @@ public class CancionEntity extends BaseEntity implements Serializable
     private ViniloEntity vinilo;
     
     @PodamExclude
-    @OneToMany(mappedBy = "cancion")
+    @OneToMany(mappedBy = "cancion", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<ComentarioEntity> comentarios;    
     
     /**
