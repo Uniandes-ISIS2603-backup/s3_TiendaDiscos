@@ -10,6 +10,7 @@ package co.edu.uniandes.csw.tiendadiscos.resources;
 import co.edu.uniandes.csw.tiendadiscos.dtos.UsuarioDTO;
 import co.edu.uniandes.csw.tiendadiscos.dtos.UsuarioDetailDTO;
 import co.edu.uniandes.csw.tiendadiscos.ejb.UsuarioLogic;
+import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,14 +53,20 @@ public class UsuarioResource {
     @GET
     @Path("{usuariosId: \\d+}")
     public UsuarioDetailDTO getUsuario(@PathParam("usuariosId") Long usuarioId){
+        UsuarioEntity usuarioEntity = usuarioLogic.getUsuario(usuarioId);
+        if (usuarioEntity ==null){
+            throw new WebApplicationException("El recurso /usuario/" + usuarioId + " no existe.", 404);
+        }
+        UsuarioDetailDTO usuarioDetail = new UsuarioDetailDTO(usuarioEntity);
         
-        return new UsuarioDetailDTO();
+        return usuarioDetail;
     }
     
     @GET
     public List<UsuarioDetailDTO> getUsuarios(){
+        List<UsuarioDetailDTO> listaUsuarios = listEntity2DetailDTO(usuarioLogic.getUsuarios());
         
-        return new ArrayList<UsuarioDetailDTO>();
+        return listaUsuarios;
     }
     
     @DELETE
@@ -70,7 +77,7 @@ public class UsuarioResource {
     } 
     
     @Path("{usuariosId: \\d+}/billing")
-    public Class<BillingInformationResource> getReviewResource(@PathParam("usuariosId") Long usuariosId) {
+    public Class<BillingInformationResource> getBillingResource(@PathParam("usuariosId") Long usuariosId) {
         
         return BillingInformationResource.class;
     }
@@ -92,4 +99,19 @@ public class UsuarioResource {
         return CarritoDeComprasResource.class;
     }
     
+    
+    
+    
+    //METODOS
+    
+    
+    
+    
+        private List<UsuarioDetailDTO> listEntity2DetailDTO(List<UsuarioEntity> entityList) {
+        List<UsuarioDetailDTO> list = new ArrayList<>();
+        for (UsuarioEntity entity : entityList) {
+            list.add(new UsuarioDetailDTO(entity));
+        }
+        return list;
+    }
 }

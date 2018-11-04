@@ -9,7 +9,6 @@ import co.edu.uniandes.csw.tiendadiscos.dtos.CancionDTO;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
-import javax.websocket.server.PathParam;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 /**
@@ -42,13 +41,13 @@ public class CancionResource {
     {
         return null;
     }
-    /*
+    
     @PUT
     @Path("{cancionesId: \\d+}")
     public CancionDTO updateCancion(@PathParam("cancionesId") Long cancionesId, CancionDTO cancion)
     {
         return cancion;
-    }*/
+    }
     
     @DELETE
     @Path("{cancionesId: \\d+}")

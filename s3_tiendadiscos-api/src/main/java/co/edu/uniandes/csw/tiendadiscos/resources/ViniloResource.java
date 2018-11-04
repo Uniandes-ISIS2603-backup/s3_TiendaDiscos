@@ -13,7 +13,6 @@ import javax.enterprise.context.RequestScoped;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.websocket.server.PathParam;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
