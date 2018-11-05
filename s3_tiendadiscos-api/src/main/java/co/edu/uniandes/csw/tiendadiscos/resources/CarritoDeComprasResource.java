@@ -56,7 +56,7 @@ public class CarritoDeComprasResource {
     
     @DELETE
     @Path("{wishListId: \\d+}")
-    public void deleteCarritoDeCompras(@PathParam("carritoDeComprasId") Long carritoDeComprasId){
+    public void deleteCarritoDeCompras(@PathParam("carritoDeComprasId") Long carritoDeComprasId)throws BusinessLogicException{
         logic.delete(carritoDeComprasId);
 
     }

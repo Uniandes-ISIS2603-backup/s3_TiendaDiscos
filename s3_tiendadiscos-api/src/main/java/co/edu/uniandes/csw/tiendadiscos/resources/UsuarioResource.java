@@ -92,6 +92,19 @@ public class UsuarioResource {
         
         return CarritoDeComprasResource.class;
     }
+    @Path("{usuariosId: \\d+}/comentarios")
+    public Class<ComentarioUsuarioResource> geComentariosResource(@PathParam("usuariosId") Long usuariosId) {
+        
+        return ComentarioUsuarioResource.class;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

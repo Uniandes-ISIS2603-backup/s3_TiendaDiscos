@@ -35,7 +35,7 @@ public class BillingInformationPersistence {
     public BillingInformationEntity find(Long billingId){
         return em.find(BillingInformationEntity.class, billingId);
     }
-    public BillingInformationEntity findBillingById(Long usuarioId) {
+    public BillingInformationEntity findBillingByUserId(Long usuarioId) {
 
         LOGGER.log(Level.INFO, "Consultando el billing del usuario con id = " + usuarioId);
         TypedQuery<BillingInformationEntity> q = em.createQuery("select p from BillingInformationEntity p where p.usuario.id = :usuarioId", BillingInformationEntity.class);

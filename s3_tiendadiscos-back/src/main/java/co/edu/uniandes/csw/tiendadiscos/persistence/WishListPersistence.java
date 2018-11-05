@@ -53,5 +53,21 @@ public class WishListPersistence {
         LOGGER.log(Level.INFO, "Consultando WishList con id={0}", wishlistId);
         return em.find(WishListEntity.class, wishlistId); 
     }
- 
+    
+    public WishListEntity findByUserId(Long userId){
+       LOGGER.log(Level.INFO, "Consultando el WishList asociado al usuario con el id"+userId);
+       TypedQuery<WishListEntity> q = em.createQuery("select p from WishListEntity p where p.usuario.id = :usuarioId", WishListEntity.class);
+       q.setParameter("usuarioId", userId);
+       List<WishListEntity> results = q.getResultList();
+       WishListEntity wish = null;
+       if(results == null){
+           wish = null;
+       }else if(results.isEmpty()){
+           wish = null;
+       }else if (results.size()>=1){
+           wish = results.get(0);
+       }
+       LOGGER.log(Level.INFO, "Saliendo de consultar el WishList  del usuario con id =" + userId);
+       return wish;
+    }
 }

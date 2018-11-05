@@ -69,9 +69,10 @@ public class ViniloResource
     }
     
     @GET
-    public List<ViniloDTO> getVinilos()
+    public List<ViniloDetailDTO> getVinilos()
     {
-        return null;
+        List<ViniloDetailDTO> vinilos = listEntity2DTO(viniloLogic.getVinilos());
+        return vinilos;
     }
     
     /**
@@ -104,6 +105,16 @@ public class ViniloResource
         return CancionViniloResource.class;
     }
     
+    @Path("{vinilosId: \\d+}/comentarios")
+    public Class<ComentarioViniloResource> geComentariosResource(@PathParam("vinilosId") Long vinilosId) {
+        
+        return ComentarioViniloResource.class;
+    }
+
+
+
+
+
     private List<ViniloDetailDTO> listEntity2DTO(List<ViniloEntity> entityList)
     {
         List<ViniloDetailDTO> list = new ArrayList<ViniloDetailDTO>();

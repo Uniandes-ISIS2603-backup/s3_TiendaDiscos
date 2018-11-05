@@ -21,11 +21,11 @@ import javax.ws.rs.*;
  *
  * @author Sebastian Martinez
  */
+
 @Produces("application/json")
 @Consumes("application/json")
-@RequestScoped
-public class ComentarioResource {
-    private static final Logger LOGGER = Logger.getLogger(ComentarioResource.class.getName());
+public class ComentarioUsuarioResource {
+    private static final Logger LOGGER = Logger.getLogger(ComentarioUsuarioResource.class.getName());
     
     @Inject
     private ComentarioLogic logic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
@@ -37,26 +37,14 @@ public class ComentarioResource {
      * @return 
      */
     @POST
-    public ComentarioDTO createComentario(@PathParam("usuariosId") Long usuariosId,ComentarioDTO comentario) throws BusinessLogicException 
+    @Path("{usuarios2Id: \\d+}")
+    public ComentarioDTO createComentarioUsuario(@PathParam("usuariosId") Long usuariosId, @PathParam("usuarios2Id") Long usuarios2Id, ComentarioDTO comentario) throws BusinessLogicException 
     {
-        ComentarioDTO nuevo = new ComentarioDTO(logic.createComentario(usuariosId, comentario.toEntity()));
+        ComentarioDTO nuevo = new ComentarioDTO(logic.createComentarioUsuario(usuariosId, usuarios2Id, comentario.toEntity()));
         return nuevo;
     }
     
-    /**
-     * 
-     * @param comentarioId
-     * @return
-     * @throws WebApplicationException 
-     */
-    @GET
-    @Path("{comentariosId: \\d+}")
-    public ComentarioDTO getComentario(@PathParam("usuariosId") Long usuariosId,@PathParam("comentariosId") Long comentariosId) 
-    {
-        ComentarioEntity nuevo = logic.getComentario(comentariosId, usuariosId);
-        ComentarioDTO resp = new ComentarioDTO(nuevo);
-        return null;
-    }
+
     
     @GET
     public List<ComentarioDTO> getComentarios(@PathParam("usuariosId") Long usuariosId)
@@ -78,12 +66,13 @@ public class ComentarioResource {
     @Path("{comentarioId: \\d+}")
     public ComentarioDTO putComentario(@PathParam("usuariosId") Long usuariosId,@PathParam("comentarioId") Long comentarioId, ComentarioDTO comentario) throws BusinessLogicException
     {
-        if(!comentario.getId().equals(comentarioId))
-            throw new BusinessLogicException("Los id no coinciden");
-        ComentarioEntity nuevo = logic.getComentario(comentarioId, usuariosId);
-        if(nuevo == null)
-            throw new BusinessLogicException("No existe la asociación entre el usuario y el comentario");
-        return new ComentarioDTO(logic.updateComentario(usuariosId, nuevo));
+        // if(!comentario.getId().equals(comentarioId))
+        //     throw new BusinessLogicException("Los id no coinciden");
+        // ComentarioEntity nuevo = logic.getComentario(comentarioId, usuariosId);
+        // if(nuevo == null)
+        //     throw new BusinessLogicException("No existe la asociación entre el usuario y el comentario");
+        // return new ComentarioDTO(logic.updateComentario(usuariosId, nuevo));
+        return null;
     }
 
     /**
@@ -93,10 +82,11 @@ public class ComentarioResource {
     @Path("{comentarioId: \\d+}")
     public void deleteComentario(@PathParam("usuariosId") Long usuariosId,@PathParam("comentarioId") Long comentarioId) throws BusinessLogicException
     {
-        ComentarioEntity nuevo = logic.getComentario(comentarioId, usuariosId);
-        if(nuevo == null)
-            throw new BusinessLogicException("No existe la asociación entre el usuario y el comentario");
+        // ComentarioEntity nuevo = logic.getComentario(comentarioId, usuariosId);
+        // if(nuevo == null)
+        //     throw new BusinessLogicException("No existe la asociación entre el usuario y el comentario");
         
-        logic.deleteComentario(usuariosId, comentarioId);
+        // logic.deleteComentario(usuariosId, comentarioId);
+       
     }
 }

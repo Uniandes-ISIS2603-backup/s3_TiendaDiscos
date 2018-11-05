@@ -33,7 +33,7 @@ public class CancionResource {
     @POST
     public CancionDTO createCancion(CancionDTO cancion){
         CancionDTO nuevaCancion = new CancionDTO(cancionLogic.createCancion(cancion.toEntity()));
-        return cancion;
+        return nuevaCancion;
     }
     
     @GET
@@ -66,6 +66,11 @@ public class CancionResource {
         
     }
     
+    @Path("{cancionesId: \\d+}/comentarios")
+    public Class<ComentarioCancionResource> geComentariosResource(@PathParam("cancionessId") Long cancionesId) {
+        
+        return ComentarioCancionResource.class;
+    }
     
       //METODOS
     

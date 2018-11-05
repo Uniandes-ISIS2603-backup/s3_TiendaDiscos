@@ -31,9 +31,9 @@ public class ViniloPersistence {
     
     public ViniloEntity create(ViniloEntity viniloEntity)
     {
-        LOGGER.log(Level.INFO, "Creando un libro nuevo");
+        LOGGER.log(Level.INFO, "Creando un vinilo nuevo");
         em.persist(viniloEntity);
-        LOGGER.log(Level.INFO, "Libro creado");
+        LOGGER.log(Level.INFO, "Vinilo creado");
         return viniloEntity;
     }
     

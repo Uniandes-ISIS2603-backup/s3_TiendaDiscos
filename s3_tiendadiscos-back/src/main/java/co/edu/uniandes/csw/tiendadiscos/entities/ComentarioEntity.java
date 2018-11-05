@@ -80,7 +80,7 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     {
         this.usuarioDestino = usuario;
     }
-    public void setTransacciono(TransaccionEntity transaccion)
+    public void setTransaccion(TransaccionEntity transaccion)
     {
         this.transaccion = transaccion;
     }

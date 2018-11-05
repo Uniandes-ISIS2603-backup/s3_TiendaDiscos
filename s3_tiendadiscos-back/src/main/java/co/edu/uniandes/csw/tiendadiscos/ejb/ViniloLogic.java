@@ -29,7 +29,7 @@ public class ViniloLogic {
     
     /**
      * Crea un vinilo en la persistence. 
-     * No hay restricciones para registrarlo.
+     * No pueden haber campos Vacios.
      * 
      * @param viniloEntity Vinilo que se desea registrar.
      * @return vinilo que se agrego a persistence.
@@ -37,7 +37,6 @@ public class ViniloLogic {
     public ViniloEntity createVinilo(ViniloEntity viniloEntity) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación del vinilo.");
-        // No hay reglas de negocio que impidan crear un vinilo.
         // Se procede a crear el vinilo.
         if(viniloEntity.getNombre().equals("") || viniloEntity.getPrecio() < 0 || viniloEntity.getProductora().equals("") || viniloEntity.getArtista().equals("") )
             throw new BusinessLogicException("El vinilo no cumple con los requisitos para ser creado.");
