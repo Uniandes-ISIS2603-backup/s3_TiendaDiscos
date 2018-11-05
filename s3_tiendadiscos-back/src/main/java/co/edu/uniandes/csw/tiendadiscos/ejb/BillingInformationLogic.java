@@ -56,31 +56,27 @@ public class BillingInformationLogic {
             
             throw new BusinessLogicException("No es un numero de cuenta valido");
         }
- 
         
-        billing.setUsuario(usuario);
+
+        billing.setUsuario(usuario);        
+        
         LOGGER.log(Level.INFO, "Termina proceso de creación del billing");
 
         return persistence.create(billing);
 
     }
 
-    public BillingInformationEntity getBilling(Long usuariosId) {
-        UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
+    public BillingInformationEntity getBilling(Long usuarioId) {
+        UsuarioEntity usuario = usuarioPersistence.find(usuarioId);
 
         //Usuario nul necesito la logic del usuario para poder probar
         // Error 
         if (usuario == null) {
-            throw new WebApplicationException("pailas", 404);
+            throw new WebApplicationException("El Usuario con el id"+usuarioId+"no existe.", 404);
         }
-        
-        
-        
-        BillingInformationEntity billing = usuario.getBillingInformation();
-        Long billingId = billing.getId();
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el billing con id = {0}", billingId);
-        if (billing == null) {
-            LOGGER.log(Level.SEVERE, "El usuario con el id = {0} no tiene billing", billingId);
+        BillingInformationEntity billing= persistence.findBillingById(usuarioId);
+        if(billing==null){
+            throw new WebApplicationException("El Usuario con el id"+usuarioId+"no tiene billing.", 404);
         }
         return billing;
     }
