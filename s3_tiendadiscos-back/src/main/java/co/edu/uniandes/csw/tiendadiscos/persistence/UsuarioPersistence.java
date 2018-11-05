@@ -94,7 +94,6 @@ public class UsuarioPersistence {
     
     public UsuarioEntity update(UsuarioEntity usuarioEntity) {
         LOGGER.log(Level.INFO, "Actualizando el usuario con id={0}", usuarioEntity.getId());
-
         return em.merge(usuarioEntity);
     }
      /**

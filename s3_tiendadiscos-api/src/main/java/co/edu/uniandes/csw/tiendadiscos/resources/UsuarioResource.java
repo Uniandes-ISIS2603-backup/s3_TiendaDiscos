@@ -45,8 +45,8 @@ public class UsuarioResource {
     
     @PUT
     @Path("{usuariosId: \\d+}")
-    public UsuarioDTO updateUsuario(@PathParam("usuariosId") Long usuarioId,UsuarioDTO usuario){
-        
+    public UsuarioDTO updateUsuario(@PathParam("usuariosId") Long usuarioId,UsuarioDTO usuario) throws BusinessLogicException{
+        usuarioLogic.updateUsuario(usuarioId, usuario.toEntity());
         return usuario;
     }
     
@@ -81,19 +81,13 @@ public class UsuarioResource {
         
         return BillingInformationResource.class;
     }
-    
-    @Path("{usuariosId: \\d+}/comentarios")
-    public Class<ComentarioResource> getComentariosResource(@PathParam("usuariosId") Long usuariosId) {
-        
-        return ComentarioResource.class;
-    }
 
     @Path("{usuariosId: \\d+}/wishlist")
     public Class<WishListResource> getWishListResource(@PathParam("usuariosId") Long usuariosId) {
         
         return WishListResource.class;
     }
-    @Path("{usuariosId: \\d+}/carritoDeCompras")
+    @Path("{usuariosId: \\d+}/carrito")
     public Class<CarritoDeComprasResource> geCarritoDeComprasResource(@PathParam("usuariosId") Long usuariosId) {
         
         return CarritoDeComprasResource.class;

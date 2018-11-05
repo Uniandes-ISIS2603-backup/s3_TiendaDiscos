@@ -58,10 +58,7 @@ public class BillingInformationLogic {
         }
  
         
-        if (usuario.getBillingInformation() == null) {
-            throw new BusinessLogicException("El usuario ya tiene una Billing asignada");
-        }
-        usuario.setBillingInformation(billing);
+        billing.setUsuario(usuario);
         LOGGER.log(Level.INFO, "Termina proceso de creación del billing");
 
         return persistence.create(billing);

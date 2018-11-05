@@ -36,6 +36,7 @@ public class WishListPersistence {
     public WishListEntity update(WishListEntity wish)
     {
         em.merge(wish);
+       
         return wish;
     }
     
