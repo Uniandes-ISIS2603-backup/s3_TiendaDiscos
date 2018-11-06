@@ -3,7 +3,6 @@ package co.edu.uniandes.csw.tiendadiscos.dtos;
 import co.edu.uniandes.csw.tiendadiscos.entities.CancionEntity;
 import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -14,10 +13,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class ViniloDetailDTO extends ViniloDTO implements Serializable
 {
-    /**
-     * Relación de 1 a muchas canciones.
-     */
-    private List<CancionDTO> canciones;
+   /**
+    * Relación de 1 a muchas canciones.
+    */
+   private List<CancionDTO> canciones;
 
    /**
     * Constructor vacio.
@@ -47,7 +46,8 @@ public class ViniloDetailDTO extends ViniloDTO implements Serializable
      * @return El DTO de la editorial para transformar a Entity
      */
     @Override
-    public ViniloEntity toEntity() {
+    public ViniloEntity toEntity() 
+    {
         ViniloEntity viniloEntity = super.toEntity();
 //        if (canciones != null) {
 //            List<CancionEntity> cancionesEntity = new ArrayList<>();
@@ -63,7 +63,8 @@ public class ViniloDetailDTO extends ViniloDTO implements Serializable
      * Devuelve las canciones asociadas al vinilo.
      * @return atributo canciones.
      */
-    public List<CancionDTO> getCanciones() {
+    public List<CancionDTO> getCanciones() 
+    {
         return canciones;
     }
 
