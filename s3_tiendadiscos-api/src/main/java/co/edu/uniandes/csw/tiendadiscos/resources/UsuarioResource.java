@@ -10,6 +10,7 @@ package co.edu.uniandes.csw.tiendadiscos.resources;
 import co.edu.uniandes.csw.tiendadiscos.dtos.UsuarioDTO;
 import co.edu.uniandes.csw.tiendadiscos.dtos.UsuarioDetailDTO;
 import co.edu.uniandes.csw.tiendadiscos.ejb.UsuarioLogic;
+import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,22 +45,28 @@ public class UsuarioResource {
     
     @PUT
     @Path("{usuariosId: \\d+}")
-    public UsuarioDTO updateUsuario(@PathParam("usuariosId") Long usuarioId,UsuarioDTO usuario){
-        
+    public UsuarioDTO updateUsuario(@PathParam("usuariosId") Long usuarioId,UsuarioDTO usuario) throws BusinessLogicException{
+        usuarioLogic.updateUsuario(usuarioId, usuario.toEntity());
         return usuario;
     }
     
     @GET
     @Path("{usuariosId: \\d+}")
     public UsuarioDetailDTO getUsuario(@PathParam("usuariosId") Long usuarioId){
+        UsuarioEntity usuarioEntity = usuarioLogic.getUsuario(usuarioId);
+        if (usuarioEntity ==null){
+            throw new WebApplicationException("El recurso /usuario/" + usuarioId + " no existe.", 404);
+        }
+        UsuarioDetailDTO usuarioDetail = new UsuarioDetailDTO(usuarioEntity);
         
-        return new UsuarioDetailDTO();
+        return usuarioDetail;
     }
     
     @GET
     public List<UsuarioDetailDTO> getUsuarios(){
+        List<UsuarioDetailDTO> listaUsuarios = listEntity2DetailDTO(usuarioLogic.getUsuarios());
         
-        return new ArrayList<UsuarioDetailDTO>();
+        return listaUsuarios;
     }
     
     @DELETE
@@ -70,15 +77,9 @@ public class UsuarioResource {
     } 
     
     @Path("{usuariosId: \\d+}/billing")
-    public Class<BillingInformationResource> getReviewResource(@PathParam("usuariosId") Long usuariosId) {
+    public Class<BillingInformationResource> getBillingResource(@PathParam("usuariosId") Long usuariosId) {
         
         return BillingInformationResource.class;
-    }
-    
-    @Path("{usuariosId: \\d+}/comentarios")
-    public Class<ComentarioResource> getComentariosResource(@PathParam("usuariosId") Long usuariosId) {
-        
-        return ComentarioResource.class;
     }
 
     @Path("{usuariosId: \\d+}/wishlist")
@@ -86,10 +87,38 @@ public class UsuarioResource {
         
         return WishListResource.class;
     }
-    @Path("{usuariosId: \\d+}/carritoDeCompras")
+    @Path("{usuariosId: \\d+}/carrito")
     public Class<CarritoDeComprasResource> geCarritoDeComprasResource(@PathParam("usuariosId") Long usuariosId) {
         
         return CarritoDeComprasResource.class;
     }
+    @Path("{usuariosId: \\d+}/comentarios")
+    public Class<ComentarioUsuarioResource> geComentariosResource(@PathParam("usuariosId") Long usuariosId) {
+        
+        return ComentarioUsuarioResource.class;
+    }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //METODOS
+    
+    
+    
+    
+        private List<UsuarioDetailDTO> listEntity2DetailDTO(List<UsuarioEntity> entityList) {
+        List<UsuarioDetailDTO> list = new ArrayList<>();
+        for (UsuarioEntity entity : entityList) {
+            list.add(new UsuarioDetailDTO(entity));
+        }
+        return list;
+    }
 }

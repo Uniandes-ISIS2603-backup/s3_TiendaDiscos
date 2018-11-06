@@ -6,10 +6,13 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.CancionDTO;
+import co.edu.uniandes.csw.tiendadiscos.ejb.CancionLogic;
+import co.edu.uniandes.csw.tiendadiscos.entities.CancionEntity;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
-import javax.websocket.server.PathParam;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 /**
@@ -24,36 +27,61 @@ public class CancionResource {
     
     private static final Logger LOGGER = Logger.getLogger(CancionResource.class.getName());
     
+    @Inject
+    private CancionLogic cancionLogic;
+    
     @POST
-    public CancionDTO createCancion(CancionDTO cancion)
-    {
-        return cancion;
+    public CancionDTO createCancion(CancionDTO cancion){
+        CancionDTO nuevaCancion = new CancionDTO(cancionLogic.createCancion(cancion.toEntity()));
+        return nuevaCancion;
     }
     
     @GET
     public List<CancionDTO> getCanciones()
     {
-        return null;
+        List<CancionDTO> canciones= listEntity2DetailDTO(cancionLogic.getCanciones());
+        return canciones;
     }
     
     @GET
     @Path("{cancionesId: \\d+}")
     public CancionDTO getCancion(@PathParam("cancionesId") Long cancionesId)
     {
-        return null;
+       CancionDTO cancion = new CancionDTO(cancionLogic.getCancion(cancionesId));
+       return cancion;       
+        
     }
-    /*
+    
     @PUT
     @Path("{cancionesId: \\d+}")
     public CancionDTO updateCancion(@PathParam("cancionesId") Long cancionesId, CancionDTO cancion)
     {
         return cancion;
-    }*/
+    }
     
     @DELETE
     @Path("{cancionesId: \\d+}")
     public void deleteTransaccion(@PathParam("cancionesId") Long cancionesId)
     {
         
+    }
+    
+    @Path("{cancionesId: \\d+}/comentarios")
+    public Class<ComentarioCancionResource> geComentariosResource(@PathParam("cancionessId") Long cancionesId) {
+        
+        return ComentarioCancionResource.class;
+    }
+    
+      //METODOS
+    
+    
+    
+    
+        private List<CancionDTO> listEntity2DetailDTO(List<CancionEntity> entityList) {
+        List<CancionDTO> list = new ArrayList<>();
+        for (CancionEntity entity : entityList) {
+            list.add(new CancionDTO(entity));
+        }
+        return list;
     }
 }

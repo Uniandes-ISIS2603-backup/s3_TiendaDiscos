@@ -12,9 +12,7 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 
 /**
  *
@@ -28,12 +26,17 @@ public class ViniloPersistence {
     @PersistenceContext(unitName= "VinylAppPU")
     protected EntityManager em;
     
-    
+    /**
+     * Crea un vinilo en la base de datos.
+     * 
+     * @param viniloEntity objeto vinilo que creará en la base de datos.
+     * @return Devuelve la entidad creada con un id dado por la base de datos.
+     */
     public ViniloEntity create(ViniloEntity viniloEntity)
     {
-        LOGGER.log(Level.INFO, "Creando un libro nuevo");
+        LOGGER.log(Level.INFO, "Creando un vinilo nuevo");
         em.persist(viniloEntity);
-        LOGGER.log(Level.INFO, "Libro creado");
+        LOGGER.log(Level.INFO, "Vinilo creado");
         return viniloEntity;
     }
     
@@ -57,20 +60,31 @@ public class ViniloPersistence {
      */
     public ViniloEntity find(Long viniloId)
     {
-        LOGGER.log(Level.INFO, "Consultando el libro con id={0}", viniloId);
+        LOGGER.log(Level.INFO, "Consultando el vinilo con id={0}", viniloId);
         return em.find(ViniloEntity.class, viniloId);
     }
     
+    /**
+     * Actualiza un vinilo.
+     * 
+     * @param viniloEntity: el vinilo que viene con los nuevos cambios.
+     * @return el vinilo con los cambios aplicados.
+     */
     public ViniloEntity update(ViniloEntity viniloEntity)
     {
         LOGGER.log(Level.INFO, "Actualizando el vinilo con id={0}", viniloEntity.getId());
         return em.merge(viniloEntity);
     }
     
+    /**
+     * Borra un vinilo de la base de datos recibiendo como argumento el id del vinilo.
+     * 
+     * @param viniloId: id correspondiente al vinilo a borrar.
+     */
     public void delete(Long viniloId)
     {
-        LOGGER.log(Level.INFO, "Borrando el libro con id={0}", viniloId);
-        ViniloEntity bookEntity = em.find(ViniloEntity.class, viniloId);
-        em.remove(bookEntity);
+        LOGGER.log(Level.INFO, "Borrando el vinilo con id={0}", viniloId);
+        ViniloEntity viniloEntity = em.find(ViniloEntity.class, viniloId);
+        em.remove(viniloEntity);
     }
 }
