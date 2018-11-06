@@ -62,6 +62,11 @@ public class ViniloDTO implements Serializable
     private Double precio;
     
     /**
+     * Conexión con el usuario.
+     */
+    private UsuarioDTO usuario;
+    
+    /**
      * Empty constructor.
      */
     public ViniloDTO()
@@ -86,6 +91,8 @@ public class ViniloDTO implements Serializable
             this.productora = viniloEntity.getProductora();
             this.calificacion = viniloEntity.getCalificacion();                    
             this.precio = viniloEntity.getPrecio();
+            if(viniloEntity.getUsuario() != null)
+                this.usuario = new UsuarioDTO(viniloEntity.getUsuario());
         }
     }
     
@@ -108,6 +115,8 @@ public class ViniloDTO implements Serializable
         viniloEntity.setProductora(this.productora);
         viniloEntity.setCalificacion(this.calificacion);
         viniloEntity.setPrecio(this.precio);
+        if(this.usuario != null)
+            viniloEntity.setUsuario(this.usuario.toEntity());
         
         return viniloEntity;
     }
@@ -189,6 +198,15 @@ public class ViniloDTO implements Serializable
     }
     
     /**
+     * Establece el usuario.
+     * @param usuario  nuevo valor del atributo.
+     */
+    public void setUsuario(UsuarioDTO usuario)
+    {
+        this.usuario = usuario;
+    }
+    
+    /**
      * Obtiene el atributo calificacion.
      * @return atributo calificación.
      */
@@ -259,6 +277,15 @@ public class ViniloDTO implements Serializable
     public Double getPrecio()
     {
         return precio;
+    }
+    
+    /**
+     * Obtiene la conexión con el usuario.
+     * @return atributo usuario.
+     */
+    public UsuarioDTO getUsuario()
+    {
+        return usuario;
     }
 
     @Override

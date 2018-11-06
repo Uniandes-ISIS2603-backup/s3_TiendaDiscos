@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.tiendadiscos.entities.CancionEntity;
 import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tiendadiscos.persistence.ViniloPersistence;
+import co.edu.uniandes.csw.tiendadiscos.persistence.UsuarioPersistence;
 import java.util.logging.Logger;
 import java.util.List;
 import java.util.logging.Level;
@@ -26,6 +27,9 @@ public class ViniloLogic {
     
     @Inject
     private ViniloPersistence persistence;
+    
+    @Inject
+    private UsuarioPersistence usuarioPersistence;
     
     /**
      * Crea un vinilo en la persistence. 
@@ -45,6 +49,17 @@ public class ViniloLogic {
         return viniloEntity;
     }
     
+    public ViniloEntity createViniloUsuario(Long usuarioId, ViniloEntity viniloEntity ) throws BusinessLogicException
+    {
+        LOGGER.log(Level.INFO , "Inicia el proceso de creación del vinilo de un usuario con id = {0}", usuarioId);
+        if(usuarioPersistence.find(usuarioId) != null)
+            throw new BusinessLogicException("El usuario no existe. id Recibido: "+usuarioId);
+        viniloEntity.setUsuario(usuarioPersistence.find(usuarioId));
+        persistence.create(viniloEntity);
+        LOGGER.log(Level.INFO , "Termina el proceso de creación del vinilo al usuario.");
+        return viniloEntity;
+    }
+    
     /**
      * Obtiene todos los vinilos en la persistencia. 
      * Permite mostrar el catalogo completo de vinilos.
@@ -56,6 +71,14 @@ public class ViniloLogic {
         LOGGER.log(Level.INFO, "Inicia la consulta de todos los vinilos.");
         List<ViniloEntity> vinilos = persistence.findAll();
         LOGGER.log(Level.INFO, "Termina el proceso de consultar los vinilos.");
+        return vinilos;
+    }
+    
+    public List<ViniloEntity> getVinilosByUsuario(Long usuarioId)
+    {
+        LOGGER.log(Level.INFO , "Inicia la consulta de todos los vinilos del usuario:{0}", usuarioId);
+        List<ViniloEntity> vinilos = persistence.findAllByUsuario(usuarioId);
+        LOGGER.log(Level.INFO , "Termina el proceso de consulta de los vinilos de un usuario.");
         return vinilos;
     }
     
