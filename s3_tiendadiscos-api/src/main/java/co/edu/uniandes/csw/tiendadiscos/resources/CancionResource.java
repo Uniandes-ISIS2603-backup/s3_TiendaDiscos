@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.websocket.server.PathParam;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 /**
@@ -64,24 +65,5 @@ public class CancionResource {
     public void deleteTransaccion(@PathParam("cancionesId") Long cancionesId)
     {
         
-    }
-    
-    @Path("{cancionesId: \\d+}/comentarios")
-    public Class<ComentarioCancionResource> geComentariosResource(@PathParam("cancionessId") Long cancionesId) {
-        
-        return ComentarioCancionResource.class;
-    }
-    
-      //METODOS
-    
-    
-    
-    
-        private List<CancionDTO> listEntity2DetailDTO(List<CancionEntity> entityList) {
-        List<CancionDTO> list = new ArrayList<>();
-        for (CancionEntity entity : entityList) {
-            list.add(new CancionDTO(entity));
-        }
-        return list;
     }
 }
