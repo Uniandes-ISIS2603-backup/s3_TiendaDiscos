@@ -50,7 +50,7 @@ public class ComentarioTransaccionResource {
     {
         List<ComentarioDTO> resp = new ArrayList<ComentarioDTO>();
         List<ComentarioEntity> temp = new ArrayList<ComentarioEntity>();
-        temp = logic.getComentariosToUsuarios(usuariosId);
+        temp = logic.getComentarios(usuariosId);
         for(ComentarioEntity com : temp)
             resp.add(new ComentarioDTO(com));        
         return resp;

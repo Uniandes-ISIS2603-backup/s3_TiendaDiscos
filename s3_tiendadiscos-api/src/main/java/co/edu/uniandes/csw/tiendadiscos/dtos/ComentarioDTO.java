@@ -6,16 +6,13 @@ import java.io.Serializable;
 
 /**
  *
- * @author Sebastian Martinez y Andrés :)
+ * @author Sebastian Martinez
  */
 public class ComentarioDTO implements Serializable{
    
     private static final long serialVersionUID = 1L;
    
     private Long id;
-
-    private UsuarioDTO escritoPor;
-
     private String contenido;
     
     private UsuarioDTO usuario;
@@ -24,12 +21,16 @@ public class ComentarioDTO implements Serializable{
     
     private TransaccionDTO transaccion;
     
-    private CancionDTO cancion;    
+    private CancionDTO cancion;
+    
+    
+    
     
     /**
      * Contructor por defecto
      */
-    public ComentarioDTO(){ }
+    public ComentarioDTO(){    
+    }
     
    /** 
      * Constructor apartir de la entidad
@@ -62,10 +63,6 @@ public class ComentarioDTO implements Serializable{
                 this.usuario = new UsuarioDTO(comentarioEntity.getUsuario());
             else
                 this.usuario = null;
-            if(comentarioEntity.getUsuarioI() != null)
-                this.escritoPor = new UsuarioDTO(comentarioEntity.getUsuarioI());
-            else
-                this.usuario= null;
             
         }
     }
@@ -79,8 +76,6 @@ public class ComentarioDTO implements Serializable{
         ComentarioEntity comentario = new ComentarioEntity();
         comentario.setId(id);
         comentario.setContenido(contenido);
-        if(this.escritoPor!= null)
-            comentario.setUsuarioI(escritoPor.toEntity());
         if(this.transaccion!=null)
             comentario.setTransaccion(this.transaccion.toEntity());
         if(this.usuario!=null)
@@ -103,16 +98,8 @@ public class ComentarioDTO implements Serializable{
         return id;
     }
     
-    /**
-     * Devuelve el usuario que escribio el comentario.
-     * 
-     * @return el usuario que escribió el comentario.
-     */
-    public UsuarioDTO getEscritoPor()
-    {
-        return escritoPor;
-    }
 
+    
     /**
      * Devuelve el id del comentario
      * 
@@ -122,8 +109,7 @@ public class ComentarioDTO implements Serializable{
     {
         return contenido;
     }
-
-    /**
+        /**
      * @return conexion con la transaccion
      */
     public TransaccionDTO getTransaccion()
@@ -144,10 +130,12 @@ public class ComentarioDTO implements Serializable{
     public ViniloDTO getVinilo()
     {
         return vinilo;
-    } 
+    }
+    
+    
         
     /**
-     * @return conexion con la canción
+     * @return conexion con el vinilo
      */
     public CancionDTO getCancion()
     {
@@ -164,14 +152,6 @@ public class ComentarioDTO implements Serializable{
         this.id = id;
     }
     
-    /**
-     * @param escritoPor usuario que comento.
-     */
-    public void setEscritoPor(UsuarioDTO escritoPor)
-    {
-        this.escritoPor = escritoPor;
-    }
-
 
     /**
      * Cambia el contenido del comentario
@@ -182,8 +162,7 @@ public class ComentarioDTO implements Serializable{
     {
         this.contenido = contenido;
     }
-
-    /** 
+ /** 
      * @param usuario usuario al que se comenta
      */
     public void setUsuario(UsuarioDTO usuario)

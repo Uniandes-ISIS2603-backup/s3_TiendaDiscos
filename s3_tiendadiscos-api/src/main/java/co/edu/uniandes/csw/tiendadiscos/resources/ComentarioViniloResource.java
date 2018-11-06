@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 //import co.edu.uniandes.csw.tiendadiscos.ejb.ComentarioLogic;
 import java.util.logging.Logger;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 
@@ -24,7 +25,6 @@ import javax.ws.rs.*;
 @Produces("application/json")
 @Consumes("application/json")
 public class ComentarioViniloResource {
-
     private static final Logger LOGGER = Logger.getLogger(ComentarioViniloResource.class.getName());
     
     @Inject
@@ -50,7 +50,7 @@ public class ComentarioViniloResource {
     {
         List<ComentarioDTO> resp = new ArrayList<ComentarioDTO>();
         List<ComentarioEntity> temp = new ArrayList<ComentarioEntity>();
-        temp = logic.getComentariosToUsuarios(usuariosId);
+        temp = logic.getComentarios(usuariosId);
         for(ComentarioEntity com : temp)
             resp.add(new ComentarioDTO(com));        
         return resp;
