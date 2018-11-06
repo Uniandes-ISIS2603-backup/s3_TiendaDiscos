@@ -37,13 +37,24 @@ public class ViniloPersistence {
         return viniloEntity;
     }
     
+    /**
+     * Devuelve todas los vinilos de la base de datos.
+     * 
+     * @return una lista con todos los autores que encuentre en la base de datos.
+     */
     public List<ViniloEntity> findAll()
     {
         LOGGER.log(Level.INFO, "Consultando todos los vinilos");
-        Query q = em.createQuery("select u from ViniloEntity u");
+        TypedQuery q = em.createQuery("select u from ViniloEntity u", ViniloEntity.class);
         return q.getResultList();
     }
     
+    /**
+     * Busca si hay algun Vinilo con el id que se envía de argumento.
+     * 
+     * @param viniloId: id correspondiente al vinilo buscado.
+     * @return un vinilo.
+     */
     public ViniloEntity find(Long viniloId)
     {
         LOGGER.log(Level.INFO, "Consultando el libro con id={0}", viniloId);
