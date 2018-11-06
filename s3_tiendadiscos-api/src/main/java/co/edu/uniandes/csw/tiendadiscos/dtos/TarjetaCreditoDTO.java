@@ -17,7 +17,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class TarjetaCreditoDTO {
 
     /**
-     * id único de la tarjeta de credito.
+     * id ??nico de la tarjeta de credito.
      */
     private Long id;
 

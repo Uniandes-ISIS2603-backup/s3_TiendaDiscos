@@ -34,7 +34,7 @@ public class TarjetaCreditoLogic {
     private UsuarioPersistence usuarioPersistence;
 
     public TarjetaCreditoEntity createTarjeta(Long usuariosId, TarjetaCreditoEntity tarjeta) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de creación de la tarjeta");
+        LOGGER.log(Level.INFO, "Inicia proceso de creaci??n de la tarjeta");
         UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
         if (usuario == null) {
             //Esta exception la produce usuario BORRAR
@@ -55,7 +55,7 @@ public class TarjetaCreditoLogic {
         }
 
         tarjeta.setBilling(billing);
-        LOGGER.log(Level.INFO, "Termina proceso de creación de la tarjeta");
+        LOGGER.log(Level.INFO, "Termina proceso de creaci??n de la tarjeta");
         return persistence.create(tarjeta);
 
     }

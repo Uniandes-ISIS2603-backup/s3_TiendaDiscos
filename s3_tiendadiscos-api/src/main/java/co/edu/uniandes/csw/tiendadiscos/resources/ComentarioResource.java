@@ -37,7 +37,7 @@ public class ComentarioResource {
     private static final Logger LOGGER = Logger.getLogger(ComentarioResource.class.getName());
     
     @Inject
-    private ComentarioLogic logic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    private ComentarioLogic logic; // Variable para acceder a la l??gica de la aplicaci??n. Es una inyecci??n de dependencias.
     
     /**
      * 
@@ -91,7 +91,7 @@ public class ComentarioResource {
             throw new BusinessLogicException("Los id no coinciden");
         ComentarioEntity nuevo = logic.getComentario(comentarioId, usuariosId);
         if(nuevo == null)
-            throw new BusinessLogicException("No existe la asociación entre el usuario y el comentario");
+            throw new BusinessLogicException("No existe la asociaci??n entre el usuario y el comentario");
         return new ComentarioDTO(logic.updateComentario(usuariosId, nuevo));
     }
 
@@ -104,7 +104,7 @@ public class ComentarioResource {
     {
         ComentarioEntity nuevo = logic.getComentario(comentarioId, usuariosId);
         if(nuevo == null)
-            throw new BusinessLogicException("No existe la asociación entre el usuario y el comentario");
+            throw new BusinessLogicException("No existe la asociaci??n entre el usuario y el comentario");
         
         logic.deleteComentario(usuariosId, comentarioId);
     }

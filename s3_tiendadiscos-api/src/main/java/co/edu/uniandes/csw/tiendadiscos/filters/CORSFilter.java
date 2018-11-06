@@ -13,7 +13,7 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.ext.Provider;
 
 /**
- * @author Andrés Hernández
+ * @author Andr??s Hern??ndez
  */
 @Provider
 public class CORSFilter implements ContainerResponseFilter {
