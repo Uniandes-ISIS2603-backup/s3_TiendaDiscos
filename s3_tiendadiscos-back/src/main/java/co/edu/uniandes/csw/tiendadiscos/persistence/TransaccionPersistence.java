@@ -2,12 +2,14 @@ package co.edu.uniandes.csw.tiendadiscos.persistence;
 
 
 import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 
 
@@ -44,6 +46,13 @@ public class TransaccionPersistence {
 
     }
 
+   public List<TransaccionEntity> findAll() {
+        LOGGER.log(Level.INFO, "Consultando las transacciones");
+        TypedQuery query = em.createQuery("select u from TransaccionEntity u", TransaccionEntity.class);
+        return query.getResultList();
+
+    }
+   
     public TransaccionEntity update(TransaccionEntity transaccionEntity) {
         LOGGER.log(Level.INFO, "Actualizando transaccion con id={0}", transaccionEntity.getId());
         TransaccionEntity updateTransaccion=em.merge(transaccionEntity);

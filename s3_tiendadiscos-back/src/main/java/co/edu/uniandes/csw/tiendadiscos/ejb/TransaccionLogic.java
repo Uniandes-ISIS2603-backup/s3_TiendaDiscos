@@ -10,6 +10,7 @@ package co.edu.uniandes.csw.tiendadiscos.ejb;
 import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tiendadiscos.persistence.TransaccionPersistence;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -40,6 +41,11 @@ public class TransaccionLogic {
     public TransaccionEntity get(Long transaccionId)
     {
         return transaccionPersistence.find(transaccionId);
+    }
+    
+    public List<TransaccionEntity> getTransacciones()
+    {
+        return transaccionPersistence.findAll();
     }
     
     public TransaccionEntity update(TransaccionEntity transaccion,Long transaccionId) throws BusinessLogicException

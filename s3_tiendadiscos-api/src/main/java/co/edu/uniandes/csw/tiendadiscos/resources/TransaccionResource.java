@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.tiendadiscos.dtos.TransaccionDTO;
 import co.edu.uniandes.csw.tiendadiscos.ejb.TransaccionLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,6 +57,21 @@ public class TransaccionResource{
         LOGGER.log(Level.INFO, "TransaccionResource getTransaccion: output: {0}", nuevo.toString());
         
         return nuevo;
+    }
+    
+    @GET
+    public List<TransaccionDTO> getTransacciones(){
+       
+        List<TransaccionDTO> entity = listEntityDTO(logic.getTransacciones());
+        
+        return entity;
+    }
+    private List<TransaccionDTO> listEntityDTO(List<TransaccionEntity> entityList) {
+        List<TransaccionDTO> list = new ArrayList<>();
+        for (TransaccionEntity entity : entityList) {
+            list.add(new TransaccionDTO(entity));
+        }
+        return list;
     }
     
     @PUT
