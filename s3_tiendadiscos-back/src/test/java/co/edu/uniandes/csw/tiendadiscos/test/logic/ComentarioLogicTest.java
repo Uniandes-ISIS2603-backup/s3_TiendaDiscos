@@ -113,7 +113,7 @@ public class ComentarioLogicTest {
      */
     @Test
     public void getComentariosTest() {
-        List<ComentarioEntity> list = logic.getComentarios(dataUsuario.get(0).getId());
+        List<ComentarioEntity> list = logic.getComentariosToUsuarios(dataUsuario.get(0).getId());
         Assert.assertEquals(data.size(), list.size());
         for (ComentarioEntity entity : list) {
             boolean found = false;
@@ -132,7 +132,7 @@ public class ComentarioLogicTest {
     @Test
     public void getComentarioTest() {
         ComentarioEntity entity = data.get(0);
-        List<ComentarioEntity> resultEntity = logic.getComentarios(dataUsuario.get(0).getId());
+        List<ComentarioEntity> resultEntity = logic.getComentariosToUsuarios(dataUsuario.get(0).getId());
         Assert.assertNotNull(resultEntity);
         
 

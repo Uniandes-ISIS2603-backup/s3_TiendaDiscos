@@ -21,11 +21,13 @@ import javax.inject.Inject;
 
 /**
  *
- * @author Sebastian Martinez
+ * @author Sebastian Martinez y Andres :)
  */
 @Stateless
 public class ComentarioLogic{
+
     private static final Logger LOGGER = Logger.getLogger(ComentarioLogic.class.getName());
+    
     @Inject
     private ComentarioPersistence persistence;
     
@@ -41,6 +43,10 @@ public class ComentarioLogic{
     @Inject
     private TransaccionPersistence transaccionPersistence;
 
+    //-------------------------------------------------------
+    // Create para los cuatro tipos de comentarios.
+    // Vinilo, Canción, Usuario, Transacción.
+    //-------------------------------------------------------
 
     public ComentarioEntity createComentarioUsuario(Long usuarioIdDestino, Long usuarioIdi, ComentarioEntity comentarioEntity) throws BusinessLogicException
     {
@@ -116,12 +122,31 @@ public class ComentarioLogic{
         LOGGER.log(Level.INFO, "Termina el proceso de creación de un comentario al vinilo.");
         return comentarioEntity;
     }
-
-    public List<ComentarioEntity> getComentarios(Long usuarioId){
+    
+    //-------------------------------------------------------
+    // Getters de las listas de comentarios.
+    //-------------------------------------------------------
+    
+    
+    public List<ComentarioEntity> getComentariosToUsuarios(Long usuarioId)
+    {
         return persistence.findAllToUsuario(usuarioId);
     }
-    
-    
+
+    public List<ComentarioEntity> getComentariosToTransaccion(Long transaccionId)
+    {
+        return persistence.findAllToTransaccion(transaccionId);
+    }
+
+    public List<ComentarioEntity> getComentariosToCancion(Long cancionId)
+    {
+        return persistence.findAllToCancion(cancionId);
+    }
+
+    public List<ComentarioEntity> getComentariosToVinilo(Long viniloId)
+    {
+        return persistence.findAllToVinilo(viniloId);
+    }
 
     /**
      * Actualiza la información de una instancia de Review.
@@ -152,6 +177,5 @@ public class ComentarioLogic{
        
         
     }
-
     /** linkhl was here :p */
 }

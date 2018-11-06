@@ -39,6 +39,7 @@ public class WishListLogic {
      * @param usuarioId El id del usuario el cual será el padre del nuevo Wishlist.
      * @return Objeto de WishListEntity con los datos nuevos y su ID.
      * @throws BussinessLogicException si el usuario con el id usuarioId ya tiene asignado un Wishlist.
+     *                                 Si no existe un usuario con ese id.
      */
     public WishListEntity createWishList(Long usuarioId,WishListEntity entity) throws BusinessLogicException//throws BusinessLogicException
     {
