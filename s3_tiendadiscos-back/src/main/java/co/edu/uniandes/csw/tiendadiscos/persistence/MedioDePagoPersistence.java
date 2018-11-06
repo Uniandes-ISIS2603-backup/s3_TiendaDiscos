@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.persistence;
 
-import co.edu.uniandes.csw.tiendadiscos.entities.TarjetaCreditoEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.MedioDePagoEntity;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,26 +19,26 @@ import javax.persistence.TypedQuery;
  * @author Kevin Blanco
  */
 @Stateless
-public class TarjetaCreditoPersistence {
+public class MedioDePagoPersistence {
 
     @PersistenceContext(unitName = "VinylAppPU")
     protected EntityManager em;
-    private static final Logger LOGGER = Logger.getLogger(TarjetaCreditoPersistence.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(MedioDePagoPersistence.class.getName());
 
-    public TarjetaCreditoEntity create(TarjetaCreditoEntity tarjetaEntity) {
+    public MedioDePagoEntity create(MedioDePagoEntity tarjetaEntity) {
         LOGGER.log(Level.INFO, "Creando una tarjeta nueva");
         em.persist(tarjetaEntity);
         LOGGER.log(Level.INFO, "Saliendo de crear una tarjeta nueva ");
         return tarjetaEntity;
     }
 
-    public TarjetaCreditoEntity find(Long billingId, Long tarjetaId) {
+    public MedioDePagoEntity find(Long billingId, Long tarjetaId) {
         LOGGER.log(Level.INFO, "Consultando tarjeta con id={0} del billing con id = " + billingId, tarjetaId);
-        TypedQuery<TarjetaCreditoEntity> q = em.createQuery("select p from TarjetaCreditoEntity p where (p.billing.id = :billingId) and (p.id = :tarjetaId)", TarjetaCreditoEntity.class);
+        TypedQuery<MedioDePagoEntity> q = em.createQuery("select p from TarjetaCreditoEntity p where (p.billing.id = :billingId) and (p.id = :tarjetaId)", MedioDePagoEntity.class);
         q.setParameter("billingId", billingId);
         q.setParameter("tarjetaId", tarjetaId);
-        List<TarjetaCreditoEntity> results = q.getResultList();
-        TarjetaCreditoEntity tarjeta = null;
+        List<MedioDePagoEntity> results = q.getResultList();
+        MedioDePagoEntity tarjeta = null;
 
         if (results == null) {
             tarjeta = null;
@@ -51,7 +51,7 @@ public class TarjetaCreditoPersistence {
         return tarjeta;
     }
 
-    public TarjetaCreditoEntity update(TarjetaCreditoEntity tarjetaEntity) {
+    public MedioDePagoEntity update(MedioDePagoEntity tarjetaEntity) {
         LOGGER.log(Level.INFO, "Actualizando tarjeta con id={0}", tarjetaEntity.getId());
 
         LOGGER.log(Level.INFO, "Saliendo de actualizar tarjeta con id = {0}", tarjetaEntity.getId());
@@ -63,7 +63,7 @@ public class TarjetaCreditoPersistence {
     public void delete(Long tarjetaId) {
         LOGGER.log(Level.INFO, "Borrando tarjeta con id={0}", tarjetaId);
 
-        TarjetaCreditoEntity tarjetaEntity = em.find(TarjetaCreditoEntity.class, tarjetaId);
+        MedioDePagoEntity tarjetaEntity = em.find(MedioDePagoEntity.class, tarjetaId);
 
         em.remove(tarjetaEntity);
         LOGGER.log(Level.INFO, "Saliendo de borrar tarjeta con id = {0}", tarjetaId);

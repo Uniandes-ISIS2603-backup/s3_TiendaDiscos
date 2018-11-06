@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 
 
+
 import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -64,6 +65,7 @@ public class UsuarioDTO implements Serializable {
     private String direccion;
     private String rol;
     private Double calificacion;
+    private String imagen;
 
    
     
@@ -87,6 +89,7 @@ public class UsuarioDTO implements Serializable {
     public UsuarioDTO(UsuarioEntity userEntity){
         if(userEntity != null ){
             this.id = userEntity.getId();
+            this.imagen= userEntity.getImagen();
             this.username = userEntity.getUsername();
             this.email = userEntity.getEmail();
             this.contrasenha = userEntity.getContrasenha();
@@ -125,6 +128,7 @@ public class UsuarioDTO implements Serializable {
         usuarioEntity.setNombre(this.nombre);
         usuarioEntity.setDireccion(this.direccion);
         usuarioEntity.setRol(this.rol);
+        usuarioEntity.setImagen(this.imagen);
         usuarioEntity.setCalificacion(this.calificacion);
         if(this.wishList !=null){
             WishListDTO wishListTemp = this.wishList;
@@ -142,6 +146,7 @@ public class UsuarioDTO implements Serializable {
         
         return usuarioEntity;  
     }
+    
     
     
     public Long getId() {
@@ -229,6 +234,15 @@ public class UsuarioDTO implements Serializable {
     public void setCarritoCompras(CarritoDeComprasDTO carritoCompras) {
         this.carritoCompras = carritoCompras;
     }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+    
     
     @Override
     public String toString(){

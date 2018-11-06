@@ -40,50 +40,48 @@ public class BillingInformationLogic {
      * @return Objeto de BillingEntity con los datos nuevos y su ID.
      * @throws BusinessLogicException si el usuario con id usuarioId ya tiene
      * asignado un billing
+     *                                Si el usuario con id usuarioId no existe.
      *
      */
     public BillingInformationEntity createBilling(Long usuariosId, BillingInformationEntity billing) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del billing");
         UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
         if (usuario == null) {
-            //Esta exception la produce usuario BORRAR
+            
             throw new BusinessLogicException("No existe el usuario con ese id");
 
         }
-        try {
-        int cuenta = Integer.parseInt(billing.getCuentaAhorro());
-        }catch(Exception e) {
-            
+        try 
+        {
+            Integer.parseInt(billing.getCuentaAhorro());
+        }
+        catch(Exception e) 
+        {    
             throw new BusinessLogicException("No es un numero de cuenta valido");
         }
- 
-        
-        if (usuario.getBillingInformation() == null) {
-            throw new BusinessLogicException("El usuario ya tiene una Billing asignada");
+        if(persistence.findBillingByUserId(usuariosId)!=null){
+            throw new BusinessLogicException("El Usuario ya tiene billings");
         }
-        usuario.setBillingInformation(billing);
+
+        billing.setUsuario(usuario);        
+        
         LOGGER.log(Level.INFO, "Termina proceso de creación del billing");
 
         return persistence.create(billing);
 
     }
 
-    public BillingInformationEntity getBilling(Long usuariosId) {
-        UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
+    public BillingInformationEntity getBilling(Long usuarioId) {
+        UsuarioEntity usuario = usuarioPersistence.find(usuarioId);
 
         //Usuario nul necesito la logic del usuario para poder probar
         // Error 
         if (usuario == null) {
-            throw new WebApplicationException("pailas", 404);
+            throw new WebApplicationException("El Usuario con el id"+usuarioId+"no existe.", 404);
         }
-        
-        
-        
-        BillingInformationEntity billing = usuario.getBillingInformation();
-        Long billingId = billing.getId();
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el billing con id = {0}", billingId);
-        if (billing == null) {
-            LOGGER.log(Level.SEVERE, "El usuario con el id = {0} no tiene billing", billingId);
+        BillingInformationEntity billing= persistence.findBillingByUserId(usuarioId);
+        if(billing==null){
+            throw new WebApplicationException("El Usuario con el id"+usuarioId+"no tiene billing.", 404);
         }
         return billing;
     }

@@ -3,24 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.tiendadiscos.dtos;
+package co.edu.uniandes.csw.tiendadiscos.entities;
 
-import co.edu.uniandes.csw.tiendadiscos.entities.TarjetaCreditoEntity;
+import java.io.Serializable;
 import java.util.Date;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
  * @author Kevin Blanco
  */
-public class TarjetaCreditoDTO {
+@Entity
+public class MedioDePagoEntity extends BaseEntity implements Serializable {
 
-    /**
-     * id ??nico de la tarjeta de credito.
-     */
-    private Long id;
-
+    @PodamExclude
+    @ManyToOne
+    private BillingInformationEntity billing;
+    
     /**
      * numero de la tarjeta
      */
@@ -45,46 +48,33 @@ public class TarjetaCreditoDTO {
      * Codigo CVC de la tarjeta
      */
     private String cvc;
+    
+    private String imagen;
 
-    private BillingInformationDTO billing;
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    /**
+     * Retorna billing asociado a la tarjeta
+     * @return  billing asociado a la tarjeta
+     */
+    public BillingInformationEntity getBilling() {
+        return billing;
+    }
+    /**
+     * modifica billing asociado a la tarjeta
+     * @param billing billing que se agregara a la tarjeta 
+     */
+    public void setBilling(BillingInformationEntity billing) {
+        this.billing = billing;
+    }
     
     
-    /**
-     * Constructor vacio
-     */
-    public TarjetaCreditoDTO() {
-    }
-
-    /**
-     * Construye un tarjeta de credito apartir de la entity
-     *
-     * @param tarjetaCreditoEntity DTO a completar
-     */
-    public TarjetaCreditoDTO(TarjetaCreditoEntity tarjetaCreditoEntity) {
-        if (tarjetaCreditoEntity != null) {
-            this.id = tarjetaCreditoEntity.getId();
-            //TERMINAR
-
-        }
-    }
-
-    /**
-     * retorna id
-     *
-     * @return id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * modifica id
-     *
-     * @param id id de la tarjeta
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     /**
      * retorna numero de la tarjeta
@@ -94,6 +84,8 @@ public class TarjetaCreditoDTO {
     public Integer getNumero() {
         return numero;
     }
+    
+   
 
     /**
      * modifica numero de la tarjeta
@@ -174,47 +166,6 @@ public class TarjetaCreditoDTO {
      */
     public void setCvc(String cvc) {
         this.cvc = cvc;
-    }
-    /**
-     * Retorna billing asociado a la tarjeta
-     * @return billing asociado a la tarjeta
-     */
-    public BillingInformationDTO getBilling() {
-        return billing;
-    }
-
-    /**
-     * modifica billing asociado a la tarjeta
-     * @param billing billing que sera asociado a la tarjeta
-     */
-    public void setBilling(BillingInformationDTO billing) {
-        this.billing = billing;
-    }
-    
-    
-    
-
-    /**
-     * convierte DTO a Entity
-     *
-     * @return Entity con los valores del DTO
-     */
-    public TarjetaCreditoEntity toEntity() {
-        TarjetaCreditoEntity tarjetaCreditoEntity = new TarjetaCreditoEntity();
-        tarjetaCreditoEntity.setId(this.id);
-        tarjetaCreditoEntity.setName(this.name);
-        tarjetaCreditoEntity.setFechaVencimiento(this.getFechaVencimiento());
-        tarjetaCreditoEntity.setNumeroVerificacion(getNumeroVerificacion());
-        tarjetaCreditoEntity.setNumero(getNumero());
-        tarjetaCreditoEntity.setCvc(this.getCvc());
-        return tarjetaCreditoEntity;
-    }
-
-    @Override
-    public String toString() {
-
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-
     }
 
 }

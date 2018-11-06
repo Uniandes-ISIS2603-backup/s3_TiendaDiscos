@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -29,7 +31,7 @@ public class WishListEntity extends BaseEntity implements Serializable {
     private Double costo;
     
     @PodamExclude
-    @OneToMany
+    @ManyToMany(mappedBy = "wishLists", fetch = FetchType.EAGER)
     private List<ViniloEntity> vinilos;
     
     @PodamExclude

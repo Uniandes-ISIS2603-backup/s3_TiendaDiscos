@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -26,11 +27,11 @@ public class CarritoDeComprasEntity extends BaseEntity implements Serializable{
     private Double totalCost;
     
     @PodamExclude
-    @ManyToMany
+    @ManyToMany(mappedBy = "carritosDeCompras", fetch = FetchType.EAGER)
     private List<ViniloEntity> vinilos;
     
     @PodamExclude
-    @OneToMany(mappedBy = "carritoDeCompras")
+    @OneToMany(mappedBy = "carritoDeCompras", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<TransaccionEntity> transacciones;
     
     @PodamExclude

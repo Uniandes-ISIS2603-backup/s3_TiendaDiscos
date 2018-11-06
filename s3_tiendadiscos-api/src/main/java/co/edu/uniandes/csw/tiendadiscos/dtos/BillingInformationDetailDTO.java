@@ -6,7 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.BillingInformationEntity;
-import co.edu.uniandes.csw.tiendadiscos.entities.TarjetaCreditoEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.MedioDePagoEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 public class BillingInformationDetailDTO extends BillingInformationDTO implements Serializable {
 
     // relación  cero o muchos tarjeta credito 
-    private List<TarjetaCreditoDTO> tarjetas;
+    private List<MedioDePagoDTO> tarjetas;
 
     public BillingInformationDetailDTO() {
         super();
@@ -35,8 +35,8 @@ public class BillingInformationDetailDTO extends BillingInformationDTO implement
         if (billingInformationEntity.getTarjetas() != null) {
             tarjetas = new ArrayList<>();
 
-            for (TarjetaCreditoEntity tarjeta : billingInformationEntity.getTarjetas()) {
-                tarjetas.add(new TarjetaCreditoDTO(tarjeta));
+            for (MedioDePagoEntity tarjeta : billingInformationEntity.getTarjetas()) {
+                tarjetas.add(new MedioDePagoDTO(tarjeta));
             }
         }
     }
@@ -44,9 +44,9 @@ public class BillingInformationDetailDTO extends BillingInformationDTO implement
     public BillingInformationEntity toEntity() {
         BillingInformationEntity entity = super.toEntity();
         if (tarjetas != null) {
-            List<TarjetaCreditoEntity> tarjetasEntity = new ArrayList<>();
+            List<MedioDePagoEntity> tarjetasEntity = new ArrayList<>();
 
-            for (TarjetaCreditoDTO tarjetaCreditoDTO : getTarjetas()) {
+            for (MedioDePagoDTO tarjetaCreditoDTO : getTarjetas()) {
                 tarjetasEntity.add(tarjetaCreditoDTO.toEntity());
             }
 
@@ -55,11 +55,11 @@ public class BillingInformationDetailDTO extends BillingInformationDTO implement
         return entity;
     }
 
-    public List<TarjetaCreditoDTO> getTarjetas() {
+    public List<MedioDePagoDTO> getTarjetas() {
         return tarjetas;
     }
 
-    public void setTarjetas(List<TarjetaCreditoDTO> tarjetas) {
+    public void setTarjetas(List<MedioDePagoDTO> tarjetas) {
         this.tarjetas = tarjetas;
     }
 }

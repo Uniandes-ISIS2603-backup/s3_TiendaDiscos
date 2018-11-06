@@ -3,27 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.tiendadiscos.entities;
+package co.edu.uniandes.csw.tiendadiscos.dtos;
 
-import java.io.Serializable;
+import co.edu.uniandes.csw.tiendadiscos.entities.MedioDePagoEntity;
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import uk.co.jemos.podam.common.PodamExclude;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
  * @author Kevin Blanco
  */
-@Entity
-public class TarjetaCreditoEntity extends BaseEntity implements Serializable {
+public class MedioDePagoDTO {
 
-    @PodamExclude
-    @ManyToOne
-    private BillingInformationEntity billing;
-    
+    /**
+     * id ??nico de la tarjeta de credito.
+     */
+    private Long id;
+
     /**
      * numero de la tarjeta
      */
@@ -48,23 +45,54 @@ public class TarjetaCreditoEntity extends BaseEntity implements Serializable {
      * Codigo CVC de la tarjeta
      */
     private String cvc;
+    
+    private String imagen;
+
+    
+    
+    
+    /**
+     * Constructor vacio
+     */
+    public MedioDePagoDTO() {
+    }
 
     /**
-     * Retorna billing asociado a la tarjeta
-     * @return  billing asociado a la tarjeta
+     * Construye un tarjeta de credito apartir de la entity
+     *
+     * @param tarjetaCreditoEntity DTO a completar
      */
-    public BillingInformationEntity getBilling() {
-        return billing;
+    public MedioDePagoDTO(MedioDePagoEntity tarjetaCreditoEntity) {
+        if (tarjetaCreditoEntity != null) {
+            this.id = tarjetaCreditoEntity.getId();
+            this.fechaVencimiento = tarjetaCreditoEntity.getFechaVencimiento();
+            this.cvc = tarjetaCreditoEntity.getCvc();
+            this.imagen = tarjetaCreditoEntity.getImagen();
+            this.name = tarjetaCreditoEntity.getName();
+            this.numero = tarjetaCreditoEntity.getNumero();
+            this.numeroVerificacion = tarjetaCreditoEntity.getNumeroVerificacion();
+            //TERMINAR
+
+        }
     }
+
     /**
-     * modifica billing asociado a la tarjeta
-     * @param billing billing que se agregara a la tarjeta 
+     * retorna id
+     *
+     * @return id
      */
-    public void setBilling(BillingInformationEntity billing) {
-        this.billing = billing;
+    public Long getId() {
+        return id;
     }
-    
-    
+
+    /**
+     * modifica id
+     *
+     * @param id id de la tarjeta
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     /**
      * retorna numero de la tarjeta
@@ -74,8 +102,6 @@ public class TarjetaCreditoEntity extends BaseEntity implements Serializable {
     public Integer getNumero() {
         return numero;
     }
-    
-   
 
     /**
      * modifica numero de la tarjeta
@@ -156,6 +182,41 @@ public class TarjetaCreditoEntity extends BaseEntity implements Serializable {
      */
     public void setCvc(String cvc) {
         this.cvc = cvc;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+    
+    
+    
+
+    /**
+     * convierte DTO a Entity
+     *
+     * @return Entity con los valores del DTO
+     */
+    public MedioDePagoEntity toEntity() {
+        MedioDePagoEntity tarjetaCreditoEntity = new MedioDePagoEntity();
+        tarjetaCreditoEntity.setId(this.id);
+        tarjetaCreditoEntity.setName(this.name);
+        tarjetaCreditoEntity.setFechaVencimiento(this.getFechaVencimiento());
+        tarjetaCreditoEntity.setNumeroVerificacion(getNumeroVerificacion());
+        tarjetaCreditoEntity.setNumero(getNumero());
+        tarjetaCreditoEntity.setCvc(this.getCvc());
+        tarjetaCreditoEntity.setImagen(this.imagen);
+        return tarjetaCreditoEntity;
+    }
+
+    @Override
+    public String toString() {
+
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+
     }
 
 }

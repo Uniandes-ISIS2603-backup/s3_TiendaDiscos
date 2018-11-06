@@ -9,11 +9,12 @@ import co.edu.uniandes.csw.tiendadiscos.dtos.ViniloDTO;
 import co.edu.uniandes.csw.tiendadiscos.dtos.ViniloDetailDTO;
 import co.edu.uniandes.csw.tiendadiscos.ejb.ViniloLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.*;
+import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import javax.enterprise.context.RequestScoped;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.websocket.server.PathParam;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -29,8 +30,8 @@ public class ViniloResource
 {
     private static final Logger LOGGER = Logger.getLogger(ViniloResource.class.getName());
     
-   // @Inject
-    //private ViniloLogic viniloLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    @Inject
+    private ViniloLogic viniloLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
     
     /**
      * 
@@ -38,10 +39,12 @@ public class ViniloResource
      * @return 
      */
     @POST
-    public ViniloDTO createVinilo(ViniloDTO vinilo) 
+    public ViniloDTO createVinilo(ViniloDTO vinilo) throws BusinessLogicException
     {
+        ViniloDTO viniloCreado =new ViniloDTO(viniloLogic.createVinilo(vinilo.toEntity()));
+                
         //LOGGER.log(level.INFO, "ViniloResource createVinilo: input: (0)" , vinilo.toString());
-        return vinilo;
+        return viniloCreado;
     }
     
     /**
@@ -66,9 +69,10 @@ public class ViniloResource
     }
     
     @GET
-    public List<ViniloDTO> getVinilos()
+    public List<ViniloDetailDTO> getVinilos()
     {
-        return null;
+        List<ViniloDetailDTO> vinilos = listEntity2DTO(viniloLogic.getVinilos());
+        return vinilos;
     }
     
     /**
@@ -101,6 +105,16 @@ public class ViniloResource
         return CancionViniloResource.class;
     }
     
+    @Path("{vinilosId: \\d+}/comentarios")
+    public Class<ComentarioViniloResource> geComentariosResource(@PathParam("vinilosId") Long vinilosId) {
+        
+        return ComentarioViniloResource.class;
+    }
+
+
+
+
+
     private List<ViniloDetailDTO> listEntity2DTO(List<ViniloEntity> entityList)
     {
         List<ViniloDetailDTO> list = new ArrayList<ViniloDetailDTO>();

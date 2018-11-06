@@ -57,11 +57,11 @@ public class CancionDTO implements Serializable
     {
         if(cancionEntity != null)
         {
-            this.descripcion = cancionEntity.getDescripcion();
-            this.duracion = cancionEntity.getDuracion();
             this.id = cancionEntity.getId();
             this.nombre = cancionEntity.getNombre();
+            this.duracion = cancionEntity.getDuracion();
             this.previewURI = cancionEntity.getPreviewURI();
+            this.descripcion = cancionEntity.getDescripcion();
             this.calificacion = cancionEntity.getCalificacion();                  
         }
     }
@@ -76,14 +76,24 @@ public class CancionDTO implements Serializable
         //Creo el objeto entity vacio.
         CancionEntity cancionEntity = new CancionEntity();
         //Ahora le asigno los valores.
-        cancionEntity.setDescripcion(this.descripcion);
-        cancionEntity.setDuracion(this.duracion);
         cancionEntity.setId(this.id);
         cancionEntity.setNombre(this.nombre);
+        cancionEntity.setDuracion(this.duracion);
         cancionEntity.setPreviewURI(this.previewURI);
+        cancionEntity.setDescripcion(this.descripcion);
         cancionEntity.setCalificacion(this.calificacion);
         
         return cancionEntity;
+    }
+    
+    /**
+     * Establece el valor del atributo id.
+     *
+     * @param id nuevo valor del atributo
+     *
+     */
+    public void setId(Long id) {
+        this.id = id;
     }
     
     /**
@@ -124,17 +134,7 @@ public class CancionDTO implements Serializable
      */
     public void setCalificacion(Double calificacion) {
         this.calificacion = calificacion;
-    }
-    
-    /**
-     * Establece el valor del atributo id.
-     *
-     * @param id nuevo valor del atributo
-     *
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
+    }    
     
     /**
      * Obtiene el atributo id.
@@ -185,11 +185,9 @@ public class CancionDTO implements Serializable
     public Double getCalificacion() {
         return calificacion;
     }
-
-
+        
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }
-    
+    }    
 }

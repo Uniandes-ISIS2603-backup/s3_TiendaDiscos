@@ -6,8 +6,12 @@
 package co.edu.uniandes.csw.tiendadiscos.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -35,12 +39,12 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
     
     
     @PodamExclude
-    @OneToOne
-    private ComentarioEntity comentario;
+    @OneToMany(mappedBy = "transaccion", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<ComentarioEntity> comentario;
     
     
     @PodamExclude
-    @OneToOne
+    @OneToOne(mappedBy = "transaccion", fetch = FetchType.LAZY)
     private EnvioEntity envio;
     
     @PodamExclude
@@ -78,7 +82,7 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
         this.vinilo = vinilo;
     }
 
-    private void setComentario(ComentarioEntity comentario)
+    private void setComentario(List<ComentarioEntity> comentario)
     {
         this.comentario = comentario;
     }
@@ -147,7 +151,7 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
         return formaDePago;
     }   
 
-    public ComentarioEntity getComentario(){
+    public List<ComentarioEntity> getComentario(){
         return comentario;
     }
 
