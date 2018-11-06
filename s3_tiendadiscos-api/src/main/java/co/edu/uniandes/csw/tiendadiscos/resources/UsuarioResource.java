@@ -81,6 +81,12 @@ public class UsuarioResource {
         
         return BillingInformationResource.class;
     }
+    
+    @Path("{usuariosId: \\d+}/billing/mediodepago")
+    public Class<MedioDePagoResource> getMedioDePagoResource(@PathParam("usuariosId") Long usuariosId) 
+    {        
+        return MedioDePagoResource.class;
+    }
 
     @Path("{usuariosId: \\d+}/wishlist")
     public Class<WishListResource> getWishListResource(@PathParam("usuariosId") Long usuariosId) {
