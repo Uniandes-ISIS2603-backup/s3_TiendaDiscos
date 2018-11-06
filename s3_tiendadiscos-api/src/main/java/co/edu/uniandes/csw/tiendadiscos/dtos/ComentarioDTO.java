@@ -2,6 +2,10 @@ package co.edu.uniandes.csw.tiendadiscos.dtos;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.ComentarioEntity;
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 
 /**
@@ -77,7 +81,7 @@ public class ComentarioDTO implements Serializable{
         comentario.setId(id);
         comentario.setContenido(contenido);
         if(this.transaccion!=null)
-            comentario.setTransaccion(this.transaccion.toEntity());
+            comentario.setTransacciono(this.transaccion.toEntity());
         if(this.usuario!=null)
             comentario.setUsuario(this.usuario.toEntity());
         if(this.cancion!=null)

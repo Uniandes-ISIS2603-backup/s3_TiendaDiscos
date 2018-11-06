@@ -142,7 +142,7 @@ public class BillingInformationPersistenceTest {
     @Test
     public void getBillingTest() {
         BillingInformationEntity entity = dataBilling.get(0);
-        BillingInformationEntity newEntity = billingPersistence.find(entity.getId());
+        BillingInformationEntity newEntity = billingPersistence.find(dataUsuario.get(0).getId(),entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getCuentaAhorro(), newEntity.getCuentaAhorro());
     }

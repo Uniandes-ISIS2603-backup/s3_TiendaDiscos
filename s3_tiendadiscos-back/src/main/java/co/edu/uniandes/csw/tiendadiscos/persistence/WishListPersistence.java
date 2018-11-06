@@ -27,8 +27,6 @@ public class WishListPersistence {
     @PersistenceContext(unitName = "VinylAppPU")
     protected EntityManager em;
     
-    private static final Logger LOGGER = Logger.getLogger(CarritoDeComprasPersistence.class.getName());
-    
     public WishListEntity create(WishListEntity wish)
     {
         em.persist(wish);
@@ -38,7 +36,6 @@ public class WishListPersistence {
     public WishListEntity update(WishListEntity wish)
     {
         em.merge(wish);
-       
         return wish;
     }
     
@@ -48,26 +45,17 @@ public class WishListPersistence {
         em.remove(wish);
     }
     
-    public WishListEntity find(Long wishlistId)
+    public WishListEntity find(Long usuarioId)
     {
-        LOGGER.log(Level.INFO, "Consultando WishList con id={0}", wishlistId);
-        return em.find(WishListEntity.class, wishlistId); 
-    }
-    
-    public WishListEntity findByUserId(Long userId){
-       LOGGER.log(Level.INFO, "Consultando el WishList asociado al usuario con el id"+userId);
-       TypedQuery<WishListEntity> q = em.createQuery("select p from WishListEntity p where p.usuario.id = :usuarioId", WishListEntity.class);
-       q.setParameter("usuarioId", userId);
-       List<WishListEntity> results = q.getResultList();
-       WishListEntity wish = null;
-       if(results == null){
-           wish = null;
-       }else if(results.isEmpty()){
-           wish = null;
-       }else if (results.size()>=1){
-           wish = results.get(0);
-       }
-       LOGGER.log(Level.INFO, "Saliendo de consultar el WishList  del usuario con id =" + userId);
+        
+        TypedQuery<WishListEntity> q = em.createQuery("select p from WishListEntity p", WishListEntity.class);
+        List<WishListEntity> results = q.getResultList();
+        WishListEntity wish = null;
+        for(WishListEntity temp : results)
+        {
+            if(temp.getId().equals(usuarioId))
+                wish = temp;
+        }
        return wish;
     }
 }

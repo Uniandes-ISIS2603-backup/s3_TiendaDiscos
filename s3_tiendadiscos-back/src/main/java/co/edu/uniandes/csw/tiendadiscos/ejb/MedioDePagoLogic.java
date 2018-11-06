@@ -33,13 +33,8 @@ public class MedioDePagoLogic {
     @Inject
     private UsuarioPersistence usuarioPersistence;
 
-<<<<<<< HEAD:s3_tiendadiscos-back/src/main/java/co/edu/uniandes/csw/tiendadiscos/ejb/TarjetaCreditoLogic.java
-    public TarjetaCreditoEntity createTarjeta(Long usuariosId, TarjetaCreditoEntity tarjeta) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de creaci??n de la tarjeta");
-=======
     public MedioDePagoEntity createTarjeta(Long usuariosId, MedioDePagoEntity tarjeta) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de creaci??n de la tarjeta");
->>>>>>> e0c1817de2e002340d396768891f6eb2b3ee4590:s3_tiendadiscos-back/src/main/java/co/edu/uniandes/csw/tiendadiscos/ejb/MedioDePagoLogic.java
+        LOGGER.log(Level.INFO, "Inicia proceso de creación de la tarjeta");
         UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
         if (usuario == null) {
             //Esta exception la produce usuario BORRAR
@@ -60,7 +55,7 @@ public class MedioDePagoLogic {
         }
 
         tarjeta.setBilling(billing);
-        LOGGER.log(Level.INFO, "Termina proceso de creaci??n de la tarjeta");
+        LOGGER.log(Level.INFO, "Termina proceso de creación de la tarjeta");
         return persistence.create(tarjeta);
 
     }

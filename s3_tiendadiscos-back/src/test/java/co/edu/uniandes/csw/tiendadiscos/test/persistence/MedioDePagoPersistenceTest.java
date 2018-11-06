@@ -41,7 +41,7 @@ public class MedioDePagoPersistenceTest {
 
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
-     * datos por fuera de los m??todos que se est??n probando.
+     * datos por fuera de los métodos que se están probando.
      */
     @PersistenceContext
     private EntityManager em;
@@ -70,7 +70,7 @@ public class MedioDePagoPersistenceTest {
     }
 
     /**
-     * Configuraci??n inicial de la prueba.
+     * Configuración inicial de la prueba.
      */
     @Before
     public void configTest() {
@@ -91,7 +91,7 @@ public class MedioDePagoPersistenceTest {
     }
 
     /**
-     * Limpia las tablas que est??n implicadas en la prueba.
+     * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
         em.createQuery("delete from TarjetaCreditoEntity").executeUpdate();

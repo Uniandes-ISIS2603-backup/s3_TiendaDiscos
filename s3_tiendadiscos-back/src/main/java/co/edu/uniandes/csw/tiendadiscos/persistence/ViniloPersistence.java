@@ -31,20 +31,12 @@ public class ViniloPersistence {
     
     public ViniloEntity create(ViniloEntity viniloEntity)
     {
-        LOGGER.log(Level.INFO, "Creando un vinilo nuevo");
+        LOGGER.log(Level.INFO, "Creando un libro nuevo");
         em.persist(viniloEntity);
-        LOGGER.log(Level.INFO, "Vinilo creado");
+        LOGGER.log(Level.INFO, "Libro creado");
         return viniloEntity;
     }
     
-<<<<<<< HEAD
-    /**
-     * Devuelve todas los vinilos de la base de datos.
-     * 
-     * @return una lista con todos los vinilos que encuentre en la base de datos.
-     */
-=======
->>>>>>> parent of b928f13... Cambios
     public List<ViniloEntity> findAll()
     {
         LOGGER.log(Level.INFO, "Consultando todos los vinilos");
@@ -52,28 +44,6 @@ public class ViniloPersistence {
         return q.getResultList();
     }
     
-<<<<<<< HEAD
-    /**
-     * Devuelve todos los vinilos de un usuario.
-     * @param usuarioId - El usuario dueño de los vinilos.
-     * @return Todos los vinilos de un usuario de la base de datos.
-     */
-    public List<ViniloEntity> findAllByUsuario(Long usuarioId)
-    {
-        LOGGER.log(Level.INFO , "Consultando todos los vinilos del usuario:{0}", usuarioId );
-        TypedQuery q = em.createQuery("select u from ViniloEntity u where {u.usuario.id = usuarioId}", ViniloEntity.class);
-        q.setParameter("usuarioId", usuarioId);
-        return q.getResultList();
-    }
-    
-    /**
-     * Busca si hay algun Vinilo con el id que se envía de argumento.
-     * 
-     * @param viniloId: id correspondiente al vinilo buscado.
-     * @return un vinilo.
-     */
-=======
->>>>>>> parent of b928f13... Cambios
     public ViniloEntity find(Long viniloId)
     {
         LOGGER.log(Level.INFO, "Consultando el libro con id={0}", viniloId);

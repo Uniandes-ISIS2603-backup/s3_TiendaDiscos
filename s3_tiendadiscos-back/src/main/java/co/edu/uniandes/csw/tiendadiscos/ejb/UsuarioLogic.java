@@ -53,7 +53,6 @@ public class UsuarioLogic {
         if(usuarioEntity.getContrasenha().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")){
             throw new BusinessLogicException("La contraseña no cumple los parametros de seguridad minimos.");
         }
-        usuarioEntity.setCalificacion(0.0);
         usuarioPersistence.create(usuarioEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del usuario");
         return usuarioEntity;
@@ -92,10 +91,7 @@ public class UsuarioLogic {
      * @param usuarioEntity Instancia de UsuarioEntity con los nuevos datos.
      * @return Instancia de UsuarioEntity con los datos actualizados.
      */
-    public UsuarioEntity updateUsuario(Long usuarioId, UsuarioEntity usuarioEntity) throws BusinessLogicException {
-        if(usuarioPersistence.find(usuarioId)==null){
-            throw  new BusinessLogicException("El Usuario con el id: "+usuarioId +" no existe");
-        }
+    public UsuarioEntity updateAuthor(Long usuarioId, UsuarioEntity usuarioEntity) {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el usuario con id = {0}", usuarioId);
         UsuarioEntity newUsuarioEntity = usuarioPersistence.update(usuarioEntity);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar el usuario con id = {0}", usuarioId);

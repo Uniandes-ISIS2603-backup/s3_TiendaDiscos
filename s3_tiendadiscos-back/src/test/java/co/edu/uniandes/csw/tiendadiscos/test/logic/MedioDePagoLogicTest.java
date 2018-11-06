@@ -56,7 +56,7 @@ public class MedioDePagoLogicTest {
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
      * El jar contiene las clases, el descriptor de la base de datos y el
-     * archivo beans.xml para resolver la inyecci??n de dependencias.
+     * archivo beans.xml para resolver la inyección de dependencias.
      */
     @Deployment
     public static JavaArchive createDeployment() {
@@ -69,7 +69,7 @@ public class MedioDePagoLogicTest {
     }
 
     /**
-     * Configuraci??n inicial de la prueba.
+     * Configuración inicial de la prueba.
      */
     @Before
     public void configTest() {
@@ -89,7 +89,7 @@ public class MedioDePagoLogicTest {
     }
 
     /**
-     * Limpia las tablas que est??n implicadas en la prueba.
+     * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
         em.createQuery("delete from TarjetaCreditoEntity").executeUpdate();

@@ -61,8 +61,6 @@ public class ViniloDTO implements Serializable
      */
     private Double precio;
     
-    private UsuarioDTO usuario;
-    
     /**
      * Empty constructor.
      */
@@ -80,16 +78,14 @@ public class ViniloDTO implements Serializable
         if (viniloEntity != null)
         {
             this.id = viniloEntity.getId();
-            this.nombre = viniloEntity.getNombre();            
             this.artista = viniloEntity.getArtista();
             this.fechaLanzamiento = viniloEntity.getFechaLanzamiento();
-            this.productora = viniloEntity.getProductora();
-            this.informacionAdicional = viniloEntity.getInformacionAdicional();            
+            this.informacionAdicional = viniloEntity.getInformacionAdicional();
+            this.nombre = viniloEntity.getNombre();
             this.previewURI = viniloEntity.getPreviewURI();
+            this.productora = viniloEntity.getProductora();
             this.calificacion = viniloEntity.getCalificacion();                    
             this.precio = viniloEntity.getPrecio();
-            if(viniloEntity.getUsuario() != null)
-                this.usuario =  new UsuarioDTO(viniloEntity.getUsuario());
         }
     }
     
@@ -103,30 +99,18 @@ public class ViniloDTO implements Serializable
         //Creo el objeto entity vacio.
         ViniloEntity viniloEntity = new ViniloEntity();
         //Ahora le asigno los valores.
-        viniloEntity.setId(this.id);
-        viniloEntity.setNombre(this.nombre);
-        viniloEntity.setArtista(this.artista);        
+        viniloEntity.setArtista(this.artista);
         viniloEntity.setFechaLanzamiento(this.fechaLanzamiento);
+        viniloEntity.setId(this.id);
+        viniloEntity.setInformacionAdicional(this.informacionAdicional);
+        viniloEntity.setNombre(this.nombre);
+        viniloEntity.setPreviewURI(this.previewURI);
         viniloEntity.setProductora(this.productora);
-        viniloEntity.setInformacionAdicional(this.informacionAdicional);        
-        viniloEntity.setPreviewURI(this.previewURI);        
         viniloEntity.setCalificacion(this.calificacion);
         viniloEntity.setPrecio(this.precio);
-        if(this.usuario != null)
-            viniloEntity.setUsuario(this.usuario.toEntity());
+        
         return viniloEntity;
     }
-    
-    /**
-     * Establece el valor del atributo id.
-     *
-     * @param id nuevo valor del atributo
-     *
-     */
-    public void setId(Long id) 
-    {
-        this.id = id;
-    } 
     
     /**
      * Obtiene el atributo nombre. 
@@ -185,6 +169,16 @@ public class ViniloDTO implements Serializable
     }
     
     /**
+     * Establece el valor del atributo id.
+     *
+     * @param id nuevo valor del atributo
+     *
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    /**
      * Establece el precio del vinilo.
      * 
      * @param precio nuevo valor del atributo.
@@ -195,15 +189,61 @@ public class ViniloDTO implements Serializable
     }
     
     /**
-     * Establece el usuario del vinilo.
-     * 
-     * @param usuario nuevo valor del atributo. 
+     * Obtiene el atributo calificacion.
+     * @return atributo calificación.
      */
-    public void setUsuario(UsuarioDTO usuario)
-    {
-        this.usuario = usuario;
+    public Double getCalificacion() {
+        return calificacion;
     }
     
+    /**
+     * Obtiene el atributo nombre.
+     * @return atributo nombre.
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * Obtiene el atributo artista.
+     * @return atributo artista.
+     */
+    public String getArtista() {
+        return artista;
+    }
+
+    /**
+     * Obtiene el atributo fecha de lanzamiento.
+     * @return atributo fechaLanzamiento.
+     */
+    public Date getFechaLanzamiento() {
+        return fechaLanzamiento;
+    }
+    
+    /**
+     * Obtiene el atributo productora.
+     * @return atributo productora.
+     */
+    public String getProductora() {
+        return productora;
+    }
+
+    /**
+     * Obtiene la información adicional del vinilo.
+     * @return atributo informacionAdicional.
+     */
+    public String getInformacionAdicional() {
+        return informacionAdicional;
+    }
+
+    /**
+     * Obtiene el atributo previewURI.
+     * @return atributo previewURI.
+     */
+    public String getPreviewURI() {
+        return previewURI;
+    }  
+ 
     /**
      * Obtiene el id único del vinilo.
      * @return atributo id.
@@ -213,84 +253,12 @@ public class ViniloDTO implements Serializable
     }
     
     /**
-     * Obtiene el atributo nombre.
-     * @return atributo nombre.
-     */
-    public String getNombre()     
-    {
-        return nombre;
-    }
-
-    /**
-     * Obtiene el atributo artista.
-     * @return atributo artista.
-     */
-    public String getArtista() 
-    {
-        return artista;
-    }
-
-    /**
-     * Obtiene el atributo fecha de lanzamiento.
-     * @return atributo fechaLanzamiento.
-     */
-    public Date getFechaLanzamiento() 
-    {
-        return fechaLanzamiento;
-    }
-    
-    /**
-     * Obtiene el atributo productora.
-     * @return atributo productora.
-     */
-    public String getProductora() 
-    {
-        return productora;
-    }
-
-    /**
-     * Obtiene la información adicional del vinilo.
-     * @return atributo informacionAdicional.
-     */
-    public String getInformacionAdicional() 
-    {
-        return informacionAdicional;
-    }
-
-    /**
-     * Obtiene el atributo previewURI.
-     * @return atributo previewURI.
-     */
-    public String getPreviewURI() 
-    {
-        return previewURI;
-    }  
-    
-    /**
-     * Obtiene el atributo calificacion.
-     * @return atributo calificación.
-     */
-    public Double getCalificacion() 
-    {
-        return calificacion;
-    }
-    
-    /**
      * Obtiene el precio del vinilo.
      * @return atributo precio.
      */
     public Double getPrecio()
     {
         return precio;
-    }
-    
-    /**
-     * Obtiene la conexión con el usuario.
-     * @return atributo usuario.
-     */
-    public UsuarioDTO getUsuario()
-    {
-        return usuario;
     }
 
     @Override

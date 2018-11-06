@@ -13,18 +13,28 @@ import java.util.ArrayList;
 import java.util.List;
 //import co.edu.uniandes.csw.tiendadiscos.ejb.ComentarioLogic;
 import java.util.logging.Logger;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.websocket.server.PathParam;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.*;
 
 /**
  *
  * @author Sebastian Martinez
  */
-
 @Produces("application/json")
 @Consumes("application/json")
-public class ComentarioUsuarioResource {
-    private static final Logger LOGGER = Logger.getLogger(ComentarioUsuarioResource.class.getName());
+@RequestScoped
+public class ComentarioResource {
+    private static final Logger LOGGER = Logger.getLogger(ComentarioResource.class.getName());
     
     @Inject
     private ComentarioLogic logic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
@@ -36,14 +46,26 @@ public class ComentarioUsuarioResource {
      * @return 
      */
     @POST
-    @Path("{usuarios2Id: \\d+}")
-    public ComentarioDTO createComentarioUsuario(@PathParam("usuariosId") Long usuariosId, @PathParam("usuarios2Id") Long usuarios2Id, ComentarioDTO comentario) throws BusinessLogicException 
+    public ComentarioDTO createComentario(@PathParam("usuariosId") Long usuariosId,ComentarioDTO comentario) throws BusinessLogicException 
     {
-        ComentarioDTO nuevo = new ComentarioDTO(logic.createComentarioUsuario(usuariosId, usuarios2Id, comentario.toEntity()));
+        ComentarioDTO nuevo = new ComentarioDTO(logic.createComentario(usuariosId, comentario.toEntity()));
         return nuevo;
     }
     
-
+    /**
+     * 
+     * @param comentarioId
+     * @return
+     * @throws WebApplicationException 
+     */
+    @GET
+    @Path("{comentariosId: \\d+}")
+    public ComentarioDTO getComentario(@PathParam("usuariosId") Long usuariosId,@PathParam("comentariosId") Long comentariosId) 
+    {
+        ComentarioEntity nuevo = logic.getComentario(comentariosId, usuariosId);
+        ComentarioDTO resp = new ComentarioDTO(nuevo);
+        return null;
+    }
     
     @GET
     public List<ComentarioDTO> getComentarios(@PathParam("usuariosId") Long usuariosId)
@@ -65,13 +87,12 @@ public class ComentarioUsuarioResource {
     @Path("{comentarioId: \\d+}")
     public ComentarioDTO putComentario(@PathParam("usuariosId") Long usuariosId,@PathParam("comentarioId") Long comentarioId, ComentarioDTO comentario) throws BusinessLogicException
     {
-        // if(!comentario.getId().equals(comentarioId))
-        //     throw new BusinessLogicException("Los id no coinciden");
-        // ComentarioEntity nuevo = logic.getComentario(comentarioId, usuariosId);
-        // if(nuevo == null)
-        //     throw new BusinessLogicException("No existe la asociación entre el usuario y el comentario");
-        // return new ComentarioDTO(logic.updateComentario(usuariosId, nuevo));
-        return null;
+        if(!comentario.getId().equals(comentarioId))
+            throw new BusinessLogicException("Los id no coinciden");
+        ComentarioEntity nuevo = logic.getComentario(comentarioId, usuariosId);
+        if(nuevo == null)
+            throw new BusinessLogicException("No existe la asociación entre el usuario y el comentario");
+        return new ComentarioDTO(logic.updateComentario(usuariosId, nuevo));
     }
 
     /**
@@ -81,11 +102,10 @@ public class ComentarioUsuarioResource {
     @Path("{comentarioId: \\d+}")
     public void deleteComentario(@PathParam("usuariosId") Long usuariosId,@PathParam("comentarioId") Long comentarioId) throws BusinessLogicException
     {
-        // ComentarioEntity nuevo = logic.getComentario(comentarioId, usuariosId);
-        // if(nuevo == null)
-        //     throw new BusinessLogicException("No existe la asociación entre el usuario y el comentario");
+        ComentarioEntity nuevo = logic.getComentario(comentarioId, usuariosId);
+        if(nuevo == null)
+            throw new BusinessLogicException("No existe la asociación entre el usuario y el comentario");
         
-        // logic.deleteComentario(usuariosId, comentarioId);
-       
+        logic.deleteComentario(usuariosId, comentarioId);
     }
 }

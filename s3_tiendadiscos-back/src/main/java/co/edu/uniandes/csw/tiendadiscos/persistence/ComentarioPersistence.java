@@ -41,32 +41,18 @@ public class ComentarioPersistence {
         ComentarioEntity temp = em.find(ComentarioEntity.class,id);
         em.remove(temp);
     }
-    
-    public List<ComentarioEntity> findAllToVinilo(Long viniloId)
+    public ComentarioEntity find(Long id,Long usuarioId)
     {
-        TypedQuery<ComentarioEntity> q = em.createQuery("select p from ComentarioEntity p where (p.vinilo.id = :viniloId)", ComentarioEntity.class);
-        q.setParameter("viniloId", viniloId);
-        return q.getResultList();
-    }
-
-    public List<ComentarioEntity> findAllToUsuario(Long usuarioId)
-    {
-        TypedQuery<ComentarioEntity> q = em.createQuery("select u from ComentarioEntity u where (u.usuarioDestino.id = :usuarioId)",ComentarioEntity.class);
+        TypedQuery<ComentarioEntity> q = em.createQuery("select p from ComentarioEntity p where (p.usuarioInicio.id = :usuarioId) and (p.id = :id)", ComentarioEntity.class);
         q.setParameter("usuarioId", usuarioId);
-        return q.getResultList();
+        q.setParameter("id", id);
+        List<ComentarioEntity> results = q.getResultList();
+        return results.get(0);
     }
-
-    public List<ComentarioEntity> findAllToCancion(Long cancionId)
+    public List<ComentarioEntity> findAllHechos(Long usuarioId)
     {
-        TypedQuery<ComentarioEntity> q = em.createQuery("select p from ComentarioEntity p where (p.cancion.id = :cancionId)", ComentarioEntity.class);
-        q.setParameter("cancionId", cancionId);
-        return q.getResultList();
-    }
-
-    public List<ComentarioEntity> findAllToTransaccion(Long transaccionId)
-    {
-        TypedQuery<ComentarioEntity> q = em.createQuery("select p from ComentarioEntity p where (p.transaccion.id = :transaccionId)", ComentarioEntity.class);
-        q.setParameter("transaccionId", transaccionId);
+        TypedQuery<ComentarioEntity> q = em.createQuery("select u from ComentarioEntity u where (u.usuarioInicio.id = :usuarioId)",ComentarioEntity.class);
+        q.setParameter("usuarioId", usuarioId);
         return q.getResultList();
     }
 }

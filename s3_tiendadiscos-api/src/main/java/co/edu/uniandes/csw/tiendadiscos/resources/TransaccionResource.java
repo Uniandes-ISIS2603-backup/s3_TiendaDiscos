@@ -97,11 +97,5 @@ public class TransaccionResource{
         return TransaccionEnvioResource.class;
     
     }
-
-    @Path("{transaccionesId: \\d+}/comentarios")
-    public Class<ComentarioTransaccionResource> geComentariosResource(@PathParam("transaccionesId") Long transaccionesId) {
-        
-        return ComentarioTransaccionResource.class;
-    }
     
 }

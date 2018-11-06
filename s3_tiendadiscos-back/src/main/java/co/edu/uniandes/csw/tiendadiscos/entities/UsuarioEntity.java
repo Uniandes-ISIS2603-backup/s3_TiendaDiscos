@@ -31,15 +31,15 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     private Double calificacion;
     
     @PodamExclude
-    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
     private WishListEntity wishList;
     
     @PodamExclude
-    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
     private CarritoDeComprasEntity carritoCompras;
     
     @PodamExclude
-    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY)
     private BillingInformationEntity billingInformation;
     
     @PodamExclude

@@ -132,9 +132,9 @@ public class ComentarioLogicTest {
     @Test
     public void getComentarioTest() {
         ComentarioEntity entity = data.get(0);
-        List<ComentarioEntity> resultEntity = logic.getComentarios(dataUsuario.get(0).getId());
+        ComentarioEntity resultEntity = logic.getComentario( entity.getId(),dataUsuario.get(0).getId());
         Assert.assertNotNull(resultEntity);
-        
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
 
     }
     
