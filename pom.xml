@@ -8,7 +8,7 @@
     <artifactId>s3_vinylapp</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
-    <name>s3_vinylapp_2</name>
+    <name>s3_vinylapp</name>
     
     <modules>
         <module>s3_tiendadiscos-api</module>
