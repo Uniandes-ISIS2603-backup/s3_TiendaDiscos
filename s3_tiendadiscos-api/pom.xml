@@ -13,7 +13,7 @@
     <artifactId>s3_vinylapp-api</artifactId>
     <packaging>war</packaging>
 
-    <name>s3_vinylapp-api</name>
+    <name>s3_vinylapp-api_2</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
