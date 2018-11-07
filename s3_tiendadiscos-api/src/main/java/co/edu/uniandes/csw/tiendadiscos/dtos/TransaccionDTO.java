@@ -153,9 +153,9 @@ public class TransaccionDTO implements Serializable
     public TransaccionEntity toEntity()
     {
         TransaccionEntity transaccion = new TransaccionEntity();
-        transaccion.setId(id);
-        transaccion.setEstado(estado);
-        transaccion.setFormaDePago(formaDePago);
+        transaccion.setId(this.id);
+        transaccion.setEstado(this.estado);
+        transaccion.setFormaDePago(this.formaDePago);
         
         
         if(this.usuarioComprador!=null)

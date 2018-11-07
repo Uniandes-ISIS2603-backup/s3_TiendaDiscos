@@ -11,6 +11,8 @@ import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tiendadiscos.persistence.TransaccionPersistence;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -21,7 +23,7 @@ import javax.inject.Inject;
  */
 @Stateless
 public class TransaccionLogic {
-    
+     private static final Logger LOGGER = Logger.getLogger(TransaccionLogic.class.getName());
     @Inject
     public TransaccionPersistence transaccionPersistence;
     
@@ -29,11 +31,10 @@ public class TransaccionLogic {
     
     
     public TransaccionEntity create(TransaccionEntity entity)throws BusinessLogicException
-    {
-        if(transaccionPersistence.find(entity.getId())!=null)
-        {
-            throw new BusinessLogicException("Ya existe una transaccion con esta id.");
-        }
+    {   
+        LOGGER.log(Level.INFO, "Entidad"+ entity.getId());
+        
+        
         
         return transaccionPersistence.create(entity);
     }
