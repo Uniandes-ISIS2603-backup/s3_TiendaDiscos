@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.MedioDePagoEntity;
+import java.io.Serializable;
 import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -14,7 +15,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author Kevin Blanco
  */
-public class MedioDePagoDTO {
+public class MedioDePagoDTO implements Serializable {
 
     /**
      * id único de la tarjeta de credito.
