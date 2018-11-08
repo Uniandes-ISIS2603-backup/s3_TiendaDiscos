@@ -4,6 +4,15 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>java:app/jdbc/vinylappDB</jta-data-source>
     <class>co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity</class>
+    <class>co.edu.uniandes.csw.tiendadiscos.entities.BillingInformationEntity</class>
+    <class>co.edu.uniandes.csw.tiendadiscos.entities.CancionEntity</class>
+    <class>co.edu.uniandes.csw.tiendadiscos.entities.CarritoDeComprasEntity</class>
+    <class>co.edu.uniandes.csw.tiendadiscos.entities.ComentarioEntity</class>
+    <class>co.edu.uniandes.csw.tiendadiscos.entities.EnvioEntity</class>
+    <class>co.edu.uniandes.csw.tiendadiscos.entities.MedioDePagoEntity</class>
+    <class>co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity</class>
+    <class>co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity</class>
+    <class>co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity</class> 
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
