@@ -6,12 +6,15 @@
 package co.edu.uniandes.csw.tiendadiscos.ejb;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.EnvioEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tiendadiscos.persistence.EnvioPersistence;
+import co.edu.uniandes.csw.tiendadiscos.persistence.TransaccionPersistence;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.WebApplicationException;
 
 /**
  *
@@ -21,6 +24,8 @@ import javax.inject.Inject;
 public class EnvioLogic {
     private static final Logger LOGGER = Logger.getLogger(EnvioLogic.class.getName());
 
+    @Inject TransaccionPersistence transaccionPersistence;
+    
     @Inject
     private EnvioPersistence persistence;
 
@@ -30,11 +35,26 @@ public class EnvioLogic {
      * @param envioEntity Objeto de EnvioEntity con los datos nuevos
      * @return Objeto de EnvioEntity con los datos nuevos y su ID.
      */
-    public EnvioEntity createAuthor(EnvioEntity envioEntity) {
+    public EnvioEntity create(EnvioEntity envioEntity, Long transaccionId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del envio");
-        EnvioEntity newEnvioEntity = persistence.create(envioEntity);
+        
+        TransaccionEntity transaccion = transaccionPersistence.find(transaccionId);
+        if(transaccion == null){
+            throw new BusinessLogicException("No existe la transacción");
+        }
+        if(persistence.find(transaccionId) != null){
+            throw new BusinessLogicException("La transacción ya tiene un envio asociado ");
+        }
+        envioEntity.setTransaccion(transaccion);
+        
+        
+        
+        
+        
+        
+        persistence.create(envioEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del envio");
-        return newEnvioEntity;
+        return envioEntity;
     }
     /**
      * Obtiene los datos de una instancia de Envio a partir de su ID.
@@ -42,14 +62,22 @@ public class EnvioLogic {
      * @param usuarioId Identificador de la instancia a consultar
      * @return Instancia de AuthorEntity con los datos del Author consultado.
      */
-    public EnvioEntity getEnvio(Long usuarioId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el envio del usuario con id = {0}", usuarioId);
-        EnvioEntity envioEntity = persistence.find(usuarioId);
-        if (envioEntity == null) {
-            LOGGER.log(Level.SEVERE, "El envio del usuario con el id = {0} no existe", usuarioId);
+    public EnvioEntity getEnvio(Long transaccionId) throws BusinessLogicException,WebApplicationException {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el envio de la transaccion con id = {0}", transaccionId);
+        
+        TransaccionEntity transaccion = transaccionPersistence.find(transaccionId);
+        if(transaccion == null){
+            throw new WebApplicationException("La transacción con el id "+transaccionId+" no existe.", 404);
         }
-        LOGGER.log(Level.INFO, "Termina proceso de consultar el el envio del usuario con id = {0}", usuarioId);
-        return envioEntity;
+        
+        EnvioEntity envio = persistence.find(transaccionId);
+        if(envio==null){
+             throw new WebApplicationException("La transaccion con el id " + transaccionId + " no tiene un Envio asociado", 404);
+        }
+        
+        
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el el envio de la transaccion con id = {0}", transaccionId);
+        return envio;
     }
 
     /**
@@ -59,10 +87,14 @@ public class EnvioLogic {
      * @param authorEntity Instancia de EnvioEntity con los nuevos datos.
      * @return Instancia de EnvioEntity con los datos actualizados.
      */
-    public EnvioEntity updateEnvio(Long usuarioId, EnvioEntity envioEntity) {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el envio del usuario con id = {0}", usuarioId);
-        EnvioEntity newEnvioEntity = persistence.update(envioEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el envio del usuario con id = {0}", usuarioId);
+    public EnvioEntity updateEnvio(Long transaccionId, EnvioEntity envioEntity) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el envio del usuario con id = {0}", transaccionId);
+       if(transaccionPersistence.find(transaccionId).getEnvio()==null){
+           throw new BusinessLogicException("La transaccion no tiene asociado un envio.");
+       }
+       
+       EnvioEntity newEnvioEntity = persistence.update(envioEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el envio del usuario con id = {0}", transaccionId);
         return newEnvioEntity;
     }
 
