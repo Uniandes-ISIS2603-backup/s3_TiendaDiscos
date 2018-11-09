@@ -5,12 +5,12 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.ejb;
 
+
 import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tiendadiscos.persistence.UsuarioPersistence;
 import co.edu.uniandes.csw.tiendadiscos.persistence.WishListPersistence;
-
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,9 +18,10 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 
+
 /**
  *
- * @author Sebastian Martinez
+ * @author Laura Isabella Forero Camacho
  */
 @Stateless
 public class WishListLogic {
@@ -28,73 +29,72 @@ public class WishListLogic {
     private static final Logger LOGGER = Logger.getLogger(WishListLogic.class.getName());
 
     @Inject
-    public WishListPersistence wishPersitence;
+    public WishListPersistence wishlistPersistence;
     
     @Inject
     public UsuarioPersistence usuarioPersistence;
     
     /**
-     * Se encarga de crear un WishList en la base de datos.
-     * @param entity Objeto de WishListEntity con los datos nuevos.
-     * @param usuarioId El id del usuario el cual será el padre del nuevo Wishlist.
-     * @return Objeto de WishListEntity con los datos nuevos y su ID.
-     * @throws BussinessLogicException si el usuario con el id usuarioId ya tiene asignado un Wishlist.
-     *                                 Si no existe un usuario con ese id.
+     * Se encarga de crear un Carrito de compras en la base de datos
+     * 
+     * @param usuarioId id del usuario el cual será el padre del nuevo CarritoDeCompras.
+     * @param entity Objeto de CarritoDeComprasEntity con los datos nuevos y su ID.
+     * @return Objeto de CarritoDeComprasEntity con los nuevos datos y su ID.
+     * @throws BusinessLogicException si el usuario con id UsuarioId ya tiene asignado un carrito.
+     *                                Si el usuario con id usuarioId no existe.
      */
-    public WishListEntity createWishList(Long usuarioId,WishListEntity entity) throws BusinessLogicException//throws BusinessLogicException
+    public WishListEntity create(Long usuarioId,WishListEntity entity)throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO, "Inicia proceso de creación de wishList");
+        LOGGER.log(Level.INFO, "Inicia el proceso de creación de Carrito de compras.");
+
         UsuarioEntity usuario = usuarioPersistence.find(usuarioId);
-        if(usuario == null)
-             throw new BusinessLogicException("No existe el usuario con ese id");
-        if(wishPersitence.findByUserId(usuarioId)!=null)
-            throw new BusinessLogicException("El usuario ya tiene una wishList");
-            
-            
+        if (usuario == null)           
+            throw new BusinessLogicException("No existe el usuario con ese id");
+
+        if(wishlistPersistence.find(usuarioId)!=null)
+        {
+            throw new BusinessLogicException("El usuario ya tiene un carrito de compras");
+        }
         entity.setUsuario(usuario);
-        LOGGER.log(Level.INFO, "Termina el proceso de creación de WishList.");
-        return wishPersitence.create(entity);
+
+        LOGGER.log(Level.INFO, "Termina el proceso de cración de Carrito de compras.");
+
+        wishlistPersistence.create(entity);
+        return entity;
     }
-
-
-    public WishListEntity getWishList(Long userId) throws BusinessLogicException
+    
+    public WishListEntity get(Long usuarioId)
     {
-        UsuarioEntity usuario = usuarioPersistence.find(userId);
-        if(usuario == null)
-            throw new WebApplicationException("El usuario con el id " + userId + " no existe.", 404);
+        UsuarioEntity user = usuarioPersistence.find(usuarioId);
+        if(user == null)
+            throw new WebApplicationException("El Usuario con el id "+usuarioId+" no existe.", 404);
 
-        WishListEntity wishList = wishPersitence.findByUserId(userId);
-        if(wishList==null)
-            throw new WebApplicationException("El usuario con el id " + userId + " no tiene una WishList");
-        
-        return wishList;
+        WishListEntity carrito = usuarioPersistence.find(usuarioId).getWishList();
+        if(carrito == null)
+            throw new WebApplicationException("El usuario con el id " + usuarioId + " no tiene un Carrito de compras", 404);
+
+        return carrito;
+    }
+    
+    public WishListEntity update(WishListEntity wishList,Long usuarioId) throws BusinessLogicException    {
+        LOGGER.log(Level.INFO , "Inicia el proceso de actualizar el Carrito de compras del usuario con el id{0}", usuarioId);
+        if(usuarioPersistence.find(usuarioId).getCarritoCompras() == null)
+            throw new BusinessLogicException("El usuario no tiene asociado un carrito.");
+
+        WishListEntity newEntity = wishlistPersistence.update(wishList);
+        LOGGER.log(Level.INFO, "Termina el proceso de actualizar el carrito de compras con id{0}", newEntity.getId());
+        return newEntity;
     }
     
     
-    public WishListEntity updateWishList(WishListEntity wishList,Long usuarioId) throws BusinessLogicException
+    public void delete(Long usuarioId) throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO, "Inicia el proceso de actualizar la wishlist del usuario con id = {0}", usuarioId);
+        LOGGER.log(Level.INFO, "Inicia el proceso de borrar el carrito de compras del usuario con id={0}", usuarioId);
+        WishListEntity carrito = usuarioPersistence.find(usuarioId).getWishList();
+        if(carrito == null)
+            throw new BusinessLogicException("El usuario no tiene un carrito de compras asociado.");
 
-        if(usuarioPersistence.find(usuarioId).getWishList() == null)
-            throw new BusinessLogicException("El usuario no tiene asociada una WishList.");
-        
-        WishListEntity newEntity = wishPersitence.update(wishList);
-
-        LOGGER.log(Level.INFO, "Termina el proceso de actualizar la WishList con el id {0}" , newEntity.getId());
-        return wishList;
-    }
-    
-    
-    public void deleteWishList(Long usuarioId) throws BusinessLogicException
-    {
-        LOGGER.log(Level.INFO , "Inicia proceso de borrar la WishList del usuario con id {0}", usuarioId);
-        WishListEntity wishList = usuarioPersistence.find(usuarioId).getWishList();
-        if(wishList == null)
-            throw new BusinessLogicException("El usuario no tiene una WishList asociada.");
-
-        wishPersitence.delete(wishList.getId());
-        LOGGER.log(Level.INFO, "Termina el proceso de borrar la WishList del usuario con el id {0}" , usuarioId);        
-    }
-     
-    
+        wishlistPersistence.delete(usuarioId);
+        LOGGER.log(Level.INFO, "Termina el proceso de borrar el carrito de compras del usuario con id{0}" , usuarioId);
+    }    
 }
