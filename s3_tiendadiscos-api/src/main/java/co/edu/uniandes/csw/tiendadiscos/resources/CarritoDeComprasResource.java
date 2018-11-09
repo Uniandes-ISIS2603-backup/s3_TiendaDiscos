@@ -6,10 +6,14 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.CarritoDeComprasDTO;
+import co.edu.uniandes.csw.tiendadiscos.dtos.WishListDTO;
 import co.edu.uniandes.csw.tiendadiscos.ejb.CarritoDeComprasLogic;
+import co.edu.uniandes.csw.tiendadiscos.ejb.WishListLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.CarritoDeComprasEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import java.util.logging.Logger;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;

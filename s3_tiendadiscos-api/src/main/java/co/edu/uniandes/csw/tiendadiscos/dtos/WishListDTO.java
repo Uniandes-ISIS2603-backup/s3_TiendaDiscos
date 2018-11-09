@@ -17,7 +17,7 @@ import javax.persistence.Id;
  */
 public class WishListDTO implements Serializable {
 
-
+    private static final long serialVersionUID = 1L;
     
     private Long id;
     private Double totalCost;

@@ -115,7 +115,7 @@ public class WishListLogicTest {
     public void createWishListTest() throws BusinessLogicException{
         WishListEntity newEntity = factory.manufacturePojo(WishListEntity.class);
         newEntity.setUsuario(dataUsuario.get(1));
-        WishListEntity result = logic.create(dataUsuario.get(1).getId(),newEntity);
+        WishListEntity result = logic.createWishList(dataUsuario.get(1).getId(),newEntity);
         Assert.assertNotNull(result);
         WishListEntity entity = em.find(WishListEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
@@ -131,7 +131,7 @@ public class WishListLogicTest {
     @Test
     public void getReviewsTest() throws BusinessLogicException {
         WishListEntity newEntity = data.get(0);
-        WishListEntity nuevo = logic.get(dataUsuario.get(0).getId());
+        WishListEntity nuevo = logic.getWishList(dataUsuario.get(0).getId());
         Assert.assertNotNull(nuevo);
         Assert.assertEquals(newEntity.getId(),nuevo.getId());
     }
@@ -145,7 +145,7 @@ public class WishListLogicTest {
         WishListEntity pojoEntity = factory.manufacturePojo(WishListEntity.class);
 
         pojoEntity.setId(entity.getId());
-        logic.update(pojoEntity,entity.getUsuario().getId());
+        logic.updateWishList(pojoEntity,entity.getUsuario().getId());
 
         WishListEntity resp = em.find(WishListEntity.class, entity.getId());
 
@@ -161,7 +161,7 @@ public class WishListLogicTest {
     @Test
     public void deleteReviewTest() throws BusinessLogicException {
         WishListEntity entity = data.get(1);
-        logic.delete(entity.getId());
+        logic.deleteWishList(entity.getId());
         WishListEntity deleted = em.find(WishListEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
