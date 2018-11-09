@@ -28,7 +28,7 @@ import javax.ws.rs.WebApplicationException;
 @Consumes("application/json")
 @Produces("application/json")
 public class CarritoDeComprasResource {
-     private static final Logger LOGGER = Logger.getLogger(CarritoDeComprasResource.class.getName());
+     private static final Logger LOGGER = Logger.getLogger(WishListResource.class.getName());
     
    @Inject
    private CarritoDeComprasLogic logic;

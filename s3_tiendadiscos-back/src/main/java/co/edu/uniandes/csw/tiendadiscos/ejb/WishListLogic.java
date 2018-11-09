@@ -57,10 +57,9 @@ public class WishListLogic {
         }
         entity.setUsuario(usuario);
 
-        
+        LOGGER.log(Level.INFO, "Termina el proceso de cración de Carrito de compras.");
 
         wishlistPersistence.create(entity);
-        LOGGER.log(Level.INFO, "Termina el proceso de creación de Carrito de compras.");
         return entity;
     }
     
