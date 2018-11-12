@@ -15,7 +15,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author Kevin Blanco
  */
-public class MedioDePagoDTO implements Serializable {
+public class MedioDePagoDTO implements Serializable 
+{
 
     /**
      * id único de la tarjeta de credito.

@@ -13,6 +13,7 @@ import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import javax.enterprise.context.RequestScoped;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -43,7 +44,7 @@ public class ViniloResource
     {
         ViniloDTO viniloCreado =new ViniloDTO(viniloLogic.createVinilo(vinilo.toEntity()));
                 
-        //LOGGER.log(level.INFO, "ViniloResource createVinilo: input: (0)" , vinilo.toString());
+        LOGGER.log(Level.INFO, "ViniloResource createVinilo: input: (0)" , vinilo.toString());
         return viniloCreado;
     }
     
@@ -57,15 +58,14 @@ public class ViniloResource
     @Path("{vinilosId: \\d+}")
     public ViniloDTO getVinilo(@PathParam("vinilosId") Long vinilosId)
     {
-        /*ViniloEntity viniloEntity = ViniloLogic.getVinilo(viniloId);
+        ViniloEntity viniloEntity = viniloLogic.getVinilo(vinilosId);
         if(viniloEntity == null)
         {
-            throw new WebApplicationException("El recurso /vinilo/" + viniloId + " no existe." , 404);
+            throw new WebApplicationException("El recurso /vinilo/" + vinilosId + " no existe." , 404);
         }
         ViniloDTO detailDTO = new ViniloDTO(viniloEntity);
         
-        return detailDTO;*/
-        return null;
+        return detailDTO;
     }
     
     @GET
@@ -110,9 +110,6 @@ public class ViniloResource
         
         return ComentarioViniloResource.class;
     }
-
-
-
 
 
     private List<ViniloDetailDTO> listEntity2DTO(List<ViniloEntity> entityList)

@@ -3,7 +3,6 @@ package co.edu.uniandes.csw.tiendadiscos.dtos;
 import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -12,10 +11,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Andrés Felipe Hernández León
  */
 public class ViniloDTO implements Serializable 
-{
-
-    private static final long serialVersionUID = 1L;
-  
+{  
     /**
      * id unico del vinilo.
      */
@@ -210,7 +206,8 @@ public class ViniloDTO implements Serializable
      * Obtiene el atributo calificacion.
      * @return atributo calificación.
      */
-    public Double getCalificacion() {
+    public Double getCalificacion() 
+    {
         return calificacion;
     }
     
@@ -218,7 +215,8 @@ public class ViniloDTO implements Serializable
      * Obtiene el atributo nombre.
      * @return atributo nombre.
      */
-    public String getNombre() {
+    public String getNombre() 
+    {
         return nombre;
     }
 
@@ -226,7 +224,8 @@ public class ViniloDTO implements Serializable
      * Obtiene el atributo artista.
      * @return atributo artista.
      */
-    public String getArtista() {
+    public String getArtista() 
+    {
         return artista;
     }
 
@@ -234,7 +233,8 @@ public class ViniloDTO implements Serializable
      * Obtiene el atributo fecha de lanzamiento.
      * @return atributo fechaLanzamiento.
      */
-    public Date getFechaLanzamiento() {
+    public Date getFechaLanzamiento() 
+    {
         return fechaLanzamiento;
     }
     
@@ -242,7 +242,8 @@ public class ViniloDTO implements Serializable
      * Obtiene el atributo productora.
      * @return atributo productora.
      */
-    public String getProductora() {
+    public String getProductora() 
+    {
         return productora;
     }
 
@@ -250,7 +251,8 @@ public class ViniloDTO implements Serializable
      * Obtiene la información adicional del vinilo.
      * @return atributo informacionAdicional.
      */
-    public String getInformacionAdicional() {
+    public String getInformacionAdicional() 
+    {
         return informacionAdicional;
     }
 
@@ -258,7 +260,8 @@ public class ViniloDTO implements Serializable
      * Obtiene el atributo previewURI.
      * @return atributo previewURI.
      */
-    public String getPreviewURI() {
+    public String getPreviewURI() 
+    {
         return previewURI;
     }  
  
@@ -266,7 +269,8 @@ public class ViniloDTO implements Serializable
      * Obtiene el id único del vinilo.
      * @return atributo id.
      */
-    public Long getId() {
+    public Long getId() 
+    {
         return id;
     }
     

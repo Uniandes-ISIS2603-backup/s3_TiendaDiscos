@@ -36,87 +36,88 @@ public class UsuarioResource {
     UsuarioLogic usuarioLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
     @POST
-    public UsuarioDTO createUsuario(UsuarioDTO usuario)throws BusinessLogicException{
-        UsuarioDTO usuarioDTO = new UsuarioDTO(usuarioLogic.createUsuario(usuario.toEntity()));
-        
-        
+    public UsuarioDTO createUsuario(UsuarioDTO usuario)throws BusinessLogicException
+    {
+        UsuarioDTO usuarioDTO = new UsuarioDTO(usuarioLogic.createUsuario(usuario.toEntity()));        
         return usuarioDTO;
     }
     
     @PUT
     @Path("{usuariosId: \\d+}")
-    public UsuarioDTO updateUsuario(@PathParam("usuariosId") Long usuarioId,UsuarioDTO usuario) throws BusinessLogicException{
+    public UsuarioDTO updateUsuario(@PathParam("usuariosId") Long usuarioId,UsuarioDTO usuario) throws BusinessLogicException
+    {
         usuarioLogic.updateUsuario(usuarioId, usuario.toEntity());
         return usuario;
     }
     
     @GET
     @Path("{usuariosId: \\d+}")
-    public UsuarioDetailDTO getUsuario(@PathParam("usuariosId") Long usuarioId){
+    public UsuarioDetailDTO getUsuario(@PathParam("usuariosId") Long usuarioId)
+    {
         UsuarioEntity usuarioEntity = usuarioLogic.getUsuario(usuarioId);
-        if (usuarioEntity ==null){
+        if (usuarioEntity ==null)
             throw new WebApplicationException("El recurso /usuario/" + usuarioId + " no existe.", 404);
-        }
+        
         UsuarioDetailDTO usuarioDetail = new UsuarioDetailDTO(usuarioEntity);
         
         return usuarioDetail;
     }
     
     @GET
-    public List<UsuarioDetailDTO> getUsuarios(){
+    public List<UsuarioDetailDTO> getUsuarios()
+    {
         List<UsuarioDetailDTO> listaUsuarios = listEntity2DetailDTO(usuarioLogic.getUsuarios());
-        
         return listaUsuarios;
     }
     
     @DELETE
     @Path("{usuariosId: \\d+}")
-    public void deleteUsuarios(@PathParam("usuariosId") Long usuarioId){
-        
-        
+    public void deleteUsuarios(@PathParam("usuariosId") Long usuarioId)
+    {
+        //TODO
     } 
     
     @Path("{usuariosId: \\d+}/billing")
-    public Class<BillingInformationResource> getBillingResource(@PathParam("usuariosId") Long usuariosId) {
-        
+    public Class<BillingInformationResource> getBillingResource(@PathParam("usuariosId") Long usuariosId) 
+    {        
         return BillingInformationResource.class;
     }
-
+    
+    /**
     @Path("{usuariosId: \\d+}/wishlist")
     public Class<WishListResource> getWishListResource(@PathParam("usuariosId") Long usuariosId) {
         
         return WishListResource.class;
-    }
+    }*/
+    
     @Path("{usuariosId: \\d+}/carrito")
-    public Class<CarritoDeComprasResource> geCarritoDeComprasResource(@PathParam("usuariosId") Long usuariosId) {
-        
+    public Class<CarritoDeComprasResource> geCarritoDeComprasResource(@PathParam("usuariosId") Long usuariosId) 
+    {        
         return CarritoDeComprasResource.class;
     }
+    
+    @Path("{usuariosId: \\d+}/wish")
+    public Class<WishListResource> geWishList(@PathParam("usuariosId") Long usuariosId) 
+    {        
+        return WishListResource.class;
+    }
+    
     @Path("{usuariosId: \\d+}/comentarios")
-    public Class<ComentarioUsuarioResource> geComentariosResource(@PathParam("usuariosId") Long usuariosId) {
-        
+    public Class<ComentarioUsuarioResource> geComentariosResource(@PathParam("usuariosId") Long usuariosId) 
+    {        
         return ComentarioUsuarioResource.class;
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    //----------------------------------------------------------------
     //METODOS
+    //----------------------------------------------------------------   
     
     
-    
-    
-        private List<UsuarioDetailDTO> listEntity2DetailDTO(List<UsuarioEntity> entityList) {
+    private List<UsuarioDetailDTO> listEntity2DetailDTO(List<UsuarioEntity> entityList) 
+    {
         List<UsuarioDetailDTO> list = new ArrayList<>();
-        for (UsuarioEntity entity : entityList) {
+        for (UsuarioEntity entity : entityList) 
+        {
             list.add(new UsuarioDetailDTO(entity));
         }
         return list;

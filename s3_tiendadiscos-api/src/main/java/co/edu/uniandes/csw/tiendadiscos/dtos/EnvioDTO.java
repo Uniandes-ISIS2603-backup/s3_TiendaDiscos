@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 
+import co.edu.uniandes.csw.tiendadiscos.entities.EnvioEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -37,20 +38,48 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class EnvioDTO implements Serializable {
         
-   public enum estado{
+   public enum estado
+   {
        PENDIENTE,
        PROGRESO,
        RECIBIDO
    }
+   
    private Long id;
+   
    private String direccionSalida; 
+   
    private String direccionEntrega; 
+   
    private String estado; 
    
    /**
     * Constructor por defecto.
     */
-   public EnvioDTO(){
+   public EnvioDTO()
+   { }
+   
+   public EnvioDTO(EnvioEntity envioEntity)
+   {
+       if(envioEntity != null)
+       {
+           this.id = envioEntity.getId();
+           this.direccionSalida = envioEntity.getDireccionSalida();
+           this.direccionEntrega = envioEntity.getDireccionEntrega();
+           this.estado = envioEntity.getEstado();
+       }
+   }
+   
+   public EnvioEntity toEntity()
+   {
+       EnvioEntity newEntity = new EnvioEntity();
+       
+       newEntity.setId(this.id);
+       newEntity.setDireccionSalida(direccionSalida);
+       newEntity.setDireccionEntrega(direccionEntrega);
+       newEntity.setEstado(estado);
+       
+       return newEntity;
    }
    
     /**
@@ -99,8 +128,5 @@ public class EnvioDTO implements Serializable {
     @Override
     public String toString(){
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }
-   
-   
-    
+    }   
 }

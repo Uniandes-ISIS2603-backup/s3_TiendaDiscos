@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.EnvioDTO;
+import co.edu.uniandes.csw.tiendadiscos.ejb.EnvioLogic;
 import java.util.logging.Logger;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -21,10 +23,12 @@ import javax.ws.rs.core.MediaType;
  */
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class TransaccionEnvioResource {
+public class TransaccionEnvioResource 
+{
     private static final Logger LOGGER = Logger.getLogger(TransaccionEnvioResource.class.getName());
     
-    
+    @Inject
+    private EnvioLogic envioLogic;
     
     @POST
     public EnvioDTO crearEnvio(EnvioDTO envio){

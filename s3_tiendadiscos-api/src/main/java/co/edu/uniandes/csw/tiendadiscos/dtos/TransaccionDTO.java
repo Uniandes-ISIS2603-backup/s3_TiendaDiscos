@@ -2,10 +2,6 @@ package co.edu.uniandes.csw.tiendadiscos.dtos;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -13,11 +9,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author Laura Isabella Forero Camacho
  */
-
 public class TransaccionDTO implements Serializable 
 {
     
-   
     /**
      * id único de la transaccion.
      */
@@ -43,9 +37,9 @@ public class TransaccionDTO implements Serializable
      */
     private String estado;
 
-    
-    
-    
+    /**
+     * Vinilo asociado a la transacción.
+     */
     private ViniloDTO vinilo;
     
     /**
@@ -54,22 +48,21 @@ public class TransaccionDTO implements Serializable
     public TransaccionDTO()
     {}
     
-    
-    
-    
     /**
      * Modifica el valor del atributo vendedorID.
-     * @param vendedorID nuevo valor del atributo.
+     * @param vendedor nuevo valor del atributo.
      */
-    public void setUsuarioVendedor(UsuarioDTO vendedor) {
+    public void setUsuarioVendedor(UsuarioDTO vendedor) 
+    {
         this.usuarioVendedor = vendedor;
     }
 
     /**
      * Modifica el valor del atributo compradorID.
-     * @param compradorID nuevo valor del atributo.
+     * @param comprador nuevo valor del atributo.
      */
-    public void setUsuarioComprador(UsuarioDTO comprador) {
+    public void setUsuarioComprador(UsuarioDTO comprador) 
+    {
         this.usuarioComprador = comprador;
     }
 
@@ -77,7 +70,8 @@ public class TransaccionDTO implements Serializable
      * Modifica el valor del atributo formaDePago.
      * @param formaDePago nuevo valor del atributo.
      */
-    public void setFormaDePago(String formaDePago) {
+    public void setFormaDePago(String formaDePago) 
+    {
         this.formaDePago = formaDePago;
     }
     
@@ -85,19 +79,26 @@ public class TransaccionDTO implements Serializable
      * Modifica el valor del atributo estado.
      * @param estado nuevo valor del atributo.
      */
-    public void setEstado(String estado) {
+    public void setEstado(String estado) 
+    {
         this.estado = estado;
     }
 
-    
-    public void setVinilo(ViniloDTO vinilo) {
+    /**
+     * Modifica el valor del atributo vinilo.
+     * @param vinilo nuevo valor del atributo.
+     */
+    public void setVinilo(ViniloDTO vinilo) 
+    {
         this.vinilo = vinilo;
     }
+    
     /**
      * Obtiene le atributo nombre.
      * @return atributo nombre.
      */
-    public UsuarioDTO getUsuarioVendedor() {
+    public UsuarioDTO getUsuarioVendedor() 
+    {
         return usuarioVendedor;
     }
 
@@ -105,7 +106,8 @@ public class TransaccionDTO implements Serializable
      * Retorna la duración de la cación.
      * @return atributo duración.
      */
-    public UsuarioDTO getUsuarioComprador() {
+    public UsuarioDTO getUsuarioComprador() 
+    {
         return usuarioComprador;
     }
 
@@ -113,7 +115,8 @@ public class TransaccionDTO implements Serializable
      * Obtiene el atributo preview URI.
      * @return previewURI
      */
-    public String getEstado() {
+    public String getEstado() 
+    {
         return estado;
     }
 
@@ -121,24 +124,29 @@ public class TransaccionDTO implements Serializable
      * Obtiene la descripcion.
      * @return atributo descripcion.
      */
-    public String getFormaDePago() {
+    public String getFormaDePago() 
+    {
         return formaDePago;
     }   
     
     /**
      * Obtiene el atributo id.
-     *
      * @return atributo id.
-     *
      */
-    public Long getId() {
+    public Long getId() 
+    {
         return id;
     }
 
-    
-    public ViniloDTO getViniloDTO() {
+    /**
+     * Obtiene el atributo vinilo.
+     * @return atributo vinilo.
+     */
+    public ViniloDTO getVinilo() 
+    {
         return vinilo;
     }
+    
     /**
      * Establece el valor del atributo id.
      *

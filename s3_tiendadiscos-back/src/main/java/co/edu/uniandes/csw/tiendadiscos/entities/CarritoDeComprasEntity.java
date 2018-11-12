@@ -11,7 +11,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -21,9 +20,9 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Laura Isabella Forero Camacho
  */
 @Entity
-public class CarritoDeComprasEntity extends BaseEntity implements Serializable{
-
-    
+public class CarritoDeComprasEntity extends BaseEntity implements Serializable
+{
+   
     private Double totalCost;
     
     @PodamExclude
@@ -38,41 +37,48 @@ public class CarritoDeComprasEntity extends BaseEntity implements Serializable{
     @OneToOne
     private UsuarioEntity usuario;
     
-    public void setTotalCostDeCarritoCompras(Double totalCost) {
+    public CarritoDeComprasEntity() 
+    {}
+    
+    public void setTotalCostDeCarritoCompras(Double totalCost) 
+    {
         this.totalCost = totalCost;
     }
 
     
-    public Double  getTotalCostDeCarritoCompras() {
+    public Double  getTotalCostDeCarritoCompras() 
+    {
         return totalCost;
     }
     
-    public void setUsuario(UsuarioEntity usuario) {
+    public void setUsuario(UsuarioEntity usuario) 
+    {
         this.usuario = usuario;
     }
 
     
-    public UsuarioEntity  getUsuario() {
+    public UsuarioEntity  getUsuario() 
+    {
         return usuario;
     }
     
-    public void setVinilosDeCarritoCompras(List<ViniloEntity> vinilos) {
+    public void setVinilosDeCarritoCompras(List<ViniloEntity> vinilos) 
+    {
         this.vinilos = vinilos;
     }
 
     
-    public List<ViniloEntity>  getVinilosDeCarritoCompras() {
+    public List<ViniloEntity>  getVinilosDeCarritoCompras() 
+    {
         return vinilos;
     }
     
-    public void setTransaccionesDeCarritoCompras(List<TransaccionEntity> transacciones) {
+    public void setTransaccionesDeCarritoCompras(List<TransaccionEntity> transacciones) 
+    {
         this.transacciones = transacciones;
     }
-    public List<TransaccionEntity>  getTransaccionesDeCarritoCompras() {
+    public List<TransaccionEntity>  getTransaccionesDeCarritoCompras() 
+    {
         return transacciones;
-    }
-    
-    
-    public CarritoDeComprasEntity() {
-    }
+    }   
 }

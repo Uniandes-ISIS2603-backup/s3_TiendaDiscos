@@ -6,29 +6,27 @@
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 import co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity;
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 /**
  *
  * @author Sebastian Martinez
  */
-public class WishListDTO implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-    
+public class WishListDTO implements Serializable 
+{
     private Long id;
+    
     private Double totalCost;
 
     public WishListDTO()
-    {
-    }
+    {}
     
-    public WishListDTO(WishListEntity wish){
-        this.id = wish.getId();
-        this.totalCost = wish.getCosto();
+    public WishListDTO(WishListEntity wishlist)
+    {
+        if(wishlist != null)
+        {
+            this.id = wishlist.getId();
+            this.totalCost = wishlist.getCosto();
+        }
     }
     
     public WishListEntity toEntity()
@@ -44,17 +42,18 @@ public class WishListDTO implements Serializable {
         return totalCost;
     }
     
-    public Long getId() {
+    public Long getId() 
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id) 
+    {
         this.id = id;
     }
     
     public void setTotalCost(Double totalCost)
     {
         this.totalCost = totalCost;
-    }
-    
+    }   
 }

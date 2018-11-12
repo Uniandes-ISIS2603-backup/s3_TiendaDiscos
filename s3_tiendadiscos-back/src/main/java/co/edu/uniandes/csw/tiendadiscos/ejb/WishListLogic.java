@@ -19,8 +19,7 @@ import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 
 /**
- *
- * @author Sebastian Martinez
+ * @author Laura Isabella Forero Camacho
  */
 @Stateless
 public class WishListLogic {
@@ -28,7 +27,7 @@ public class WishListLogic {
     private static final Logger LOGGER = Logger.getLogger(WishListLogic.class.getName());
 
     @Inject
-    public WishListPersistence wishPersitence;
+    public WishListPersistence wishlistPersitence;
     
     @Inject
     public UsuarioPersistence usuarioPersistence;
@@ -38,34 +37,36 @@ public class WishListLogic {
      * @param entity Objeto de WishListEntity con los datos nuevos.
      * @param usuarioId El id del usuario el cual será el padre del nuevo Wishlist.
      * @return Objeto de WishListEntity con los datos nuevos y su ID.
-     * @throws BussinessLogicException si el usuario con el id usuarioId ya tiene asignado un Wishlist.
+     * @throws BusinessLogicException si el usuario con el id usuarioId ya tiene asignado un Wishlist.
      *                                 Si no existe un usuario con ese id.
      */
-    public WishListEntity createWishList(Long usuarioId,WishListEntity entity) throws BusinessLogicException//throws BusinessLogicException
+    public WishListEntity createWishList(Long usuarioId,WishListEntity entity)throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de wishList");
         UsuarioEntity usuario = usuarioPersistence.find(usuarioId);
-        if(usuario == null)
-             throw new BusinessLogicException("No existe el usuario con ese id");
-        if(wishPersitence.findByUserId(usuarioId)!=null)
+        if (usuario == null)           
+            throw new BusinessLogicException("No existe el usuario con ese id");
+
+        if(wishlistPersitence.find(usuarioId)!=null)
+        {
             throw new BusinessLogicException("El usuario ya tiene una wishList");
-            
-            
+        }
         entity.setUsuario(usuario);
         LOGGER.log(Level.INFO, "Termina el proceso de creación de WishList.");
-        return wishPersitence.create(entity);
+        return wishlistPersitence.create(entity);
     }
 
 
-    public WishListEntity getWishList(Long userId) throws BusinessLogicException
+    public WishListEntity getWishList(Long usuarioId)
     {
-        UsuarioEntity usuario = usuarioPersistence.find(userId);
-        if(usuario == null)
-            throw new WebApplicationException("El usuario con el id " + userId + " no existe.", 404);
+        UsuarioEntity user = usuarioPersistence.find(usuarioId);
+        if(user == null)
+            throw new WebApplicationException("El Usuario con el id "+usuarioId+" no existe.", 404);
 
-        WishListEntity wishList = wishPersitence.findByUserId(userId);
+
+        WishListEntity wishList = usuarioPersistence.find(usuarioId).getWishList();
         if(wishList==null)
-            throw new WebApplicationException("El usuario con el id " + userId + " no tiene una WishList");
+            throw new WebApplicationException("El usuario con el id " + usuarioId + " no tiene una WishList", 404);
         
         return wishList;
     }
@@ -78,9 +79,9 @@ public class WishListLogic {
         if(usuarioPersistence.find(usuarioId).getWishList() == null)
             throw new BusinessLogicException("El usuario no tiene asociada una WishList.");
         
-        WishListEntity newEntity = wishPersitence.update(wishList);
+        WishListEntity newEntity = wishlistPersitence.update(wishList);
 
-        LOGGER.log(Level.INFO, "Termina el proceso de actualizar la WishList con el id {0}" , newEntity.getId());
+        LOGGER.log(Level.INFO, "Termina el proceso de actualizar la WishList con el id{0}" , newEntity.getId());
         return wishList;
     }
     
@@ -92,9 +93,7 @@ public class WishListLogic {
         if(wishList == null)
             throw new BusinessLogicException("El usuario no tiene una WishList asociada.");
 
-        wishPersitence.delete(wishList.getId());
+        wishlistPersitence.delete(usuarioId);
         LOGGER.log(Level.INFO, "Termina el proceso de borrar la WishList del usuario con el id {0}" , usuarioId);        
     }
-     
-    
 }

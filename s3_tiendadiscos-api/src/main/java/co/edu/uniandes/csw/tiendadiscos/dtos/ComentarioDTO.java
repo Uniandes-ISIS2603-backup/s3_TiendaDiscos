@@ -2,20 +2,13 @@ package co.edu.uniandes.csw.tiendadiscos.dtos;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.ComentarioEntity;
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 
 /**
  *
  * @author Sebastian Martinez y Andrés :)
  */
-public class ComentarioDTO implements Serializable{
-   
-   
-   
+public class ComentarioDTO implements Serializable
+{   
     private Long id;
 
     private UsuarioDTO escritoPor;
@@ -212,7 +205,7 @@ public class ComentarioDTO implements Serializable{
     }
     
     /** 
-     * @param cancion usuario al que se comenta
+     * @param vinilo vinilo al que se comenta.
      */
     public void setVinilo(ViniloDTO vinilo)
     {
