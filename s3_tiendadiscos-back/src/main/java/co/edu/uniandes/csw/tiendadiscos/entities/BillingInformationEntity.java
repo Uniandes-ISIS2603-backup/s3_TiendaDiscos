@@ -29,12 +29,12 @@ public class BillingInformationEntity extends BaseEntity implements Serializable
     /**
      * Dinero gastado
      */
-    private Double spent;
+    private double spent;
 
     /**
      * dinero recibido
      */
-    private Double recieved;
+    private double recieved;
 
     /**
      * tarjetas de credito del Billing

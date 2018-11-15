@@ -65,9 +65,7 @@ public class BillingInformationResource {
     @PUT
     public BillingInformationDetailDTO updateBilling(@PathParam("usuariosId") Long usuariosId, BillingInformationDetailDTO billing) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "BillingResource updateBilling: input: usuariosId: {0} , billing: {1}", new Object[]{usuariosId, billing.toString()});
-        if (usuariosId.equals(billing.getUsuario().getId())) {
-            throw new BusinessLogicException("Los ids de los usuarios dueños no coinciden.");
-        }
+
         BillingInformationEntity entity = billingLogic.getBilling(usuariosId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /usuarios/" + usuariosId + "/billing  no existe.", 404);

@@ -179,7 +179,13 @@ public class MedioDePagoLogicTest {
         MedioDePagoEntity entity = dataTarjeta.get(0);
         Long algo1 = dataUsuario.get(0).getId();
         Long algo2 = entity.getId();
-        MedioDePagoEntity resultEntity = tarjetaLogic.getTarjeta(dataUsuario.get(0).getId(), entity.getId());
+                MedioDePagoEntity resultEntity = null;
+        try {
+        resultEntity = tarjetaLogic.getTarjeta(dataUsuario.get(0).getId(), entity.getId());
+        }
+        catch (Exception e ){
+            e.printStackTrace();
+        }
         Assert.assertNotNull(resultEntity);
 
         Assert.assertEquals(resultEntity.getId(), entity.getId());

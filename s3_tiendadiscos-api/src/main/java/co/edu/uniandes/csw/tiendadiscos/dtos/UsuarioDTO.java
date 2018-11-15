@@ -71,7 +71,7 @@ public class UsuarioDTO implements Serializable {
     
     private WishListDTO wishList;
     
-    private BillingInformationDTO billingInformation;
+    private BillingInformationDetailDTO billingInformation;
     
     private CarritoDeComprasDTO carritoCompras;
 
@@ -97,18 +97,16 @@ public class UsuarioDTO implements Serializable {
             this.direccion = userEntity.getDireccion();
             this.rol = userEntity.getRol();
             this.calificacion = userEntity.getCalificacion();
-            if(this.carritoCompras!=null)
-                this.carritoCompras = new CarritoDeComprasDTO(userEntity.getCarritoCompras());
-            else
-                this.carritoCompras = null;
-            if(this.billingInformation !=null)
-                this.billingInformation = new BillingInformationDTO(userEntity.getBillingInformation());
-            else
-                this.billingInformation = null;
-            if(this.wishList!=null)
-                this.wishList = new WishListDTO(userEntity.getWishList());
-            else
-                this.wishList=null;
+            
+            if(userEntity.getCarritoCompras()!=null){
+                this.carritoCompras = new CarritoDeComprasDTO(userEntity.getCarritoCompras());}
+        
+            if(userEntity.getBillingInformation() !=null){
+                this.billingInformation = new BillingInformationDetailDTO(userEntity.getBillingInformation());}
+            
+            if(userEntity.getWishList()!=null){
+                this.wishList = new WishListDTO(userEntity.getWishList());}
+      
           
         }
     }
@@ -219,11 +217,11 @@ public class UsuarioDTO implements Serializable {
         this.wishList = wishList;
     }
 
-    public BillingInformationDTO getBillingInformation() {
+    public BillingInformationDetailDTO getBillingInformation() {
         return billingInformation;
     }
 
-    public void setBillingInformation(BillingInformationDTO billingInformation) {
+    public void setBillingInformation(BillingInformationDetailDTO billingInformation) {
         this.billingInformation = billingInformation;
     }
 

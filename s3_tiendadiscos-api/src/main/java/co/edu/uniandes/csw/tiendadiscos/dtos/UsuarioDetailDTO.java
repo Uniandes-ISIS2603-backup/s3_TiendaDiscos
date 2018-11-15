@@ -44,8 +44,7 @@ public class UsuarioDetailDTO extends UsuarioDTO implements Serializable{
     public UsuarioDetailDTO(UsuarioEntity userEntity)
     {
         super(userEntity);
-          
- 
+
         if(userEntity.getVinilos() != null){
            vinilos = new ArrayList<>();
             for(ViniloEntity actual : userEntity.getVinilos())

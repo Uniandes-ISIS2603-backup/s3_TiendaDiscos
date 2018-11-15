@@ -60,9 +60,15 @@ public class MedioDePagoLogic {
 
     }
 
-    public MedioDePagoEntity getTarjeta(Long usuariosId, Long tarjetaId) {
+    public MedioDePagoEntity getTarjeta(Long usuariosId, Long tarjetaId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar la tarjeta con id = {0}", tarjetaId);
         
+        // probar si usuario es nulo, en billing cambiar la forma porque yo no se el usuario toca con el path
+               UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
+        if (usuario == null) {
+            //Esta exception la produce usuario BORRAR
+            throw new BusinessLogicException("No existe el usuario con ese id");
+        }   
         MedioDePagoEntity tarjeta = persistence.find(usuarioPersistence.find(usuariosId).getBillingInformation().getId(), tarjetaId);
         if (tarjeta == null) {
             LOGGER.log(Level.SEVERE, "La tarjeta con el id = {0} no existe", tarjetaId);
@@ -103,7 +109,8 @@ public class MedioDePagoLogic {
         if (tarjeta.getFechaVencimiento().compareTo(new Date()) < 0) {
             throw new BusinessLogicException("Fecha invalida");
         }
-
+        
+        tarjeta.setBilling(billing);
         MedioDePagoEntity newEntity = persistence.update(tarjeta);
 
         //Usuario maneja exception de que exista 

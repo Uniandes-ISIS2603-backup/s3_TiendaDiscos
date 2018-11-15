@@ -70,8 +70,8 @@ public class MedioDePagoResource {
      * @return
      */
     @GET
-    @Path("{tarjetaCreditoId: \\d+}")
-    public MedioDePagoDTO getTarjetaCredito(@PathParam("usuariosId") Long usuariosId, @PathParam("tarjetaCreditoId") Long tarjetaCreditoId) {
+    @Path("{tarjetaCreditoId: \\d+}") 
+    public MedioDePagoDTO getTarjetaCredito(@PathParam("usuariosId") Long usuariosId, @PathParam("tarjetaCreditoId") Long tarjetaCreditoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "TarjetaCreditoResource getTarjetaCredito: input: {0}", tarjetaCreditoId);
         MedioDePagoEntity entity = tarjetaLogic.getTarjeta(usuariosId, tarjetaCreditoId);
         if (entity == null) {
@@ -93,7 +93,7 @@ public class MedioDePagoResource {
     @Path("{tarjetaId: \\d+}")
     public MedioDePagoDTO updateTarjetaCredito(@PathParam("usuariosId") Long usuariosId, @PathParam("tarjetaId") Long tarjetaCreditoId, MedioDePagoDTO tarjeta) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ReviewResource updateTarjetaCredito: input: usuariosId: {0} , tarjetaCreditoId: {1} , review:{2}", new Object[]{usuariosId, tarjetaCreditoId, tarjeta.toString()});
-        if (tarjetaCreditoId.equals(tarjeta.getId())) {
+        if (!tarjetaCreditoId.equals(tarjeta.getId())) {
             throw new BusinessLogicException("Los ids de la Tarjeta no coinciden.");
         }
         MedioDePagoEntity entity = tarjetaLogic.getTarjeta(usuariosId, tarjetaCreditoId);

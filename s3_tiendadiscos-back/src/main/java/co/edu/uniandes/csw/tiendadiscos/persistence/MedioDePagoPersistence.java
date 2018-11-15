@@ -34,7 +34,7 @@ public class MedioDePagoPersistence {
 
     public MedioDePagoEntity find(Long billingId, Long tarjetaId) {
         LOGGER.log(Level.INFO, "Consultando tarjeta con id={0} del billing con id = " + billingId, tarjetaId);
-        TypedQuery<MedioDePagoEntity> q = em.createQuery("select p from TarjetaCreditoEntity p where (p.billing.id = :billingId) and (p.id = :tarjetaId)", MedioDePagoEntity.class);
+        TypedQuery<MedioDePagoEntity> q = em.createQuery("select p from MedioDePagoEntity p where (p.billing.id = :billingId) and (p.id = :tarjetaId)", MedioDePagoEntity.class);
         q.setParameter("billingId", billingId);
         q.setParameter("tarjetaId", tarjetaId);
         List<MedioDePagoEntity> results = q.getResultList();

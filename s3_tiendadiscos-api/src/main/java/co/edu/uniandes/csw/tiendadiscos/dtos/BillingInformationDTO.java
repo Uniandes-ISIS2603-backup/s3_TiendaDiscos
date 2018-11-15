@@ -29,12 +29,12 @@ public class BillingInformationDTO  implements Serializable{
     /**
      * Dinero gastado
      */
-    private Double spent;
+    private double spent;
     
     /**
      * dinero recibido
      */
-    private Double recieved ;
+    private double recieved ;
     
     /**
      * constructor vacio
