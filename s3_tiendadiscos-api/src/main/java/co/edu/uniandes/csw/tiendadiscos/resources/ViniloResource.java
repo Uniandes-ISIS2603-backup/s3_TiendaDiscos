@@ -119,4 +119,10 @@ public class ViniloResource
             list.add(new ViniloDetailDTO(entity));
         return list;
     }
+    
+    @Path("usuarios")
+    public Class<ViniloUsuarioResource> getViniloUsuarioResource(@PathParam("usuariosId") Long usuariosId) 
+    {        
+        return ViniloUsuarioResource.class;
+    }
 }

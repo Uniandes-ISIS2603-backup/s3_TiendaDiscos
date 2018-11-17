@@ -25,6 +25,7 @@ public class ViniloLogic {
     
     private static final Logger LOGGER = Logger.getLogger(ViniloLogic.class.getName());
     
+    
     @Inject
     private ViniloPersistence persistence;
     
@@ -52,7 +53,7 @@ public class ViniloLogic {
     public ViniloEntity createViniloUsuario(Long usuarioId, ViniloEntity viniloEntity ) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO , "Inicia el proceso de creación del vinilo de un usuario con id = {0}", usuarioId);
-        if(usuarioPersistence.find(usuarioId) != null)
+        if(usuarioPersistence.find(usuarioId) == null)
             throw new BusinessLogicException("El usuario no existe. id Recibido: "+usuarioId);
         viniloEntity.setUsuario(usuarioPersistence.find(usuarioId));
         persistence.create(viniloEntity);

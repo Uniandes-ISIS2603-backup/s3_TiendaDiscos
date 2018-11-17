@@ -7,13 +7,9 @@ package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.BillingInformationDTO;
 import co.edu.uniandes.csw.tiendadiscos.dtos.BillingInformationDetailDTO;
-import co.edu.uniandes.csw.tiendadiscos.dtos.UsuarioDTO;
 import co.edu.uniandes.csw.tiendadiscos.ejb.BillingInformationLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.BillingInformationEntity;
-import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
