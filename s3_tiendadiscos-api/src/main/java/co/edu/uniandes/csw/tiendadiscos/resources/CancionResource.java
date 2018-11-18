@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.tiendadiscos.ejb.CancionLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.CancionEntity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -28,18 +29,23 @@ public class CancionResource {
     private static final Logger LOGGER = Logger.getLogger(CancionResource.class.getName());
     
     @Inject
-    private CancionLogic cancionLogic;
+    private CancionLogic logic;
     
     @POST
-    public CancionDTO createCancion(CancionDTO cancion){
-        CancionDTO nuevaCancion = new CancionDTO(cancionLogic.createCancion(cancion.toEntity()));
+    public CancionDTO createCancion(CancionDTO cancion)
+    {
+        LOGGER.log(Level.INFO, "CancionResource createCancion: input:{0}", cancion);
+        CancionDTO nuevaCancion = new CancionDTO(logic.createCancion(cancion.toEntity()));
+        LOGGER.log(Level.INFO, "CancionResource createCancion: output: {0}", nuevaCancion);
         return nuevaCancion;
     }
     
     @GET
     public List<CancionDTO> getCanciones()
     {
-        List<CancionDTO> canciones= listEntity2DetailDTO(cancionLogic.getCanciones());
+        LOGGER.log(Level.INFO, "CancionResource getCanciones: input: void");
+        List<CancionDTO> canciones= listEntity2DetailDTO(logic.getCanciones());
+        LOGGER.log(Level.INFO, "CancionResource getCanciones: output: {0}", canciones);
         return canciones;
     }
     
@@ -47,41 +53,53 @@ public class CancionResource {
     @Path("{cancionesId: \\d+}")
     public CancionDTO getCancion(@PathParam("cancionesId") Long cancionesId)
     {
-       CancionDTO cancion = new CancionDTO(cancionLogic.getCancion(cancionesId));
-       return cancion;       
-        
+       LOGGER.log(Level.INFO , "CancionResource getCancion: input: {0}", cancionesId);
+       if(null == logic.getCancion(cancionesId))
+           throw new WebApplicationException("El recurso /canciones/"+cancionesId+" no existe.", 404);
+       CancionDTO cancion = new CancionDTO(logic.getCancion(cancionesId));
+       LOGGER.log(Level.INFO, "CancionResource getCancion: output: {0}", cancion);
+       return cancion;               
     }
     
     @PUT
     @Path("{cancionesId: \\d+}")
     public CancionDTO updateCancion(@PathParam("cancionesId") Long cancionesId, CancionDTO cancion)
     {
-        return cancion;
+        LOGGER.log(Level.INFO , "CancionResource updateCancion : input: cancionesId: {0}, cancion: {1}", new Object[]{cancionesId, cancion});
+        cancion.setId(cancionesId);
+        if(logic.getCancion(cancionesId) == null)
+            throw new WebApplicationException("El recurso /canciones/"+cancionesId+" no existe.", 404);
+        CancionDTO cancionDTO = new CancionDTO(logic.updateCancion(cancionesId, cancion.toEntity()));
+        LOGGER.log(Level.INFO , "CancionResource updateCancion: output: {0}", cancionDTO);
+        return cancionDTO;
     }
     
     @DELETE
     @Path("{cancionesId: \\d+}")
-    public void deleteTransaccion(@PathParam("cancionesId") Long cancionesId)
+    public void deleteCancion(@PathParam("cancionesId") Long cancionesId)
     {
-        
+        LOGGER.log(Level.INFO , "CancionResource deleteCancion: input: {0}", cancionesId);
+        if(logic.getCancion(cancionesId)== null)
+            throw new WebApplicationException("El recurso /canciones/"+ cancionesId+ " no existe.", 404);
+        logic.deleteCancion(cancionesId);
+        LOGGER.log(Level.INFO, "CancionResource deleteCancion: output: void");
     }
     
     @Path("{cancionesId: \\d+}/comentarios")
-    public Class<ComentarioCancionResource> geComentariosResource(@PathParam("cancionessId") Long cancionesId) {
-        
+    public Class<ComentarioCancionResource> getComentariosResource(@PathParam("cancionesId") Long cancionesId) 
+    {        
+        if(logic.getCancion(cancionesId)== null) 
+            throw new WebApplicationException("El recurso /canciones/"+cancionesId+" no existe.", 404);
         return ComentarioCancionResource.class;
     }
     
-      //METODOS
+    //METODOS
     
-    
-    
-    
-        private List<CancionDTO> listEntity2DetailDTO(List<CancionEntity> entityList) {
+    private List<CancionDTO> listEntity2DetailDTO(List<CancionEntity> entityList) 
+    {
         List<CancionDTO> list = new ArrayList<>();
-        for (CancionEntity entity : entityList) {
+        for(CancionEntity entity : entityList) 
             list.add(new CancionDTO(entity));
-        }
         return list;
     }
 }

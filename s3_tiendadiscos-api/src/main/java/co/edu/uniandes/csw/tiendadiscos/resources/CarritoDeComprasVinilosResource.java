@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author estudiante
+ * @author Andrés Hernández
  */
 @Path("usuarios/usuariosId/carritosCompras/vinilos")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -27,7 +27,9 @@ public class CarritoDeComprasVinilosResource {
     
     @POST
     @Path("{vinilosId: \\d+}")
-    public ViniloDTO addViniloCarritoCompras(@PathParam("vinilosId") Long vinilosId, ViniloDTO vinilo){
+    public ViniloDTO addViniloCarritoCompras(@PathParam("vinilosId") Long vinilosId, ViniloDTO vinilo)
+    {
+        
         return vinilo;
     }
     @GET

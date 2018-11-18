@@ -47,26 +47,28 @@ public class WishListResource {
     {
         WishListEntity entity = logic.getWishList(usuariosId);
         if(entity==null)
-            throw new WebApplicationException("El recurso /usuario/"+ usuariosId+ " no tiene wishList");
+            throw new WebApplicationException("El recurso /usuario/"+ usuariosId+ " no tiene wishList",404);
         WishListDetailDTO nuevo = new WishListDetailDTO(entity);
         return nuevo;
     }
     
     @DELETE
-    @Path("{wishListId: \\d+}")
-    public void deleteWishList(@PathParam("carritoDeComprasId") Long carritoDeComprasId)throws BusinessLogicException
+    @Path("{usuariosId: \\d+}")
+    public void deleteWishList(@PathParam("usuariosId") Long usuariosId)throws BusinessLogicException
     {
-        logic.deleteWishList(carritoDeComprasId);
+        if(logic.getWishList(usuariosId) == null)
+            throw new WebApplicationException("El recurso /usuario/"+ usuariosId + " no tiene una wishList asociada.", 404);
+        logic.deleteWishList(usuariosId);
     }
     
     /**
      * 
      * @param usuariosId
-     * @param whislist
+     * @param wishList
      * @return 
     */
     @PUT
-    @Path("{wishListId: \\d+}")    
+    @Path("{usuariosId: \\d+}") 
     public WishListDTO putWishList(@PathParam("usuariosId") Long usuariosId, WishListDTO wishList)throws BusinessLogicException
     {
         WishListEntity entity = logic.getWishList(usuariosId);
