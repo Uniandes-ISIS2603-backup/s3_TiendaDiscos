@@ -12,8 +12,16 @@ import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+
+
 
 /**
  *
@@ -21,6 +29,7 @@ import javax.ws.rs.*;
  */
 @Produces("application/json")
 @Consumes("application/json")
+@RequestScoped
 public class ViniloUsuarioResource 
 {
     private static final Logger LOGGER = Logger.getLogger(ViniloUsuarioResource.class.getName());
@@ -41,7 +50,8 @@ public class ViniloUsuarioResource
      * @param usuarioId
      * @return 
      */
-    @GET
+    @GET 
+    @Path("{usuariosId: \\d+}")
     public List<ViniloDTO> getVinilosByUsuario(@PathParam("usuariosId") Long usuarioId)
     {
         List<ViniloDTO> resp = new ArrayList<ViniloDTO>();
@@ -50,17 +60,18 @@ public class ViniloUsuarioResource
             resp.add(new ViniloDTO(entity));
         return resp;
     }
+    /**
     @PUT
-    @Path("{usuariosId: \\d+}")
+    @Path("{vinilosId: \\d+}")
     public ViniloDTO putVinilo()       
     {
         return null;
     }
     
     @DELETE
-    @Path("{usuariosId: \\d+}")
     public void deleteVinilo(@PathParam("usuariosId") Long usuarioId, Long viniloId)
     {
         
     }
+    * **///
 }

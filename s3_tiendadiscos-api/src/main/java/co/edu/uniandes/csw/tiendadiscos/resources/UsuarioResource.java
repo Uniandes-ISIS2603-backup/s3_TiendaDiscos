@@ -91,23 +91,23 @@ public class UsuarioResource {
     }*/
     
     @Path("{usuariosId: \\d+}/carrito")
-    public Class<CarritoDeComprasResource> geCarritoDeComprasResource(@PathParam("usuariosId") Long usuariosId) 
+    public Class<CarritoDeComprasResource> getCarritoDeComprasResource(@PathParam("usuariosId") Long usuariosId) 
     {        
         return CarritoDeComprasResource.class;
     }
     
     @Path("{usuariosId: \\d+}/wish")
-    public Class<WishListResource> geWishList(@PathParam("usuariosId") Long usuariosId) 
+    public Class<WishListResource> getWishList(@PathParam("usuariosId") Long usuariosId) 
     {        
         return WishListResource.class;
     }
     
     @Path("{usuariosId: \\d+}/comentarios")
-    public Class<ComentarioUsuarioResource> geComentariosResource(@PathParam("usuariosId") Long usuariosId) 
+    public Class<ComentarioUsuarioResource> getComentariosResource(@PathParam("usuariosId") Long usuariosId) 
     {        
         return ComentarioUsuarioResource.class;
     }
-    
+
     //----------------------------------------------------------------
     //METODOS
     //----------------------------------------------------------------   

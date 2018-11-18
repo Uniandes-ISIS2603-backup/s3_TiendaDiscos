@@ -88,8 +88,6 @@ public class TiendaDiscosIT {
 
                 Assert.assertEquals("Error en Test-Scripts de: " + nombre, desiredResult, tp.getTest_scripts_failed());
 
-                Assert.assertEquals("Error en Prerequest-Scripts de: " + nombre, desiredResult, tp.getPrerequest_scripts_failed());
-
                 Assert.assertEquals("Error en Assertions de: " + nombre, desiredResult, tp.getAssertions_failed());
 
                 sumaPeticiones += Integer.parseInt(tp.getTotal_Requests());
