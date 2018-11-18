@@ -52,7 +52,7 @@ public class CarritoDeComprasResource
     }
     
     @DELETE
-    @Path("{wishListId: \\d+}")
+    @Path("{carritoDeComprasId: \\d+}")
     public void deleteCarritoDeCompras(@PathParam("carritoDeComprasId") Long carritoDeComprasId)throws BusinessLogicException{
         logic.delete(carritoDeComprasId);
 
@@ -74,5 +74,6 @@ public class CarritoDeComprasResource
         CarritoDeComprasDTO carritoDeComprasNuevo = new CarritoDeComprasDTO(logic.update(carritoDeCompras.toEntity(), usuariosId));
         return carritoDeComprasNuevo;
     }
-    
+ 
+    @Path("/")
 }

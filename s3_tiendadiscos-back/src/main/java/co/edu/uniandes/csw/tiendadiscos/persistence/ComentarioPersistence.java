@@ -89,5 +89,10 @@ public class ComentarioPersistence {
         return q.getResultList();
     }
 
+    public ComentarioEntity find(Long comentarioId)
+    {
+        LOGGER.log(Level.INFO, "Consultando el comentario con id{0} ", comentarioId);
+        return em.find(ComentarioEntity.class, comentarioId);
+    }
     /** linkhl was here :p */
 }

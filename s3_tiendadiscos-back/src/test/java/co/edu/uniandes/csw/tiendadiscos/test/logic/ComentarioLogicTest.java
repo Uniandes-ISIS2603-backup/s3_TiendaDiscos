@@ -156,15 +156,11 @@ public class ComentarioLogicTest {
         Assert.assertEquals(pojoEntity.getContenido(), resp.getContenido());
     }
     
-    /**
-     * Prueba para eliminar un Review.
-     *
-     * @throws co.edu.uniandes.csw.bookstore.exceptions.BusinessLogicException
-     */
+    
     @Test
     public void deleteReviewTest() throws BusinessLogicException {
         ComentarioEntity entity = data.get(0);
-        logic.deleteComentario(dataUsuario.get(0).getId(), entity.getId());
+        logic.deleteComentario(entity.getId());
         ComentarioEntity deleted = em.find(ComentarioEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }

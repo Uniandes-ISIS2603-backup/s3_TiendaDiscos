@@ -147,15 +147,17 @@ public class ComentarioLogic{
     {
         return persistence.findAllToVinilo(viniloId);
     }
+    
+    public ComentarioEntity getComentario(long comentarioId)
+    {
+        LOGGER.log(Level.INFO, "Inicia el proceso de consultar el comentario con Id{0}", comentarioId);
+        ComentarioEntity comentarioEntity = persistence.find(comentarioId);
+        if(comentarioEntity == null)
+            LOGGER.log(Level.SEVERE, "El comentario con el id = {0} no existe", comentarioId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el comentario con id ={0}", comentarioId);
+        return comentarioEntity;
+    }
 
-    /**
-     * Actualiza la información de una instancia de Review.
-     *
-     * @param reviewEntity Instancia de ReviewEntity con los nuevos datos.
-     * @param booksId id del Book el cual sera padre del Review actualizado.
-     * @return Instancia de ReviewEntity con los datos actualizados.
-     *
-     */
     public ComentarioEntity updateComentario(Long usuarioId, ComentarioEntity entity) 
     {
         UsuarioEntity usuario = usuarioPersistence.find(usuarioId);
@@ -164,18 +166,11 @@ public class ComentarioLogic{
         return entity;
     }
     
-    /**
-     * Elimina una instancia de Review de la base de datos.
-     *
-     * @param reviewsId Identificador de la instancia a eliminar.
-     * @param booksId id del Book el cual es padre del Review.
-     * @throws BusinessLogicException Si la reseña no esta asociada al libro.
-     *
-     */
-    public void deleteComentario(Long usuarioId, Long comentarioId) throws BusinessLogicException 
+    public void deleteComentario(Long comentarioId) throws BusinessLogicException 
     {
-       
-        
+        LOGGER.log(Level.INFO, "Iniciando borrar comentario con id{0}", comentarioId);
+        persistence.delete(comentarioId);
+        LOGGER.log(Level.INFO, "Se ha borrado el comentario con id{0}", comentarioId);
     }
     /** linkhl was here :p */
 }
