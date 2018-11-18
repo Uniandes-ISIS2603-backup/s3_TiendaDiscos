@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.WishListDTO;
+import co.edu.uniandes.csw.tiendadiscos.dtos.WishListDetailDTO;
 import co.edu.uniandes.csw.tiendadiscos.ejb.WishListLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
@@ -42,11 +43,12 @@ public class WishListResource {
     
     
     @GET 
-    public WishListDTO getWishList(@PathParam("usuariosId") Long usuariosId)throws BusinessLogicException{
+    public WishListDetailDTO getWishList(@PathParam("usuariosId") Long usuariosId)throws BusinessLogicException
+    {
         WishListEntity entity = logic.getWishList(usuariosId);
         if(entity==null)
             throw new WebApplicationException("El recurso /usuario/"+ usuariosId+ " no tiene wishList");
-        WishListDTO nuevo = new WishListDTO(entity);
+        WishListDetailDTO nuevo = new WishListDetailDTO(entity);
         return nuevo;
     }
     

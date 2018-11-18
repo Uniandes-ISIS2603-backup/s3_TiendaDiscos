@@ -29,7 +29,8 @@ import javax.ws.rs.*;
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
-public class UsuarioResource {
+public class UsuarioResource 
+{
     private static final Logger LOGGER = Logger.getLogger(UsuarioResource.class.getName());
     
     @Inject

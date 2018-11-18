@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.ViniloDTO;
+import co.edu.uniandes.csw.tiendadiscos.dtos.ViniloDetailDTO;
 import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.*;
@@ -31,7 +32,7 @@ public class CarritoDeComprasVinilosResource {
     }
     @GET
     @Path("{vinilosId: \\d+}")
-    public ViniloDTO getViniloCarritoCompras(@PathParam("vinilosId") Long vinilosId){
+    public ViniloDetailDTO getViniloCarritoCompras(@PathParam("vinilosId") Long vinilosId){
         return null;
     }
     

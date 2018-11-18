@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.CarritoDeComprasDTO;
+import co.edu.uniandes.csw.tiendadiscos.dtos.CarritoDeComprasDetailDTO;
 import co.edu.uniandes.csw.tiendadiscos.ejb.CarritoDeComprasLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.CarritoDeComprasEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
@@ -43,11 +44,11 @@ public class CarritoDeComprasResource
     
     
     @GET 
-    public CarritoDeComprasDTO getCarritoDeCompras(@PathParam("usuariosId") Long usuariosId)throws BusinessLogicException{
+    public CarritoDeComprasDetailDTO getCarritoDeCompras(@PathParam("usuariosId") Long usuariosId)throws BusinessLogicException{
         CarritoDeComprasEntity entity = logic.get(usuariosId);
         if(entity==null)
             throw new WebApplicationException("El recurso /usuario/"+ usuariosId+ " no tiene wishList");
-        CarritoDeComprasDTO nuevo = new CarritoDeComprasDTO(entity);
+        CarritoDeComprasDetailDTO nuevo = new CarritoDeComprasDetailDTO(entity);
         return nuevo;
     }
     
@@ -74,6 +75,5 @@ public class CarritoDeComprasResource
         CarritoDeComprasDTO carritoDeComprasNuevo = new CarritoDeComprasDTO(logic.update(carritoDeCompras.toEntity(), usuariosId));
         return carritoDeComprasNuevo;
     }
- 
-    @Path("/")
+
 }
