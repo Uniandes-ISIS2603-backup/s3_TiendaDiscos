@@ -53,11 +53,6 @@ public class ComentarioLogic
     public ComentarioEntity createComentarioUsuario(Long usuarioIdDestino, Long usuarioIdi, ComentarioEntity comentarioEntity) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación de un comentario a el usuario {0}" , usuarioIdDestino);
-        
-        if(usuarioPersistence.find(usuarioIdDestino) == null)
-            throw new BusinessLogicException("El usuario destino no existe. id Recibido: "+usuarioIdDestino);
-        if(usuarioPersistence.find(usuarioIdi) == null)
-            throw new BusinessLogicException("El usuario que comento no existe.");
 
         comentarioEntity.setUsuario(usuarioPersistence.find(usuarioIdDestino));
         comentarioEntity.setUsuarioI(usuarioPersistence.find(usuarioIdi));
@@ -67,7 +62,6 @@ public class ComentarioLogic
         LOGGER.log(Level.INFO, "Termina el proceso de creación de un comentario a el usuario");
         return comentarioEntity;
     }
-
 
     public ComentarioEntity createComentarioTransaccion(Long transaccionId, Long usuarioId, ComentarioEntity comentarioEntity) throws BusinessLogicException
     {

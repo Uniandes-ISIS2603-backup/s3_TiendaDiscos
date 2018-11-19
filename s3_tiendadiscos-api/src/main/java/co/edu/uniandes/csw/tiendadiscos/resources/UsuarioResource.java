@@ -14,6 +14,7 @@ import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -39,67 +40,87 @@ public class UsuarioResource
     @POST
     public UsuarioDTO createUsuario(UsuarioDTO usuario)throws BusinessLogicException
     {
+        LOGGER.log(Level.INFO , "UsuarioResource createUsuario: input: {0}", usuario);
         UsuarioDTO usuarioDTO = new UsuarioDTO(usuarioLogic.createUsuario(usuario.toEntity()));        
+        LOGGER.log(Level.INFO, "UsuarioResource createUsuario: outPut: {0}" , usuarioDTO);
         return usuarioDTO;
     }
     
-    @PUT
-    @Path("{usuariosId: \\d+}")
-    public UsuarioDTO updateUsuario(@PathParam("usuariosId") Long usuarioId,UsuarioDTO usuario) throws BusinessLogicException
+    @GET
+    public List<UsuarioDetailDTO> getUsuarios()
     {
-        usuarioLogic.updateUsuario(usuarioId, usuario.toEntity());
-        return usuario;
+        LOGGER.log(Level.INFO, "UsuarioResource getUsuarios: input: void");
+        List<UsuarioDetailDTO> listaUsuarios = listEntity2DetailDTO(usuarioLogic.getUsuarios());
+        LOGGER.log(Level.INFO, "UsuarioResource getUsuarios: output: {0}", listaUsuarios);
+        return listaUsuarios;
     }
     
     @GET
     @Path("{usuariosId: \\d+}")
     public UsuarioDetailDTO getUsuario(@PathParam("usuariosId") Long usuarioId)
     {
+        LOGGER.log(Level.INFO, "UsuarioResource getUsuario: input: {0}", usuarioId);
         UsuarioEntity usuarioEntity = usuarioLogic.getUsuario(usuarioId);
         if (usuarioEntity ==null)
             throw new WebApplicationException("El recurso /usuario/" + usuarioId + " no existe.", 404);
-        
-        UsuarioDetailDTO usuarioDetail = new UsuarioDetailDTO(usuarioEntity);
-        
-        return usuarioDetail;
+        UsuarioDetailDTO usuarioDetailDTO = new UsuarioDetailDTO(usuarioEntity);
+        LOGGER.log(Level.INFO , "UsuarioResource getUsuario: output: {0}", usuarioDetailDTO);
+        return usuarioDetailDTO;
     }
     
-    @GET
-    public List<UsuarioDetailDTO> getUsuarios()
+    @PUT
+    @Path("{usuariosId: \\d+}")
+    public UsuarioDetailDTO updateUsuario(@PathParam("usuariosId") Long usuarioId,UsuarioDTO usuario) throws BusinessLogicException
     {
-        List<UsuarioDetailDTO> listaUsuarios = listEntity2DetailDTO(usuarioLogic.getUsuarios());
-        return listaUsuarios;
+        LOGGER.log(Level.INFO, "UsuarioResource updateUsuario: input: usuarioId: {0} , usuario:{1}", new Object[]{usuarioId, usuario});
+        usuario.setId(usuarioId);
+        if (usuarioLogic.getUsuario(usuarioId) ==null)
+            throw new WebApplicationException("El recurso /usuario/" + usuarioId + " no existe.", 404);
+        UsuarioDetailDTO detailDTO = new UsuarioDetailDTO(usuarioLogic.updateUsuario(usuarioId, usuario.toEntity()));
+        return detailDTO;
     }
     
     @DELETE
     @Path("{usuariosId: \\d+}")
-    public void deleteUsuarios(@PathParam("usuariosId") Long usuarioId)
+    public void deleteUsuarios(@PathParam("usuariosId") Long usuariosId) throws BusinessLogicException 
     {
-        //TODO
+        LOGGER.log(Level.INFO , "UsuarioResource deleteUsuario: input: {0}", usuariosId);
+        if(usuarioLogic.getUsuario(usuariosId) == null)
+            throw new WebApplicationException("El recurso /usuarios/"+ usuariosId + " no existe.", 404);
+        usuarioLogic.deleteUsuario(usuariosId);
+        LOGGER.log(Level.INFO, "UsuarioResource deleteUsuario: output: void");
     } 
     
     @Path("{usuariosId: \\d+}/billing")
     public Class<BillingInformationResource> getBillingResource(@PathParam("usuariosId") Long usuariosId) 
     {        
+        if(usuarioLogic.getUsuario(usuariosId) == null)
+            throw new WebApplicationException("El recurso /usuario/" + usuariosId + " no existe.", 404);
         return BillingInformationResource.class;
     }
     
     
     @Path("{usuariosId: \\d+}/wishlist")
-    public Class<WishListResource> getWishListResource(@PathParam("usuariosId") Long usuariosId) {
-        
+    public Class<WishListResource> getWishListResource(@PathParam("usuariosId") Long usuariosId) 
+    {        
+        if(usuarioLogic.getUsuario(usuariosId) == null)
+            throw new WebApplicationException("El recurso /usuario/" + usuariosId + " no existe.", 404);
         return WishListResource.class;
     }
     
     @Path("{usuariosId: \\d+}/carrito")
     public Class<CarritoDeComprasResource> getCarritoDeComprasResource(@PathParam("usuariosId") Long usuariosId) 
-    {        
+    {   
+        if(usuarioLogic.getUsuario(usuariosId) == null)
+            throw new WebApplicationException("El recurso /usuario/" + usuariosId + " no existe.", 404);
         return CarritoDeComprasResource.class;
     }
     
     @Path("{usuariosId: \\d+}/comentarios")
     public Class<ComentarioUsuarioResource> getComentariosResource(@PathParam("usuariosId") Long usuariosId)
     {        
+        if(usuarioLogic.getUsuario(usuariosId) == null)
+            throw new WebApplicationException("El recurso /usuario/" + usuariosId + " no existe.", 404);
         return ComentarioUsuarioResource.class;
     }
 

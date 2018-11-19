@@ -107,7 +107,7 @@ public class TransaccionResource
     }
 
     @Path("{transaccionesId: \\d+}/comentarios")
-    public Class<ComentarioTransaccionResource> geComentariosResource(@PathParam("transaccionesId") Long transaccionId) 
+    public Class<ComentarioTransaccionResource> getComentariosResource(@PathParam("transaccionesId") Long transaccionId) 
     {
         if(logic.get(transaccionId)== null)
             throw new WebApplicationException("El recurso /transaccion/"+transaccionId+" no existe.", 404);

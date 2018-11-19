@@ -84,6 +84,8 @@ public class BillingInformationResource {
     @Path("/tarjetasDeCredito")
     public Class<MedioDePagoResource> getTarjetaResource(@PathParam("usuariosId") Long usuariosId) 
     {
+        if(billingLogic.getBilling(usuariosId) == null)
+            throw new WebApplicationException("El recurso /usuarios/" + usuariosId + "/billing  no existe.", 404);
         return MedioDePagoResource.class;
     }
 }

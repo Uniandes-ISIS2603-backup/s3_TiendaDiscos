@@ -37,8 +37,10 @@ public class ViniloDetailDTO extends ViniloDTO implements Serializable
        super(viniloEntity);
        if(viniloEntity != null )
        {
-          // canciones = viniloEntity.get
-       }    
+           canciones = new ArrayList<>();
+           for(CancionEntity cancionEntity: viniloEntity.getCanciones())
+               canciones.add(new CancionDTO(cancionEntity));                       
+       }
    }
    
    /**
@@ -49,21 +51,22 @@ public class ViniloDetailDTO extends ViniloDTO implements Serializable
     @Override
     public ViniloEntity toEntity() {
         ViniloEntity viniloEntity = super.toEntity();
-//        if (canciones != null) {
-//            List<CancionEntity> cancionesEntity = new ArrayList<>();
-//            for (CancionDTO cancionDTO : canciones) {
-//                cancionesEntity.add(cancionDTO.toEntity());
-//            }
-//            
-//        }
-          return viniloEntity;
+        List<CancionEntity> cancionesEntity;
+        if (canciones != null) 
+        {
+            cancionesEntity = new ArrayList<>();
+            for (CancionDTO cancionDTO : canciones) 
+                cancionesEntity.add(cancionDTO.toEntity());
+        }
+        return viniloEntity;
     }
     
     /**
      * Devuelve las canciones asociadas al vinilo.
      * @return atributo canciones.
      */
-    public List<CancionDTO> getCanciones() {
+    public List<CancionDTO> getCanciones() 
+    {
         return canciones;
     }
 
@@ -77,7 +80,8 @@ public class ViniloDetailDTO extends ViniloDTO implements Serializable
     }
     
     @Override
-    public String toString() {
+    public String toString() 
+    {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }

@@ -56,7 +56,7 @@ public class CarritoDeComprasResource
     @Path("{usuariosId: \\d+}")
     public void deleteCarritoDeCompras(@PathParam("usuariosId") Long usuariosId)throws BusinessLogicException
     {
-        if(null == logic.get(usuariosId))
+        if(logic.get(usuariosId)== null)
             throw new WebApplicationException("El recurso/usuario/" + usuariosId + " no tiene un carrito de compras.", 404);
         logic.delete(usuariosId);
     }

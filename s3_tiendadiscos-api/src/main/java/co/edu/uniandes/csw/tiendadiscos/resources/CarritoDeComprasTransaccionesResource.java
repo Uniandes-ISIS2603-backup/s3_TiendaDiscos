@@ -22,9 +22,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class CarritoDeComprasTransaccionesResource 
 {
-    
     private static final Logger LOGGER = Logger.getLogger(CarritoDeComprasTransaccionesResource.class.getName());
-    
     
     @POST
     @Path("{transaccionesId: \\d+}")
@@ -37,7 +35,6 @@ public class CarritoDeComprasTransaccionesResource
     @Path("{transaccionesId: \\d+}")
     public TransaccionDTO getTransaccionCarritoCompras(@PathParam("transaccionesId") Long transaccionesId)
     {
-        
         return null;
     }    
    
