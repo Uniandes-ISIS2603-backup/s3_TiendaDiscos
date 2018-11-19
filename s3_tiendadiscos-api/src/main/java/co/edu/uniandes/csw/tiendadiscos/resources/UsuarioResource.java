@@ -29,7 +29,8 @@ import javax.ws.rs.*;
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
-public class UsuarioResource {
+public class UsuarioResource 
+{
     private static final Logger LOGGER = Logger.getLogger(UsuarioResource.class.getName());
     
     @Inject
@@ -83,12 +84,12 @@ public class UsuarioResource {
         return BillingInformationResource.class;
     }
     
-    /**
+    
     @Path("{usuariosId: \\d+}/wishlist")
     public Class<WishListResource> getWishListResource(@PathParam("usuariosId") Long usuariosId) {
         
         return WishListResource.class;
-    }*/
+    }
     
     @Path("{usuariosId: \\d+}/carrito")
     public Class<CarritoDeComprasResource> getCarritoDeComprasResource(@PathParam("usuariosId") Long usuariosId) 
@@ -96,14 +97,8 @@ public class UsuarioResource {
         return CarritoDeComprasResource.class;
     }
     
-    @Path("{usuariosId: \\d+}/wish")
-    public Class<WishListResource> getWishList(@PathParam("usuariosId") Long usuariosId) 
-    {        
-        return WishListResource.class;
-    }
-    
     @Path("{usuariosId: \\d+}/comentarios")
-    public Class<ComentarioUsuarioResource> getComentariosResource(@PathParam("usuariosId") Long usuariosId) 
+    public Class<ComentarioUsuarioResource> getComentariosResource(@PathParam("usuariosId") Long usuariosId)
     {        
         return ComentarioUsuarioResource.class;
     }
@@ -111,8 +106,7 @@ public class UsuarioResource {
     //----------------------------------------------------------------
     //METODOS
     //----------------------------------------------------------------   
-    
-    
+        
     private List<UsuarioDetailDTO> listEntity2DetailDTO(List<UsuarioEntity> entityList) 
     {
         List<UsuarioDetailDTO> list = new ArrayList<>();

@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.ViniloDTO;
+import co.edu.uniandes.csw.tiendadiscos.dtos.ViniloDetailDTO;
 import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.*;
@@ -15,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author estudiante
+ * @author Andrés Hernández
  */
 @Path("usuarios/usuariosId/carritosCompras/vinilos")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -26,12 +27,14 @@ public class CarritoDeComprasVinilosResource {
     
     @POST
     @Path("{vinilosId: \\d+}")
-    public ViniloDTO addViniloCarritoCompras(@PathParam("vinilosId") Long vinilosId, ViniloDTO vinilo){
+    public ViniloDTO addViniloCarritoCompras(@PathParam("vinilosId") Long vinilosId, ViniloDTO vinilo)
+    {
+        
         return vinilo;
     }
     @GET
     @Path("{vinilosId: \\d+}")
-    public ViniloDTO getViniloCarritoCompras(@PathParam("vinilosId") Long vinilosId){
+    public ViniloDetailDTO getViniloCarritoCompras(@PathParam("vinilosId") Long vinilosId){
         return null;
     }
     

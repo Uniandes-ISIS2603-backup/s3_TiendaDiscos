@@ -82,9 +82,8 @@ public class BillingInformationResource {
     }
 
     @Path("/tarjetasDeCredito")
-    public Class<MedioDePagoResource> getTarjetaResource(@PathParam("usuariosId") Long usuariosId) {
-
+    public Class<MedioDePagoResource> getTarjetaResource(@PathParam("usuariosId") Long usuariosId) 
+    {
         return MedioDePagoResource.class;
     }
-
 }

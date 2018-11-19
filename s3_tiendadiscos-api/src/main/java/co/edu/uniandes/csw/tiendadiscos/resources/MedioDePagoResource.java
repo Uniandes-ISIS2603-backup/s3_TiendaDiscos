@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
-import co.edu.uniandes.csw.tiendadiscos.dtos.BillingInformationDTO;
 import co.edu.uniandes.csw.tiendadiscos.dtos.MedioDePagoDTO;
 import co.edu.uniandes.csw.tiendadiscos.ejb.MedioDePagoLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.MedioDePagoEntity;

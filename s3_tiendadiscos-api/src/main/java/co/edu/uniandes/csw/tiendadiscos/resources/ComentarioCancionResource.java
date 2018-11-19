@@ -32,12 +32,14 @@ public class ComentarioCancionResource {
     
     /**
      * 
-     * @param usuarioId
+     * @param cancionId
      * @param comentario
-     * @return 
+     * @param usuariosId
+     * @return
+     * @throws BusinessLogicException 
      */
     @POST
-    @Path("{usuariosId: \\d+}")
+    @Path("{cancionesId: \\d+}")
     public ComentarioDTO createComentarioUsuario(@PathParam("cancionesId") Long cancionId,ComentarioDTO comentario, @PathParam("usuariosId") Long usuariosId ) throws BusinessLogicException 
     {
         ComentarioDTO nuevo = new ComentarioDTO(logic.createComentarioCancion(cancionId, usuariosId, comentario.toEntity()));
@@ -47,11 +49,10 @@ public class ComentarioCancionResource {
     
     
     @GET
-    public List<ComentarioDTO> getComentarios(@PathParam("usuariosId") Long usuariosId)
+    public List<ComentarioDTO> getComentarios(@PathParam("cancionesId") Long usuariosId)
     {
-        List<ComentarioDTO> resp = new ArrayList<ComentarioDTO>();
-        List<ComentarioEntity> temp = new ArrayList<ComentarioEntity>();
-        temp = logic.getComentariosToUsuarios(usuariosId);
+        List<ComentarioDTO> resp = new ArrayList<>();
+        List<ComentarioEntity> temp = logic.getComentariosToUsuarios(usuariosId);
         for(ComentarioEntity com : temp)
             resp.add(new ComentarioDTO(com));        
         return resp;

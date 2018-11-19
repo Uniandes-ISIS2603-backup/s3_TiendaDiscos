@@ -11,7 +11,6 @@ import co.edu.uniandes.csw.tiendadiscos.entities.ComentarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
-//import co.edu.uniandes.csw.tiendadiscos.ejb.ComentarioLogic;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -20,7 +19,6 @@ import javax.ws.rs.*;
  *
  * @author Sebastian Martinez
  */
-
 @Produces("application/json")
 @Consumes("application/json")
 public class ComentarioViniloResource {

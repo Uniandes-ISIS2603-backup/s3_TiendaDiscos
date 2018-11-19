@@ -56,15 +56,16 @@ public class ViniloResource
      */
     @GET
     @Path("{vinilosId: \\d+}")
-    public ViniloDTO getVinilo(@PathParam("vinilosId") Long vinilosId)
+    public ViniloDetailDTO getVinilo(@PathParam("vinilosId") Long vinilosId)
     {
+        LOGGER.log(Level.INFO, "ViniloResource getVinilo: input: {0}", vinilosId);
         ViniloEntity viniloEntity = viniloLogic.getVinilo(vinilosId);
         if(viniloEntity == null)
         {
             throw new WebApplicationException("El recurso /vinilo/" + vinilosId + " no existe." , 404);
         }
-        ViniloDTO detailDTO = new ViniloDTO(viniloEntity);
-        
+        ViniloDetailDTO detailDTO = new ViniloDetailDTO(viniloEntity);
+        LOGGER.log(Level.INFO, "Vinilo Resource getVinilo: output: {0}", detailDTO);
         return detailDTO;
     }
     

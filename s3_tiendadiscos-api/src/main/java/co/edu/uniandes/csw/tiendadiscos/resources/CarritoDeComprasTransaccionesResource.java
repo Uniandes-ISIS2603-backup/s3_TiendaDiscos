@@ -20,36 +20,30 @@ import javax.ws.rs.core.MediaType;
 @Path("usuarios/usuariosId/carritosCompras/transacciones")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class CarritoDeComprasTransaccionesResource {
+public class CarritoDeComprasTransaccionesResource 
+{
     
     private static final Logger LOGGER = Logger.getLogger(CarritoDeComprasTransaccionesResource.class.getName());
     
+    
     @POST
     @Path("{transaccionesId: \\d+}")
-    public TransaccionDTO addTransaccionCarritoCompras(@PathParam("transaccionesId") Long transaccionesId, TransaccionDTO transaccion){
+    public TransaccionDTO addCarritoComprasTransaccion(@PathParam("transaccionesId") Long transaccionesId, TransaccionDTO transaccion)
+    {
         return transaccion;
     }
+    
     @GET
     @Path("{transaccionesId: \\d+}")
-    public TransaccionDTO getTransaccionCarritoCompras(@PathParam("transaccionesId") Long transaccionesId){
+    public TransaccionDTO getTransaccionCarritoCompras(@PathParam("transaccionesId") Long transaccionesId)
+    {
         return null;
-    }
-    
+    }    
    
     @DELETE
     @Path("{transaccionesId: \\d+}")
-    public void deleteTransaccionCarritoCompras(@PathParam("transaccionesId") Long transaccionesId){
+    public void deleteTransaccionCarritoCompras(@PathParam("transaccionesId") Long transaccionesId)
+    {
         
     }
-
-   
-    
-   
-   
-   
-    
-   
-   
-    
-    
 }

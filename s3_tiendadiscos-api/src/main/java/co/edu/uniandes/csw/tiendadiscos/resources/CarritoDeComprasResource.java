@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.CarritoDeComprasDTO;
+import co.edu.uniandes.csw.tiendadiscos.dtos.CarritoDeComprasDetailDTO;
 import co.edu.uniandes.csw.tiendadiscos.ejb.CarritoDeComprasLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.CarritoDeComprasEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
@@ -43,29 +44,32 @@ public class CarritoDeComprasResource
     
     
     @GET 
-    public CarritoDeComprasDTO getCarritoDeCompras(@PathParam("usuariosId") Long usuariosId)throws BusinessLogicException{
+    public CarritoDeComprasDetailDTO getCarritoDeCompras(@PathParam("usuariosId") Long usuariosId)throws BusinessLogicException{
         CarritoDeComprasEntity entity = logic.get(usuariosId);
         if(entity==null)
-            throw new WebApplicationException("El recurso /usuario/"+ usuariosId+ " no tiene wishList");
-        CarritoDeComprasDTO nuevo = new CarritoDeComprasDTO(entity);
+            throw new WebApplicationException("El recurso /usuario/"+ usuariosId+ " no tiene Carrito de compras");
+        CarritoDeComprasDetailDTO nuevo = new CarritoDeComprasDetailDTO(entity);
         return nuevo;
     }
     
     @DELETE
-    @Path("{wishListId: \\d+}")
-    public void deleteCarritoDeCompras(@PathParam("carritoDeComprasId") Long carritoDeComprasId)throws BusinessLogicException{
-        logic.delete(carritoDeComprasId);
-
+    @Path("{usuariosId: \\d+}")
+    public void deleteCarritoDeCompras(@PathParam("usuariosId") Long usuariosId)throws BusinessLogicException
+    {
+        if(null == logic.get(usuariosId))
+            throw new WebApplicationException("El recurso/usuario/" + usuariosId + " no tiene un carrito de compras.", 404);
+        logic.delete(usuariosId);
     }
     
     /**
      * 
      * @param usuariosId
-     * @param whislist
+     * @param carritoDeCompras
      * @return 
+     * @throws BusinessLogicException 
     */
     @PUT
-    @Path("{wishListId: \\d+}")    
+    @Path("{usuariosId: \\d+}")   
     public CarritoDeComprasDTO putCarritoDeCompras(@PathParam("usuariosId") Long usuariosId, CarritoDeComprasDTO carritoDeCompras)throws BusinessLogicException
     {
         CarritoDeComprasEntity entity = logic.get(usuariosId);
@@ -74,5 +78,5 @@ public class CarritoDeComprasResource
         CarritoDeComprasDTO carritoDeComprasNuevo = new CarritoDeComprasDTO(logic.update(carritoDeCompras.toEntity(), usuariosId));
         return carritoDeComprasNuevo;
     }
-    
+
 }

@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.ViniloDTO;
+import co.edu.uniandes.csw.tiendadiscos.dtos.ViniloDetailDTO;
 import co.edu.uniandes.csw.tiendadiscos.ejb.ViniloLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
@@ -52,12 +53,12 @@ public class ViniloUsuarioResource
      */
     @GET 
     @Path("{usuariosId: \\d+}")
-    public List<ViniloDTO> getVinilosByUsuario(@PathParam("usuariosId") Long usuarioId)
+    public List<ViniloDetailDTO> getVinilosByUsuario(@PathParam("usuariosId") Long usuarioId)
     {
-        List<ViniloDTO> resp = new ArrayList<ViniloDTO>();
+        List<ViniloDetailDTO> resp = new ArrayList<>();
         List<ViniloEntity> list = logic.getVinilosByUsuario(usuarioId);
         for(ViniloEntity entity : list)
-            resp.add(new ViniloDTO(entity));
+            resp.add(new ViniloDetailDTO(entity));
         return resp;
     }
     /**

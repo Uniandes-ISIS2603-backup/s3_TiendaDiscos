@@ -67,12 +67,11 @@ public class ComentarioTransaccionResource
 
     @DELETE
     @Path("{comentarioId: \\d+}")
-    public void deleteComentario(@PathParam("usuariosId") Long usuariosId,@PathParam("comentarioId") Long comentarioId) throws BusinessLogicException
+    public void deleteComentario(@PathParam("comentarioId") Long comentarioId) throws BusinessLogicException
     {
-        // ComentarioEntity nuevo = logic.getComentario(comentarioId, usuariosId);
-        // if(nuevo == null)
-        //     throw new BusinessLogicException("No existe la asociación entre el usuario y el comentario");
-        
-        // logic.deleteComentario(usuariosId, comentarioId);
+        ComentarioEntity nuevo = logic.getComentario(comentarioId);
+        if(nuevo == null)
+            throw new BusinessLogicException("No existe el comentario");
+        logic.deleteComentario(comentarioId);
     }
 }

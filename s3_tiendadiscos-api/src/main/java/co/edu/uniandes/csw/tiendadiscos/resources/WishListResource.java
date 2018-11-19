@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.WishListDTO;
+import co.edu.uniandes.csw.tiendadiscos.dtos.WishListDetailDTO;
 import co.edu.uniandes.csw.tiendadiscos.ejb.WishListLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
@@ -42,29 +43,32 @@ public class WishListResource {
     
     
     @GET 
-    public WishListDTO getWishList(@PathParam("usuariosId") Long usuariosId)throws BusinessLogicException{
+    public WishListDetailDTO getWishList(@PathParam("usuariosId") Long usuariosId)throws BusinessLogicException
+    {
         WishListEntity entity = logic.getWishList(usuariosId);
         if(entity==null)
-            throw new WebApplicationException("El recurso /usuario/"+ usuariosId+ " no tiene wishList");
-        WishListDTO nuevo = new WishListDTO(entity);
+            throw new WebApplicationException("El recurso /usuario/"+ usuariosId+ " no tiene wishList",404);
+        WishListDetailDTO nuevo = new WishListDetailDTO(entity);
         return nuevo;
     }
     
     @DELETE
-    @Path("{wishListId: \\d+}")
-    public void deleteWishList(@PathParam("carritoDeComprasId") Long carritoDeComprasId)throws BusinessLogicException
+    @Path("{usuariosId: \\d+}")
+    public void deleteWishList(@PathParam("usuariosId") Long usuariosId)throws BusinessLogicException
     {
-        logic.deleteWishList(carritoDeComprasId);
+        if(logic.getWishList(usuariosId) == null)
+            throw new WebApplicationException("El recurso /usuario/"+ usuariosId + " no tiene una wishList asociada.", 404);
+        logic.deleteWishList(usuariosId);
     }
     
     /**
      * 
      * @param usuariosId
-     * @param whislist
+     * @param wishList
      * @return 
     */
     @PUT
-    @Path("{wishListId: \\d+}")    
+    @Path("{usuariosId: \\d+}") 
     public WishListDTO putWishList(@PathParam("usuariosId") Long usuariosId, WishListDTO wishList)throws BusinessLogicException
     {
         WishListEntity entity = logic.getWishList(usuariosId);
