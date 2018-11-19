@@ -18,14 +18,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.WebApplicationException;
 
 /**
  *
  * @author Sebastian Martinez y Andres :)
  */
 @Stateless
-public class ComentarioLogic{
-
+public class ComentarioLogic
+{
+    
     private static final Logger LOGGER = Logger.getLogger(ComentarioLogic.class.getName());
     
     @Inject
@@ -82,22 +84,21 @@ public class ComentarioLogic{
         persistence.create(comentarioEntity);
 
         LOGGER.log(Level.INFO, "Termina el proceso de creación de un comentario a la transacción.");
-
         return comentarioEntity;
     }
 
 
-    public ComentarioEntity createComentarioCancion(Long cancionId, Long usuarioId, ComentarioEntity comentarioEntity ) throws BusinessLogicException
+    public ComentarioEntity createComentarioCancion(Long cancionesId, Long usuarioId, ComentarioEntity comentarioEntity )
     {
-        LOGGER.log(Level.INFO, "Inicia el proceso de creación de un comentario a la canción{0}", cancionId);
+        LOGGER.log(Level.INFO, "Inicia el proceso de creación de un comentario a la canción {0}", cancionesId);
 
-        if(cancionPersistence.find(cancionId) == null)
-            throw new BusinessLogicException("La canción con el id´" + cancionId + " no existe." );    
+        if(cancionPersistence.find(cancionesId) == null)
+            throw new WebApplicationException("La canción con el id " + cancionesId + " no existe.",404 );    
         if(usuarioPersistence.find(usuarioId) == null)
-            throw new BusinessLogicException("El usuario que comento no existe.");
+            throw new WebApplicationException("El usuario con el id "+ usuarioId + "que comento no existe.", 404);
         
         comentarioEntity.setUsuarioI(usuarioPersistence.find(usuarioId));
-        comentarioEntity.setCancion(cancionPersistence.find(cancionId));
+        comentarioEntity.setCancion(cancionPersistence.find(cancionesId));
 
         persistence.create(comentarioEntity);
 

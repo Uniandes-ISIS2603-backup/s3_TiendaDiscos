@@ -11,42 +11,33 @@ import co.edu.uniandes.csw.tiendadiscos.entities.ComentarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
-//import co.edu.uniandes.csw.tiendadiscos.ejb.ComentarioLogic;
+import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 
 /**
  *
- * @author Sebastian Martinez
+ * @author Andrés Hernández
  */
-
 @Produces("application/json")
 @Consumes("application/json")
-public class ComentarioCancionResource {
+public class ComentarioCancionResource 
+{
     private static final Logger LOGGER = Logger.getLogger(ComentarioCancionResource.class.getName());
     
     @Inject
     private ComentarioLogic logic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
     
-    /**
-     * 
-     * @param cancionId
-     * @param comentario
-     * @param usuariosId
-     * @return
-     * @throws BusinessLogicException 
-     */
     @POST
-    @Path("{cancionesId: \\d+}")
-    public ComentarioDTO createComentarioUsuario(@PathParam("cancionesId") Long cancionId,ComentarioDTO comentario, @PathParam("usuariosId") Long usuariosId ) throws BusinessLogicException 
+    @Path("{usuariosId: \\d+}")
+    public ComentarioDTO createComentarioCancion(@PathParam("cancionesId") Long cancionesId,@PathParam("usuariosId") Long usuariosId, ComentarioDTO comentario ) throws BusinessLogicException 
     {
-        ComentarioDTO nuevo = new ComentarioDTO(logic.createComentarioCancion(cancionId, usuariosId, comentario.toEntity()));
+        LOGGER.log(Level.INFO , "ComentarioCancionResource createComentarioCancion: input: cancionesId {0} , usuariosId {1} , comentario {2}" , new Object[]{cancionesId, usuariosId, comentario});
+        ComentarioDTO nuevo = new ComentarioDTO(logic.createComentarioCancion(cancionesId, usuariosId, comentario.toEntity()));
+        LOGGER.log(Level.INFO, "ComentarioCancionResource creteComentarioCancion: output: comentario nuevo {0}", nuevo);
         return nuevo;
-    }
-    
-    
+    }        
     
     @GET
     public List<ComentarioDTO> getComentarios(@PathParam("cancionesId") Long usuariosId)

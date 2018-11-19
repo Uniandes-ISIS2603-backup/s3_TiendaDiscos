@@ -49,7 +49,7 @@ public class CancionPersistence {
     
     public CancionEntity find(Long cancionId)
     {
-        LOGGER.log(Level.INFO, "Consultando la canción con el id={0}" , cancionId);
+        LOGGER.log(Level.INFO, "Consultando la canción con el id= {0}" , cancionId);
         return em.find(CancionEntity.class, cancionId);
     }
     

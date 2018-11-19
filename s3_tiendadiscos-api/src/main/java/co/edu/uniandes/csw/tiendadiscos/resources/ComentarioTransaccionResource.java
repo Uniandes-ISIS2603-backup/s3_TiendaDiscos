@@ -15,6 +15,7 @@ import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -39,16 +40,12 @@ public class ComentarioTransaccionResource
     private UsuarioLogic usuarioLogic;
     
     @POST
-    @Path("{transaccionesId: \\d+}")
-    public ComentarioDTO createComentarioUsuario(@PathParam("transaccionesId") Long transaccionId,ComentarioDTO comentario, @PathParam("usuarioId") Long usuarioId ) throws BusinessLogicException 
+    @Path("{usuariosId: \\d+}")
+    public ComentarioDTO createComentarioTransaccion(@PathParam("transaccionesId") Long transaccionId,@PathParam("usuariosId") Long usuariosId, ComentarioDTO comentario) throws BusinessLogicException 
     {
-        TransaccionEntity transaccionEntity = transaccionLogic.get(transaccionId);
-        if(transaccionEntity == null)
-            throw new WebApplicationException("Transaccion con el id: " + transaccionId + " no existe.", 404);
-        UsuarioEntity usuarioEntity = usuarioLogic.getUsuario(usuarioId);
-        if(usuarioEntity == null)
-            throw new WebApplicationException("Usuario con el id: " + usuarioId + " no existe.", 404);
-        ComentarioDTO nuevo = new ComentarioDTO(logic.createComentarioTransaccion(transaccionId, usuarioId, comentario.toEntity()));
+        LOGGER.log(Level.INFO, "ComentarioTransaccionResource createComentarioTransaccion: input: transaccionId {0} , usuariosId {1}, comentario {2}", new Object[]{transaccionId, usuariosId, comentario});
+        ComentarioDTO nuevo = new ComentarioDTO(logic.createComentarioTransaccion(transaccionId, usuariosId, comentario.toEntity()));
+        LOGGER.log(Level.INFO , "ComentarioTransaccionResource createComentarioTransaccion: output: comentario {0}", nuevo);
         return nuevo;
     }
 
@@ -56,9 +53,8 @@ public class ComentarioTransaccionResource
     @GET
     public List<ComentarioDTO> getComentarios(@PathParam("usuariosId") Long usuariosId)
     {
-        List<ComentarioDTO> resp = new ArrayList<ComentarioDTO>();
-        List<ComentarioEntity> temp = new ArrayList<ComentarioEntity>();
-        temp = logic.getComentariosToUsuarios(usuariosId);
+        List<ComentarioDTO> resp = new ArrayList<>();
+        List<ComentarioEntity> temp = logic.getComentariosToUsuarios(usuariosId);
         for(ComentarioEntity com : temp)
             resp.add(new ComentarioDTO(com));        
         return resp;

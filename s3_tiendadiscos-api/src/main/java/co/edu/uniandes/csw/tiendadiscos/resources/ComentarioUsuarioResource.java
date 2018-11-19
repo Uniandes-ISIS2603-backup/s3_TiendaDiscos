@@ -11,18 +11,19 @@ import co.edu.uniandes.csw.tiendadiscos.entities.ComentarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 
 /**
  *
- * @author Sebastian Martinez
+ * @author Andrés Hernández
  */
-
 @Produces("application/json")
 @Consumes("application/json")
-public class ComentarioUsuarioResource {
+public class ComentarioUsuarioResource 
+{
     private static final Logger LOGGER = Logger.getLogger(ComentarioUsuarioResource.class.getName());
     
     @Inject
@@ -33,7 +34,9 @@ public class ComentarioUsuarioResource {
     @Path("{usuarios2Id: \\d+}")
     public ComentarioDTO createComentarioUsuario(@PathParam("usuariosId") Long usuariosId, @PathParam("usuarios2Id") Long usuarios2Id, ComentarioDTO comentario) throws BusinessLogicException 
     {
+        LOGGER.log(Level.INFO , "ComentarioUsuarioResource createComentarioUsuario: input: usuariosId1: {0} , usuarioId2: {1} , comentario {2}", new Object[]{usuariosId, usuarios2Id, comentario});
         ComentarioDTO nuevo = new ComentarioDTO(logic.createComentarioUsuario(usuariosId, usuarios2Id, comentario.toEntity()));
+        LOGGER.log(Level.INFO, "ComentarioUsuarioResource createComentarioUsuario: output: Comentario {0}", comentario);
         return nuevo;
     }
     

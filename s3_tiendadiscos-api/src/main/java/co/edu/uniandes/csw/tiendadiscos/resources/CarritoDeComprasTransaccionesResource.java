@@ -37,6 +37,7 @@ public class CarritoDeComprasTransaccionesResource
     @Path("{transaccionesId: \\d+}")
     public TransaccionDTO getTransaccionCarritoCompras(@PathParam("transaccionesId") Long transaccionesId)
     {
+        
         return null;
     }    
    

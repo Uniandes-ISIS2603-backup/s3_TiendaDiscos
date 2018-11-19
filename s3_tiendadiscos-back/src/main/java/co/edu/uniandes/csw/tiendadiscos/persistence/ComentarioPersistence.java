@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.persistence;
 import co.edu.uniandes.csw.tiendadiscos.entities.ComentarioEntity;
-import co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity;
 import java.util.List;
 
 import java.util.logging.Level;

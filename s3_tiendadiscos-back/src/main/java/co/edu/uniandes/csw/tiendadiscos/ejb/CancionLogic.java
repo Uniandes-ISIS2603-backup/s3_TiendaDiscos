@@ -63,7 +63,7 @@ public class CancionLogic
         CancionEntity cancionEntity = persistence.find(cancionId);
         if(cancionEntity == null)
             LOGGER.log(Level.INFO, "La canción con el id = {0} no existe", cancionId);
-        LOGGER.log(Level.INFO, "Termina el proceso de consulta de la canción con el id = {0}");
+        LOGGER.log(Level.INFO, "Termina el proceso de consulta de la canción ", cancionEntity);
         return cancionEntity;
     }
     
