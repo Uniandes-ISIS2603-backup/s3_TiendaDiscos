@@ -60,7 +60,7 @@ public class ViniloPersistence {
     public List<ViniloEntity> findAllByUsuario(Long usuarioId)
     {
         LOGGER.log(Level.INFO , "Consultando todos los vinilos del usuario:{0}", usuarioId );
-        TypedQuery q = em.createQuery("select u from ViniloEntity u where {u.usuario.id = usuarioId}", ViniloEntity.class);
+         TypedQuery<ViniloEntity> q = em.createQuery("select p from ViniloEntity p where (p.usuario.id = :usuarioId)", ViniloEntity.class);
         q.setParameter("usuarioId", usuarioId);
         return q.getResultList();
     }

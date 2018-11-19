@@ -1,0 +1,843 @@
+{
+	"info": {
+		"_postman_id": "83ec3bd1-ec2e-4666-aa05-3e410da8185b",
+		"name": "Prueba completa",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "crear usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "86557f8d-00ca-4eeb-9cf2-ac49a82b639b",
+						"exec": [
+							"tests['No genera error en el Post'] = responseCode.code===200;",
+							"var data=JSON.parse(responseBody);",
+							"tests[\"Usuario \"+ data.username + \" con correo \"+ data.email + \" fue creado con exito\"] = data.username === \"Rembrandtsx\" && data.email === \"iam@camilosalinas5.me\";",
+							"postman.setGlobalVariable(\"usuario_id\", data.id);",
+							"postman.setGlobalVariable(\"usuario_name\", data.nombre);",
+							"postman.setGlobalVariable(\"usuario_userName\", data.username);",
+							"postman.setGlobalVariable(\"usuario_email\", data.email);",
+							"postman.setGlobalVariable(\"usuario_contrasenha\", data.contrasenha);",
+							"postman.setGlobalVariable(\"usuario_direccion\", data.direccion);",
+							"postman.setGlobalVariable(\"usuario_rol\", data.rol);",
+							"postman.setGlobalVariable(\"usuario_calificacion\", data.calificacion);",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"Rembrandtsx\",\n\t\"nombre\":\"Camilo Andres Salinas Martinez\",\n\t\"email\":\"iam@camilosalinas5.me\",\n\t\"contrasenha\":\"ContraseñaDificilXD\",\n\t\"direccion\":\"cll 6 #1A 99 este Madrid Cund.\",\n\t\"rol\":\"ADMIN\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "obtener usuario creado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "41815504-d39b-45a6-a1a2-8f51526632ce",
+						"exec": [
+							"var data=JSON.parse(responseBody);",
+							"tests['No genera error en el Get'] = responseCode.code===200;",
+							"tests[\"Get exitoso\"] = data.username === pm.globals.get(\"usuario_userName\") && data.email === pm.globals.get(\"usuario_email\");",
+							"postman.setGlobalVariable(\"usuario_comentarios\", data.comentarios);",
+							"postman.setGlobalVariable(\"usuario_transaccionesGeneradas\", data.transaccionesGeneradas);",
+							"postman.setGlobalVariable(\"usuario_transaccionesRecibidas\", data.transaccionesRecibidas);",
+							"postman.setGlobalVariable(\"usuario_vinilos\", data.vinilos);",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuario_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cambiar variables a usuario creado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f9a3a4b0-398f-485f-b777-acb25fe55a94",
+						"exec": [
+							"tests['No genera error en el Put'] = responseCode.code===200;",
+							"",
+							"var data=JSON.parse(responseBody);",
+							"tests[\"Usuario \"+ data.username + \" con correo  \"+ pm.globals.get(\"usuario_email\") + \". fue cambiado su correo\" +  pm.globals.get(\"usuario_email\")   + \" a \"",
+							"    + data.email + \" ,su nombre \"   +  pm.globals.get(\"usuario_name\") +\" a \"+ data.nombre + \", su direccion \" +  pm.globals.get(\"usuario_direccion\") +\" a \" + data.direccion",
+							"    + \" y su contraseña \" + pm.globals.get(\"usuario_contrasenha\") + \" a \"+ data.contrasenha",
+							"    ] = data.username === \"Rembrandtsx\" && data.email === \"iam@kevinblanco.me\";",
+							"",
+							"postman.setGlobalVariable(\"usuario_name\", data.nombre);",
+							"postman.setGlobalVariable(\"usuario_email\", data.email);",
+							"postman.setGlobalVariable(\"usuario_contrasenha\", data.contrasenha);",
+							"postman.setGlobalVariable(\"usuario_direccion\", data.direccion);",
+							"",
+							"pm.sendRequest(\"http://\" + pm.environment.get(\"ip\")+ \":\" + pm.environment.get(\"puerto\") +\"/s3_tiendadiscos-api/api/usuarios/\"+pm.globals.get(\"usuario_id\"), function (err, res) {",
+							"   if (err) { console.log(err); }",
+							"  pm.test('Verificar si se modifico el usuario ', function () {",
+							"    pm.expect(err).to.equal(null);",
+							"    pm.expect(res).to.have.property('code', 200);",
+							"    pm.expect(res).to.have.property('status', 'OK');",
+							"    ",
+							"    var data2=res.json();",
+							"    ",
+							"   tests[\"Get exitoso\"] = data2.username === pm.globals.get(\"usuario_userName\") && data2.email === pm.globals.get(\"usuario_email\");",
+							"  });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":{{usuario_id}} ,\n\t\"username\":\"Rembrandtsx\",\n\t\"nombre\":\"Kevin Blanco Torres\",\n\t\"email\":\"iam@kevinblanco.me\",\n\t\"contrasenha\":\"COntrasenaFacil\",\n\t\"direccion\":\"cll 19 # 2a - 10.\",\n\t\"rol\":\"{{usuario_rol}}\" ,\n\t\"calificacion\":{{usuario_calificacion}}\n\n}\t"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuario_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f3f26f51-626b-4edf-a32e-cf7f437cba2c",
+						"exec": [
+							"tests['No genera error en el Delete'] = responseCode.code===204;",
+							"tests['No genera error en el Delete'] = responseCode.code===204;",
+							"pm.sendRequest(\"http://\" + pm.environment.get(\"ip\")+ \":\" + pm.environment.get(\"puerto\") +\"/s3_tiendadiscos-api/api/usuarios/\"+pm.globals.get(\"usuario_id\"), function (err, res) {",
+							"   if (err) { console.log(err); }",
+							"  pm.test('Verificar si se elimino el usuario ', function () {",
+							"    pm.expect(err).to.equal(null);",
+							"    pm.expect(res).to.have.property('code', 404 );",
+							"    pm.expect(res).to.have.property('status', 'Not Found');",
+							"  });",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuario_id}}"
+					]
+				},
+				"description": "DELETE BILLING"
+			},
+			"response": []
+		},
+		{
+			"name": "crear usuario para siguientes pruebas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "86557f8d-00ca-4eeb-9cf2-ac49a82b639b",
+						"exec": [
+							"tests['No genera error en el Post'] = responseCode.code===200;",
+							"var data=JSON.parse(responseBody);",
+							"tests[\"Usuario \"+ data.username + \" con correo \"+ data.email + \" fue creado con exito\"] = data.username === \"Rembrandtsx\" && data.email === \"iam@camilosalinas5.me\";",
+							"postman.setGlobalVariable(\"usuario_id\", data.id);",
+							"postman.setGlobalVariable(\"usuario_name\", data.nombre);",
+							"postman.setGlobalVariable(\"usuario_userName\", data.username);",
+							"postman.setGlobalVariable(\"usuario_email\", data.email);",
+							"postman.setGlobalVariable(\"usuario_contrasenha\", data.contrasenha);",
+							"postman.setGlobalVariable(\"usuario_direccion\", data.direccion);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"Rembrandtsx\",\n\t\"nombre\":\"Camilo Andres Salinas Martinez\",\n\t\"email\":\"iam@camilosalinas5.me\",\n\t\"contrasenha\":\"ContraseñaDificilXD\",\n\t\"direccion\":\"cll 6 #1A 99 este Madrid Cund.\",\n\t\"rol\":\"ADMIN\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear billin a usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "810b7202-d122-4760-a3af-738368e163e2",
+						"exec": [
+							"",
+							"tests['No genera error en el Post'] = responseCode.code===200;",
+							"var data=JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"cuentaAhorro\",  data.cuentaAhorro);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n\t\"cuentaAhorro\":\"123321123\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}/billing",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuario_id}}",
+						"billing"
+					]
+				},
+				"description": "POST BILLING"
+			},
+			"response": []
+		},
+		{
+			"name": "obtener billing creado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8e9b3b69-d2d3-4e23-b97b-6d6f3b5ae894",
+						"exec": [
+							"var data=JSON.parse(responseBody);",
+							"tests['No genera error en el Get'] = responseCode.code===200;",
+							"tests[\"Get exitoso\"] = data.cuentaAhorro === pm.globals.get(\"cuentaAhorro\");",
+							"postman.setGlobalVariable(\"billing_id\",  data.id);",
+							"postman.setGlobalVariable(\"recieved\",  data.recieved);",
+							"postman.setGlobalVariable(\"spent\",  data.spent);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}/billing",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuario_id}}",
+						"billing"
+					]
+				},
+				"description": "GET DE BILLING"
+			},
+			"response": []
+		},
+		{
+			"name": "modificar billing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "62747f30-8e20-4770-9cda-1096f91d579a",
+						"exec": [
+							"var data=JSON.parse(responseBody);",
+							"tests['No genera error en el Put'] = responseCode.code===200;",
+							"postman.setGlobalVariable(\"cuentaAhorro\", data.cuentaAhorro);",
+							"",
+							"pm.sendRequest(\"http://\" + pm.environment.get(\"ip\")+ \":\" + pm.environment.get(\"puerto\") +\"/s3_tiendadiscos-api/api/usuarios/\"+pm.globals.get(\"usuario_id\")+\"/billing\", function (err, res) {",
+							"   if (err) { console.log(err); }",
+							"  pm.test('Verificar si se modifico el usuario ', function () {",
+							"    pm.expect(err).to.equal(null);",
+							"     pm.expect(res).to.have.property('code', 200);",
+							"    pm.expect(res).to.have.property('status', 'OK');",
+							"        var data2=res.json();",
+							"        tests[\"Get exitoso\"] = data2.cuentaAhorro === pm.globals.get(\"cuentaAhorro\");",
+							"",
+							"  });",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n\t \"id\":{{billing_id}},\n\t\"cuentaAhorro\":\"987654322\",\n\t\"spent\":{{spent}},\n\t\"recieved\":{{recieved}}\n\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}/billing",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuario_id}}",
+						"billing"
+					]
+				},
+				"description": "put BILLING"
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar billing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f3f26f51-626b-4edf-a32e-cf7f437cba2c",
+						"exec": [
+							"tests['No genera error en el Delete'] = responseCode.code===204;",
+							"pm.sendRequest(\"http://\" + pm.environment.get(\"ip\")+ \":\" + pm.environment.get(\"puerto\") +\"/s3_tiendadiscos-api/api/usuarios/\"+pm.globals.get(\"usuario_id\")+\"/billing\", function (err, res) {",
+							"   if (err) { console.log(err); }",
+							"  pm.test('Verificar si se elimino el billing ', function () {",
+							"    pm.expect(err).to.equal(null);",
+							"    pm.expect(res).to.have.property('code', 404 );",
+							"    pm.expect(res).to.have.property('status', 'Not Found');",
+							"  });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}/billing",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuario_id}}",
+						"billing"
+					]
+				},
+				"description": "DELETE BILLING"
+			},
+			"response": []
+		},
+		{
+			"name": "crear tarjeta de credito",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "97e5d648-5115-473a-9129-5f345d13ab29",
+						"exec": [
+							"var data=JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"tarjeta_id\", data.id);",
+							"postman.setGlobalVariable(\"tarjeta_name\", data.name);",
+							"postman.setGlobalVariable(\"tarjeta_numero\", data.numero);",
+							"postman.setGlobalVariable(\"tarjeta_numeroVerificacion\", data.numeroVerificacion);",
+							"postman.setGlobalVariable(\"tarjeta_fechaVencimiento\", data.fechaVencimiento);",
+							"postman.setGlobalVariable(\"tarjeta_cvc\", data.cvc);",
+							"",
+							"tests['No genera error en el Post'] = responseCode.code===200;",
+							"\t\t\t\t\t\t"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\":\"algo algo\",\r\n\t\"numero\": 555444333,\r\n\t\"numeroVerificacion\":555444333,\r\n\t\"fechaVencimiento\" : \"2020-08-20T00:00:00-05:00\",\r\n\t\"cvc\":\"010\"\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}/billing/tarjetasDeCredito",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuario_id}}",
+						"billing",
+						"tarjetasDeCredito"
+					]
+				},
+				"description": "POST DE TARJETA"
+			},
+			"response": []
+		},
+		{
+			"name": "obtener tarjeta creada",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47c745ac-2d2b-4aef-810f-3c845e1027f5",
+						"exec": [
+							"var data=JSON.parse(responseBody);",
+							"tests['No genera error en el Get'] = responseCode.code===200;",
+							"tests[\"Get exitoso\"] = data.name === pm.globals.get(\"tarjeta_name\") && data.numero == pm.globals.get(\"tarjeta_numero\") ",
+							"&& data.fechaVencimiento === pm.globals.get(\"tarjeta_fechaVencimiento\") && data.cvc ===  pm.globals.get(\"tarjeta_cvc\") ;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}/billing/tarjetasDeCredito/{{tarjeta_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuario_id}}",
+						"billing",
+						"tarjetasDeCredito",
+						"{{tarjeta_id}}"
+					]
+				},
+				"description": "GET DE TARJETA"
+			},
+			"response": []
+		},
+		{
+			"name": "modificar tarjeta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24f6ab87-54c9-46e2-8edd-e8dc352c92c8",
+						"exec": [
+							"tests['No genera error en el Get'] = responseCode.code===200;",
+							"var data=JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"tarjeta_cvc\", data.cvc);",
+							"",
+							"pm.sendRequest(\"http://\" + pm.environment.get(\"ip\")+ \":\" + pm.environment.get(\"puerto\") +\"/s3_tiendadiscos-api/api/usuarios/\"+pm.globals.get(\"usuario_id\")+\"/billing/tarjetasDeCredito/\" +pm.globals.get(\"tarjeta_id\"), function (err, res) {",
+							"    ",
+							"   if (err) { console.log(err); }",
+							"    pm.test('Verificar si se modifico el usuario ', function () {",
+							"    pm.expect(err).to.equal(null);",
+							"     pm.expect(res).to.have.property('code', 200);",
+							"    pm.expect(res).to.have.property('status', 'OK');",
+							"        var data2=res.json();",
+							"        tests[\"Get exitoso\"] = data2.cvc === pm.globals.get(\"tarjeta_cvc\");",
+							"",
+							"  });",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"id\":{{tarjeta_id}},\r\n\t\"name\":\"algo algo\",\r\n\t\"numero\": 555444333,\r\n\t\"numeroVerificacion\":555444333,\r\n\t\"fechaVencimiento\" : \"2020-08-20T00:00:00-05:00\",\r\n\t\"cvc\":\"011\"\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}/billing/tarjetasDeCredito/{{tarjeta_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuario_id}}",
+						"billing",
+						"tarjetasDeCredito",
+						"{{tarjeta_id}}"
+					]
+				},
+				"description": "PUT DE TARJETA"
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar tarjeta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "44f31e0e-43ba-42d0-8815-2cc9a2bff7d0",
+						"exec": [
+							"tests['No genera error en el Delete'] = responseCode.code===204;",
+							"pm.sendRequest(\"http://\" + pm.environment.get(\"ip\")+ \":\" + pm.environment.get(\"puerto\") +\"/s3_tiendadiscos-api/api/usuarios/\"+pm.globals.get(\"usuario_id\")+\"/billing/tarjetasDeCredito/\" +pm.globals.get(\"tarjeta_id\"), function (err, res) {",
+							"   if (err) { console.log(err); }",
+							"  pm.test('Verificar si se elimino el billing ', function () {",
+							"    pm.expect(err).to.equal(null);",
+							"    pm.expect(res).to.have.property('code', 404 );",
+							"    pm.expect(res).to.have.property('status', 'Not Found');",
+							"  });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}/billing/tarjetasDeCredito/{{tarjeta_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuario_id}}",
+						"billing",
+						"tarjetasDeCredito",
+						"{{tarjeta_id}}"
+					]
+				},
+				"description": "DELETE DE TARJETA"
+			},
+			"response": []
+		},
+		{
+			"name": "Post vinilos.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96a0fb40-3b42-4075-863b-be96b9f71c71",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id\", data.id);",
+							"postman.setGlobalVariable(\"new_nombre\" ,  data.nombre);",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"id\" : 1 , \r\n\r\n\"nombre\": \"The wall\" ,\r\n\r\n\"fechaLanzamiento\": \"1979\" ,\r\n\r\n\"artista\" : \"Pink Floyd\" ,\r\n\r\n\"precio\" : 50000.0 ,\r\n\r\n\"productora\" : \"Columbia Records\" ,\r\n\r\n\"informacionAdicional\" : \"Nunca ha sido abierto.\" ,\r\n\r\n\"previewURI\" : \"URI\" ,\r\n\r\n\"calificacion\": 5.0\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuario_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"usuarios",
+						"{{usuario_id}}"
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Retorna el JSON que es enviado."
+			},
+			"response": []
+		},
+		{
+			"name": "obtener vinilos de usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47c745ac-2d2b-4aef-810f-3c845e1027f5",
+						"exec": [
+							"var data=JSON.parse(responseBody);",
+							"tests['No genera error en el Get'] = responseCode.code===200;",
+							"tests[\"Get exitoso\"] = data.name === pm.globals.get(\"tarjeta_name\") && data.numero == pm.globals.get(\"tarjeta_numero\") ",
+							"&& data.fechaVencimiento === pm.globals.get(\"tarjeta_fechaVencimiento\") && data.cvc ===  pm.globals.get(\"tarjeta_cvc\") ;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuario_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"usuarios",
+						"{{usuario_id}}"
+					]
+				},
+				"description": "GET DE VINILOS"
+			},
+			"response": []
+		}
+	]
+}

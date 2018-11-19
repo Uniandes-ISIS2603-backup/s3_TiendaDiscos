@@ -81,13 +81,13 @@ public class ViniloResource
      * @param vinilosId
      * @param vinilo
      * @return 
-     *
+     */
     @PUT
     @Path("{vinilosId: \\d+}")
     public ViniloDTO putVinilo(@PathParam("vinilosId") Long vinilosId , ViniloDTO vinilo)
     {
         return vinilo;
-    }/
+    }
     
     /**
     * 
