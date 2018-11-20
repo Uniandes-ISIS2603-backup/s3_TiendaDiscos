@@ -53,7 +53,7 @@ public class MedioDePagoLogic {
         if (tarjeta.getFechaVencimiento().compareTo(new Date()) < 0) {
             throw new BusinessLogicException("Fecha invalida");
         }
-
+        
         tarjeta.setBilling(billing);
         LOGGER.log(Level.INFO, "Termina proceso de creación de la tarjeta");
         return persistence.create(tarjeta);
@@ -62,13 +62,13 @@ public class MedioDePagoLogic {
 
     public MedioDePagoEntity getTarjeta(Long usuariosId, Long tarjetaId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar la tarjeta con id = {0}", tarjetaId);
-        
+
         // probar si usuario es nulo, en billing cambiar la forma porque yo no se el usuario toca con el path
-               UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
+        UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
         if (usuario == null) {
             //Esta exception la produce usuario BORRAR
             throw new BusinessLogicException("No existe el usuario con ese id");
-        }   
+        }
         MedioDePagoEntity tarjeta = persistence.find(usuarioPersistence.find(usuariosId).getBillingInformation().getId(), tarjetaId);
         if (tarjeta == null) {
             LOGGER.log(Level.SEVERE, "La tarjeta con el id = {0} no existe", tarjetaId);
@@ -109,7 +109,7 @@ public class MedioDePagoLogic {
         if (tarjeta.getFechaVencimiento().compareTo(new Date()) < 0) {
             throw new BusinessLogicException("Fecha invalida");
         }
-        
+
         tarjeta.setBilling(billing);
         MedioDePagoEntity newEntity = persistence.update(tarjeta);
 
@@ -120,15 +120,15 @@ public class MedioDePagoLogic {
     }
 
     public void deleteTarjeta(Long usuariosId, Long tarjetaId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar la tarjeta con id " + tarjetaId+" del usuario con id = {0}", usuariosId);
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar la tarjeta con id " + tarjetaId + " del usuario con id = {0}", usuariosId);
         BillingInformationEntity billing = usuarioPersistence.find(usuariosId).getBillingInformation();
-        MedioDePagoEntity tarjeta = persistence.find(billing.getId(),tarjetaId);
-        
-        if (tarjeta == null){
+        MedioDePagoEntity tarjeta = persistence.find(billing.getId(), tarjetaId);
+
+        if (tarjeta == null) {
             throw new BusinessLogicException("La tarjeta con id " + tarjetaId + "no existe");
         }
-        
+
         persistence.delete(tarjetaId);
-        LOGGER.log(Level.INFO, "Termina proceso de borrar la tarjeta con id " + tarjetaId+" del usuario con id  = {0}", usuariosId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar la tarjeta con id " + tarjetaId + " del usuario con id  = {0}", usuariosId);
     }
 }

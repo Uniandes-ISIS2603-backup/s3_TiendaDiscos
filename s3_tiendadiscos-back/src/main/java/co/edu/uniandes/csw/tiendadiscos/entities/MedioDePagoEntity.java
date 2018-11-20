@@ -37,6 +37,7 @@ public class MedioDePagoEntity extends BaseEntity implements Serializable {
     /**
      * fecha de vencimiento de la tarjeta de cred
      */
+         @Temporal(TemporalType.DATE)
     private Date fechaVencimiento;
 
     /**

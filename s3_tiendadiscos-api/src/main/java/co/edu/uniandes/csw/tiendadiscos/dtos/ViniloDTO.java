@@ -1,8 +1,10 @@
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 
+import co.edu.uniandes.csw.tiendadiscos.adapters.DateAdapter;
 import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import java.io.Serializable;
 import java.util.Date;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -10,8 +12,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author Andrés Felipe Hernández León
  */
-public class ViniloDTO implements Serializable 
-{  
+public class ViniloDTO implements Serializable {
+
     /**
      * id unico del vinilo.
      */
@@ -21,32 +23,33 @@ public class ViniloDTO implements Serializable
      * Nombre del vinilo.
      */
     private String nombre;
-    
+
     /**
      * Nombre del artista del vinilo.
      */
     private String artista;
-    
+
     /**
      * Fecha de lanzamiento del vinilo.
      */
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date fechaLanzamiento;
-    
+
     /**
      * Productora que lanzó el vinilo.
      */
     private String productora;
-    
+
     /**
-     * Información adicional del proveedor. 
+     * Información adicional del proveedor.
      */
     private String informacionAdicional;
-    
+
     /**
      * URI que redirige a la vista previa del vinilo si esta disponible.
      */
     private String previewURI;
-    
+
     /**
      * Calificación promedio del vinilo.
      */
@@ -56,28 +59,26 @@ public class ViniloDTO implements Serializable
      * Precio del vinilo.
      */
     private Double precio;
-    
+
     /**
      * Conexión con el usuario.
      */
     private UsuarioDTO usuario;
-    
+
     /**
      * Empty constructor.
      */
-    public ViniloDTO()
-    {}
-    
+    public ViniloDTO() {
+    }
+
     /**
      * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
      * la entidad que viene de argumento.
      *
      * @param viniloEntity: Es la entidad que se va a convertir a DTO
      */
-    public ViniloDTO(ViniloEntity viniloEntity)
-    {
-        if (viniloEntity != null)
-        {
+    public ViniloDTO(ViniloEntity viniloEntity) {
+        if (viniloEntity != null) {
             this.id = viniloEntity.getId();
             this.artista = viniloEntity.getArtista();
             this.fechaLanzamiento = viniloEntity.getFechaLanzamiento();
@@ -85,20 +86,20 @@ public class ViniloDTO implements Serializable
             this.nombre = viniloEntity.getNombre();
             this.previewURI = viniloEntity.getPreviewURI();
             this.productora = viniloEntity.getProductora();
-            this.calificacion = viniloEntity.getCalificacion();                    
+            this.calificacion = viniloEntity.getCalificacion();
             this.precio = viniloEntity.getPrecio();
-            if(viniloEntity.getUsuario() != null)
+            if (viniloEntity.getUsuario() != null) {
                 this.usuario = new UsuarioDTO(viniloEntity.getUsuario());
+            }
         }
     }
-    
+
     /**
      * Convertir DTO a Entity
      *
      * @return Un Entity con los valores del DTO
      */
-    public ViniloEntity toEntity()
-    {
+    public ViniloEntity toEntity() {
         //Creo el objeto entity vacio.
         ViniloEntity viniloEntity = new ViniloEntity();
         //Ahora le asigno los valores.
@@ -111,15 +112,17 @@ public class ViniloDTO implements Serializable
         viniloEntity.setProductora(this.productora);
         viniloEntity.setCalificacion(this.calificacion);
         viniloEntity.setPrecio(this.precio);
-        if(this.usuario != null)
+        if (this.usuario != null) {
             viniloEntity.setUsuario(this.usuario.toEntity());
-        
+        }
+
         return viniloEntity;
     }
-    
+
     /**
-     * Obtiene el atributo nombre. 
-     * @param nombre  atributo nombre.
+     * Obtiene el atributo nombre.
+     *
+     * @param nombre atributo nombre.
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -127,6 +130,7 @@ public class ViniloDTO implements Serializable
 
     /**
      * Modifica el valor del del atributo artista.
+     *
      * @param artista valor del atributo.
      */
     public void setArtista(String artista) {
@@ -135,6 +139,7 @@ public class ViniloDTO implements Serializable
 
     /**
      * Modifica el valor del atributo fecha de lanzamiento.
+     *
      * @param fechaLanzamiento nuevo valor del atributo.
      */
     public void setFechaLanzamiento(Date fechaLanzamiento) {
@@ -143,6 +148,7 @@ public class ViniloDTO implements Serializable
 
     /**
      * Modifica el valor del atributo productora.
+     *
      * @param productora nuevo valor del atributo.
      */
     public void setProductora(String productora) {
@@ -150,7 +156,8 @@ public class ViniloDTO implements Serializable
     }
 
     /**
-     * Modifica la información adicional dada por el proveedor. 
+     * Modifica la información adicional dada por el proveedor.
+     *
      * @param informacionAdicional nuevo valor del atributo.
      */
     public void setInformacionAdicional(String informacionAdicional) {
@@ -159,20 +166,22 @@ public class ViniloDTO implements Serializable
 
     /**
      * Modifica el valor del atributo previewURI.
+     *
      * @param previewURI nuevo valor del atributo.
      */
     public void setPreviewURI(String previewURI) {
         this.previewURI = previewURI;
     }
-    
+
     /**
      * Establece el valor del atributo calificación.
+     *
      * @param calificacion nuevo valor de la calificación.
      */
     public void setCalificacion(Double calificacion) {
         this.calificacion = calificacion;
     }
-    
+
     /**
      * Establece el valor del atributo id.
      *
@@ -182,118 +191,117 @@ public class ViniloDTO implements Serializable
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     /**
      * Establece el precio del vinilo.
-     * 
+     *
      * @param precio nuevo valor del atributo.
      */
-    public void setPrecio(Double precio)
-    {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
-    
+
     /**
      * Establece el usuario.
-     * @param usuario  nuevo valor del atributo.
+     *
+     * @param usuario nuevo valor del atributo.
      */
-    public void setUsuario(UsuarioDTO usuario)
-    {
+    public void setUsuario(UsuarioDTO usuario) {
         this.usuario = usuario;
     }
-    
+
     /**
      * Obtiene el atributo calificacion.
+     *
      * @return atributo calificación.
      */
-    public Double getCalificacion() 
-    {
+    public Double getCalificacion() {
         return calificacion;
     }
-    
+
     /**
      * Obtiene el atributo nombre.
+     *
      * @return atributo nombre.
      */
-    public String getNombre() 
-    {
+    public String getNombre() {
         return nombre;
     }
 
     /**
      * Obtiene el atributo artista.
+     *
      * @return atributo artista.
      */
-    public String getArtista() 
-    {
+    public String getArtista() {
         return artista;
     }
 
     /**
      * Obtiene el atributo fecha de lanzamiento.
+     *
      * @return atributo fechaLanzamiento.
      */
-    public Date getFechaLanzamiento() 
-    {
+    public Date getFechaLanzamiento() {
         return fechaLanzamiento;
     }
-    
+
     /**
      * Obtiene el atributo productora.
+     *
      * @return atributo productora.
      */
-    public String getProductora() 
-    {
+    public String getProductora() {
         return productora;
     }
 
     /**
      * Obtiene la información adicional del vinilo.
+     *
      * @return atributo informacionAdicional.
      */
-    public String getInformacionAdicional() 
-    {
+    public String getInformacionAdicional() {
         return informacionAdicional;
     }
 
     /**
      * Obtiene el atributo previewURI.
+     *
      * @return atributo previewURI.
      */
-    public String getPreviewURI() 
-    {
+    public String getPreviewURI() {
         return previewURI;
-    }  
- 
+    }
+
     /**
      * Obtiene el id único del vinilo.
+     *
      * @return atributo id.
      */
-    public Long getId() 
-    {
+    public Long getId() {
         return id;
     }
-    
+
     /**
      * Obtiene el precio del vinilo.
+     *
      * @return atributo precio.
      */
-    public Double getPrecio()
-    {
+    public Double getPrecio() {
         return precio;
     }
-    
+
     /**
      * Obtiene la conexión con el usuario.
+     *
      * @return atributo usuario.
      */
-    public UsuarioDTO getUsuario()
-    {
+    public UsuarioDTO getUsuario() {
         return usuario;
     }
 
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }    
+    }
 }

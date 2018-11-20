@@ -13,6 +13,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -35,6 +37,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     /**
      * Fecha de lanzamiento del vinilo.
      */
+     @Temporal(TemporalType.DATE)
     private Date fechaLanzamiento;
     
     /**

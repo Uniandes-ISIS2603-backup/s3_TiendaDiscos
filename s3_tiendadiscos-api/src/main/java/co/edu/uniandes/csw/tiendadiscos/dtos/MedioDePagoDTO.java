@@ -5,9 +5,11 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 
+import co.edu.uniandes.csw.tiendadiscos.adapters.DateAdapter;
 import co.edu.uniandes.csw.tiendadiscos.entities.MedioDePagoEntity;
 import java.io.Serializable;
 import java.util.Date;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -15,8 +17,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author Kevin Blanco
  */
-public class MedioDePagoDTO implements Serializable 
-{
+public class MedioDePagoDTO implements Serializable {
 
     /**
      * id único de la tarjeta de credito.
@@ -36,6 +37,7 @@ public class MedioDePagoDTO implements Serializable
     /**
      * fecha de vencimiento de la tarjeta de cred
      */
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date fechaVencimiento;
 
     /**
@@ -47,12 +49,9 @@ public class MedioDePagoDTO implements Serializable
      * Codigo CVC de la tarjeta
      */
     private String cvc;
-    
+
     private String imagen;
 
-    
-    
-    
     /**
      * Constructor vacio
      */
@@ -193,9 +192,6 @@ public class MedioDePagoDTO implements Serializable
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
-    
-    
-    
 
     /**
      * convierte DTO a Entity
