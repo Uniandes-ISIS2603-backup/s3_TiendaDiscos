@@ -82,17 +82,17 @@ public class ComentarioLogic
     }
 
 
-    public ComentarioEntity createComentarioCancion(Long cancionesId, Long usuarioId, ComentarioEntity comentarioEntity )
+    public ComentarioEntity createComentarioCancion(Long viniloId,Long cancionesId, Long usuarioId, ComentarioEntity comentarioEntity )
     {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación de un comentario a la canción {0}", cancionesId);
 
-        if(cancionPersistence.find(cancionesId) == null)
+        if(cancionPersistence.find(viniloId,cancionesId) == null)
             throw new WebApplicationException("La canción con el id " + cancionesId + " no existe.",404 );    
         if(usuarioPersistence.find(usuarioId) == null)
             throw new WebApplicationException("El usuario con el id "+ usuarioId + "que comento no existe.", 404);
         
         comentarioEntity.setUsuarioI(usuarioPersistence.find(usuarioId));
-        comentarioEntity.setCancion(cancionPersistence.find(cancionesId));
+        comentarioEntity.setCancion(cancionPersistence.find(viniloId,cancionesId));
 
         persistence.create(comentarioEntity);
 

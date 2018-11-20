@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "83ec3bd1-ec2e-4666-aa05-3e410da8185b",
-		"name": "Prueba completa",
+		"_postman_id": "1cc11fc1-73fd-426e-ac46-3083e901776f",
+		"name": "Prueba completa copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -765,7 +765,7 @@
 					"raw": "{\r\n\r\n\"id\" : 1 , \r\n\r\n\"nombre\": \"The wall\" ,\r\n\r\n\"fechaLanzamiento\": \"1979\" ,\r\n\r\n\"artista\" : \"Pink Floyd\" ,\r\n\r\n\"precio\" : 50000.0 ,\r\n\r\n\"productora\" : \"Columbia Records\" ,\r\n\r\n\"informacionAdicional\" : \"Nunca ha sido abierto.\" ,\r\n\r\n\"previewURI\" : \"URI\" ,\r\n\r\n\"calificacion\": 5.0\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuario_id}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuario_id}}?",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"

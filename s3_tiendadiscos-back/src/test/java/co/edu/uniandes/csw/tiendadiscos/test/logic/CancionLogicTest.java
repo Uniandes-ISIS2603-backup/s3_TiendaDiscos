@@ -5,9 +5,10 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.test.logic;
 
-
 import co.edu.uniandes.csw.tiendadiscos.ejb.CancionLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.CancionEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
+import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tiendadiscos.persistence.CancionPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,27 +28,28 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Pruebas de lógica Canción. 
- * 
+ * Pruebas de lógica Canción.
+ *
  * @author Andrés Hernández.
  */
 @RunWith(Arquillian.class)
 public class CancionLogicTest {
-    
-    
+
     private PodamFactory factory = new PodamFactoryImpl();
-    
+
     @Inject
     private CancionLogic cancionLogic;
-    
+
     @PersistenceContext
     private EntityManager em;
-    
+
     @Inject
     private UserTransaction utx;
-    
+
+    private List<ViniloEntity> dataVinilo = new ArrayList<ViniloEntity>();
+
     private List<CancionEntity> data = new ArrayList();
-    
+
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
      * El jar contiene las clases, el descriptor de la base de datos y el
@@ -62,7 +64,7 @@ public class CancionLogicTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
+
     /**
      * Configuración inicial de la prueba.
      */
@@ -82,7 +84,7 @@ public class CancionLogicTest {
             }
         }
     }
-    
+
     /**
      * Limpia las tablas que están implicadas en la prueba.
      */
@@ -96,102 +98,102 @@ public class CancionLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
+            ViniloEntity entity = factory.manufacturePojo(ViniloEntity.class);
+            em.persist(entity);
+            dataVinilo.add(entity);
+        }
+
+        for (int i = 0; i < 3; i++) {
             CancionEntity entity = factory.manufacturePojo(CancionEntity.class);
             em.persist(entity);
             data.add(entity);
         }
     }
-    
+
     /**
      * Prueba para crear una canción.
      */
     @Test
-    public void createCancionTest()
-    {
+    public void createCancionTest() throws BusinessLogicException {
         CancionEntity newEntity = factory.manufacturePojo(CancionEntity.class);
-        CancionEntity result = cancionLogic.createCancion(newEntity);
+        CancionEntity result = cancionLogic.createCancion(newEntity, dataVinilo.get(0).getId());
         Assert.assertNotNull(result);
         Assert.assertEquals(newEntity.getNombre(), result.getNombre());
         Assert.assertEquals(newEntity.getDuracion(), result.getDuracion());
-        Assert.assertEquals(newEntity.getPreviewURI() , result.getPreviewURI());
+        Assert.assertEquals(newEntity.getPreviewURI(), result.getPreviewURI());
         Assert.assertEquals(newEntity.getDescripcion(), result.getDescripcion());
         Assert.assertEquals(newEntity.getCalificacion(), result.getCalificacion());
         Assert.assertEquals(newEntity.getVinilo(), result.getVinilo());
-        Assert.assertEquals(newEntity.getComentarios(), result.getComentarios());       
-    }   
-    
+        Assert.assertEquals(newEntity.getComentarios(), result.getComentarios());
+    }
+
     /**
      * Prueba para consultar una canción.
      */
     @Test
-    public void getCancionesTest()
-    {
+    public void getCancionesTest() {
         List<CancionEntity> list = cancionLogic.getCanciones();
         Assert.assertEquals(data.size(), list.size());
-        for(CancionEntity entity : list)
-        {
+        for (CancionEntity entity : list) {
             boolean found = false;
-            for(CancionEntity storedEntity : data)
-            {
-                if(entity.getId().equals(storedEntity.getId()))
+            for (CancionEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
                     found = true;
+                }
             }
             Assert.assertTrue(found);
         }
     }
-    
+
     /**
      * Prueba para consultar una canción.
      */
-    public void getCancionTest()
-    {
+    public void getCancionTest() throws BusinessLogicException {
         CancionEntity entity = data.get(0);
-        CancionEntity resultEntity = cancionLogic.getCancion(entity.getId());
+        CancionEntity resultEntity = cancionLogic.getCancion(entity.getVinilo().getId(),entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getNombre(), resultEntity.getNombre());
         Assert.assertEquals(entity.getDuracion(), resultEntity.getDuracion());
-        Assert.assertEquals(entity.getPreviewURI() , resultEntity.getPreviewURI());
+        Assert.assertEquals(entity.getPreviewURI(), resultEntity.getPreviewURI());
         Assert.assertEquals(entity.getDescripcion(), resultEntity.getDescripcion());
         Assert.assertEquals(entity.getCalificacion(), resultEntity.getCalificacion());
         Assert.assertEquals(entity.getVinilo(), resultEntity.getVinilo());
         Assert.assertEquals(entity.getComentarios(), resultEntity.getComentarios());
     }
-    
+
     /**
      * Prueba para actualizar una canción.
      */
     @Test
-    public void updateCancionTest()
-    {
+    public void updateCancionTest() throws BusinessLogicException {
         CancionEntity entity = data.get(0);
         CancionEntity pojoEntity = factory.manufacturePojo(CancionEntity.class);
-        
+
         pojoEntity.setId(entity.getId());
-        
-        cancionLogic.updateCancion(pojoEntity.getId(), pojoEntity);
-        
+
+        cancionLogic.updateCancion(pojoEntity.getVinilo().getId(),pojoEntity.getId(), pojoEntity);
+
         CancionEntity resp = em.find(CancionEntity.class, entity.getId());
-        
+
         Assert.assertNotNull(pojoEntity);
         Assert.assertEquals(resp.getId(), pojoEntity.getId());
         Assert.assertEquals(resp.getNombre(), pojoEntity.getNombre());
         Assert.assertEquals(resp.getDuracion(), pojoEntity.getDuracion());
-        Assert.assertEquals(resp.getPreviewURI() , pojoEntity.getPreviewURI());
+        Assert.assertEquals(resp.getPreviewURI(), pojoEntity.getPreviewURI());
         Assert.assertEquals(resp.getDescripcion(), pojoEntity.getDescripcion());
         Assert.assertEquals(resp.getCalificacion(), pojoEntity.getCalificacion());
         Assert.assertEquals(resp.getVinilo(), pojoEntity.getVinilo());
         Assert.assertEquals(resp.getComentarios(), pojoEntity.getComentarios());
     }
-    
+
     /**
      * Prueba para eliminar una cancion.
      */
     @Test
-    public void deleteCancionTest()
-    {
+    public void deleteCancionTest() throws BusinessLogicException {
         CancionEntity entity = data.get(0);
-        cancionLogic.deleteCancion(entity.getId());
+        cancionLogic.deleteCancion(entity.getVinilo().getId(),entity.getId());
         CancionEntity deleted = em.find(CancionEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }

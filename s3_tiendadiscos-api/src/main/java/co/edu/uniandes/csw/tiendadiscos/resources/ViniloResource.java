@@ -102,11 +102,11 @@ public class ViniloResource {
     }
 
     @Path("{vinilosId: \\d+}/canciones")
-    public Class<CancionViniloResource> getCancionViniloResource(@PathParam("vinilosId") Long vinilosId) {
+    public Class<CancionResource> getCancionResource(@PathParam("vinilosId") Long vinilosId) {
         if (viniloLogic.getVinilo(vinilosId) == null) {
             throw new WebApplicationException("El recurso /vinilos/" + vinilosId + " no existe.", 404);
         }
-        return CancionViniloResource.class;
+        return CancionResource.class;
     }
 
     @Path("{vinilosId: \\d+}/comentarios")

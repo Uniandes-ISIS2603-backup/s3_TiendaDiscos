@@ -39,7 +39,7 @@ public class ViniloCancionLogic {
     public CancionEntity addCancion(Long cancionId, Long viniloId)
     {
         LOGGER.log(Level.INFO, "Inicia proceso de asociarle una cancion al vinilo con id = {0}", viniloId);
-        CancionEntity cancionEntity = cancionPersistence.find(cancionId);
+        CancionEntity cancionEntity = cancionPersistence.find(viniloId,cancionId);
         ViniloEntity viniloEntity = viniloPersistence.find(viniloId);
         viniloEntity.getCanciones().add(cancionEntity);
         LOGGER.log(Level.INFO, "Termina proceso de asociarle una cancion al vinilo con id = {0}", viniloId);
@@ -66,7 +66,7 @@ public class ViniloCancionLogic {
     {
         LOGGER.log(Level.INFO, "Inicia el proceso de consulta de una canción con el id = {0}", cancionId);
         List<CancionEntity> canciones = viniloPersistence.find(vinilosId).getCanciones();
-        CancionEntity cancionEntity = cancionPersistence.find(cancionId);
+        CancionEntity cancionEntity = cancionPersistence.find(vinilosId,cancionId);
         int position = canciones.indexOf(cancionEntity);
         if(position >= 0)
             return canciones.get(position);
@@ -98,7 +98,7 @@ public class ViniloCancionLogic {
     {
         LOGGER.log(Level.INFO, "Inicia el proceso de borrar una canción del vinilo con id = {0}", vinilosId);
         ViniloEntity viniloEntity = viniloPersistence.find(vinilosId);
-        CancionEntity cancionEntity = cancionPersistence.find(cancionId);
+        CancionEntity cancionEntity = cancionPersistence.find(vinilosId,cancionId);
         viniloEntity.getCanciones().remove(cancionEntity);
         LOGGER.log(Level.INFO, "Termina el proceso de borrar una cancion del vinilo con id = {0}", vinilosId);
     }

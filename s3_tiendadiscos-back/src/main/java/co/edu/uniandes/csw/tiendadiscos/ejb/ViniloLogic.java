@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.tiendadiscos.ejb;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.CancionEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tiendadiscos.persistence.ViniloPersistence;
@@ -43,7 +44,7 @@ public class ViniloLogic {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación del vinilo.");
         // Se procede a crear el vinilo.
         if (viniloEntity.getNombre().equals("") || viniloEntity.getPrecio() < 0 || viniloEntity.getProductora().equals("") || viniloEntity.getArtista().equals("")) {
-            throw new BusinessLogicException("El vinilo no cumple con los requisitos para ser creado.");
+            throw new BusinessLogicException("El vinilo debe tener valores validos");
         }
         persistence.create(viniloEntity);
         LOGGER.log(Level.INFO, "Termina el proceso de creación del vinilo.");
@@ -52,10 +53,15 @@ public class ViniloLogic {
 
     public ViniloEntity createViniloUsuario(Long usuarioId, ViniloEntity viniloEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación del vinilo de un usuario con id = {0}", usuarioId);
-        if (usuarioPersistence.find(usuarioId) == null) {
+        UsuarioEntity usuario = usuarioPersistence.find(usuarioId);
+        if (usuario == null) {
             throw new BusinessLogicException("El usuario no existe. id Recibido: " + usuarioId);
         }
-        viniloEntity.setUsuario(usuarioPersistence.find(usuarioId));
+        
+        if (viniloEntity.getNombre().equals("") || viniloEntity.getPrecio() < 0 || viniloEntity.getProductora().equals("") || viniloEntity.getArtista().equals("")) {
+            throw new BusinessLogicException("El vinilo debe tener valores validos");
+        }
+        viniloEntity.setUsuario(usuario);
         persistence.create(viniloEntity);
         LOGGER.log(Level.INFO, "Termina el proceso de creación del vinilo al usuario.");
         return viniloEntity;

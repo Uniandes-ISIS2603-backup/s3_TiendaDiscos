@@ -40,8 +40,7 @@ public class ViniloUsuarioResource {
 
     @POST
     @Path("{usuariosId: \\d+}")
-    public ViniloDTO createViniloUsuario(@PathParam("usuariosId") Long usuariosId, ViniloDTO vinilo) {
-        try {
+    public ViniloDTO createViniloUsuario(@PathParam("usuariosId") Long usuariosId, ViniloDTO vinilo) throws BusinessLogicException {
             LOGGER.log(Level.INFO, "ViniloResource createVinilo: input: {0}", vinilo);
 
             ViniloDTO nuevo = new ViniloDTO(logic.createViniloUsuario(usuariosId, vinilo.toEntity()));
@@ -49,9 +48,7 @@ public class ViniloUsuarioResource {
 
             return nuevo;
 
-        } catch (BusinessLogicException ex) {
-            throw new WebApplicationException(ex.getMessage(), 400);
-        }
+
     }
 
     /**
@@ -61,15 +58,11 @@ public class ViniloUsuarioResource {
      */
     @GET
     @Path("{usuariosId: \\d+}")
-    public List<ViniloDetailDTO> getVinilosByUsuario(@PathParam("usuariosId") Long usuarioId) {
+    public List<ViniloDetailDTO> getVinilosByUsuario(@PathParam("usuariosId") Long usuarioId) throws BusinessLogicException {
         List<ViniloDetailDTO> resp = new ArrayList<>();
         List<ViniloEntity> list = null;
-        try {
             list = logic.getVinilosByUsuario(usuarioId);
 
-        } catch (Exception e) {
-            throw new WebApplicationException(e.getMessage(), 404);
-        }
 
         for (ViniloEntity entity : list) {
             resp.add(new ViniloDetailDTO(entity));

@@ -47,6 +47,7 @@ public class MedioDePagoPersistence {
         } else if (results.size() >= 1) {
             tarjeta = results.get(0);
         }
+
         LOGGER.log(Level.INFO, "Saliendo de consultar la tarjeta  con id = {0} del billing con id =" + billingId, tarjetaId);
         return tarjeta;
     }
