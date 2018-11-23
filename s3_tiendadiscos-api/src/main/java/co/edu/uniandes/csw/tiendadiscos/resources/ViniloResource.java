@@ -37,7 +37,6 @@ public class ViniloResource {
     @POST
     public ViniloDTO createVinilo(ViniloDTO vinilo) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ViniloResource createVinilo: input: (0)", vinilo);
-
         ViniloDTO viniloCreado = new ViniloDTO(viniloLogic.createVinilo(vinilo.toEntity()));
         LOGGER.log(Level.INFO, "ViniloResource createVinilo: output: {0}", viniloCreado);
         return viniloCreado;

@@ -44,45 +44,13 @@ public class ComentarioViniloResource {
  
     
     @GET
-    public List<ComentarioDTO> getComentarios(@PathParam("usuariosId") Long usuariosId)
+    public List<ComentarioDTO> getComentarios(@PathParam("vinilosId") Long vinilosId)
     {
         List<ComentarioDTO> resp = new ArrayList<ComentarioDTO>();
         List<ComentarioEntity> temp = new ArrayList<ComentarioEntity>();
-        temp = logic.getComentariosToUsuarios(usuariosId);
+        temp = logic.getComentariosToVinilo(vinilosId);
         for(ComentarioEntity com : temp)
             resp.add(new ComentarioDTO(com));        
         return resp;
-    }
-    
-    /**
-     * 
-     * @param comentario
-     * @return 
-    */
-    @PUT
-    @Path("{comentarioId: \\d+}")
-    public ComentarioDTO putComentario(@PathParam("usuariosId") Long usuariosId,@PathParam("comentarioId") Long comentarioId, ComentarioDTO comentario) throws BusinessLogicException
-    {
-        // if(!comentario.getId().equals(comentarioId))
-        //     throw new BusinessLogicException("Los id no coinciden");
-        // ComentarioEntity nuevo = logic.getComentario(comentarioId, usuariosId);
-        // if(nuevo == null)
-        //     throw new BusinessLogicException("No existe la asociación entre el usuario y el comentario");
-        // return new ComentarioDTO(logic.updateComentario(usuariosId, nuevo));
-        return null;
-    }
-
-    /**
-     * 
-     */
-    @DELETE
-    @Path("{comentarioId: \\d+}")
-    public void deleteComentario(@PathParam("usuariosId") Long usuariosId,@PathParam("comentarioId") Long comentarioId) throws BusinessLogicException
-    {
-        // ComentarioEntity nuevo = logic.getComentario(comentarioId, usuariosId);
-        // if(nuevo == null)
-        //     throw new BusinessLogicException("No existe la asociación entre el usuario y el comentario");
-        
-        // logic.deleteComentario(usuariosId, comentarioId);
     }
 }

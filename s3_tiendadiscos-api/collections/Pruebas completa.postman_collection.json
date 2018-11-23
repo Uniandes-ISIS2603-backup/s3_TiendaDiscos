@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "1cc11fc1-73fd-426e-ac46-3083e901776f",
-		"name": "Prueba completa copy",
+		"_postman_id": "83ec3bd1-ec2e-4666-aa05-3e410da8185b",
+		"name": "Prueba completa",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -504,6 +504,54 @@
 			"response": []
 		},
 		{
+			"name": "crear billing a usuario para siguientes pruebas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "810b7202-d122-4760-a3af-738368e163e2",
+						"exec": [
+							"",
+							"tests['No genera error en el Post'] = responseCode.code===200;",
+							"var data=JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"cuentaAhorro\",  data.cuentaAhorro);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n\t\"cuentaAhorro\":\"123321123\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}/billing",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuario_id}}",
+						"billing"
+					]
+				},
+				"description": "POST BILLING"
+			},
+			"response": []
+		},
+		{
 			"name": "crear tarjeta de credito",
 			"event": [
 				{
@@ -536,7 +584,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"name\":\"algo algo\",\r\n\t\"numero\": 555444333,\r\n\t\"numeroVerificacion\":555444333,\r\n\t\"fechaVencimiento\" : \"2020-08-20T00:00:00-05:00\",\r\n\t\"cvc\":\"010\"\r\n\r\n}"
+					"raw": "{\r\n\t\"name\":\"algo algo\",\r\n\t\"numero\": 555444333,\r\n\t\"numeroVerificacion\":555444333,\r\n\t\"fechaVencimiento\" : \"2020-02-09\",\r\n\t\"cvc\":\"010\"\r\n\r\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}/billing/tarjetasDeCredito",
@@ -685,7 +733,7 @@
 							"tests['No genera error en el Delete'] = responseCode.code===204;",
 							"pm.sendRequest(\"http://\" + pm.environment.get(\"ip\")+ \":\" + pm.environment.get(\"puerto\") +\"/s3_tiendadiscos-api/api/usuarios/\"+pm.globals.get(\"usuario_id\")+\"/billing/tarjetasDeCredito/\" +pm.globals.get(\"tarjeta_id\"), function (err, res) {",
 							"   if (err) { console.log(err); }",
-							"  pm.test('Verificar si se elimino el billing ', function () {",
+							"  pm.test('Verificar si se elimino la tarjeta ', function () {",
 							"    pm.expect(err).to.equal(null);",
 							"    pm.expect(res).to.have.property('code', 404 );",
 							"    pm.expect(res).to.have.property('status', 'Not Found');",
@@ -739,9 +787,12 @@
 						"id": "96a0fb40-3b42-4075-863b-be96b9f71c71",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id\", data.id);",
-							"postman.setGlobalVariable(\"new_nombre\" ,  data.nombre);",
-							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;"
+							"",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"postman.setGlobalVariable(\"vinilo_id\", data.id);",
+							"postman.setGlobalVariable(\"vinilo_nombre\" ,  data.nombre);",
+							"postman.setGlobalVariable(\"vinilo_fechaLanzamiento\" ,  data.fechaLanzamiento);",
+							"postman.setGlobalVariable(\"vinilo_informacionAdicional\" ,  data.informacionAdicional);"
 						],
 						"type": "text/javascript"
 					}
@@ -762,10 +813,120 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\r\n\"id\" : 1 , \r\n\r\n\"nombre\": \"The wall\" ,\r\n\r\n\"fechaLanzamiento\": \"1979\" ,\r\n\r\n\"artista\" : \"Pink Floyd\" ,\r\n\r\n\"precio\" : 50000.0 ,\r\n\r\n\"productora\" : \"Columbia Records\" ,\r\n\r\n\"informacionAdicional\" : \"Nunca ha sido abierto.\" ,\r\n\r\n\"previewURI\" : \"URI\" ,\r\n\r\n\"calificacion\": 5.0\r\n\r\n}"
+					"raw": "{\r\n\r\n\"nombre\": \"The wall\" ,\r\n\r\n\"fechaLanzamiento\": \"1979-11-15\" ,\r\n\r\n\"artista\" : \"Pink Floyd\" ,\r\n\r\n\"precio\" : 50000.0 ,\r\n\r\n\"productora\" : \"Columbia Records\" ,\r\n\r\n\"informacionAdicional\" : \"Nunca ha sido abierto.\" ,\r\n\r\n\"previewURI\" : \"URI\" ,\r\n\r\n\"calificacion\": 5.0\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuario_id}}?",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuario_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"usuarios",
+						"{{usuario_id}}"
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Retorna el JSON que es enviado."
+			},
+			"response": []
+		},
+		{
+			"name": "obtener vinilo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47c745ac-2d2b-4aef-810f-3c845e1027f5",
+						"exec": [
+							"var data=JSON.parse(responseBody);",
+							"tests['No genera error en el Get'] = responseCode.code===200;",
+							"tests[\"Get exitoso\"] = data.fechaLanzamiento === pm.globals.get(\"vinilo_fechaLanzamiento\")  && data.informacionAdicional === pm.globals.get(\"vinilo_informacionAdicional\") ;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{vinilo_id}}"
+					]
+				},
+				"description": "GET DE VINILOS"
+			},
+			"response": []
+		},
+		{
+			"name": "Post vinilos2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96a0fb40-3b42-4075-863b-be96b9f71c71",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"postman.setGlobalVariable(\"vinilo_id\", data.id);",
+							"postman.setGlobalVariable(\"vinilo_nombre\" ,  data.nombre);",
+							"postman.setGlobalVariable(\"vinilo_fechaLanzamiento\" ,  data.fechaLanzamiento);",
+							"postman.setGlobalVariable(\"vinilo_informacionAdicional\" ,  data.informacionAdicional);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"nombre\": \"Tu sin mi \" ,\r\n\r\n\"fechaLanzamiento\":\"2017-02-09\" ,\r\n\r\n\"artista\" : \"Los De Allá\" ,\r\n\r\n\"precio\" : 550000.0 ,\r\n\r\n\"productora\" : \"Columbia Records\" ,\r\n\r\n\"informacionAdicional\" : \"Nunca ha sido oido.\" ,\r\n\r\n\"previewURI\" : \"URI\" ,\r\n\r\n\"calificacion\": 1.0\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuario_id}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -800,8 +961,8 @@
 						"exec": [
 							"var data=JSON.parse(responseBody);",
 							"tests['No genera error en el Get'] = responseCode.code===200;",
-							"tests[\"Get exitoso\"] = data.name === pm.globals.get(\"tarjeta_name\") && data.numero == pm.globals.get(\"tarjeta_numero\") ",
-							"&& data.fechaVencimiento === pm.globals.get(\"tarjeta_fechaVencimiento\") && data.cvc ===  pm.globals.get(\"tarjeta_cvc\") ;",
+							"",
+							"tests[\"Get exitoso\"] = data.length === 2;",
 							""
 						],
 						"type": "text/javascript"
@@ -833,6 +994,932 @@
 						"vinilos",
 						"usuarios",
 						"{{usuario_id}}"
+					]
+				},
+				"description": "GET DE VINILOS"
+			},
+			"response": []
+		},
+		{
+			"name": "obtener vinilos de toda la tienda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47c745ac-2d2b-4aef-810f-3c845e1027f5",
+						"exec": [
+							"var data=JSON.parse(responseBody);",
+							"tests['No genera error en el Get'] = responseCode.code===200;",
+							"tests[\"Get exitoso\"] = data.length === 2;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuario_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"usuarios",
+						"{{usuario_id}}"
+					]
+				},
+				"description": "GET DE VINILOS"
+			},
+			"response": []
+		},
+		{
+			"name": "modificar vinilo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24f6ab87-54c9-46e2-8edd-e8dc352c92c8",
+						"exec": [
+							"tests['No genera error en el Get'] = responseCode.code===200;",
+							"var data=JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"vinilo_precio\", data.precio);",
+							"postman.setGlobalVariable(\"vinilo_calificacion\", data.calificacion);",
+							"",
+							"",
+							"pm.sendRequest(\"http://\" + pm.environment.get(\"ip\")+ \":\" + pm.environment.get(\"puerto\") +\"/s3_tiendadiscos-api/api/vinilos/\"+pm.globals.get(\"vinilo_id\"), function (err, res) {",
+							"    ",
+							"   if (err) { console.log(err); }",
+							"    pm.test('Verificar si se modifico el usuario ', function () {",
+							"    pm.expect(err).to.equal(null);",
+							"     pm.expect(res).to.have.property('code', 200);",
+							"    pm.expect(res).to.have.property('status', 'OK');",
+							"        var data2=res.json();",
+							"        tests[\"Get exitoso\"] = data2.calificacion === pm.globals.get(\"vinilo_calificacion\") && data2.precio === pm.globals.get(\"vinilo_precio\") ;",
+							"",
+							"  });",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"nombre\": \"Tu sin mi \" ,\r\n\r\n\"fechaLanzamiento\":\"2017-02-09\" ,\r\n\r\n\"artista\" : \"Los De Allá\" ,\r\n\r\n\"precio\" : 1050000.0 ,\r\n\r\n\"productora\" : \"Columbia Records\" ,\r\n\r\n\"informacionAdicional\" : \"Nunca ha sido oido.\" ,\r\n\r\n\"previewURI\" : \"URI\" ,\r\n\r\n\"calificacion\": 3.0\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{vinilo_id}}"
+					]
+				},
+				"description": "PUT DE TARJETA"
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar vinilo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "44f31e0e-43ba-42d0-8815-2cc9a2bff7d0",
+						"exec": [
+							"tests['No genera error en el Delete'] = responseCode.code===204;",
+							"pm.sendRequest(\"http://\" + pm.environment.get(\"ip\")+ \":\" + pm.environment.get(\"puerto\") +\"/s3_tiendadiscos-api/api/usuarios/\"+pm.globals.get(\"vinilo_id\"), function (err, res) {",
+							"   if (err) { console.log(err); }",
+							"  pm.test('Verificar si se elimino el vinilo ', function () {",
+							"    pm.expect(err).to.equal(null);",
+							"    pm.expect(res).to.have.property('code', 404 );",
+							"    pm.expect(res).to.have.property('status', 'Not Found');",
+							"  });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{vinilo_id}}"
+					]
+				},
+				"description": "DELETE DE TARJETA"
+			},
+			"response": []
+		},
+		{
+			"name": "Post vinilos para seguir con la prueba",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96a0fb40-3b42-4075-863b-be96b9f71c71",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"postman.setGlobalVariable(\"vinilo_id\", data.id);",
+							"postman.setGlobalVariable(\"vinilo_nombre\" ,  data.nombre);",
+							"postman.setGlobalVariable(\"vinilo_fechaLanzamiento\" ,  data.fechaLanzamiento);",
+							"postman.setGlobalVariable(\"vinilo_informacionAdicional\" ,  data.informacionAdicional);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"nombre\": \"Tu sin mi \" ,\r\n\r\n\"fechaLanzamiento\":\"2017-02-09\" ,\r\n\r\n\"artista\" : \"Los De Allá\" ,\r\n\r\n\"precio\" : 550000.0 ,\r\n\r\n\"productora\" : \"Columbia Records\" ,\r\n\r\n\"informacionAdicional\" : \"Nunca ha sido oido.\" ,\r\n\r\n\"previewURI\" : \"URI\" ,\r\n\r\n\"calificacion\": 1.0\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuario_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"usuarios",
+						"{{usuario_id}}"
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Retorna el JSON que es enviado."
+			},
+			"response": []
+		},
+		{
+			"name": "Post canción.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d8816850-5d82-4e97-8944-2ac650bd3a49",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"cancion_Id\", data.id);",
+							"postman.setGlobalVariable(\"cancion_nombre\" ,  data.nombre);",
+							"postman.setGlobalVariable(\"cancion_descripcion\" ,  data.descripcion);",
+							"postman.setGlobalVariable(\"cancion_calificacion\" ,  data.calificacion);",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"nombre\" : \"Fast Love\",\r\n\r\n\"duracion\": \"5:05\" ,\r\n\r\n\"previewURI\": \"URI\" ,\r\n\r\n\"descripcion\": \"Excelente canción de George Michael.\" , \r\n\r\n\"calificacion\": 4.5\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}/canciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{vinilo_id}}",
+						"canciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obetener cancion.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d90a0724-3661-46f3-8d5e-56d50202d9ec",
+						"exec": [
+							"var data=JSON.parse(responseBody);",
+							"tests [\"No genera error en el Get\"] = responseCode.code === 200;",
+							"tests[\"Get exitoso\"] = data.nombre === pm.globals.get(\"cancion_nombre\")  && data.descripcion === pm.globals.get(\"cancion_descripcion\")&& data.calificacion == pm.globals.get(\"cancion_calificacion\")  ;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}/canciones/{{cancion_Id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{vinilo_id}}",
+						"canciones",
+						"{{cancion_Id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post canción2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d8816850-5d82-4e97-8944-2ac650bd3a49",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"cancion_Id\", data.id);",
+							"postman.setGlobalVariable(\"cancion_nombre\" ,  data.nombre);",
+							"postman.setGlobalVariable(\"cancion_descripcion\" ,  data.descripcion);",
+							"postman.setGlobalVariable(\"cancion_calificacion\" ,  data.calificacion);",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"nombre\" : \"I HATE YOU\",\r\n\r\n\"duracion\": \"3:05\" ,\r\n\r\n\"previewURI\": \"URI\" ,\r\n\r\n\"descripcion\": \"Excelente canción pa llorar\" , \r\n\r\n\"calificacion\": 5\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}/canciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{vinilo_id}}",
+						"canciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "obtener canciones de vinilo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47c745ac-2d2b-4aef-810f-3c845e1027f5",
+						"exec": [
+							"var data=JSON.parse(responseBody);",
+							"tests['No genera error en el Get'] = responseCode.code===200;",
+							"tests[\"Get exitoso\"] = data.length === 2;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}/canciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{vinilo_id}}",
+						"canciones"
+					]
+				},
+				"description": "GET DE VINILOS"
+			},
+			"response": []
+		},
+		{
+			"name": "modificar cancion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24f6ab87-54c9-46e2-8edd-e8dc352c92c8",
+						"exec": [
+							"tests['No genera error en el Get'] = responseCode.code===200;",
+							"var data=JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"cancion_descripcion\", data.descripcion);",
+							"postman.setGlobalVariable(\"cancion_calificacion\", data.calificacion);",
+							"",
+							"",
+							"pm.sendRequest(\"http://\" + pm.environment.get(\"ip\")+ \":\" + pm.environment.get(\"puerto\") +\"/s3_tiendadiscos-api/api/vinilos/\"+pm.globals.get(\"vinilo_id\")+\"/canciones/\"+pm.globals.get(\"cancion_Id\"), function (err, res) {",
+							"    ",
+							"   if (err) { console.log(err); }",
+							"    pm.test('Verificar si se modifico el usuario ', function () {",
+							"    pm.expect(err).to.equal(null);",
+							"     pm.expect(res).to.have.property('code', 200);",
+							"    pm.expect(res).to.have.property('status', 'OK');",
+							"        var data2=res.json();",
+							"        tests[\"Get exitoso\"] = data2.calificacion === pm.globals.get(\"cancion_calificacion\") && data2.descripcion === pm.globals.get(\"cancion_descripcion\") ;",
+							"",
+							"  });",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"nombre\" : \"I LOVE YOU\",\r\n\r\n\"duracion\": \"3:05\" ,\r\n\r\n\"previewURI\": \"URI\" ,\r\n\r\n\"descripcion\": \"Excelente canción pa llorar y reir\" , \r\n\r\n\"calificacion\": 4\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}/canciones/{{cancion_Id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{vinilo_id}}",
+						"canciones",
+						"{{cancion_Id}}"
+					]
+				},
+				"description": "PUT DE TARJETA"
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar cancion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "44f31e0e-43ba-42d0-8815-2cc9a2bff7d0",
+						"exec": [
+							"tests['No genera error en el Delete'] = responseCode.code===204;",
+							"pm.sendRequest(\"http://\" + pm.environment.get(\"ip\")+ \":\" + pm.environment.get(\"puerto\") +\"/s3_tiendadiscos-api/api/vinilos/\"+pm.globals.get(\"vinilo_id\")+\"/canciones/\"+pm.globals.get(\"cancion_Id\"), function (err, res) {",
+							"   if (err) { console.log(err); }",
+							"  pm.test('Verificar si se elimino la cancion vinilo ', function () {",
+							"    pm.expect(err).to.equal(null);",
+							"    pm.expect(res).to.have.property('code', 404 );",
+							"    pm.expect(res).to.have.property('status', 'Not Found');",
+							"  });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}/canciones/{{cancion_Id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{vinilo_id}}",
+						"canciones",
+						"{{cancion_Id}}"
+					]
+				},
+				"description": "DELETE DE TARJETA"
+			},
+			"response": []
+		},
+		{
+			"name": "Post comentario vinilo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d8816850-5d82-4e97-8944-2ac650bd3a49",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"postman.setGlobalVariable(\"comentario_contenido\", data.contenido);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\n\t\"contenido\" : \"hola mundo\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}/comentarios/{{usuario_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{vinilo_id}}",
+						"comentarios",
+						"{{usuario_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post comentario vinilo2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d8816850-5d82-4e97-8944-2ac650bd3a49",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"postman.setGlobalVariable(\"comentario_contenido\", data.contenido);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"contenido\" : \"VinylApp lo mejor\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}/comentarios/{{usuario_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{vinilo_id}}",
+						"comentarios",
+						"{{usuario_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "obtener comentarios de vinilo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47c745ac-2d2b-4aef-810f-3c845e1027f5",
+						"exec": [
+							"var data=JSON.parse(responseBody);",
+							"tests['No genera error en el Get'] = responseCode.code===200;",
+							"tests[\"Get exitoso\"] = data.length === 2;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}/comentarios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{vinilo_id}}",
+						"comentarios"
+					]
+				},
+				"description": "GET DE VINILOS"
+			},
+			"response": []
+		},
+		{
+			"name": "Post canción para seguir con la prueba",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d8816850-5d82-4e97-8944-2ac650bd3a49",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"cancion_Id\", data.id);",
+							"postman.setGlobalVariable(\"cancion_nombre\" ,  data.nombre);",
+							"postman.setGlobalVariable(\"cancion_descripcion\" ,  data.descripcion);",
+							"postman.setGlobalVariable(\"cancion_calificacion\" ,  data.calificacion);",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"nombre\" : \"I HATE YOU\",\r\n\r\n\"duracion\": \"3:05\" ,\r\n\r\n\"previewURI\": \"URI\" ,\r\n\r\n\"descripcion\": \"Excelente canción pa llorar\" , \r\n\r\n\"calificacion\": 5\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}/canciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{vinilo_id}}",
+						"canciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post comentario cancion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d8816850-5d82-4e97-8944-2ac650bd3a49",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"postman.setGlobalVariable(\"comentario_contenido\", data.contenido);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n\t\"contenido\" : \"hola mundo\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}/canciones/{{cancion_Id}}/comentarios/{{usuario_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{vinilo_id}}",
+						"canciones",
+						"{{cancion_Id}}",
+						"comentarios",
+						"{{usuario_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post comentario cancion2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d8816850-5d82-4e97-8944-2ac650bd3a49",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"postman.setGlobalVariable(\"comentario_contenido\", data.contenido);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\n\t\"contenido\" : \"hola mundo\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}/canciones/{{cancion_Id}}/comentarios/{{usuario_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{vinilo_id}}",
+						"canciones",
+						"{{cancion_Id}}",
+						"comentarios",
+						"{{usuario_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "obtener comentarios de cancion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47c745ac-2d2b-4aef-810f-3c845e1027f5",
+						"exec": [
+							"var data=JSON.parse(responseBody);",
+							"tests['No genera error en el Get'] = responseCode.code===200;",
+							"tests[\"Get exitoso\"] = data.length === 2;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}/canciones/{{cancion_Id}}/comentarios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{vinilo_id}}",
+						"canciones",
+						"{{cancion_Id}}",
+						"comentarios"
 					]
 				},
 				"description": "GET DE VINILOS"
