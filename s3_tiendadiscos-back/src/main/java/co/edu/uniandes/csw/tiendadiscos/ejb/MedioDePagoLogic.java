@@ -35,6 +35,10 @@ public class MedioDePagoLogic {
 
     public MedioDePagoEntity createTarjeta(Long usuariosId, MedioDePagoEntity tarjeta) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de la tarjeta");
+        if (tarjeta.getNumero() == null || tarjeta.getCvc() == null || tarjeta.getFechaVencimiento() == null || tarjeta.getName() == null
+                || tarjeta.getNumeroVerificacion() == null) {
+            throw new BusinessLogicException("El medio de pago no puede tener valores nulos");
+        }
         UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
         if (usuario == null) {
             //Esta exception la produce usuario BORRAR
@@ -53,7 +57,7 @@ public class MedioDePagoLogic {
         if (tarjeta.getFechaVencimiento().compareTo(new Date()) < 0) {
             throw new BusinessLogicException("Fecha invalida");
         }
-        
+
         tarjeta.setBilling(billing);
         LOGGER.log(Level.INFO, "Termina proceso de creación de la tarjeta");
         return persistence.create(tarjeta);
@@ -91,6 +95,10 @@ public class MedioDePagoLogic {
     public MedioDePagoEntity updateTarjeta(Long usuariosId, Long tarjetaId, MedioDePagoEntity tarjeta) throws BusinessLogicException {
 
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar la tarjeta con id" + tarjetaId + " del usuario con id = {0}", usuariosId);
+        if (tarjeta.getNumero() == null || tarjeta.getCvc() == null || tarjeta.getFechaVencimiento() == null || tarjeta.getName() == null
+                || tarjeta.getNumeroVerificacion() == null) {
+            throw new BusinessLogicException("El medio de pago no puede tener valores nulos");
+        }
         UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
         BillingInformationEntity billing = usuario.getBillingInformation();
 

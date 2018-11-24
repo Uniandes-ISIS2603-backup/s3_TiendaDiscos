@@ -175,7 +175,7 @@ public class ViniloLogicTest {
      * Prueba para actualizar un vinilo.
      */
     @Test
-    public void updateViniloTest()
+    public void updateViniloTest() throws BusinessLogicException
     {
         ViniloEntity entity = data.get(0);
         ViniloEntity pojoEntity = factory.manufacturePojo(ViniloEntity.class);

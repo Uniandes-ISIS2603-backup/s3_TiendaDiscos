@@ -43,7 +43,10 @@ public class ComentarioCancionResource {
     @Path("{usuariosId: \\d+}")
     public ComentarioDTO createComentarioCancion(@PathParam("vinilosId") Long viniloId, @PathParam("cancionesId") Long cancionesId, @PathParam("usuariosId") Long usuariosId, ComentarioDTO comentario) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ComentarioCancionResource createComentarioCancion: input: cancionesId {0} , usuariosId {1} , comentario {2}", new Object[]{cancionesId, usuariosId, comentario});
-    
+        if(comentario.getContenido().isEmpty()){
+            throw new WebApplicationException("No se puede crear un comentario vacio");
+        }
+        
         ComentarioDTO nuevo = new ComentarioDTO(logic.createComentarioCancion(viniloId, cancionesId, usuariosId, comentario.toEntity()));
         LOGGER.log(Level.INFO, "ComentarioCancionResource creteComentarioCancion: output: comentario nuevo {0}", nuevo);
         return nuevo;

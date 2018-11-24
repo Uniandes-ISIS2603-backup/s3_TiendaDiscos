@@ -34,6 +34,9 @@ public class CancionResource {
 
     @POST
     public CancionDTO createCancion(@PathParam("vinilosId") Long vinilosId, CancionDTO cancion) throws BusinessLogicException {
+        if(cancion.getNombre().isEmpty() && cancion.getDescripcion().isEmpty()){
+            throw new WebApplicationException("El vinilo no es valido, ingrese todos los valores");
+        }
         LOGGER.log(Level.INFO, "CancionResource createCancion: input:{0}", cancion);
         CancionDTO nuevaCancion;
         nuevaCancion = new CancionDTO(logic.createCancion(cancion.toEntity(), vinilosId));
@@ -67,6 +70,9 @@ public class CancionResource {
     public CancionDTO updateCancion(@PathParam("vinilosId") Long viniloId, @PathParam("cancionesId") Long cancionesId, CancionDTO cancion) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "CancionResource updateCancion : input: cancionesId: {0}, cancion: {1}", new Object[]{cancionesId, cancion});
         cancion.setId(cancionesId);
+           if(cancion.getNombre().isEmpty() && cancion.getDescripcion().isEmpty()){
+            throw new WebApplicationException("El vinilo no es valido, ingrese todos los valores");
+        }
         CancionEntity laCancion = logic.getCancion(viniloId, cancionesId);
         if (null == laCancion) {
             throw new WebApplicationException("El recurso /canciones/" + cancionesId + " no existe.", 404);

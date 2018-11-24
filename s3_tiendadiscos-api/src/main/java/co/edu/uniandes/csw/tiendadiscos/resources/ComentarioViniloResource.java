@@ -36,8 +36,8 @@ public class ComentarioViniloResource {
      */
     @POST
     @Path("{usuariosId: \\d+}")
-    public ComentarioDTO createComentarioUsuario(@PathParam("vinilosId") Long vinilosId,ComentarioDTO comentario,@PathParam("usuariosId") Long usuarioId) throws BusinessLogicException 
-    {
+    public ComentarioDTO createComentarioVinilo(@PathParam("vinilosId") Long vinilosId,ComentarioDTO comentario,@PathParam("usuariosId") Long usuarioId) throws BusinessLogicException 
+    {       
         ComentarioDTO nuevo = new ComentarioDTO(logic.createComentarioVinilo(vinilosId, usuarioId, comentario.toEntity()));
         return nuevo;
     }

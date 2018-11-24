@@ -39,10 +39,14 @@ public class CancionLogic {
      * @param cancionEntity Canción que se desea registrar.
      * @param viniloId
      * @return canción que se agrego a persistence.
-     * @throws co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException
+     * @throws
+     * co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException
      */
     public CancionEntity createCancion(CancionEntity cancionEntity, Long viniloId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de la canción.");
+        if (cancionEntity.getNombre() == null || cancionEntity.getDescripcion() == null || cancionEntity.getNombre().isEmpty() || cancionEntity.getDescripcion().isEmpty()) {
+            throw new BusinessLogicException("El vinilo no es valido, ingrese todos los valores");
+        }
         ViniloEntity vinilo = viniloPersistence.find(viniloId);
         if (vinilo == null) {
             throw new BusinessLogicException("El vinilo no existe. id Recibido: " + viniloId);
@@ -71,7 +75,8 @@ public class CancionLogic {
      *
      * @param viniloId
      * @return Lista de canciones.
-     * @throws co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException
+     * @throws
+     * co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException
      */
     public List<CancionEntity> getCancionesDeVinilo(Long viniloId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de consulta de todos las canciones");
@@ -90,7 +95,8 @@ public class CancionLogic {
      * @param cancionId Id de la canción a ser buscada.
      * @param viniloId
      * @return La canción asociada al id.
-     * @throws co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException
+     * @throws
+     * co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException
      */
     public CancionEntity getCancion(Long viniloId, Long cancionId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Incia el proceso de consulta de la cancion con el id = {0}", cancionId);
@@ -114,11 +120,17 @@ public class CancionLogic {
      * @param cancionEntity Objeto entity con la nueva información de la
      * canción.
      * @return Canción actualizada.
-     * @throws co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException
+     * @throws
+     * co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException
      */
     public CancionEntity updateCancion(Long viniloId, Long cancionId, CancionEntity cancionEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso para actualizar a la canción con el id = {0}", cancionId);
+        if (cancionEntity.getNombre() == null || cancionEntity.getDescripcion() == null || cancionEntity.getNombre().isEmpty() || cancionEntity.getDescripcion().isEmpty()) {
+            throw new BusinessLogicException("El vinilo no es valido, ingrese todos los valores");
+        }
+
         ViniloEntity vinilo = viniloPersistence.find(viniloId);
+
         if (vinilo == null) {
             throw new BusinessLogicException("El vinilo no existe. id Recibido: " + viniloId);
         }
@@ -134,8 +146,10 @@ public class CancionLogic {
      *
      * @param viniloId
      * @param cancionId Id de la canción a borrar.
-     * @throws co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException
-*/   public void deleteCancion(Long viniloId, Long cancionId) throws BusinessLogicException {
+     * @throws
+     * co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException
+     */
+    public void deleteCancion(Long viniloId, Long cancionId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de borrar la cancion con el id = {0}", cancionId);
         if (persistence.find(cancionId, viniloId) == null) {
             throw new BusinessLogicException("La Cancio con id " + cancionId + "no existe");
@@ -143,6 +157,5 @@ public class CancionLogic {
         persistence.delete(cancionId);
         LOGGER.log(Level.INFO, "Termina el proceso de borrar la cancion con el id = {0}", cancionId);
     }
-
 
 }

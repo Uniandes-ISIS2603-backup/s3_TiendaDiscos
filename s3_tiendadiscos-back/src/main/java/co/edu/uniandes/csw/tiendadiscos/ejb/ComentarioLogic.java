@@ -52,6 +52,10 @@ public class ComentarioLogic {
     public ComentarioEntity createComentarioUsuario(Long usuarioIdDestino, Long usuarioIdi, ComentarioEntity comentarioEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación de un comentario a el usuario {0}", usuarioIdDestino);
 
+        if (comentarioEntity.getContenido() == null || comentarioEntity.getContenido().isEmpty()) {
+            throw new BusinessLogicException("No se puede crear un comentario vacio");
+        }
+
         comentarioEntity.setUsuario(usuarioPersistence.find(usuarioIdDestino));
         comentarioEntity.setUsuarioI(usuarioPersistence.find(usuarioIdi));
 
@@ -63,7 +67,9 @@ public class ComentarioLogic {
 
     public ComentarioEntity createComentarioTransaccion(Long transaccionId, Long usuarioId, ComentarioEntity comentarioEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación de un comentario a la transacción {0}", transaccionId);
-
+        if (comentarioEntity.getContenido() == null || comentarioEntity.getContenido().isEmpty()) {
+            throw new BusinessLogicException("No se puede crear un comentario vacio");
+        }
         if (transaccionPersistence.find(transaccionId) == null) {
             throw new BusinessLogicException("La transacción destino no existe.");
         }
@@ -80,14 +86,17 @@ public class ComentarioLogic {
         return comentarioEntity;
     }
 
-    public ComentarioEntity createComentarioCancion(Long viniloId, Long cancionesId, Long usuarioId, ComentarioEntity comentarioEntity) {
+    public ComentarioEntity createComentarioCancion(Long viniloId, Long cancionesId, Long usuarioId, ComentarioEntity comentarioEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación de un comentario a la canción {0}", cancionesId);
-            UsuarioEntity usuario = usuarioPersistence.find(usuarioId);
-            CancionEntity cancion = cancionPersistence.find(cancionesId, viniloId);
-        if ( cancion== null) {
+        if (comentarioEntity.getContenido() == null || comentarioEntity.getContenido().isEmpty()) {
+            throw new BusinessLogicException("No se puede crear un comentario vacio");
+        }
+        UsuarioEntity usuario = usuarioPersistence.find(usuarioId);
+        CancionEntity cancion = cancionPersistence.find(cancionesId, viniloId);
+        if (cancion == null) {
             throw new WebApplicationException("La canción con el id " + cancionesId + " no existe.", 404);
         }
-        if ( usuario == null) {
+        if (usuario == null) {
             throw new WebApplicationException("El usuario con el id " + usuarioId + "que comento no existe.", 404);
         }
 
@@ -102,6 +111,10 @@ public class ComentarioLogic {
 
     public ComentarioEntity createComentarioVinilo(Long viniloId, Long usuarioId, ComentarioEntity comentarioEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación de un comentario al vinilo {0}", viniloId);
+
+        if (comentarioEntity.getContenido() == null || comentarioEntity.getContenido().isEmpty()) {
+            throw new BusinessLogicException("No se puede crear un comentario vacio");
+        }
 
         if (comentarioEntity.getContenido().isEmpty()) {
             throw new BusinessLogicException("El comentario no puede estar vacio");
