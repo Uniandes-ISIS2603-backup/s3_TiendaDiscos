@@ -71,7 +71,7 @@ public class ViniloResource {
 
     @PUT
     @Path("{vinilosId: \\d+}")
-    public ViniloDetailDTO updateVinilo(@PathParam("vinilosId") Long vinilosId, ViniloDTO vinilo) throws BusinessLogicException {
+    public ViniloDetailDTO updateVinilo(@PathParam("vinilosId") Long vinilosId, ViniloDetailDTO vinilo) throws BusinessLogicException {
 
         LOGGER.log(Level.INFO, "ViniloResource updateVinilo: input: vinilosId: {0} , vinilo: {1}", new Object[]{vinilosId, vinilo});
         vinilo.setId(vinilosId);
