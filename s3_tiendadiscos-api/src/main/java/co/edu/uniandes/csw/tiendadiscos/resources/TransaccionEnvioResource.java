@@ -32,7 +32,6 @@ public class TransaccionEnvioResource
     
     @POST
     public EnvioDTO crearEnvio(EnvioDTO envio){
-        
         return envio;
     }
     
