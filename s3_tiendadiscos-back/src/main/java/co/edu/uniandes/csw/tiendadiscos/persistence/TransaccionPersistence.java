@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -26,11 +25,8 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class TransaccionPersistence {
    
-    @Inject
-    private TransaccionPersistence TransaccionPersistence;
-
     @PersistenceContext(unitName = "VinylAppPU")
-    private EntityManager em;
+    protected EntityManager em;
     
     private static final Logger LOGGER = Logger.getLogger(TransaccionPersistence.class.getName());
 

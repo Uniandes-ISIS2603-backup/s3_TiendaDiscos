@@ -107,6 +107,7 @@ public class UsuarioLogic {
             throw new BusinessLogicException("El Usuario con el id: " + usuarioId + " no existe");
         }
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el usuario con id = {0}", usuarioId);
+        usuarioEntity.setId(usuarioId);
         UsuarioEntity newUsuarioEntity = usuarioPersistence.update(usuarioEntity);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar el usuario con id = {0}", usuarioId);
         return newUsuarioEntity;

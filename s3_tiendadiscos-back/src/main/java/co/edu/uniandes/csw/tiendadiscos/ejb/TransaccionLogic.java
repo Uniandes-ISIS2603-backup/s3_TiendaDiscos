@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.tiendadiscos.ejb;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.tiendadiscos.persistence.EnvioPersistence;
 import co.edu.uniandes.csw.tiendadiscos.persistence.TransaccionPersistence;
 import co.edu.uniandes.csw.tiendadiscos.persistence.UsuarioPersistence;
 import co.edu.uniandes.csw.tiendadiscos.persistence.ViniloPersistence;
@@ -34,10 +35,13 @@ public class TransaccionLogic {
     @Inject
     private UsuarioPersistence usuarioPersistence;
 
+    @Inject
+    private EnvioPersistence envioPersistence;
+
     public TransaccionEntity create(TransaccionEntity entity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Entidad" + entity.getId());
-        if (entity.getEstado() == null || entity.getFormaDePago() == null || entity.getEnvio() == null
-                || entity.getFormaDePago() == null || entity.getUsuarioComprador() == null || entity.getUsuarioVendedor() == null
+        if (entity.getEstado() == null || entity.getFormaDePago() == null || entity.getFormaDePago() == null
+                || entity.getUsuarioComprador() == null || entity.getUsuarioVendedor() == null
                 || entity.getVinilo() == null) {
             throw new BusinessLogicException("No se aceptan valores nulos");
         }
@@ -68,8 +72,7 @@ public class TransaccionLogic {
             throw new BusinessLogicException("No existe una transacción con este id.");
         }
 
-        if (entity.getEstado() == null || entity.getFormaDePago() == null || entity.getEnvio() == null
-                || entity.getFormaDePago() == null || entity.getUsuarioComprador() == null || entity.getUsuarioVendedor() == null
+        if (entity.getEstado() == null || entity.getFormaDePago() == null || entity.getFormaDePago() == null || entity.getUsuarioComprador() == null || entity.getUsuarioVendedor() == null
                 || entity.getVinilo() == null) {
             throw new BusinessLogicException("No se aceptan valores nulos");
         }
@@ -91,6 +94,9 @@ public class TransaccionLogic {
         TransaccionEntity temp = transaccionPersistence.find(transaccionId);
         if (temp == null) {
             throw new BusinessLogicException("No existe una transacción con este id.");
+        }
+        if (temp.getEnvio() != null) {
+            envioPersistence.delete(transaccionId);
         }
         transaccionPersistence.delete(transaccionId);
     }

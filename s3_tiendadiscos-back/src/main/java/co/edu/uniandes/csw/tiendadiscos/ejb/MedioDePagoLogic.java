@@ -119,6 +119,7 @@ public class MedioDePagoLogic {
         }
 
         tarjeta.setBilling(billing);
+        tarjeta.setId(tarjetaId);
         MedioDePagoEntity newEntity = persistence.update(tarjeta);
 
         //Usuario maneja exception de que exista 

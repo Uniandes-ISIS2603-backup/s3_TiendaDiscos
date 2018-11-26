@@ -128,6 +128,7 @@ public class ViniloLogic {
                 || viniloEntity.getArtista() == null) {
             throw new BusinessLogicException("El vinilono puede tener valores nulos");
         }
+        viniloEntity.setId(viniloId);
         ViniloEntity newEntity = persistence.update(viniloEntity);
         LOGGER.log(Level.INFO, "Termina el proceso de actualizar el vinilo con el id = {0}", viniloId);
         return newEntity;

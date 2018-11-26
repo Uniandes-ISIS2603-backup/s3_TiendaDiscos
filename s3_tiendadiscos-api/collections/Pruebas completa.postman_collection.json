@@ -163,7 +163,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id\":{{usuario_id}} ,\n\t\"username\":\"Rembrandtsx\",\n\t\"nombre\":\"Kevin Blanco Torres\",\n\t\"email\":\"iam@kevinblanco.me\",\n\t\"contrasenha\":\"COntrasenaFacil\",\n\t\"direccion\":\"cll 19 # 2a - 10.\",\n\t\"rol\":\"{{usuario_rol}}\" ,\n\t\"calificacion\":{{usuario_calificacion}}\n\n}\t"
+					"raw": "{\n\t\"username\":\"Rembrandtsx\",\n\t\"nombre\":\"Kevin Blanco Torres\",\n\t\"email\":\"iam@kevinblanco.me\",\n\t\"contrasenha\":\"COntrasenaFacil\",\n\t\"direccion\":\"cll 19 # 2a - 10.\",\n\t\"rol\":\"{{usuario_rol}}\" ,\n\t\"calificacion\":{{usuario_calificacion}}\n\n}\t"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}",
@@ -428,7 +428,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "\n{\n\t \"id\":{{billing_id}},\n\t\"cuentaAhorro\":\"987654322\",\n\t\"spent\":{{spent}},\n\t\"recieved\":{{recieved}}\n\n}"
+					"raw": "\n{\n\t\"cuentaAhorro\":\"987654322\",\n\t\"spent\":{{spent}},\n\t\"recieved\":{{recieved}}\n\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}/billing",
@@ -699,7 +699,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"id\":{{tarjeta_id}},\r\n\t\"name\":\"algo algo\",\r\n\t\"numero\": 555444333,\r\n\t\"numeroVerificacion\":555444333,\r\n\t\"fechaVencimiento\" : \"2020-08-20T00:00:00-05:00\",\r\n\t\"cvc\":\"011\"\r\n\r\n}"
+					"raw": "{\r\n\t\"name\":\"algo algo\",\r\n\t\"numero\": 555444333,\r\n\t\"numeroVerificacion\":555444333,\r\n\t\"fechaVencimiento\" : \"2020-08-20T00:00:00-05:00\",\r\n\t\"cvc\":\"011\"\r\n\r\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}/billing/tarjetasDeCredito/{{tarjeta_id}}",
@@ -1920,6 +1920,1178 @@
 						"canciones",
 						"{{cancion_Id}}",
 						"comentarios"
+					]
+				},
+				"description": "GET DE VINILOS"
+			},
+			"response": []
+		},
+		{
+			"name": "crear usuario que compra",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "86557f8d-00ca-4eeb-9cf2-ac49a82b639b",
+						"exec": [
+							"tests['No genera error en el Post'] = responseCode.code===200;",
+							"var data=JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"usuarioComprador_id\", data.id);",
+							"postman.setGlobalVariable(\"usuarioComprador_name\", data.nombre);",
+							"postman.setGlobalVariable(\"usuarioComprador_userName\", data.username);",
+							"postman.setGlobalVariable(\"usuarioComprador_email\", data.email);",
+							"postman.setGlobalVariable(\"usuarioComprador_contrasenha\", data.contrasenha);",
+							"postman.setGlobalVariable(\"usuarioComprador_direccion\", data.direccion);",
+							"postman.setGlobalVariable(\"usuarioComprador_rol\", data.rol);",
+							"postman.setGlobalVariable(\"usuarioComprador_calificacion\", data.calificacion);",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"elComprador\",\n\t\"nombre\":\"El Que Compra el vinilo\",\n\t\"email\":\"comprador@gmail.com\",\n\t\"contrasenha\":\"ContraseñaDificilXD\",\n\t\"direccion\":\"cll 12 #25 105 este Bogotá\",\n\t\"rol\":\"Usuario\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear usuario que vende",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "86557f8d-00ca-4eeb-9cf2-ac49a82b639b",
+						"exec": [
+							"tests['No genera error en el Post'] = responseCode.code===200;",
+							"var data=JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"usuarioVendedor_id\", data.id);",
+							"postman.setGlobalVariable(\"usuarioVendedor_name\", data.nombre);",
+							"postman.setGlobalVariable(\"usuarioVendedor_userName\", data.username);",
+							"postman.setGlobalVariable(\"usuarioVendedor_email\", data.email);",
+							"postman.setGlobalVariable(\"usuarioVendedor_contrasenha\", data.contrasenha);",
+							"postman.setGlobalVariable(\"usuarioVendedor_direccion\", data.direccion);",
+							"postman.setGlobalVariable(\"usuarioVendedor_rol\", data.rol);",
+							"postman.setGlobalVariable(\"usuarioVendedor_calificacion\", data.calificacion);",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"elVendedor\",\n\t\"nombre\":\"El Que Vende el vinilo\",\n\t\"email\":\"vendedor@gmail.com\",\n\t\"contrasenha\":\"ContraseñaDificilXD\",\n\t\"direccion\":\"cll 32 #85 5 este Bogotá\",\n\t\"rol\":\"Usuario\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear billin a usuario vendedor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "810b7202-d122-4760-a3af-738368e163e2",
+						"exec": [
+							"",
+							"tests['No genera error en el Post'] = responseCode.code===200;",
+							"var data=JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"usuarioVendedor_cuentaAhorro\",  data.cuentaAhorro);",
+							"postman.setGlobalVariable(\"usuarioVendedor_billing_id\",  data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n\t\"cuentaAhorro\":\"654654654\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuarioVendedor_id}}/billing",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuarioVendedor_id}}",
+						"billing"
+					]
+				},
+				"description": "POST BILLING"
+			},
+			"response": []
+		},
+		{
+			"name": "crear billin a usuario comprador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "810b7202-d122-4760-a3af-738368e163e2",
+						"exec": [
+							"",
+							"tests['No genera error en el Post'] = responseCode.code===200;",
+							"var data=JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"usuarioComprador_cuentaAhorro\",  data.cuentaAhorro);",
+							"postman.setGlobalVariable(\"usuarioComprador_billing_id\",  data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n\t\"cuentaAhorro\":\"987654321\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuarioComprador_id}}/billing",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuarioComprador_id}}",
+						"billing"
+					]
+				},
+				"description": "POST BILLING"
+			},
+			"response": []
+		},
+		{
+			"name": "Post vinilo a vender",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96a0fb40-3b42-4075-863b-be96b9f71c71",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"postman.setGlobalVariable(\"viniloVender_id\", data.id);",
+							"postman.setGlobalVariable(\"viniloVender_nombre\" ,  data.nombre);",
+							"postman.setGlobalVariable(\"viniloVender_fechaLanzamiento\" ,  data.fechaLanzamiento);",
+							"postman.setGlobalVariable(\"viniloVender_informacionAdicional\" ,  data.informacionAdicional);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"nombre\": \"Jazz in the Jungle\" ,\r\n\r\n\"fechaLanzamiento\": \"2002-11-15\" ,\r\n\r\n\"artista\" : \"El Rey Leon\" ,\r\n\r\n\"precio\" : 70000.0 ,\r\n\r\n\"productora\" : \"Sony Music\" ,\r\n\r\n\"informacionAdicional\" : \"Fue grabado en la selva\" ,\r\n\r\n\"previewURI\" : \"URI\" ,\r\n\r\n\"calificacion\": 4.9\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuarioVendedor_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"usuarios",
+						"{{usuarioVendedor_id}}"
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Retorna el JSON que es enviado."
+			},
+			"response": []
+		},
+		{
+			"name": "Post canción de vinilo a vender",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d8816850-5d82-4e97-8944-2ac650bd3a49",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"cancionVender_Id\", data.id);",
+							"postman.setGlobalVariable(\"cancionVender_nombre\" ,  data.nombre);",
+							"postman.setGlobalVariable(\"cancionVender_descripcion\" ,  data.descripcion);",
+							"postman.setGlobalVariable(\"cancionVender_calificacion\" ,  data.calificacion);",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"nombre\" : \"Fast Love\",\r\n\r\n\"duracion\": \"5:05\" ,\r\n\r\n\"previewURI\": \"URI\" ,\r\n\r\n\"descripcion\": \"Excelente canción de George Michael.\" , \r\n\r\n\"calificacion\": 4.5\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{viniloVender_id}}/canciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"vinilos",
+						"{{viniloVender_id}}",
+						"canciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post transaccion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96a0fb40-3b42-4075-863b-be96b9f71c71",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"postman.setGlobalVariable(\"transaccion_estado\", data.estado);",
+							"postman.setGlobalVariable(\"transaccion_formaDePago\", data.formaDePago);",
+							"postman.setGlobalVariable(\"transaccion_usuarioComprador\", data.usuarioComprador);",
+							"postman.setGlobalVariable(\"transaccion_usuarioVendedor\", data.usuarioVendedor);",
+							"postman.setGlobalVariable(\"transaccion_vinilo\", data.vinilo);",
+							"postman.setGlobalVariable(\"transaccion_id\", data.id);",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"estado\" : \"peticion\",\r\n\r\n\"formaDePago\" : \"tarjeta-credito\",\r\n\"usuarioComprador\": {\r\n    \"type\": \"usuarioDetailDTO\",\r\n    \"billingInformation\": {\r\n        \"cuentaAhorro\": \"987654321\",\r\n        \"id\":{{usuarioComprador_billing_id}},\r\n        \"recieved\": 0,\r\n        \"spent\": 0\r\n    },\r\n    \"calificacion\": 0,\r\n    \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n    \"direccion\": \"cll 12 #25 105 este BogotÃ¡\",\r\n    \"email\": \"comprador@gmail.com\",\r\n    \"id\": {{usuarioComprador_id}},\r\n    \"nombre\": \"El Que Compra el vinilo\",\r\n    \"rol\": \"Usuario\",\r\n    \"username\": \"elComprador\",\r\n    \"comentarios\": [],\r\n    \"transaccionesGeneradas\": [],\r\n    \"transaccionesRecibidas\": [],\r\n    \"vinilos\": []\r\n},\r\n\"usuarioVendedor\":{\r\n    \"type\": \"usuarioDetailDTO\",\r\n    \"billingInformation\": {\r\n        \"cuentaAhorro\": \"654654654\",\r\n        \"id\": {{usuarioVendedor_billing_id}},\r\n        \"recieved\": 0,\r\n        \"spent\": 0\r\n    },\r\n    \"calificacion\": 0,\r\n    \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n    \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n    \"email\": \"vendedor@gmail.com\",\r\n    \"id\": {{usuarioVendedor_id}},\r\n    \"nombre\": \"El Que Vende el vinilo\",\r\n    \"rol\": \"Usuario\",\r\n    \"username\": \"elVendedor\",\r\n    \"comentarios\": [],\r\n    \"transaccionesGeneradas\": [],\r\n    \"transaccionesRecibidas\": [],\r\n    \"vinilos\": [\r\n        {\r\n            \"fechaLanzamiento\": \"2002-11-15\",\r\n            \"artista\": \"El Rey Leon\",\r\n            \"calificacion\": 4.9,\r\n            \"id\": {{viniloVender_id}},\r\n            \"informacionAdicional\": \"Fue grabado en la selva\",\r\n            \"nombre\": \"Jazz in the Jungle\",\r\n            \"precio\": 70000,\r\n            \"previewURI\": \"URI\",\r\n            \"productora\": \"Sony Music\",\r\n            \"usuario\": {\r\n                \"billingInformation\": {\r\n                    \"cuentaAhorro\": \"654654654\",\r\n                    \"id\":  {{usuarioVendedor_billing_id}},\r\n                    \"recieved\": 0,\r\n                    \"spent\": 0\r\n                },\r\n                \"calificacion\": 0,\r\n                \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n                \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n                \"email\": \"vendedor@gmail.com\",\r\n                \"id\": {{usuarioVendedor_id}},\r\n                \"nombre\": \"El Que Vende el vinilo\",\r\n                \"rol\": \"Usuario\",\r\n                \"username\": \"elVendedor\"\r\n            }\r\n        }\r\n    ]\r\n},\r\n\r\n\"vinilo\":{\r\n    \"type\": \"viniloDetailDTO\",\r\n    \"fechaLanzamiento\": \"2002-11-15\",\r\n    \"artista\": \"El Rey Leon\",\r\n    \"calificacion\": 4.9,\r\n    \"id\": {{viniloVender_id}},\r\n    \"nombre\": \"Jazz in the Jungle\",\r\n    \"precio\": 70000,\r\n    \"previewURI\": \"URI\",\r\n    \"productora\": \"Sony Music\",\r\n    \"usuario\": {\r\n        \"billingInformation\": {\r\n            \"cuentaAhorro\": \"654654654\",\r\n            \"id\": {{usuarioVendedor_billing_id}},\r\n            \"recieved\": 0,\r\n            \"spent\": 0\r\n        },\r\n        \"calificacion\": 0,\r\n        \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n        \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n        \"email\": \"vendedor@gmail.com\",\r\n        \"id\": {{usuarioVendedor_id}},\r\n        \"nombre\": \"El Que Vende el vinilo\",\r\n        \"rol\": \"Usuario\",\r\n        \"username\": \"elVendedor\"\r\n    },\r\n    \"canciones\": []\r\n}\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones"
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Retorna el JSON que es enviado."
+			},
+			"response": []
+		},
+		{
+			"name": "Post envio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96a0fb40-3b42-4075-863b-be96b9f71c71",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"postman.setGlobalVariable(\"envio_direccionEntrega\", data.direccionEntrega);",
+							"postman.setGlobalVariable(\"envio_direccionSalida\", data.direccionSalida);",
+							"postman.setGlobalVariable(\"envio_estado\", data.estado);",
+							"postman.setGlobalVariable(\"envio_id\", data.id);",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"direccionEntrega\":\"Calle 19 # 2a -10\",\r\n\t\"direccionSalida\":\"Carrera 13 # 51-43\",\r\n\t\"estado\":\"PENDIENTE\"\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"{{transaccion_id}}",
+						"envio"
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Retorna el JSON que es enviado."
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener envio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96a0fb40-3b42-4075-863b-be96b9f71c71",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"tests[\"Get exitoso\"] = data.direccionEntrega === pm.globals.get(\"envio_direccionEntrega\")  && data.direccionSalida === pm.globals.get(\"envio_direccionSalida\") && data.id == pm.globals.get(\"envio_id\") && data.estado === pm.globals.get(\"envio_estado\") ;",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"{{transaccion_id}}",
+						"envio"
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Retorna el JSON que es enviado."
+			},
+			"response": []
+		},
+		{
+			"name": "Put envio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96a0fb40-3b42-4075-863b-be96b9f71c71",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"postman.setGlobalVariable(\"envio_direccionEntrega\", data.direccionEntrega);",
+							"postman.setGlobalVariable(\"envio_direccionSalida\", data.direccionSalida);",
+							"postman.setGlobalVariable(\"envio_estado\", data.estado);",
+							"postman.setGlobalVariable(\"envio_id\", data.id);",
+							"",
+							"",
+							"pm.sendRequest(\"http://\" + pm.environment.get(\"ip\")+ \":\" + pm.environment.get(\"puerto\") +\"/s3_tiendadiscos-api/api/transacciones/\"+pm.globals.get(\"transaccion_id\"), function (err, res) {",
+							"    ",
+							"   if (err) { console.log(err); }",
+							"    pm.test('Verificar si se modificó la transacción ', function () {",
+							"    pm.expect(err).to.equal(null);",
+							"     pm.expect(res).to.have.property('code', 200);",
+							"    pm.expect(res).to.have.property('status', 'OK');",
+							"        var data2=res.json();",
+							"        tests[\"Get exitoso\"] = data2.estado === pm.globals.get(\"envio_estado\") && data2.direccionEntrega === pm.globals.get(\"envio_direccionEntrega\")&&  data2.direccionSalida === pm.globals.get(\"envio_direccionSalida\") ;",
+							"",
+							"  });",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"direccionEntrega\":\"Calle 19 # 2a -10\",\r\n\t\"direccionSalida\":\"Carrera 13 # 51-43\",\r\n\t\"estado\":\"ENTREGADO\"\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"{{transaccion_id}}",
+						"envio"
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Retorna el JSON que es enviado."
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar envio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96a0fb40-3b42-4075-863b-be96b9f71c71",
+						"exec": [
+							"tests['No genera error en el Delete'] = responseCode.code===204;",
+							"pm.sendRequest(\"http://\" + pm.environment.get(\"ip\")+ \":\" + pm.environment.get(\"puerto\") +\"/s3_tiendadiscos-api/api/transacciones/\"+pm.globals.get(\"transaccion_id\")+\"/envio\", function (err, res) {",
+							"   if (err) { console.log(err); }",
+							"  pm.test('Verificar si se elimino la transaccion', function () {",
+							"    pm.expect(err).to.equal(null);",
+							"    pm.expect(res).to.have.property('code', 404 );",
+							"    pm.expect(res).to.have.property('status', 'Not Found');",
+							"  });",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"{{transaccion_id}}",
+						"envio"
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Retorna el JSON que es enviado."
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener transaccion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96a0fb40-3b42-4075-863b-be96b9f71c71",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"tests[\"Get exitoso\"] = data.estado === pm.globals.get(\"transaccion_estado\")  && data.formaDePago === pm.globals.get(\"transaccion_formaDePago\") && data.id == pm.globals.get(\"transaccion_id\");",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"{{transaccion_id}}"
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Retorna el JSON que es enviado."
+			},
+			"response": []
+		},
+		{
+			"name": "Put transaccion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96a0fb40-3b42-4075-863b-be96b9f71c71",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"postman.setGlobalVariable(\"transaccion_estado\", data.estado);",
+							"postman.setGlobalVariable(\"transaccion_formaDePago\", data.formaDePago);",
+							"postman.setGlobalVariable(\"transaccion_usuarioComprador\", data.usuarioComprador);",
+							"postman.setGlobalVariable(\"transaccion_usuarioVendedor\", data.usuarioVendedor);",
+							"postman.setGlobalVariable(\"transaccion_vinilo\", data.vinilo);",
+							"postman.setGlobalVariable(\"transaccion_id\", data.id);",
+							"",
+							"pm.sendRequest(\"http://\" + pm.environment.get(\"ip\")+ \":\" + pm.environment.get(\"puerto\") +\"/s3_tiendadiscos-api/api/transacciones/\"+pm.globals.get(\"transaccion_id\"), function (err, res) {",
+							"    ",
+							"   if (err) { console.log(err); }",
+							"    pm.test('Verificar si se modificó la transacción ', function () {",
+							"    pm.expect(err).to.equal(null);",
+							"     pm.expect(res).to.have.property('code', 200);",
+							"    pm.expect(res).to.have.property('status', 'OK');",
+							"        var data2=res.json();",
+							"        tests[\"Get exitoso\"] = data2.estado === pm.globals.get(\"transaccion_estado\") && data2.formaDePago === pm.globals.get(\"transaccion_formaDePago\") ;",
+							"",
+							"  });",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"estado\" : \"Entregado\",\r\n\r\n\"formaDePago\" : \"tarjeta-credito\",\r\n\"usuarioComprador\": {\r\n    \"type\": \"usuarioDetailDTO\",\r\n    \"billingInformation\": {\r\n        \"cuentaAhorro\": \"987654321\",\r\n        \"id\":{{usuarioComprador_billing_id}},\r\n        \"recieved\": 0,\r\n        \"spent\": 0\r\n    },\r\n    \"calificacion\": 0,\r\n    \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n    \"direccion\": \"cll 12 #25 105 este BogotÃ¡\",\r\n    \"email\": \"comprador@gmail.com\",\r\n    \"id\": {{usuarioComprador_id}},\r\n    \"nombre\": \"El Que Compra el vinilo\",\r\n    \"rol\": \"Usuario\",\r\n    \"username\": \"elComprador\",\r\n    \"comentarios\": [],\r\n    \"transaccionesGeneradas\": [],\r\n    \"transaccionesRecibidas\": [],\r\n    \"vinilos\": []\r\n},\r\n\"usuarioVendedor\":{\r\n    \"type\": \"usuarioDetailDTO\",\r\n    \"billingInformation\": {\r\n        \"cuentaAhorro\": \"654654654\",\r\n        \"id\": {{usuarioVendedor_billing_id}},\r\n        \"recieved\": 0,\r\n        \"spent\": 0\r\n    },\r\n    \"calificacion\": 0,\r\n    \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n    \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n    \"email\": \"vendedor@gmail.com\",\r\n    \"id\": {{usuarioVendedor_id}},\r\n    \"nombre\": \"El Que Vende el vinilo\",\r\n    \"rol\": \"Usuario\",\r\n    \"username\": \"elVendedor\",\r\n    \"comentarios\": [],\r\n    \"transaccionesGeneradas\": [],\r\n    \"transaccionesRecibidas\": [],\r\n    \"vinilos\": [\r\n        {\r\n            \"fechaLanzamiento\": \"2002-11-15\",\r\n            \"artista\": \"El Rey Leon\",\r\n            \"calificacion\": 4.9,\r\n            \"id\": {{viniloVender_id}},\r\n            \"informacionAdicional\": \"Fue grabado en la selva\",\r\n            \"nombre\": \"Jazz in the Jungle\",\r\n            \"precio\": 70000,\r\n            \"previewURI\": \"URI\",\r\n            \"productora\": \"Sony Music\",\r\n            \"usuario\": {\r\n                \"billingInformation\": {\r\n                    \"cuentaAhorro\": \"654654654\",\r\n                    \"id\":  {{usuarioVendedor_billing_id}},\r\n                    \"recieved\": 0,\r\n                    \"spent\": 0\r\n                },\r\n                \"calificacion\": 0,\r\n                \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n                \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n                \"email\": \"vendedor@gmail.com\",\r\n                \"id\": {{usuarioVendedor_id}},\r\n                \"nombre\": \"El Que Vende el vinilo\",\r\n                \"rol\": \"Usuario\",\r\n                \"username\": \"elVendedor\"\r\n            }\r\n        }\r\n    ]\r\n},\r\n\r\n\"vinilo\":{\r\n    \"type\": \"viniloDetailDTO\",\r\n    \"fechaLanzamiento\": \"2002-11-15\",\r\n    \"artista\": \"El Rey Leon\",\r\n    \"calificacion\": 4.9,\r\n    \"id\": {{viniloVender_id}},\r\n    \"informacionAdicional\": \"Fue grabado en la selva\",\r\n    \"nombre\": \"Jazz in the Jungle\",\r\n    \"precio\": 70000,\r\n    \"previewURI\": \"URI\",\r\n    \"productora\": \"Sony Music\",\r\n    \"usuario\": {\r\n        \"billingInformation\": {\r\n            \"cuentaAhorro\": \"654654654\",\r\n            \"id\": {{usuarioVendedor_billing_id}},\r\n            \"recieved\": 0,\r\n            \"spent\": 0\r\n        },\r\n        \"calificacion\": 0,\r\n        \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n        \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n        \"email\": \"vendedor@gmail.com\",\r\n        \"id\": {{usuarioVendedor_id}},\r\n        \"nombre\": \"El Que Vende el vinilo\",\r\n        \"rol\": \"Usuario\",\r\n        \"username\": \"elVendedor\"\r\n    },\r\n    \"canciones\": []\r\n}\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"{{transaccion_id}}"
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Retorna el JSON que es enviado."
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar transaccion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96a0fb40-3b42-4075-863b-be96b9f71c71",
+						"exec": [
+							"tests['No genera error en el Delete'] = responseCode.code===204;",
+							"pm.sendRequest(\"http://\" + pm.environment.get(\"ip\")+ \":\" + pm.environment.get(\"puerto\") +\"/s3_tiendadiscos-api/api/transacciones/\"+pm.globals.get(\"transaccion_id\"), function (err, res) {",
+							"   if (err) { console.log(err); }",
+							"  pm.test('Verificar si se elimino la transaccion', function () {",
+							"    pm.expect(err).to.equal(null);",
+							"    pm.expect(res).to.have.property('code', 404 );",
+							"    pm.expect(res).to.have.property('status', 'Not Found');",
+							"  });",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"{{transaccion_id}}"
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Retorna el JSON que es enviado."
+			},
+			"response": []
+		},
+		{
+			"name": "Post transaccion seguir con prueba",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96a0fb40-3b42-4075-863b-be96b9f71c71",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"postman.setGlobalVariable(\"transaccion_estado\", data.estado);",
+							"postman.setGlobalVariable(\"transaccion_formaDePago\", data.formaDePago);",
+							"postman.setGlobalVariable(\"transaccion_usuarioComprador\", data.usuarioComprador);",
+							"postman.setGlobalVariable(\"transaccion_usuarioVendedor\", data.usuarioVendedor);",
+							"postman.setGlobalVariable(\"transaccion_vinilo\", data.vinilo);",
+							"postman.setGlobalVariable(\"transaccion_id\", data.id);",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"estado\" : \"peticion\",\r\n\r\n\"formaDePago\" : \"tarjeta-credito\",\r\n\"usuarioComprador\": {\r\n    \"type\": \"usuarioDetailDTO\",\r\n    \"billingInformation\": {\r\n        \"cuentaAhorro\": \"987654321\",\r\n        \"id\":{{usuarioComprador_billing_id}},\r\n        \"recieved\": 0,\r\n        \"spent\": 0\r\n    },\r\n    \"calificacion\": 0,\r\n    \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n    \"direccion\": \"cll 12 #25 105 este BogotÃ¡\",\r\n    \"email\": \"comprador@gmail.com\",\r\n    \"id\": {{usuarioComprador_id}},\r\n    \"nombre\": \"El Que Compra el vinilo\",\r\n    \"rol\": \"Usuario\",\r\n    \"username\": \"elComprador\",\r\n    \"comentarios\": [],\r\n    \"transaccionesGeneradas\": [],\r\n    \"transaccionesRecibidas\": [],\r\n    \"vinilos\": []\r\n},\r\n\"usuarioVendedor\":{\r\n    \"type\": \"usuarioDetailDTO\",\r\n    \"billingInformation\": {\r\n        \"cuentaAhorro\": \"654654654\",\r\n        \"id\": {{usuarioVendedor_billing_id}},\r\n        \"recieved\": 0,\r\n        \"spent\": 0\r\n    },\r\n    \"calificacion\": 0,\r\n    \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n    \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n    \"email\": \"vendedor@gmail.com\",\r\n    \"id\": {{usuarioVendedor_id}},\r\n    \"nombre\": \"El Que Vende el vinilo\",\r\n    \"rol\": \"Usuario\",\r\n    \"username\": \"elVendedor\",\r\n    \"comentarios\": [],\r\n    \"transaccionesGeneradas\": [],\r\n    \"transaccionesRecibidas\": [],\r\n    \"vinilos\": [\r\n        {\r\n            \"fechaLanzamiento\": \"2002-11-15\",\r\n            \"artista\": \"El Rey Leon\",\r\n            \"calificacion\": 4.9,\r\n            \"id\": {{viniloVender_id}},\r\n            \"informacionAdicional\": \"Fue grabado en la selva\",\r\n            \"nombre\": \"Jazz in the Jungle\",\r\n            \"precio\": 70000,\r\n            \"previewURI\": \"URI\",\r\n            \"productora\": \"Sony Music\",\r\n            \"usuario\": {\r\n                \"billingInformation\": {\r\n                    \"cuentaAhorro\": \"654654654\",\r\n                    \"id\":  {{usuarioVendedor_billing_id}},\r\n                    \"recieved\": 0,\r\n                    \"spent\": 0\r\n                },\r\n                \"calificacion\": 0,\r\n                \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n                \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n                \"email\": \"vendedor@gmail.com\",\r\n                \"id\": {{usuarioVendedor_id}},\r\n                \"nombre\": \"El Que Vende el vinilo\",\r\n                \"rol\": \"Usuario\",\r\n                \"username\": \"elVendedor\"\r\n            }\r\n        }\r\n    ]\r\n},\r\n\r\n\"vinilo\":{\r\n    \"type\": \"viniloDetailDTO\",\r\n    \"fechaLanzamiento\": \"2002-11-15\",\r\n    \"artista\": \"El Rey Leon\",\r\n    \"calificacion\": 4.9,\r\n    \"id\": {{viniloVender_id}},\r\n    \"nombre\": \"Jazz in the Jungle\",\r\n    \"precio\": 70000,\r\n    \"previewURI\": \"URI\",\r\n    \"productora\": \"Sony Music\",\r\n    \"usuario\": {\r\n        \"billingInformation\": {\r\n            \"cuentaAhorro\": \"654654654\",\r\n            \"id\": {{usuarioVendedor_billing_id}},\r\n            \"recieved\": 0,\r\n            \"spent\": 0\r\n        },\r\n        \"calificacion\": 0,\r\n        \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n        \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n        \"email\": \"vendedor@gmail.com\",\r\n        \"id\": {{usuarioVendedor_id}},\r\n        \"nombre\": \"El Que Vende el vinilo\",\r\n        \"rol\": \"Usuario\",\r\n        \"username\": \"elVendedor\"\r\n    },\r\n    \"canciones\": []\r\n}\r\n\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones"
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Retorna el JSON que es enviado."
+			},
+			"response": []
+		},
+		{
+			"name": "Post envio seguir con prueba",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96a0fb40-3b42-4075-863b-be96b9f71c71",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"postman.setGlobalVariable(\"envio_direccionEntrega\", data.direccionEntrega);",
+							"postman.setGlobalVariable(\"envio_direccionSalida\", data.direccionSalida);",
+							"postman.setGlobalVariable(\"envio_estado\", data.estado);",
+							"postman.setGlobalVariable(\"envio_id\", data.id);",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"direccionEntrega\":\"Calle 19 # 2a -10\",\r\n\t\"direccionSalida\":\"Carrera 13 # 51-43\",\r\n\t\"estado\":\"PENDIENTE\"\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"{{transaccion_id}}",
+						"envio"
+					],
+					"query": [
+						{
+							"key": "vinilosId",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Retorna el JSON que es enviado."
+			},
+			"response": []
+		},
+		{
+			"name": "Post comentario transacciion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d8816850-5d82-4e97-8944-2ac650bd3a49",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"postman.setGlobalVariable(\"comentario_contenido\", data.contenido);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\n\t\"contenido\" : \"hola mundo\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/comentarios/{{usuario_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"{{transaccion_id}}",
+						"comentarios",
+						"{{usuario_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post comentario transaccion 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d8816850-5d82-4e97-8944-2ac650bd3a49",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests [\"Retorna el Json que es enviado\"] = responseCode.code === 200;",
+							"postman.setGlobalVariable(\"comentario_contenido\", data.contenido);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cancionesId",
+						"value": "2",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\n\t\"contenido\" : \"hola mundo papi\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/comentarios/{{usuario_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"{{transaccion_id}}",
+						"comentarios",
+						"{{usuario_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "obtener comentarios de vinilo Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47c745ac-2d2b-4aef-810f-3c845e1027f5",
+						"exec": [
+							"var data=JSON.parse(responseBody);",
+							"tests['No genera error en el Get'] = responseCode.code===200;",
+							"tests[\"Get exitoso\"] = data.length === 2;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/comentarios/{{usuario_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"transacciones",
+						"{{transaccion_id}}",
+						"comentarios",
+						"{{usuario_id}}"
 					]
 				},
 				"description": "GET DE VINILOS"
