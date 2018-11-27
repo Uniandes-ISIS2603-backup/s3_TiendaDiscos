@@ -56,7 +56,7 @@ public class CarritoDeComprasLogic {
             throw new BusinessLogicException("El usuario ya tiene un carrito de compras");
         }
         entity.setUsuario(usuario);
-
+        entity.setTotalCostDeCarritoCompras(0.0);
         LOGGER.log(Level.INFO, "Termina el proceso de cración de Carrito de compras.");
 
         carritoComprasPersitence.create(entity);

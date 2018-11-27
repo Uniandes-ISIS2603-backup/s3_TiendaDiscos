@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.ViniloDTO;
 import co.edu.uniandes.csw.tiendadiscos.dtos.ViniloDetailDTO;
+import co.edu.uniandes.csw.tiendadiscos.ejb.UsuarioLogic;
 import co.edu.uniandes.csw.tiendadiscos.ejb.ViniloLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.*;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
@@ -33,6 +34,9 @@ public class ViniloResource {
 
     @Inject
     private ViniloLogic viniloLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    
+    @Inject
+    private UsuarioLogic usuarioLogic;
 
     @POST
     public ViniloDTO createVinilo(ViniloDTO vinilo) throws BusinessLogicException {
@@ -78,11 +82,11 @@ public class ViniloResource {
         if (viniloLogic.getVinilo(vinilosId) == null) {
             throw new WebApplicationException("El recurso /vinilos/" + vinilosId + " no existe.", 404);
         }
-    
-            ViniloDetailDTO detailDTO = new ViniloDetailDTO(viniloLogic.updateVinilo(vinilosId, vinilo.toEntity()));
-            LOGGER.log(Level.INFO, "ViniloResource updateVinilo: output: {0}", detailDTO);
-            return detailDTO;
- 
+
+        ViniloDetailDTO detailDTO = new ViniloDetailDTO(viniloLogic.updateVinilo(vinilosId, vinilo.toEntity()));
+        LOGGER.log(Level.INFO, "ViniloResource updateVinilo: output: {0}", detailDTO);
+        return detailDTO;
+
     }
 
     /**
@@ -126,6 +130,7 @@ public class ViniloResource {
 
     @Path("usuarios")
     public Class<ViniloUsuarioResource> getViniloUsuarioResource(@PathParam("usuariosId") Long usuariosId) {
+ 
         return ViniloUsuarioResource.class;
     }
 }

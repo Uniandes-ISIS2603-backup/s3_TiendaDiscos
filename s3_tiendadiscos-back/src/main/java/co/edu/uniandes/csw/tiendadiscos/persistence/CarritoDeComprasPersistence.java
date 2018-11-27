@@ -38,10 +38,21 @@ public class CarritoDeComprasPersistence {
        LOGGER.log(Level.INFO, "Saliendo de crear un carrito de compras nuevo");
        return carritoDeComprasEntity;
    } 
-   public CarritoDeComprasEntity find(Long carritoDeComprasId) {
-        LOGGER.log(Level.INFO, "Consultando CarritoDeCompras con id={0}", carritoDeComprasId);
-        return em.find(CarritoDeComprasEntity.class, carritoDeComprasId);
-
+   public CarritoDeComprasEntity find(Long usuarioId) {
+         LOGGER.log(Level.INFO, "Consultando el billing del usuario con id = " + usuarioId);
+        TypedQuery<CarritoDeComprasEntity> q = em.createQuery("select p from CarritoDeComprasEntity p where p.usuario.id = :usuarioId", CarritoDeComprasEntity.class);
+        q.setParameter("usuarioId", usuarioId);
+        List<CarritoDeComprasEntity> results = q.getResultList();
+        CarritoDeComprasEntity carrito = null;
+        if (results == null) {
+            carrito = null;
+        } else if (results.isEmpty()) {
+            carrito = null;
+        } else if (results.size() >= 1) {
+            carrito = results.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar el billing del usuario con id =" + usuarioId);
+        return carrito;
     }
 
     public CarritoDeComprasEntity update(CarritoDeComprasEntity carritoDeComprasEntity) {

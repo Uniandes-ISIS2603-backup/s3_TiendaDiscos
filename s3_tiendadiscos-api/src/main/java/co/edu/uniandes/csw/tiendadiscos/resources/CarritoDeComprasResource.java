@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.tiendadiscos.dtos.CarritoDeComprasDetailDTO;
 import co.edu.uniandes.csw.tiendadiscos.ejb.CarritoDeComprasLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.CarritoDeComprasEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -28,53 +29,54 @@ import javax.ws.rs.WebApplicationException;
  */
 @Consumes("application/json")
 @Produces("application/json")
-public class CarritoDeComprasResource 
-{
+public class CarritoDeComprasResource {
+
     private static final Logger LOGGER = Logger.getLogger(CarritoDeComprasResource.class.getName());
-    
-   @Inject
-   private CarritoDeComprasLogic logic;
-    
+
+    @Inject
+    private CarritoDeComprasLogic logic;
+
     @POST
-    public CarritoDeComprasDTO createCarritoDeCompras(@PathParam("usuariosId") Long usuariosId,CarritoDeComprasDTO carritoDeCompras)throws BusinessLogicException{
+    public CarritoDeComprasDTO createCarritoDeCompras(@PathParam("usuariosId") Long usuariosId, CarritoDeComprasDTO carritoDeCompras) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "CarritoDeComprasResource createCarritoDeCompras: input: {0}", carritoDeCompras.toString());
         CarritoDeComprasDTO nuevoCarritoDTO = new CarritoDeComprasDTO(logic.create(usuariosId, carritoDeCompras.toEntity()));
+        LOGGER.log(Level.INFO, "CarritoDeComprasResource createCarritoDeCompras: output: {0}", nuevoCarritoDTO.toString());
         return nuevoCarritoDTO;
     }
-    
-    
-    
-    @GET 
-    public CarritoDeComprasDetailDTO getCarritoDeCompras(@PathParam("usuariosId") Long usuariosId)throws BusinessLogicException{
+
+    @GET
+    public CarritoDeComprasDetailDTO getCarritoDeCompras(@PathParam("usuariosId") Long usuariosId) throws BusinessLogicException {
         CarritoDeComprasEntity entity = logic.get(usuariosId);
-        if(entity==null)
-            throw new WebApplicationException("El recurso /usuario/"+ usuariosId+ " no tiene Carrito de compras");
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /usuario/" + usuariosId + " no tiene Carrito de compras");
+        }
         CarritoDeComprasDetailDTO nuevo = new CarritoDeComprasDetailDTO(entity);
         return nuevo;
     }
-    
+
     @DELETE
     @Path("{usuariosId: \\d+}")
-    public void deleteCarritoDeCompras(@PathParam("usuariosId") Long usuariosId)throws BusinessLogicException
-    {
-        if(logic.get(usuariosId)== null)
+    public void deleteCarritoDeCompras(@PathParam("usuariosId") Long usuariosId) throws BusinessLogicException {
+        if (logic.get(usuariosId) == null) {
             throw new WebApplicationException("El recurso/usuario/" + usuariosId + " no tiene un carrito de compras.", 404);
+        }
         logic.delete(usuariosId);
     }
-    
+
     /**
-     * 
+     *
      * @param usuariosId
      * @param carritoDeCompras
-     * @return 
-     * @throws BusinessLogicException 
-    */
+     * @return
+     * @throws BusinessLogicException
+     */
     @PUT
-    @Path("{usuariosId: \\d+}")   
-    public CarritoDeComprasDTO putCarritoDeCompras(@PathParam("usuariosId") Long usuariosId, CarritoDeComprasDTO carritoDeCompras)throws BusinessLogicException
-    {
+    @Path("{usuariosId: \\d+}")
+    public CarritoDeComprasDTO putCarritoDeCompras(@PathParam("usuariosId") Long usuariosId, CarritoDeComprasDTO carritoDeCompras) throws BusinessLogicException {
         CarritoDeComprasEntity entity = logic.get(usuariosId);
-        if(entity==null)
-            throw new WebApplicationException("El recurso /usuario/"+ usuariosId+ " no tiene wishList");
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /usuario/" + usuariosId + " no tiene wishList");
+        }
         CarritoDeComprasDTO carritoDeComprasNuevo = new CarritoDeComprasDTO(logic.update(carritoDeCompras.toEntity(), usuariosId));
         return carritoDeComprasNuevo;
     }
