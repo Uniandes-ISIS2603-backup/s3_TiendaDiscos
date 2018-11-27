@@ -14,8 +14,6 @@ import co.edu.uniandes.csw.tiendadiscos.persistence.CarritoDeComprasPersistence;
 import co.edu.uniandes.csw.tiendadiscos.persistence.TransaccionPersistence;
 import co.edu.uniandes.csw.tiendadiscos.persistence.UsuarioPersistence;
 import co.edu.uniandes.csw.tiendadiscos.persistence.ViniloPersistence;
-import java.util.ArrayList;
-import java.util.List;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

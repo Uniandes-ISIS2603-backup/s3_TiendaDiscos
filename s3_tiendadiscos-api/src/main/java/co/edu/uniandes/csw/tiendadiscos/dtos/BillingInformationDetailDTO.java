@@ -61,11 +61,14 @@ public class BillingInformationDetailDTO extends BillingInformationDTO implement
     public BillingInformationDetailDTO(BillingInformationEntity billingInformationEntity) 
     {
         super(billingInformationEntity);
-        if (billingInformationEntity.getTarjetas() != null && billingInformationEntity.getTarjetas().isEmpty()) 
+        if(billingInformationEntity != null)
         {
-            tarjetas = new ArrayList<>();
-            for (MedioDePagoEntity tarjeta : billingInformationEntity.getTarjetas())
-                tarjetas.add(new MedioDePagoDTO(tarjeta));            
+            if (billingInformationEntity.getTarjetas() != null && billingInformationEntity.getTarjetas().isEmpty()) 
+            {
+                tarjetas = new ArrayList<>();
+                for (MedioDePagoEntity tarjeta : billingInformationEntity.getTarjetas())
+                    tarjetas.add(new MedioDePagoDTO(tarjeta));            
+            }
         }
     }
 

@@ -72,14 +72,4 @@ public class ComentarioUsuarioResource
              throw new WebApplicationException("El recurso /comentarios/"+ comentarioId + " no existe.", 404);
         return new ComentarioDTO(logic.updateComentario(usuariosId, nuevo));        
     }
-
-    @DELETE
-    @Path("{comentarioId: \\d+}")
-    public void deleteComentario(@PathParam("comentarioId") Long comentarioId) throws BusinessLogicException
-    {
-        ComentarioEntity nuevo = logic.getComentario(comentarioId);
-        if(nuevo == null)
-            throw new BusinessLogicException("No existe la asociación entre el usuario y el comentario");        
-        logic.deleteComentario(comentarioId);       
-    }
 }

@@ -56,10 +56,10 @@ public class CarritoDeComprasResource {
 
     @DELETE
     @Path("{usuariosId: \\d+}")
-    public void deleteCarritoDeCompras(@PathParam("usuariosId") Long usuariosId) throws BusinessLogicException {
-        if (logic.get(usuariosId) == null) {
+    public void deleteCarritoDeCompras(@PathParam("usuariosId") Long usuariosId) throws BusinessLogicException 
+    {
+        if (logic.get(usuariosId) == null) 
             throw new WebApplicationException("El recurso/usuario/" + usuariosId + " no tiene un carrito de compras.", 404);
-        }
         logic.delete(usuariosId);
     }
 
@@ -74,18 +74,17 @@ public class CarritoDeComprasResource {
     @Path("{usuariosId: \\d+}")
     public CarritoDeComprasDTO putCarritoDeCompras(@PathParam("usuariosId") Long usuariosId, CarritoDeComprasDTO carritoDeCompras) throws BusinessLogicException {
         CarritoDeComprasEntity entity = logic.get(usuariosId);
-        if (entity == null) {
+        if (entity == null)
             throw new WebApplicationException("El recurso /usuario/" + usuariosId + " no tiene wishList");
-        }
         CarritoDeComprasDTO carritoDeComprasNuevo = new CarritoDeComprasDTO(logic.update(carritoDeCompras.toEntity(), usuariosId));
         return carritoDeComprasNuevo;
     }
     
-     @Path("/vinilos")
-    public Class<CarritoDeComprasVinilosResource> getCarritoVinilosResource(@PathParam("usuariosId") Long usuariosId) {
-        if (logic.get(usuariosId)==null) {
+    @Path("/vinilos")
+    public Class<CarritoDeComprasVinilosResource> getCarritoVinilosResource(@PathParam("usuariosId") Long usuariosId) 
+    {
+        if (logic.get(usuariosId)==null) 
             throw new WebApplicationException("El recurso /usuarios/" + usuariosId + "/billing  no existe.", 404);
-        }
         return CarritoDeComprasVinilosResource.class;
     }
 

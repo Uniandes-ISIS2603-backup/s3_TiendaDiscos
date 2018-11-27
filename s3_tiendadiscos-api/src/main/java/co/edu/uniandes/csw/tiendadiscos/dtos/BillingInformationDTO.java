@@ -51,12 +51,12 @@ public class BillingInformationDTO  implements Serializable{
     /**
      * Dinero gastado
      */
-    private double spent;
+    private Double spent;
     
     /**
      * dinero recibido
      */
-    private double recieved ;
+    private Double recieved ;
     
     /**
      * Usuario asociado
@@ -77,7 +77,8 @@ public class BillingInformationDTO  implements Serializable{
      */
     public BillingInformationDTO (BillingInformationEntity billingInformationlEntity) 
     {
-        if (billingInformationlEntity != null) {
+        if (billingInformationlEntity != null) 
+        {
             this.id = billingInformationlEntity.getId();
             this.cuentaAhorro = billingInformationlEntity.getCuentaAhorro();
             this.recieved =billingInformationlEntity.getRecieved();

@@ -19,7 +19,9 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- *
+ * Clase que implementa la conexión con la persistencia para la entidad de
+ * Transaccion.
+ * 
  * @author Laura Isabella Forero Camacho
  */
 @Stateless
@@ -38,23 +40,20 @@ public class TransaccionLogic {
     @Inject
     private EnvioPersistence envioPersistence;
 
-    public TransaccionEntity create(TransaccionEntity entity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Entidad" + entity.getId());
+    public TransaccionEntity create(TransaccionEntity entity) throws BusinessLogicException 
+    {
+        LOGGER.log(Level.INFO, "Inicia el proceso de creación de la transacción.");
         if (entity.getEstado() == null || entity.getFormaDePago() == null
                 || entity.getUsuarioComprador() == null || entity.getUsuarioVendedor() == null
-                || entity.getVinilo() == null) {
+                || entity.getVinilo() == null) 
             throw new BusinessLogicException("No se aceptan valores nulos");
-        }
-        if (entity.getEstado().isEmpty() || entity.getFormaDePago().isEmpty()) {
+        if (entity.getEstado().isEmpty() || entity.getFormaDePago().isEmpty()) 
             throw new BusinessLogicException("El estado o forma de pago no puede ser nulo");
-        }
-        if (usuarioPersistence.find(entity.getUsuarioComprador().getId()) == null || usuarioPersistence.find(entity.getUsuarioVendedor().getId()) == null) {
+        if (usuarioPersistence.find(entity.getUsuarioComprador().getId()) == null || usuarioPersistence.find(entity.getUsuarioVendedor().getId()) == null) 
             throw new BusinessLogicException("Una transaccion es sobre usuarios existentes");
-        }
-        if (viniloPersistence.find(entity.getVinilo().getId()) == null) {
+        if (viniloPersistence.find(entity.getVinilo().getId()) == null) 
             throw new BusinessLogicException("El vinilo no existe");
-        }
-
+        
         return transaccionPersistence.create(entity);
     }
 

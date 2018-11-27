@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.tiendadiscos.resources;
 
 import co.edu.uniandes.csw.tiendadiscos.dtos.ComentarioDTO;
 import co.edu.uniandes.csw.tiendadiscos.ejb.ComentarioLogic;
+import co.edu.uniandes.csw.tiendadiscos.ejb.UsuarioLogic;
+import co.edu.uniandes.csw.tiendadiscos.ejb.ViniloLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.ComentarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
@@ -28,16 +30,27 @@ public class ComentarioViniloResource {
     @Inject
     private ComentarioLogic logic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
     
+    @Inject
+    private ViniloLogic viniloLogic;
+    
+    @Inject
+    private UsuarioLogic usuarioLogic;
     /**
      * 
+     * @param vinilosId
      * @param usuarioId
      * @param comentario
      * @return 
+     * @throws BusinessLogicException 
      */
     @POST
     @Path("{usuariosId: \\d+}")
     public ComentarioDTO createComentarioVinilo(@PathParam("vinilosId") Long vinilosId,ComentarioDTO comentario,@PathParam("usuariosId") Long usuarioId) throws BusinessLogicException 
     {       
+        if(viniloLogic.getVinilo(vinilosId) == null)
+            throw new WebApplicationException("Vinilo con id: " + vinilosId + " no existe", 404);
+        if(usuarioLogic.getUsuario(usuarioId) == null)
+            throw new WebApplicationException("Usuario con id: " + usuarioId + " no existe", 404);
         ComentarioDTO nuevo = new ComentarioDTO(logic.createComentarioVinilo(vinilosId, usuarioId, comentario.toEntity()));
         return nuevo;
     }
@@ -46,9 +59,8 @@ public class ComentarioViniloResource {
     @GET
     public List<ComentarioDTO> getComentarios(@PathParam("vinilosId") Long vinilosId)
     {
-        List<ComentarioDTO> resp = new ArrayList<ComentarioDTO>();
-        List<ComentarioEntity> temp = new ArrayList<ComentarioEntity>();
-        temp = logic.getComentariosToVinilo(vinilosId);
+        List<ComentarioDTO> resp = new ArrayList<>();
+        List<ComentarioEntity> temp = logic.getComentariosToVinilo(vinilosId);
         for(ComentarioEntity com : temp)
             resp.add(new ComentarioDTO(com));        
         return resp;

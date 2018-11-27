@@ -43,6 +43,10 @@ public class ComentarioTransaccionResource
     @Path("{usuariosId: \\d+}")
     public ComentarioDTO createComentarioTransaccion(@PathParam("transaccionesId") Long transaccionId,@PathParam("usuariosId") Long usuariosId, ComentarioDTO comentario) throws BusinessLogicException 
     {
+        if(transaccionLogic.get(transaccionId) == null)
+            throw new WebApplicationException("El recurso /transacciones/"+transaccionId+" no existe", 404);
+        if(usuarioLogic.getUsuario(usuariosId)== null)
+            throw new WebApplicationException("El recurso /usuario/" + usuariosId + " no existe.", 404);
         LOGGER.log(Level.INFO, "ComentarioTransaccionResource createComentarioTransaccion: input: transaccionId {0} , usuariosId {1}, comentario {2}", new Object[]{transaccionId, usuariosId, comentario});
         ComentarioDTO nuevo = new ComentarioDTO(logic.createComentarioTransaccion(transaccionId, usuariosId, comentario.toEntity()));
         LOGGER.log(Level.INFO , "ComentarioTransaccionResource createComentarioTransaccion: output: comentario {0}", nuevo);
@@ -58,16 +62,5 @@ public class ComentarioTransaccionResource
         for(ComentarioEntity com : temp)
             resp.add(new ComentarioDTO(com));        
         return resp;
-    }
-    
-
-    @DELETE
-    @Path("{comentarioId: \\d+}")
-    public void deleteComentario(@PathParam("comentarioId") Long comentarioId) throws BusinessLogicException
-    {
-        ComentarioEntity nuevo = logic.getComentario(comentarioId);
-        if(nuevo == null)
-            throw new BusinessLogicException("No existe el comentario");
-        logic.deleteComentario(comentarioId);
     }
 }
