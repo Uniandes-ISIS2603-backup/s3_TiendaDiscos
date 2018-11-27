@@ -6,6 +6,140 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
+ * TransaccionDTO Objeto de transferencia de datos de Transacciones. Los DTO contienen las
+ * representaciones de los JSON que se transfieren entre el cliente y el
+ * servidor.
+ *
+ * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
+ * <pre>
+ *  {
+ *      "estado": String,
+ *      "formaDePago":String   
+ *      "id": number,
+ *      "usuarioComprador": {@link UsuarioDTO},
+ *      "usuarioVendedor": {@link UsuarioDTO},     
+ *      "vinilo" : {@link ViniloDTO},
+ *      "estado" : String,
+ *      "envio": {@link EnvioDTO},
+ *      "carrito" : {@link CarritoDeComprasDTO}
+ *  }
+ * </pre> Por ejemplo un autor se representa asi:<br>
+ *
+ * <pre>
+ *  {
+ *      "estado" : "peticion",
+ *      "formaDePago" : "tarjeta-credito",
+ *      "id": 1,
+ *      "usuarioComprador": 
+ *           {
+ *              "type": "usuarioDetailDTO",
+ *              "billingInformation": 
+ *                  {
+ *                      "cuentaAhorro": "987654321",
+ *                      "id":{{usuarioComprador_billing_id}},
+ *                      "recieved": 0,
+ *                      "spent": 0
+ *                  },
+ *              "calificacion": 0,
+ *              "contrasenha": "ContraseÃ±aDificilXD",
+ *              "direccion": "cll 12 #25 105 este BogotÃ¡",
+ *              "email": "comprador@gmail.com",
+ *              "id": {{usuarioComprador_id}},
+ *              "nombre": "El Que Compra el vinilo",
+ *              "rol": "Usuario",
+ *              "username": "elComprador",
+ *              "comentarios": [],
+ *              "transaccionesGeneradas": [],
+ *              "transaccionesRecibidas": [],
+ *              "vinilos": []
+ *           },
+ *      "usuarioVendedor":
+ *           {
+ *              "type": "usuarioDetailDTO",
+ *              "billingInformation": 
+ *                  {
+ *                      "cuentaAhorro": "654654654",
+ *                      "id": {{usuarioVendedor_billing_id}},
+ *                      "recieved": 0,
+ *                      "spent": 0
+ *                  },
+ *              "calificacion": 0,
+ *              "contrasenha": "ContraseÃ±aDificilXD",
+ *              "direccion": "cll 32 #85 5 este BogotÃ¡",
+ *              "email": "vendedor@gmail.com",
+ *              "id": {{usuarioVendedor_id}},
+ *              "nombre": "El Que Vende el vinilo",
+ *              "rol": "Usuario",
+ *              "username": "elVendedor",
+ *              "comentarios": [],
+ *              "transaccionesGeneradas": [],
+ *              "transaccionesRecibidas": [],
+ *              "vinilos": [
+ *                  {
+ *                      "fechaLanzamiento": "2002-11-15",
+ *                      "artista": "El Rey Leon",
+ *                      "calificacion": 4.9,
+ *                      "id": {{viniloVender_id}},
+ *                      "informacionAdicional": "Fue grabado en la selva",
+ *                      "nombre": "Jazz in the Jungle",
+ *                      "precio": 70000,
+ *                      "previewURI": "URI",
+ *                      "productora": "Sony Music",
+ *                      "usuario": 
+ *                          {
+ *                              "billingInformation": 
+ *                      {      
+ *                          "cuentaAhorro": "654654654",
+ *                          "id":  {{usuarioVendedor_billing_id}},
+ *                          "recieved": 0,
+ *                          "spent": 0
+ *                      },
+ *                      "calificacion": 0,
+ *                      "contrasenha": "ContraseÃ±aDificilXD",
+ *                      "direccion": "cll 32 #85 5 este BogotÃ¡",
+ *                      "email": "vendedor@gmail.com",
+ *                      "id": {{usuarioVendedor_id}},
+ *                      "nombre": "El Que Vende el vinilo",
+ *                      "rol": "Usuario",
+ *                      "username": "elVendedor"
+ *                  }
+ *                  } ]
+ *           },
+ *      "vinilo":
+ *          {
+ *              "type": "viniloDetailDTO",
+ *              "fechaLanzamiento": "2002-11-15",
+ *              "artista": "El Rey Leon",
+ *              "calificacion": 4.9,
+ *              "id": {{viniloVender_id}},
+ *              "nombre": "Jazz in the Jungle",
+ *              "precio": 70000,
+ *              "previewURI": "URI",
+ *              "productora": "Sony Music",
+ *              "usuario": 
+ *                  {
+ *                      "billingInformation": 
+ *                      {
+ *                          "cuentaAhorro": "654654654",
+ *                          "id": {{usuarioVendedor_billing_id}},
+ *                          "recieved": 0,
+ *                          "spent": 0
+ *                      },
+ *                      "calificacion": 0,
+ *                      "contrasenha": "ContraseÃ±aDificilXD",
+ *                      "direccion": "cll 32 #85 5 este BogotÃ¡",
+ *                      "email": "vendedor@gmail.com",
+ *                      "id": {{usuarioVendedor_id}},
+ *                      "nombre": "El Que Vende el vinilo",
+ *                      "rol": "Usuario",
+ *                      "username": "elVendedor"
+ *                  },
+ *              "canciones": []
+ *          }
+ *      "estado":"pagada",
+ *      
+ *  }
+ * </pre>
  * 
  * @author Laura Isabella Forero Camacho
  */
@@ -42,24 +176,79 @@ public class TransaccionDTO implements Serializable {
     private ViniloDTO vinilo;
 
     /**
-     * Envio asociado a la transaccion
+     * Envio asociado a la transaccion.
      */
     private EnvioDTO envio;
 
+    /**
+     * Carrito asociado a la transacción.
+     */
     private CarritoDeComprasDTO carrito;
 
     /**
      * Constructor vacio de TransaccionDTO.
      */
-    public TransaccionDTO() {
-    }
-
+    public TransaccionDTO() 
+    {}
+    
     /**
-     * Modifica el valor del atributo vendedorID.
+     * Crea un objeto TransaccionDTO a partir de un objeto TransaccionEntity.
+     * 
+     * @param transaccion Entidad TransaccionEntity desde el cual se va a crear el
+     * nuevo objeto.
+     */
+    public TransaccionDTO(TransaccionEntity transaccion) 
+    {
+        if (transaccion != null) 
+        {
+            this.id = transaccion.getId();
+            this.estado = transaccion.getEstado();
+            this.formaDePago = transaccion.getFormaDePago();
+            if (transaccion.getUsuarioComprador() != null)
+                this.usuarioComprador = new UsuarioDTO(transaccion.getUsuarioComprador());
+            if (transaccion.getUsuarioVendedor() != null) 
+                this.usuarioVendedor = new UsuarioDTO(transaccion.getUsuarioVendedor());
+            if (transaccion.getVinilo() != null)
+                this.vinilo = new ViniloDTO(transaccion.getVinilo());
+            if (transaccion.getEnvio() != null)
+                this.envio = new EnvioDTO(transaccion.getEnvio());
+            if (transaccion.getCarritoDeCompras() != null) 
+                this.carrito = new CarritoDeComprasDTO(transaccion.getCarritoDeCompras());                
+        }
+    }
+    
+    /**
+     * Convierte un objeto TransaccionDTO a TransaccionEntity
+     * @return Nuevo objeto TransaccionEntity.
+     */
+    public TransaccionEntity toEntity() 
+    {
+        TransaccionEntity transaccion = new TransaccionEntity();
+        transaccion.setId(this.id);
+        transaccion.setEstado(this.estado);
+        transaccion.setFormaDePago(this.formaDePago);
+
+        if (this.usuarioComprador != null) 
+            transaccion.setUsuarioComprador(this.usuarioComprador.toEntity());
+        if (this.usuarioVendedor != null)
+            transaccion.setUsuarioVendedor(this.usuarioVendedor.toEntity());
+        if (this.vinilo != null)
+            transaccion.setVinilo(this.vinilo.toEntity());
+        if (this.envio != null) 
+            transaccion.setEnvio(getEnvio().toEntity());
+        if (this.carrito != null) 
+            transaccion.setCarritoDeCompras(getCarrito().toEntity());
+                
+        return transaccion;
+    }
+    
+    /**
+     * Modifica el valor del atributo vendedor.
      *
      * @param vendedor nuevo valor del atributo.
      */
-    public void setUsuarioVendedor(UsuarioDTO vendedor) {
+    public void setUsuarioVendedor(UsuarioDTO vendedor) 
+    {
         this.usuarioVendedor = vendedor;
     }
 
@@ -68,7 +257,8 @@ public class TransaccionDTO implements Serializable {
      *
      * @param comprador nuevo valor del atributo.
      */
-    public void setUsuarioComprador(UsuarioDTO comprador) {
+    public void setUsuarioComprador(UsuarioDTO comprador) 
+    {
         this.usuarioComprador = comprador;
     }
 
@@ -77,7 +267,8 @@ public class TransaccionDTO implements Serializable {
      *
      * @param formaDePago nuevo valor del atributo.
      */
-    public void setFormaDePago(String formaDePago) {
+    public void setFormaDePago(String formaDePago) 
+    {
         this.formaDePago = formaDePago;
     }
 
@@ -86,7 +277,8 @@ public class TransaccionDTO implements Serializable {
      *
      * @param estado nuevo valor del atributo.
      */
-    public void setEstado(String estado) {
+    public void setEstado(String estado) 
+    {
         this.estado = estado;
     }
 
@@ -95,43 +287,48 @@ public class TransaccionDTO implements Serializable {
      *
      * @param vinilo nuevo valor del atributo.
      */
-    public void setVinilo(ViniloDTO vinilo) {
+    public void setVinilo(ViniloDTO vinilo) 
+    {
         this.vinilo = vinilo;
     }
 
     /**
-     * Obtiene le atributo nombre.
+     * Obtiene el atributo usuario vendedor.
      *
-     * @return atributo nombre.
+     * @return atributo usuarioVendedor.
      */
-    public UsuarioDTO getUsuarioVendedor() {
+    public UsuarioDTO getUsuarioVendedor() 
+    {
         return usuarioVendedor;
     }
 
     /**
-     * Retorna la duración de la cación.
+     * Retorna el usuario comprador
      *
-     * @return atributo duración.
+     * @return atributo usuarioComprador.
      */
-    public UsuarioDTO getUsuarioComprador() {
+    public UsuarioDTO getUsuarioComprador() 
+    {
         return usuarioComprador;
     }
 
     /**
-     * Obtiene el atributo preview URI.
+     * Obtiene el atributo estado.
      *
-     * @return previewURI
+     * @return atributo estado.
      */
-    public String getEstado() {
+    public String getEstado() 
+    {
         return estado;
     }
 
     /**
-     * Obtiene la descripcion.
+     * Obtiene la forma de pago.
      *
-     * @return atributo descripcion.
+     * @return atributo formaDePago.
      */
-    public String getFormaDePago() {
+    public String getFormaDePago() 
+    {
         return formaDePago;
     }
 
@@ -140,7 +337,8 @@ public class TransaccionDTO implements Serializable {
      *
      * @return atributo id.
      */
-    public Long getId() {
+    public Long getId() 
+    {
         return id;
     }
 
@@ -149,7 +347,8 @@ public class TransaccionDTO implements Serializable {
      *
      * @return atributo vinilo.
      */
-    public ViniloDTO getVinilo() {
+    public ViniloDTO getVinilo() 
+    {
         return vinilo;
     }
 
@@ -159,88 +358,51 @@ public class TransaccionDTO implements Serializable {
      * @param id nuevo valor del atributo
      *
      */
-    public void setId(Long id) {
+    public void setId(Long id) 
+    {
         this.id = id;
 
     }
 
-    public EnvioDTO getEnvio() {
+    /**
+     * Obtiene el atributo envio.
+     * @return atributo envio.
+     */
+    public EnvioDTO getEnvio() 
+    {
         return envio;
     }
 
-    public void setEnvio(EnvioDTO envio) {
+    /**
+     * Establece el valor del envio.
+     * @param envio nuevo valor del atributo.
+     */
+    public void setEnvio(EnvioDTO envio) 
+    {
         this.envio = envio;
     }
 
-    public CarritoDeComprasDTO getCarrito() {
+    /**
+     * Obtiene el atributo carritoDeCompras.
+     * @return atributo carrito.
+     */
+    public CarritoDeComprasDTO getCarrito() 
+    {
         return carrito;
     }
 
-    public void setCarrito(CarritoDeComprasDTO carrito) {
+    /**
+     * Establece el valor del carrito de compras.
+     * @param carrito nuevo valor del atributo.
+     */
+    public void setCarrito(CarritoDeComprasDTO carrito) 
+    {
         this.carrito = carrito;
     }
 
-    public TransaccionEntity toEntity() {
-        TransaccionEntity transaccion = new TransaccionEntity();
-        transaccion.setId(this.id);
-        transaccion.setEstado(this.estado);
-        transaccion.setFormaDePago(this.formaDePago);
-
-        if (this.usuarioComprador != null) {
-            transaccion.setUsuarioComprador(this.usuarioComprador.toEntity());
-        }
-        if (this.usuarioVendedor != null) {
-            transaccion.setUsuarioVendedor(this.usuarioVendedor.toEntity());
-        }
-
-        if (this.vinilo != null) {
-            transaccion.setVinilo(this.vinilo.toEntity());
-        }
-        if (this.envio != null) {
-            transaccion.setEnvio(getEnvio().toEntity());
-        }
-
-        if (this.carrito != null) {
-            transaccion.setCarritoDeCompras(getCarrito().toEntity());
-        }
-        return transaccion;
-    }
-
-    public TransaccionDTO(TransaccionEntity transaccion) {
-        if (transaccion != null) {
-            this.id = transaccion.getId();
-            this.estado = transaccion.getEstado();
-            this.formaDePago = transaccion.getFormaDePago();
-            if (transaccion.getUsuarioComprador() != null) {
-                this.usuarioComprador = new UsuarioDTO(transaccion.getUsuarioComprador());
-            } else {
-                this.usuarioComprador = null;
-            }
-            if (transaccion.getUsuarioVendedor() != null) {
-                this.usuarioVendedor = new UsuarioDTO(transaccion.getUsuarioVendedor());
-            } else {
-                this.usuarioVendedor = null;
-            }
-            if (transaccion.getVinilo() != null) {
-                this.vinilo = new ViniloDTO(transaccion.getVinilo());
-            } else {
-                this.vinilo = null;
-            }
-            if (transaccion.getEnvio() != null) {
-                this.envio = new EnvioDTO(transaccion.getEnvio());
-            } else {
-                this.envio = null;
-            }
-
-            if (transaccion.getCarritoDeCompras() != null) {
-                this.carrito = new CarritoDeComprasDTO(transaccion.getCarritoDeCompras());
-                
-            }
-        }
-    }
-
     @Override
-    public String toString() {
+    public String toString()
+    {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }
