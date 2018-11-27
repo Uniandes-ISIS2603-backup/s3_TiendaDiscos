@@ -155,8 +155,7 @@ public class CarritoDeComprasDetailDTO extends CarritoDeComprasDTO implements Se
     //Relación de cero a muchos vinilos.
     private List<ViniloDTO> vinilos;
 
-    //Relación de cero a muchas transacciones.
-    private List<TransaccionDTO> transacciones;
+    
     
     /**
      * Constructor vacio.
@@ -182,12 +181,7 @@ public class CarritoDeComprasDetailDTO extends CarritoDeComprasDTO implements Se
                 for(ViniloEntity viniloEntity : carritoDeComprasEntity.getVinilosDeCarritoCompras())
                     vinilos.add(new ViniloDTO(viniloEntity));
             }
-            if(carritoDeComprasEntity.getTransaccionesDeCarritoCompras() != null)
-            {
-                transacciones = new ArrayList<>();
-                for(TransaccionEntity transaccionEntity : carritoDeComprasEntity.getTransaccionesDeCarritoCompras())
-                    transacciones.add(new TransaccionDTO(transaccionEntity));
-            }
+           
         }
     }
 
@@ -209,13 +203,7 @@ public class CarritoDeComprasDetailDTO extends CarritoDeComprasDTO implements Se
                 vinilosEntity.add(vinilo.toEntity());
             entity.setVinilosDeCarritoCompras(vinilosEntity);
         }
-        if(transacciones != null)
-        {
-            List<TransaccionEntity> transaccionesEntity = new ArrayList<>();
-            for(TransaccionDTO transaccion: transacciones)
-                transaccionesEntity.add(transaccion.toEntity());
-            entity.setTransaccionesDeCarritoCompras(transaccionesEntity);
-        }
+       
         return entity;
     }
     
@@ -228,14 +216,7 @@ public class CarritoDeComprasDetailDTO extends CarritoDeComprasDTO implements Se
         return vinilos;
     }
     
-    /**
-     * Obtiene la lista de transacciones del carrito de compras.
-     * @return Las transacciones.
-     */
-    public List<TransaccionDTO> getTransacciones() 
-    {
-        return transacciones;
-    }
+
     
     /**
      * Modifica la lista de vinilos del carrito de compras.
@@ -246,14 +227,7 @@ public class CarritoDeComprasDetailDTO extends CarritoDeComprasDTO implements Se
         this.vinilos = vinilos;
     }
 
-    /**
-     * Modifica la lista de transacciones del carrito de compras.
-     * @param transacciones transacciones to set.
-     */
-    public void setTransacciones(List<TransaccionDTO> transacciones) 
-    {
-        this.transacciones = transacciones;
-    }
+  
     
     @Override
     public String toString() 

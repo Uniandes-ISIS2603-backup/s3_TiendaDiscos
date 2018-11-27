@@ -61,10 +61,7 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
     private String estado;
     
     
-    @PodamExclude
-    @ManyToOne
-    private CarritoDeComprasEntity carritoDeCompras;
-   
+    
 
 
     public EnvioEntity getEnvio() {
@@ -155,13 +152,6 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
         return comentario;
     }
 
-    public CarritoDeComprasEntity getCarritoDeCompras() {
-        return carritoDeCompras;
-    }
-
-    public void setCarritoDeCompras(CarritoDeComprasEntity carritoDeCompras) {
-        this.carritoDeCompras = carritoDeCompras;
-    }
 
     
     

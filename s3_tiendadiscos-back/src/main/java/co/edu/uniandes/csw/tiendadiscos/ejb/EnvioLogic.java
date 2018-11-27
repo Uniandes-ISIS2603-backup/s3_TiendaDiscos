@@ -42,11 +42,13 @@ public class EnvioLogic {
      */
     public EnvioEntity create(EnvioEntity envioEntity, long transaccionId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del envio");
-        if (envioEntity.getDireccionEntrega() == null || envioEntity.getDireccionSalida() == null || envioEntity.getEstado() == null) {
+        if (envioEntity.getDireccionEntrega() == null || envioEntity.getDireccionSalida() == null
+                || envioEntity.getEstado() == null || envioEntity.getPosicionActual() == null) {
             throw new BusinessLogicException("No se aceptan valores nulos");
         }
 
-        if (envioEntity.getDireccionEntrega().isEmpty() || envioEntity.getDireccionSalida().isEmpty() || envioEntity.getEstado().isEmpty()) {
+        if (envioEntity.getDireccionEntrega().isEmpty() || envioEntity.getDireccionSalida().isEmpty()
+                || envioEntity.getEstado().isEmpty() || envioEntity.getPosicionActual().isEmpty()) {
             throw new BusinessLogicException("No se aceptan valores vacios");
         }
         TransaccionEntity transaccion = transaccionPersistence.find(transaccionId);
@@ -93,11 +95,13 @@ public class EnvioLogic {
     public EnvioEntity updateEnvio(Long transaccionId, EnvioEntity envioEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el envio asociado a la transaccion con id = {0}", transaccionId);
 
-        if (envioEntity.getDireccionEntrega() == null || envioEntity.getDireccionSalida() == null || envioEntity.getEstado() == null) {
+        if (envioEntity.getDireccionEntrega() == null || envioEntity.getDireccionSalida() == null
+                || envioEntity.getEstado() == null || envioEntity.getPosicionActual() == null) {
             throw new BusinessLogicException("No se aceptan valores nulos");
         }
 
-        if (envioEntity.getDireccionEntrega().isEmpty() || envioEntity.getDireccionSalida().isEmpty() || envioEntity.getEstado().isEmpty()) {
+        if (envioEntity.getDireccionEntrega().isEmpty() || envioEntity.getDireccionSalida().isEmpty()
+                || envioEntity.getEstado().isEmpty() || envioEntity.getPosicionActual().isEmpty()) {
             throw new BusinessLogicException("No se aceptan valores vacios");
         }
         TransaccionEntity transaccion = transaccionPersistence.find(transaccionId);

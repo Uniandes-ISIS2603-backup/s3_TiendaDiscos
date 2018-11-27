@@ -46,7 +46,7 @@ public class TransaccionDTO implements Serializable {
      */
     private EnvioDTO envio;
 
-    private CarritoDeComprasDTO carrito;
+   
 
     /**
      * Constructor vacio de TransaccionDTO.
@@ -172,13 +172,7 @@ public class TransaccionDTO implements Serializable {
         this.envio = envio;
     }
 
-    public CarritoDeComprasDTO getCarrito() {
-        return carrito;
-    }
-
-    public void setCarrito(CarritoDeComprasDTO carrito) {
-        this.carrito = carrito;
-    }
+   
 
     public TransaccionEntity toEntity() {
         TransaccionEntity transaccion = new TransaccionEntity();
@@ -200,9 +194,7 @@ public class TransaccionDTO implements Serializable {
             transaccion.setEnvio(getEnvio().toEntity());
         }
 
-        if (this.carrito != null) {
-            transaccion.setCarritoDeCompras(getCarrito().toEntity());
-        }
+       
         return transaccion;
     }
 
@@ -232,10 +224,7 @@ public class TransaccionDTO implements Serializable {
                 this.envio = null;
             }
 
-            if (transaccion.getCarritoDeCompras() != null) {
-                this.carrito = new CarritoDeComprasDTO(transaccion.getCarritoDeCompras());
-                
-            }
+            
         }
     }
 

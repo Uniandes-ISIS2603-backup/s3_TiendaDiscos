@@ -65,6 +65,9 @@ public class ViniloEntity extends BaseEntity implements Serializable
      */
     private Double precio;
     
+    
+    private String categoria ;
+    
     @PodamExclude
     @OneToMany(mappedBy = "vinilo", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CancionEntity> canciones = new ArrayList<CancionEntity>();
@@ -328,4 +331,14 @@ public class ViniloEntity extends BaseEntity implements Serializable
     {
         return usuario;
     }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+    
+    
 }

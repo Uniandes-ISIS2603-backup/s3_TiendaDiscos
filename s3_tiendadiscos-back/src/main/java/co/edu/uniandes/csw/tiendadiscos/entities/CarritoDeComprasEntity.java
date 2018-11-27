@@ -29,9 +29,7 @@ public class CarritoDeComprasEntity extends BaseEntity implements Serializable
     @ManyToMany(mappedBy = "carritosDeCompras")
     private List<ViniloEntity> vinilos;
     
-    @PodamExclude
-    @OneToMany(mappedBy = "carritoDeCompras", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<TransaccionEntity> transacciones;
+   
     
     @PodamExclude
     @OneToOne
@@ -73,12 +71,5 @@ public class CarritoDeComprasEntity extends BaseEntity implements Serializable
         return vinilos;
     }
     
-    public void setTransaccionesDeCarritoCompras(List<TransaccionEntity> transacciones) 
-    {
-        this.transacciones = transacciones;
-    }
-    public List<TransaccionEntity>  getTransaccionesDeCarritoCompras() 
-    {
-        return transacciones;
-    }   
+ 
 }

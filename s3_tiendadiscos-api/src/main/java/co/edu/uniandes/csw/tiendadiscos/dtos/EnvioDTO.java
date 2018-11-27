@@ -37,51 +37,50 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Camilo Andres Salinas Martinez
  */
 public class EnvioDTO implements Serializable {
-        
-   public enum estado
-   {
-       PENDIENTE,
-       PROGRESO,
-       RECIBIDO
-   }
-   
-   private Long id;
-   
-   private String direccionSalida; 
-   
-   private String direccionEntrega; 
-   
-   private String estado; 
-   
-   /**
-    * Constructor por defecto.
-    */
-   public EnvioDTO()
-   { }
-   
-   public EnvioDTO(EnvioEntity envioEntity)
-   {
-       if(envioEntity != null)
-       {
-           this.id = envioEntity.getId();
-           this.direccionSalida = envioEntity.getDireccionSalida();
-           this.direccionEntrega = envioEntity.getDireccionEntrega();
-           this.estado = envioEntity.getEstado();
-       }
-   }
-   
-   public EnvioEntity toEntity()
-   {
-       EnvioEntity newEntity = new EnvioEntity();
-       
-       newEntity.setId(this.id);
-       newEntity.setDireccionSalida(direccionSalida);
-       newEntity.setDireccionEntrega(direccionEntrega);
-       newEntity.setEstado(estado);
-       
-       return newEntity;
-   }
-   
+
+    public enum estado {
+        PENDIENTE,
+        PROGRESO,
+        RECIBIDO
+    }
+
+    private Long id;
+
+    private String direccionSalida;
+
+    private String direccionEntrega;
+
+    private String estado;
+
+    private String posicionActual;
+
+    /**
+     * Constructor por defecto.
+     */
+    public EnvioDTO() {
+    }
+
+    public EnvioDTO(EnvioEntity envioEntity) {
+        if (envioEntity != null) {
+            this.id = envioEntity.getId();
+            this.direccionSalida = envioEntity.getDireccionSalida();
+            this.direccionEntrega = envioEntity.getDireccionEntrega();
+            this.estado = envioEntity.getEstado();
+            this.posicionActual= envioEntity.getPosicionActual();
+        }
+    }
+
+    public EnvioEntity toEntity() {
+        EnvioEntity newEntity = new EnvioEntity();
+
+        newEntity.setId(this.id);
+        newEntity.setDireccionSalida(direccionSalida);
+        newEntity.setDireccionEntrega(direccionEntrega);
+        newEntity.setEstado(estado);
+        newEntity.setPosicionActual(posicionActual);
+        return newEntity;
+    }
+
     /**
      * Devuelve el ID de la editorial.
      *
@@ -90,6 +89,7 @@ public class EnvioDTO implements Serializable {
     public Long getId() {
         return id;
     }
+
     /**
      * Modifica el ID de la editorial.
      *
@@ -98,7 +98,8 @@ public class EnvioDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-     /**
+
+    /**
      * Devuelve la direccion de entrega del envio.
      *
      * @return the direccionEntrega
@@ -110,6 +111,7 @@ public class EnvioDTO implements Serializable {
     public void setDireccionEntrega(String direccionEntrega) {
         this.direccionEntrega = direccionEntrega;
     }
+
     public String getDireccionSalida() {
         return direccionSalida;
     }
@@ -117,6 +119,7 @@ public class EnvioDTO implements Serializable {
     public void setDireccionSalida(String direccionSalida) {
         this.direccionSalida = direccionSalida;
     }
+
     public String getEstado() {
         return estado;
     }
@@ -124,9 +127,19 @@ public class EnvioDTO implements Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public String getPosicionActual() {
+        return posicionActual;
+    }
+
+    public void setPosicionActual(String posicionActual) {
+        this.posicionActual = posicionActual;
+    }
     
+    
+
     @Override
-    public String toString(){
+    public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }   
+    }
 }
