@@ -9,7 +9,24 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
+ * ViniloDTO Objeto de transferencia de datos de Autores. Los DTO contienen las
+ * representaciones de los JSON que se transfieren entre el cliente y el
+ * servidor.
  *
+ * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
+ * <pre>
+ *  {
+ *      "id":number,
+ *      "nombre":String,
+ *      "artista":String,
+ *      "fechaLanzamiento":Date,
+ *      "productora":String,
+ *      "informacionAdicional":String,
+ *      "previewURI":String,
+ *      "calificacion":number,
+ *      "precio":number,
+ *      "
+ *  }
  * @author Andrés Felipe Hernández León
  */
 public class ViniloDTO implements Serializable {

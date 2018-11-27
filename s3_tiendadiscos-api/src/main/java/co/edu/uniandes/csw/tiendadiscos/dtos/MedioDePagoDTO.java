@@ -14,7 +14,23 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
+ * MedioDePagoDTO Objeto de transferencia de datos de Medio de pago. Los DTO contienen las
+ * representaciones de los JSON que se transfieren entre el cliente y el
+ * servidor.
  *
+ * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
+ * <pre>
+ *  {
+ *      "id":number,
+ *      "numero":number,
+ *      "numeroVerificacion":number,
+ *      "fechaVencimiento":Date,
+ *      "name":String,
+ *      "cvc":String,
+ *      "imagen":String
+ *  }
+ * </pre>
+ * 
  * @author Kevin Blanco
  */
 public class MedioDePagoDTO implements Serializable {
@@ -25,46 +41,53 @@ public class MedioDePagoDTO implements Serializable {
     private Long id;
 
     /**
-     * numero de la tarjeta
+     * Numero de la tarjeta.
      */
     private Integer numero;
 
     /**
-     * numero de la tarjeta de cred verificacion
+     * Numero de la tarjeta de cred verificacion.
      */
     private Integer numeroVerificacion;
 
     /**
-     * fecha de vencimiento de la tarjeta de cred
+     * Fecha de vencimiento de la tarjeta de cred.
      */
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date fechaVencimiento;
 
     /**
-     * nombre del propietario de la tarjeta
+     * Nombre del propietario de la tarjeta.
      */
     private String name;
 
     /**
-     * Codigo CVC de la tarjeta
+     * Codigo CVC de la tarjeta.
      */
     private String cvc;
 
+    /**
+     * Imagen asociada al medio de pago.
+     */
     private String imagen;
 
     /**
      * Constructor vacio
      */
-    public MedioDePagoDTO() {
-    }
+    public MedioDePagoDTO() 
+    {}
 
     /**
-     * Construye un tarjeta de credito apartir de la entity
+     * Crea un objeto MedioDePagoDTO a partir de un objeto MedioDePagoEntity
      *
-     * @param tarjetaCreditoEntity DTO a completar
+     * @param tarjetaCreditoEntity Entidad MedioDePagoEntity desde la cual se va a crear el 
+     * nuevo objeto.
+     * 
      */
-    public MedioDePagoDTO(MedioDePagoEntity tarjetaCreditoEntity) {
-        if (tarjetaCreditoEntity != null) {
+    public MedioDePagoDTO(MedioDePagoEntity tarjetaCreditoEntity) 
+    {
+        if (tarjetaCreditoEntity != null) 
+        {
             this.id = tarjetaCreditoEntity.getId();
             this.fechaVencimiento = tarjetaCreditoEntity.getFechaVencimiento();
             this.cvc = tarjetaCreditoEntity.getCvc();
@@ -72,124 +95,144 @@ public class MedioDePagoDTO implements Serializable {
             this.name = tarjetaCreditoEntity.getName();
             this.numero = tarjetaCreditoEntity.getNumero();
             this.numeroVerificacion = tarjetaCreditoEntity.getNumeroVerificacion();
-            //TERMINAR
-
         }
     }
 
     /**
-     * retorna id
+     * Retorna id.
      *
      * @return id
      */
-    public Long getId() {
+    public Long getId() 
+    {
         return id;
     }
 
     /**
-     * modifica id
+     * Modifica id.
      *
      * @param id id de la tarjeta
      */
-    public void setId(Long id) {
+    public void setId(Long id) 
+    {
         this.id = id;
     }
 
     /**
-     * retorna numero de la tarjeta
+     * Retorna numero de la tarjeta
      *
      * @return numero de la tarjeta
      */
-    public Integer getNumero() {
+    public Integer getNumero() 
+    {
         return numero;
     }
 
     /**
-     * modifica numero de la tarjeta
+     * Modifica numero de la tarjeta
      *
      * @param numero numero nuevo de la tarjeta
      */
-    public void setNumero(Integer numero) {
+    public void setNumero(Integer numero) 
+    {
         this.numero = numero;
     }
 
     /**
-     * retorna numero de verificacion de la tarjeta
+     * Retorna numero de verificacion de la tarjeta
      *
      * @return numero de verificacion de la tarjeta
      */
-    public Integer getNumeroVerificacion() {
+    public Integer getNumeroVerificacion() 
+    {
         return numeroVerificacion;
     }
 
     /**
-     * modifica numero de verificacion de la tarjeta
+     * Modifica numero de verificacion de la tarjeta
      *
-     * @param numeroVErificacion numero nuevo de verificacion
+     * @param numeroVerificacion numero nuevo de verificacion
      */
-    public void setNumeroVerificacion(Integer numeroVErificacion) {
-        this.numeroVerificacion = numeroVErificacion;
+    public void setNumeroVerificacion(Integer numeroVerificacion) 
+    {
+        this.numeroVerificacion = numeroVerificacion;
     }
 
     /**
-     * retorna fecha de vencimiento de la tarjeta
+     * Retorna fecha de vencimiento de la tarjeta
      *
      * @return fecha de vencimiento de la tarjeta
      */
-    public Date getFechaVencimiento() {
+    public Date getFechaVencimiento() 
+    {
         return fechaVencimiento;
     }
 
     /**
-     * modifica la fecha de vencimiento de la tarjeta
+     * Modifica la fecha de vencimiento de la tarjeta
      *
-     * @param fechaVEncimiento nueva fecha de vencimiento de la tarjeta
+     * @param fechaVencimiento nueva fecha de vencimiento de la tarjeta
      */
-    public void setFechaVencimiento(Date fechaVEncimiento) {
-        this.fechaVencimiento = fechaVEncimiento;
+    public void setFechaVencimiento(Date fechaVencimiento) 
+    {
+        this.fechaVencimiento = fechaVencimiento;
     }
 
     /**
-     * retorna nombre de la persona a quien pertenece la tarjeta
+     * Retorna nombre de la persona a quien pertenece la tarjeta
      *
      * @return nombre del propietario de la tarjeta
      */
-    public String getName() {
+    public String getName() 
+    {
         return name;
     }
 
     /**
-     * modifica el nombre del propietario de la tarjeta
+     * Modifica el nombre del propietario de la tarjeta
      *
      * @param name nombre nuevo del propietario de la tarjeta
      */
-    public void setName(String name) {
+    public void setName(String name) 
+    {
         this.name = name;
     }
 
     /**
-     * retorna codigo CVC de la tarjeta
+     * Retorna codigo CVC de la tarjeta
      *
      * @return codigio CVC de la tarjeta
      */
-    public String getCvc() {
+    public String getCvc() 
+    {
         return cvc;
     }
 
     /**
-     * modifica codigo CVC de la tarjeta
+     * Modifica codigo CVC de la tarjeta
      *
      * @param cvc nuevo codigo CVC de la tarjeta
      */
-    public void setCvc(String cvc) {
+    public void setCvc(String cvc) 
+    {
         this.cvc = cvc;
     }
 
-    public String getImagen() {
+    /**
+     * Obtiene la imagen del medio de pago.
+     * @return Atributo imagen.
+     */
+    public String getImagen() 
+    {
         return imagen;
     }
 
-    public void setImagen(String imagen) {
+    /**
+     * Modifica la imagen del medio de pago.
+     * @param imagen nuevo valor del atributo.
+     */
+    public void setImagen(String imagen) 
+    {
         this.imagen = imagen;
     }
 
@@ -198,7 +241,8 @@ public class MedioDePagoDTO implements Serializable {
      *
      * @return Entity con los valores del DTO
      */
-    public MedioDePagoEntity toEntity() {
+    public MedioDePagoEntity toEntity() 
+    {
         MedioDePagoEntity tarjetaCreditoEntity = new MedioDePagoEntity();
         tarjetaCreditoEntity.setId(this.id);
         tarjetaCreditoEntity.setName(this.name);
@@ -211,10 +255,8 @@ public class MedioDePagoDTO implements Serializable {
     }
 
     @Override
-    public String toString() {
-
+    public String toString() 
+    {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-
     }
-
 }

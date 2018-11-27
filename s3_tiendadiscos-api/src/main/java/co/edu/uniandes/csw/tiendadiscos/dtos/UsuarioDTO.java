@@ -24,11 +24,16 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *      "username":string,
  *      "email":string,
  *      "contrasenha":string,
- *      "name": string,
+ *      "nombre": string,
  *      "direccion":string,
- *      "rol":string
+ *      "rol":string,
+ *      "calificacion": number,
+ *      "imagen":String,
+ *      "wishList": {@link WishListDTO},
+ *      "billingInformation": {@link BillingInformationDTO},
+ *      "carritoCompras": {@link CarritoDeComprasDTO}
  *   }
- * </pre> Por ejemplo un autor se representa asi:<br>
+ * </pre> Por ejemplo un usuario se representa asi:<br>
  *
  * <pre>
  *
@@ -44,50 +49,95 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *      "billingInfo":{},
  *      "carritoDeCompras":{}
  *   }
- *
  * </pre>
  *
  * @author Camilo Andres Salinas Martinez
  */
-public class UsuarioDTO implements Serializable {
-    
-    public enum ROLES {
+public class UsuarioDTO implements Serializable 
+{  
+    public enum ROLES 
+    {
         USUARIO,
         ADMIN,
         INVITADO  
     }
     
+    /**
+     * Identificador único del usuario.
+     */
     private Long id;
-    private String username;
-    private String email;
-    private String contrasenha;
-    private String nombre;
-    private String direccion;
-    private String rol;
-    private Double calificacion;
-    private String imagen;
-
-   
     
+    /**
+     * Username del usuario.
+     */
+    private String username;
+    
+    /**
+     * Email único del usuario.
+     */
+    private String email;
+    
+    /**
+     * Contraseña del usuario.
+     */
+    private String contrasenha;
+    
+    /**
+     * Nombre del usuario.
+     */
+    private String nombre;
+    
+    /**
+     * Dirección del usuario.
+     */
+    private String direccion;
+    
+    /**
+     * Rol del usuario.
+     */
+    private String rol;
+
+    /**
+     * Calificación del usuario.
+     */
+    private Double calificacion;
+    
+    /**
+     * Imagen del usuario.
+     */
+    private String imagen;
+    
+    /**
+     * WishList del usuario.
+     */
     private WishListDTO wishList;
     
-    private BillingInformationDetailDTO billingInformation;
+    /**
+     * Billing information del usuario.
+     */
+    private BillingInformationDetailDTO billingInformation;    
     
-    private CarritoDeComprasDTO carritoCompras;
+    /**
+     * Carrito de compras del usuario.
+     */
+    private CarritoDeComprasDTO carritoCompras; 
 
-   
-
-    public UsuarioDTO(){
-        
-    }
+    /**
+     * Constructor vacio del usuario.
+     */
+    public UsuarioDTO()
+    {}
+    
     /**
      * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
      * la entidad que viene de argumento.
      *
      * @param userEntity: Es la entidad que se va a convertir a DTO
      */
-    public UsuarioDTO(UsuarioEntity userEntity){
-        if(userEntity != null ){
+    public UsuarioDTO(UsuarioEntity userEntity)
+    {
+        if(userEntity != null )
+        {
             this.id = userEntity.getId();
             this.imagen= userEntity.getImagen();
             this.username = userEntity.getUsername();
@@ -98,25 +148,23 @@ public class UsuarioDTO implements Serializable {
             this.rol = userEntity.getRol();
             this.calificacion = userEntity.getCalificacion();
             
-            if(userEntity.getCarritoCompras()!=null){
-                this.carritoCompras = new CarritoDeComprasDTO(userEntity.getCarritoCompras());}
-        
-            if(userEntity.getBillingInformation() !=null){
-                this.billingInformation = new BillingInformationDetailDTO(userEntity.getBillingInformation());}
-            
-            if(userEntity.getWishList()!=null){
-                this.wishList = new WishListDTO(userEntity.getWishList());}
-      
-          
+            if(userEntity.getCarritoCompras()!=null)
+                this.carritoCompras = new CarritoDeComprasDTO(userEntity.getCarritoCompras());        
+            if(userEntity.getBillingInformation() !=null)
+                this.billingInformation = new BillingInformationDetailDTO(userEntity.getBillingInformation());
+            if(userEntity.getWishList()!=null)
+                this.wishList = new WishListDTO(userEntity.getWishList());
         }
     }
+    
     /**
      * Convertir DTO a Entity
      *
      * @return Un Entity con los valores del DTO
      */
-    public UsuarioEntity toEntity(){
-      //Creo el objeto entity vacio.
+    public UsuarioEntity toEntity()
+    {
+        //Creo el objeto entity vacio.
         UsuarioEntity usuarioEntity = new UsuarioEntity();
         //Ahora le asigno los valores.
         usuarioEntity.setId(this.id);
@@ -128,138 +176,236 @@ public class UsuarioDTO implements Serializable {
         usuarioEntity.setRol(this.rol);
         usuarioEntity.setImagen(this.imagen);
         usuarioEntity.setCalificacion(this.calificacion);
-        if(this.wishList !=null){
-            WishListDTO wishListTemp = this.wishList;
-            usuarioEntity.setWishList(wishListTemp.toEntity());
-        }    
-        if(this.billingInformation !=null){
-            BillingInformationDTO billingInformationTemp = this.billingInformation;
-            usuarioEntity.setBillingInformation(billingInformationTemp.toEntity());
-        }
-        if(this.carritoCompras != null){
-            CarritoDeComprasDTO carritoComprasTemp = this.carritoCompras;
-            usuarioEntity.setCarritoCompras(carritoComprasTemp.toEntity());
-        }
-       
+        if(this.wishList !=null)            
+            usuarioEntity.setWishList(wishList.toEntity());
+        if(this.billingInformation !=null)            
+            usuarioEntity.setBillingInformation(billingInformation.toEntity());
+        if(this.carritoCompras != null)
+            usuarioEntity.setCarritoCompras(carritoCompras.toEntity());    
         
         return usuarioEntity;  
     }
     
     
-    
-    public Long getId() {
+    /**
+     * Obtiene el atributo id.
+     * @return atributo id.
+     */
+    public Long getId() 
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    /**
+     * Establece el valor del atributo id.
+     * @param id nuevo valor del atributo.
+     */
+    public void setId(Long id) 
+    {
         this.id = id;
     }
 
-    public String getUsername() {
+    /**
+     * Obtiene el atributo username.
+     * @return atributo username.
+     */
+    public String getUsername() 
+    {
         return username;
     }
 
-    public void setUsername(String username) {
+    /**
+     * Establece el valor del atributo username.
+     * @param username nuevo valor del atributo.
+     */
+    public void setUsername(String username) 
+    {
         this.username = username;
     }
 
-    public String getEmail() {
+    /**
+     * Obtiene el atributo email.
+     * @return atributo email.
+     */
+    public String getEmail() 
+    {
         return email;
     }
 
-    public void setEmail(String email) {
+    /**
+     * Establece el valor del atributo email.
+     * @param email nuevo valor del atributo.
+     */
+    public void setEmail(String email) 
+    {
         this.email = email;
     }
 
-    public String getContrasenha() {
+    /**
+     * Obtiene el atributo contraseña.
+     * @return atributo contrasenha
+     */
+    public String getContrasenha() 
+    {
         return contrasenha;
     }
 
-    public void setContrasenha(String contrasenha) {
+    /**
+     * Establece el valor del atributo contraseña.
+     * @param contrasenha nuevo valor del atributo.
+     */
+    public void setContrasenha(String contrasenha) 
+    {
         this.contrasenha = contrasenha;
     }
     
-    public String getDireccion() {
+    /**
+     * Obtiene el atributo dirección.
+     * @return atributo direccion.
+     */
+    public String getDireccion() 
+    {
         return direccion;
     }
 
-    public void setDireccion(String direccion) {
+    /**
+     * Establece el valor del atributo dirección.
+     * @param direccion nuevo valor del atributo.
+     */
+    public void setDireccion(String direccion) 
+    {
         this.direccion = direccion;
     }
 
-    public String getRol() {
+    /**
+     * Obtiene el atributo Rol.
+     * @return atributo rol.
+     */
+    public String getRol() 
+    {
         return rol;
     }
 
-    public void setRol(String rol) {
+    /**
+     * Establece el valor del atributo rol.
+     * @param rol nuevo valor del atributo 
+     */
+    public void setRol(String rol) 
+    {
         this.rol = rol;
     }
 
-    public Double getCalificacion() {
+    /**
+     * Obtiene el atributo calificación.
+     * @return atributo calificación.
+     */
+    public Double getCalificacion() 
+    {
         return calificacion;
     }
 
-    public void setCalificacion(Double calificacion) {
+    /**
+     * Establece el valor del atributo calificación.
+     * @param calificacion nuevo valor del atributo.
+     */
+    public void setCalificacion(Double calificacion) 
+    {
         this.calificacion = calificacion;
     }
-     public String getNombre() {
+    
+    /**
+     * Obtiene el valor del atribulo nombre.
+     * @return atributo nombre.
+     */
+    public String getNombre() 
+    {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    /**
+     * Establece el valor del atributo 
+     * @param nombre nuevo valor del atributo.
+     */
+    public void setNombre(String nombre) 
+    {
         this.nombre = nombre;
     }
-    public WishListDTO getWishList() {
+    
+    /**
+     * Obtiene el valor de la wishlist.
+     * @return atributo wishList.
+     */
+    public WishListDTO getWishList() 
+    {
         return wishList;
     }
 
-    public void setWishList(WishListDTO wishList) {
+    /**
+     * Establece el valor de la wishlist.
+     * @param wishList nuevo valor del atributo.
+     */
+    public void setWishList(WishListDTO wishList) 
+    {
         this.wishList = wishList;
     }
 
-    public BillingInformationDetailDTO getBillingInformation() {
+    /**
+     * Obtiene el valor de la billing information.
+     * @return atributo billingInformation.
+     */
+    public BillingInformationDetailDTO getBillingInformation() 
+    {
         return billingInformation;
     }
 
-    public void setBillingInformation(BillingInformationDetailDTO billingInformation) {
+    /**
+     * Establece el valor de la billing information.
+     * @param billingInformation nuevo valor del atributo.
+     */
+    public void setBillingInformation(BillingInformationDetailDTO billingInformation) 
+    {
         this.billingInformation = billingInformation;
     }
 
-    public CarritoDeComprasDTO getCarritoCompras() {
+    /**
+     * Obtiene el valor del carrito de compras.
+     * @return atributo carritoCompras.
+     */
+    public CarritoDeComprasDTO getCarritoCompras() 
+    {
         return carritoCompras;
     }
 
-    public void setCarritoCompras(CarritoDeComprasDTO carritoCompras) {
+    /**
+     * Establece el valor del carrito de compras.
+     * @param carritoCompras nuevo valor del atributo.
+     */
+    public void setCarritoCompras(CarritoDeComprasDTO carritoCompras) 
+    {
         this.carritoCompras = carritoCompras;
     }
 
-    public String getImagen() {
+    /**
+     * Obtiene el valor de la imagen.
+     * @return atributo imagen.
+     */
+    public String getImagen() 
+    {
         return imagen;
     }
 
-    public void setImagen(String imagen) {
+    /**
+     * Establece el valor de la imagen.
+     * @param imagen nuevo valor del atributo.
+     */
+    public void setImagen(String imagen) 
+    {
         this.imagen = imagen;
     }
     
-    
     @Override
-    public String toString(){
+    public String toString()
+    {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    }   
 }

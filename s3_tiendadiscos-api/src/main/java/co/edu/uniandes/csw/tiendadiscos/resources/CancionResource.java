@@ -85,7 +85,8 @@ public class CancionResource {
 
     @DELETE
     @Path("{cancionesId: \\d+}")
-    public void deleteCancion(@PathParam("vinilosId") Long viniloId, @PathParam("cancionesId") Long cancionesId) throws BusinessLogicException {
+    public void deleteCancion(@PathParam("vinilosId") Long viniloId, @PathParam("cancionesId") Long cancionesId) throws BusinessLogicException 
+    {
         LOGGER.log(Level.INFO, "CancionResource deleteCancion: input: {0}", cancionesId);
         if (logic.getCancion(viniloId, cancionesId) == null) {
             throw new WebApplicationException("El recurso /canciones/" + cancionesId + " no existe.", 404);
