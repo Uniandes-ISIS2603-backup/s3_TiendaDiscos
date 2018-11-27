@@ -871,7 +871,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{vinilo_id}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/{{viniloVender_id}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -881,7 +881,7 @@
 						"s3_tiendadiscos-api",
 						"api",
 						"vinilos",
-						"{{vinilo_id}}"
+						"{{viniloVender_id}}"
 					]
 				},
 				"description": "GET DE VINILOS"
@@ -3079,7 +3079,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/comentarios/{{usuario_id}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/comentarios",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -3090,11 +3090,374 @@
 						"api",
 						"transacciones",
 						"{{transaccion_id}}",
-						"comentarios",
-						"{{usuario_id}}"
+						"comentarios"
 					]
 				},
 				"description": "GET DE VINILOS"
+			},
+			"response": []
+		},
+		{
+			"name": "crear carritoDeCompras a usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "810b7202-d122-4760-a3af-738368e163e2",
+						"exec": [
+							"",
+							"tests['No genera error en el Post'] = responseCode.code===200;",
+							"var data=JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"carrito_totalCost\",  data.totalCost);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuarioComprador_id}}/carrito",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuarioComprador_id}}",
+						"carrito"
+					]
+				},
+				"description": "POST BILLING"
+			},
+			"response": []
+		},
+		{
+			"name": "crear carritoDeCompras a usuario Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "810b7202-d122-4760-a3af-738368e163e2",
+						"exec": [
+							"",
+							"tests['No genera error en el Post'] = responseCode.code===200;",
+							"var data=JSON.parse(responseBody);",
+							"tests[\"Get exitoso\"] = data.totalCost === pm.globals.get(\"carrito_totalCost\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuarioComprador_id}}/carrito",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuarioComprador_id}}",
+						"carrito"
+					]
+				},
+				"description": "POST BILLING"
+			},
+			"response": []
+		},
+		{
+			"name": "agregar vinilo a carrito",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "810b7202-d122-4760-a3af-738368e163e2",
+						"exec": [
+							"",
+							"tests['No genera error en el Post'] = responseCode.code===200;",
+							"var data=JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"carrito_totalCost\",  data.totalCost);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuarioComprador_id}}/carrito/vinilos/{{viniloVender_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuarioComprador_id}}",
+						"carrito",
+						"vinilos",
+						"{{viniloVender_id}}"
+					]
+				},
+				"description": "POST BILLING"
+			},
+			"response": []
+		},
+		{
+			"name": "agregar vinilo a carrito 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "810b7202-d122-4760-a3af-738368e163e2",
+						"exec": [
+							"",
+							"tests['No genera error en el Post'] = responseCode.code===200;",
+							"var data=JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"carrito_totalCost\",  data.totalCost);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuarioComprador_id}}/carrito/vinilos/{{vinilo_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuarioComprador_id}}",
+						"carrito",
+						"vinilos",
+						"{{vinilo_id}}"
+					]
+				},
+				"description": "POST BILLING"
+			},
+			"response": []
+		},
+		{
+			"name": "obtener vinilos carrito",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "810b7202-d122-4760-a3af-738368e163e2",
+						"exec": [
+							"var data=JSON.parse(responseBody);",
+							"tests['No genera error en el Get'] = responseCode.code===200;",
+							"tests[\"Get exitoso\"] = data.length === 2;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuarioComprador_id}}/carrito/vinilos/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuarioComprador_id}}",
+						"carrito",
+						"vinilos",
+						""
+					]
+				},
+				"description": "POST BILLING"
+			},
+			"response": []
+		},
+		{
+			"name": "obtener vinilo carrito",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "810b7202-d122-4760-a3af-738368e163e2",
+						"exec": [
+							"tests['No genera error en el Post'] = responseCode.code===200;",
+							"var data=JSON.parse(responseBody);",
+							"tests[\"Get exitoso\"] = data.fechaLanzamiento === pm.globals.get(\"viniloVender_fechaLanzamiento\") && data.informacionAdicional == pm.globals.get(\"viniloVender_informacionAdicional\");",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuarioComprador_id}}/carrito/vinilos/{{viniloVender_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuarioComprador_id}}",
+						"carrito",
+						"vinilos",
+						"{{viniloVender_id}}"
+					]
+				},
+				"description": "POST BILLING"
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar vinilo carrito",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "810b7202-d122-4760-a3af-738368e163e2",
+						"exec": [
+							"tests['No genera error en el Delete'] = responseCode.code===204;",
+							"pm.sendRequest(\"http://\" + pm.environment.get(\"ip\")+ \":\" + pm.environment.get(\"puerto\") +\"/s3_tiendadiscos-api/api/usuarios/\"+pm.globals.get(\"usuarioComprador_id\")",
+							"+\"/carrito/vinilos/\"+pm.globals.get(\"viniloVender_id\"), function (err, res) {",
+							"   if (err) { console.log(err); }",
+							"  pm.test('Verificar si se elimino la transaccion', function () {",
+							"    pm.expect(err).to.equal(null);",
+							"    pm.expect(res).to.have.property('code', 404 );",
+							"    pm.expect(res).to.have.property('status', 'Not Found');",
+							"  });",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuarioComprador_id}}/carrito/vinilos/{{viniloVender_id}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_tiendadiscos-api",
+						"api",
+						"usuarios",
+						"{{usuarioComprador_id}}",
+						"carrito",
+						"vinilos",
+						"{{viniloVender_id}}"
+					]
+				},
+				"description": "POST BILLING"
 			},
 			"response": []
 		}

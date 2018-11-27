@@ -26,7 +26,7 @@ public class CarritoDeComprasEntity extends BaseEntity implements Serializable
     private Double totalCost;
     
     @PodamExclude
-    @ManyToMany(mappedBy = "carritosDeCompras", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "carritosDeCompras")
     private List<ViniloEntity> vinilos;
     
     @PodamExclude

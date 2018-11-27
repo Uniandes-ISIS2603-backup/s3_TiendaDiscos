@@ -80,5 +80,13 @@ public class CarritoDeComprasResource {
         CarritoDeComprasDTO carritoDeComprasNuevo = new CarritoDeComprasDTO(logic.update(carritoDeCompras.toEntity(), usuariosId));
         return carritoDeComprasNuevo;
     }
+    
+     @Path("/vinilos")
+    public Class<CarritoDeComprasVinilosResource> getCarritoVinilosResource(@PathParam("usuariosId") Long usuariosId) {
+        if (logic.get(usuariosId)==null) {
+            throw new WebApplicationException("El recurso /usuarios/" + usuariosId + "/billing  no existe.", 404);
+        }
+        return CarritoDeComprasVinilosResource.class;
+    }
 
 }
