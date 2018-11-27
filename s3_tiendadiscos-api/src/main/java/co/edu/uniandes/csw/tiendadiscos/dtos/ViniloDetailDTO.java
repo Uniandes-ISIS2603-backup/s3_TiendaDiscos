@@ -9,7 +9,55 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
+ * Clase que extiende de {@link ViniloDTO} para manejar las relaciones entre los
+ * ViniloDTO y otros DTOs. Para conocer el contenido de un Vinilo vaya a la
+ * documentación de {@link ViniloDTO}
+ * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
+ * <pre>
+ *  {
+ *      "id":number,
+ *      "nombre":String,
+ *      "artista":String,
+ *      "fechaLanzamiento":Date,
+ *      "productora":String,
+ *      "informacionAdicional":String,
+ *      "previewURI":String,
+ *      "calificacion":number,
+ *      "precio":number,
+ *      "usuario":{@link UsuarioDTO},
+ *      "categoria": String,
+ *      "canciones":[{@link CancionDTO}]
+ *  }
+ * </pre> Por ejemplo un autor se representa asi:<br>
  *
+ * <pre>
+ *  {
+ *      "id": 1,
+ *      "nombre": "Por pasar desarrollo",
+ *      "artista": "IDK",
+ *      "fechaLanzamiento": 04/10/1999,
+ *      "productora": "Records de los alpes" ,
+ *      "informacionAdicional": "Nope, that's all",
+ *      "previewURI": "nananananana.batman.mp3",
+ *      "calificacion": 4.4,
+ *      "precio": 20000,
+ *      "usuario":
+ *      {
+ *          "id": 123412,
+ *          "username": JohnDoe,
+ *          "email": John@doe.com,
+ *          "contrasenha": "12341321wsadfsda",
+ *          "name": "John Doe",
+ *          "direccion": "cll 21 #12321",
+ *          "rol": "ADMIN",
+ *          "wishList":{},
+ *          "billingInfo":{},
+ *          "carritoDeCompras":{}
+ *      },
+ *      "categoria": "Rock",
+ *      "canciones":[{}]
+ *  }
+ * </pre>
  * @author Andrés Hernández
  */
 public class ViniloDetailDTO extends ViniloDTO implements Serializable {
