@@ -22,7 +22,8 @@ import java.util.List;
  *      "id": number,
  *      "cuentaAhorro": String,
  *      "spent": number,
- *      "recieved": number
+ *      "recieved": number,
+ *      "tarjetas": [{@link MedioDePagoDTO}]
  *  }
  * </pre> Por ejemplo un autor se representa asi:<br>
  *
@@ -31,7 +32,8 @@ import java.util.List;
  *      "cuentaAhorro": "123321123",
  *      "id": 1,
  *      "recieved": 0,
- *      "spent": 0
+ *      "spent": 0,
+ *      "tarjetas": [{}]
  *  }
  * </pre>
  * @author Kevin Blanco
