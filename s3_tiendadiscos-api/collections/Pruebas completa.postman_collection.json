@@ -2353,7 +2353,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"direccionEntrega\":\"Calle 19 # 2a -10\",\r\n\t\"direccionSalida\":\"Carrera 13 # 51-43\",\r\n\t\"estado\":\"PENDIENTE\"\r\n}"
+					"raw": "{\r\n\t\"direccionEntrega\":\"Calle 19 # 2a -10\",\r\n\t\"direccionSalida\":\"Carrera 13 # 51-43\",\r\n\t\"estado\":\"PENDIENTE\",\r\n\t\"ubicacion\":\"Algun lugar\"\r\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio",
