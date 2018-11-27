@@ -40,7 +40,7 @@ public class TransaccionLogic {
 
     public TransaccionEntity create(TransaccionEntity entity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Entidad" + entity.getId());
-        if (entity.getEstado() == null || entity.getFormaDePago() == null || entity.getFormaDePago() == null
+        if (entity.getEstado() == null || entity.getFormaDePago() == null
                 || entity.getUsuarioComprador() == null || entity.getUsuarioVendedor() == null
                 || entity.getVinilo() == null) {
             throw new BusinessLogicException("No se aceptan valores nulos");
@@ -58,46 +58,46 @@ public class TransaccionLogic {
         return transaccionPersistence.create(entity);
     }
 
-    public TransaccionEntity get(Long transaccionId) {
+    public TransaccionEntity get(Long transaccionId) 
+    {
         return transaccionPersistence.find(transaccionId);
     }
 
-    public List<TransaccionEntity> getTransacciones() {
+    public List<TransaccionEntity> getTransacciones() 
+    {
         return transaccionPersistence.findAll();
     }
 
-    public TransaccionEntity update(TransaccionEntity entity, Long transaccionId) throws BusinessLogicException {
+    public TransaccionEntity update(TransaccionEntity entity, Long transaccionId) throws BusinessLogicException 
+    {
         TransaccionEntity temp = transaccionPersistence.find(transaccionId);
-        if (temp == null) {
+        if (temp == null) 
             throw new BusinessLogicException("No existe una transacción con este id.");
-        }
 
-        if (entity.getEstado() == null || entity.getFormaDePago() == null || entity.getFormaDePago() == null || entity.getUsuarioComprador() == null || entity.getUsuarioVendedor() == null
-                || entity.getVinilo() == null) {
+        if (entity.getEstado() == null || entity.getFormaDePago() == null || entity.getUsuarioComprador() == null || entity.getUsuarioVendedor() == null || entity.getVinilo() == null) 
             throw new BusinessLogicException("No se aceptan valores nulos");
-        }
-        if (entity.getEstado().isEmpty() || entity.getFormaDePago().isEmpty()) {
+        
+        if (entity.getEstado().isEmpty() || entity.getFormaDePago().isEmpty()) 
             throw new BusinessLogicException("El estado o forma de pago no puede ser nulo");
-        }
-        if (usuarioPersistence.find(entity.getUsuarioComprador().getId()) == null || usuarioPersistence.find(entity.getUsuarioVendedor().getId()) == null) {
+        
+        if (usuarioPersistence.find(entity.getUsuarioComprador().getId()) == null || usuarioPersistence.find(entity.getUsuarioVendedor().getId()) == null) 
             throw new BusinessLogicException("Una transaccion es sobre usuarios existentes");
-        }
-        if (viniloPersistence.find(entity.getVinilo().getId()) == null) {
+        
+        if (viniloPersistence.find(entity.getVinilo().getId()) == null) 
             throw new BusinessLogicException("El vinilo no existe");
-        }
-
+        
         transaccionPersistence.update(entity);
         return entity;
     }
 
     public void delete(Long transaccionId) throws BusinessLogicException {
         TransaccionEntity temp = transaccionPersistence.find(transaccionId);
-        if (temp == null) {
+        if (temp == null) 
             throw new BusinessLogicException("No existe una transacción con este id.");
-        }
-        if (temp.getEnvio() != null) {
+        
+        if (temp.getEnvio() != null) 
             envioPersistence.delete(transaccionId);
-        }
+        
         transaccionPersistence.delete(transaccionId);
     }
 

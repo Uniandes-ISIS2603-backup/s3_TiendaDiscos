@@ -28,7 +28,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *      "transacciones": [{@link TransaccionDTO}]      
  *  }
  * </pre> Por ejemplo un Carrito de compras se representa así:<br>
- * 
  * <pre>
  *  {
  *      "id":1,
@@ -145,6 +144,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *              },
  *              "canciones": []
  *          }
+ *      }
  *      ]
  *  }
  * </pre> 
