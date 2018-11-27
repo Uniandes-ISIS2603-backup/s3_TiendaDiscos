@@ -19,28 +19,25 @@ import java.util.List;
  */
 public class UsuarioDetailDTO extends UsuarioDTO implements Serializable{
     
-    /*Relación 0 a muchos vinilos*/
+    //Relación 0 a muchos vinilos
     private List<ViniloDTO> vinilos;
-    /*Relación 0 a muchas transacciones*/
+    
+    //Relación 0 a muchas transacciones
     private List<TransaccionDTO> transaccionesRecibidas;
-    /*Relacion 0 a muchas transacciones*/
+    
+    //Relacion 0 a muchas transacciones
     private List<TransaccionDTO> transaccionesGeneradas;
-    /*Relación 0 a muchos comentarios*/
-    private List<ComentarioDTO> comentarios;
     
-
+    //Relación 0 a muchos comentarios
+    private List<ComentarioDTO> comentarios;    
     
-    /**
-     * Constructor que llama al contructor de UsuarioDetail
-     */
+    
     public UsuarioDetailDTO()
     {
         super();
     }    
-     /**
-     * transforma un entity en un dto
-     * @param usuario 
-     */
+    
+    
     public UsuarioDetailDTO(UsuarioEntity userEntity)
     {
         super(userEntity);
@@ -74,10 +71,9 @@ public class UsuarioDetailDTO extends UsuarioDTO implements Serializable{
             }       
         }
         
-       
-    
-        
     }
+    
+    @Override
     public UsuarioEntity toEntity(){
          UsuarioEntity usuarioEntity =super.toEntity();
          if(vinilos !=null){
@@ -145,6 +141,4 @@ public class UsuarioDetailDTO extends UsuarioDTO implements Serializable{
         this.comentarios = comentarios;
     }
     
-    
-
 }

@@ -1,148 +1,115 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.CarritoDeComprasEntity;
-import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
-import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- *
- * @author estudiante
+ * CarritoDeComprasDTO Objeto de transferencia de datos de Carritos de compras. Los DTO contienen las
+ * representaciones de los JSON que se transfieren entre el cliente y el
+ * servidor.
+ * 
+ * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
+ * <pre>
+ *  {
+ *      "id": number,
+ *      "totalCost":number
+ *  }
+ * </pre> Por ejemplo un carrito de compras se representa así:<br>
+ * 
+ * <pre>
+ *  {
+ *      "id":1,
+ *      "totalCost":200000
+ *  }
+ * </pre>
+ * @author Isabela Forero
  */
-public class CarritoDeComprasDTO implements Serializable {
-
+public class CarritoDeComprasDTO implements Serializable 
+{
+    
     /**
-     * id único de la transaccion.
+     * id único del carrito..
      */
     private Long id;
 
+    /**
+     * Costo total del carrito.
+     */
     private Double totalCost;
 
-    private UsuarioDTO usuario;
-
-    private List<ViniloDTO> vinilos;
-
-    private List<TransaccionDTO> transacciones;
-
-    public CarritoDeComprasDTO() {
-    }
+    /**
+     * Constructor vacio del carrito.
+     */
+    public CarritoDeComprasDTO() 
+    {}
 
     /**
-     * Obtiene el atributo id.
-     *
-     * @return atributo id.
-     *
+     * Crea un objeto CarritoDeComprasDTO a partir de un objeto CarritoDeComprasEntity.
+     * 
+     * @param carritoDeComprasEntity Entidad CarritoDeComprasEntity desde la cual se va a crear el 
+     * nuevo objeto.
      */
-    public Long getId() {
-        return id;
+    public CarritoDeComprasDTO(CarritoDeComprasEntity carritoDeComprasEntity)
+    {
+        if(carritoDeComprasEntity!=null)
+        {
+            this.id= carritoDeComprasEntity.getId();
+            this.totalCost = carritoDeComprasEntity.getTotalCostDeCarritoCompras();
+        }
     }
-
-    public Double getTotalCost() {
-        return totalCost;
-    }
-
+    
     /**
-     * Establece el valor del atributo id.
-     *
-     * @param id nuevo valor del atributo
-     *
+     * Convierte un CarritoDeComprasDTO a CarritoDeComprasEntity
+     * @return Nuevo objeto CarritoDeComprasEntity.
      */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setTotalCost(Double totalCost) {
-        this.totalCost = totalCost;
-    }
-
-    public UsuarioDTO getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(UsuarioDTO usuario) {
-        this.usuario = usuario;
-    }
-
-    public List<ViniloDTO> getVinilos() {
-        return vinilos;
-    }
-
-    public void setVinilos(List<ViniloDTO> vinilos) {
-        this.vinilos = vinilos;
-    }
-
-    public List<TransaccionDTO> getTransacciones() {
-        return transacciones;
-    }
-
-    public void setTransacciones(List<TransaccionDTO> transacciones) {
-        this.transacciones = transacciones;
-    }
-
-    public CarritoDeComprasEntity toEntity() {
+    public CarritoDeComprasEntity toEntity()
+    {
         CarritoDeComprasEntity carritoCompras = new CarritoDeComprasEntity();
         carritoCompras.setId(this.id);
         carritoCompras.setTotalCostDeCarritoCompras(this.totalCost);
-        if (this.usuario != null) {
-            carritoCompras.setUsuario(usuario.toEntity());
-        }
-        if (this.vinilos != null && this.vinilos.size() > 0) {
-            List<ViniloEntity> vinilosEntity = new ArrayList<ViniloEntity>();
-            for (ViniloDTO vinilo : this.vinilos) {
-                vinilosEntity.add(vinilo.toEntity());
-            }
-            carritoCompras.setVinilosDeCarritoCompras(vinilosEntity);
-        }
-
-        if (this.transacciones != null && this.transacciones.size() > 0) {
-            List<TransaccionEntity> transaccionesEntity = new ArrayList<TransaccionEntity>();
-            for (TransaccionDTO transaccion : this.transacciones) {
-                transaccionesEntity.add(transaccion.toEntity());
-            }
-            carritoCompras.setTransaccionesDeCarritoCompras(transaccionesEntity);
-        }
         return carritoCompras;
     }
-
-    public CarritoDeComprasDTO(CarritoDeComprasEntity carritoCompras) {
-        if (carritoCompras != null) {
-
-            this.id = carritoCompras.getId();
-
-            this.totalCost = carritoCompras.getTotalCostDeCarritoCompras();
-
-            if (carritoCompras.getUsuario() != null) {
-                this.usuario = new UsuarioDTO(carritoCompras.getUsuario());
-            }
-
-            if (carritoCompras.getVinilosDeCarritoCompras() != null && carritoCompras.getVinilosDeCarritoCompras().size() > 0) {
-                vinilos = new ArrayList<ViniloDTO>();
-                for (ViniloEntity vinilosDeCarritoCompra : carritoCompras.getVinilosDeCarritoCompras()) {
-                    vinilos.add(new ViniloDTO(vinilosDeCarritoCompra));
-                }
-            }
-
-            if (carritoCompras.getTransaccionesDeCarritoCompras()!= null && carritoCompras.getTransaccionesDeCarritoCompras().size() > 0) {
-                transacciones = new ArrayList<TransaccionDTO>();
-                for (TransaccionEntity transaccionCarrito : carritoCompras.getTransaccionesDeCarritoCompras()) {
-                    transacciones.add(new TransaccionDTO(transaccionCarrito));
-                }
-            }
-
-        }
+    
+    /**
+     * Obtiene el atributo id.
+     * @return atributo id.
+     */
+    public Long getId() 
+    {
+        return id;
     }
-
+    
+    /**
+     * Obtiene el atributo totalCost.
+     * @return atributo totalCost.
+     */
+    public Double getTotalCost() 
+    {
+        return totalCost;
+    }
+    /**
+     * Establece el valor del atributo id.     *
+     * @param id nuevo valor del atributo     *
+     */
+    public void setId(Long id) 
+    {
+        this.id = id;
+    }
+    
+    /**
+     * Establece el valor del atributo totalCost.
+     * @param totalCost nuevo valor del atributo.
+     */
+    public void setTotalCost(Double totalCost) 
+    {
+        this.totalCost = totalCost;
+    }
+    
     @Override
-    public String toString() {
+    public String toString() 
+    {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }

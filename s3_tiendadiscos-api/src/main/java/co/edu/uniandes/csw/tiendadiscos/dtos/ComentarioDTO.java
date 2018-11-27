@@ -4,13 +4,29 @@ import co.edu.uniandes.csw.tiendadiscos.entities.ComentarioEntity;
 import java.io.Serializable;
 
 /**
+ * ComentarioDTO Objeto de transferencia de datos de Comentarios. Los DTO contienen las
+ * representaciones de los JSON que se transfieren entre el cliente y el
+ * servidor.
  *
+ * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
+ * <pre>
+ *  {
+ *      "id":number,
+ *      "escritoPor": 
+ *  }
+ * 
  * @author Sebastian Martinez y Andrés :)
  */
 public class ComentarioDTO implements Serializable
 {   
+    /**
+     * Id del comentario.
+     */
     private Long id;
 
+    /**
+     * 
+     */
     private UsuarioDTO escritoPor;
 
     private String contenido;
@@ -29,47 +45,38 @@ public class ComentarioDTO implements Serializable
     public ComentarioDTO(){ }
     
    /** 
-     * Constructor apartir de la entidad
-     * @param comentarioEntity La entidad del comentario  
+    * Crea un objeto ComentarioDTO a partir de un objeto ComentarioEntity.
+    * 
+    * @param comentarioEntity Entidad ComentarioEntity desde la cual se va a crear el 
+    * nuevo objeto.
     */
     public ComentarioDTO(ComentarioEntity comentarioEntity)
     {
         if(comentarioEntity != null)
         {
-            this.id = comentarioEntity.getId();
-            
-            this.contenido = comentarioEntity.getContenido();
-            
+            this.id = comentarioEntity.getId();            
+            this.contenido = comentarioEntity.getContenido();            
             if(comentarioEntity.getVinilo() != null)
                 this.vinilo = new ViniloDTO(comentarioEntity.getVinilo());
-            else
-                this.vinilo = null;
             
             if(comentarioEntity.getCancion() != null)
                 this.cancion = new CancionDTO(comentarioEntity.getCancion());
-            else
-                this.cancion = null;
             
             if(comentarioEntity.getTransaccion() != null)
-                this.transaccion = new TransaccionDTO(comentarioEntity.getTransaccion());
-            else
-                this.transaccion = null;
+                this.transaccion = new TransaccionDTO(comentarioEntity.getTransaccion());            
             
             if(comentarioEntity.getUsuario() != null)
-                this.usuario = new UsuarioDTO(comentarioEntity.getUsuario());
-            else
-                this.usuario = null;
-            if(comentarioEntity.getUsuarioI() != null)
-                this.escritoPor = new UsuarioDTO(comentarioEntity.getUsuarioI());
-            else
-                this.usuario= null;
+                this.usuario = new UsuarioDTO(comentarioEntity.getUsuario());            
             
+            if(comentarioEntity.getUsuarioI() != null)
+                this.escritoPor = new UsuarioDTO(comentarioEntity.getUsuarioI());          
         }
     }
     
     /**
-     * Convertir comentario a entidad
-     * @return entidad del comentario
+     * Convertir un objeto ComentarioDTO a ComentarioEntity.
+     * 
+     * @return Nuevo objeto ComentarioEntity
      */
     public ComentarioEntity toEntity()
     {
@@ -111,7 +118,7 @@ public class ComentarioDTO implements Serializable
     }
 
     /**
-     * Devuelve el id del comentario
+     * Devuelve el id del comentario.
      * 
      * @return el comentario
      */
@@ -121,7 +128,9 @@ public class ComentarioDTO implements Serializable
     }
 
     /**
-     * @return conexion con la transaccion
+     * Devuelve el id de la transaccion.
+     * 
+     * @return conexion con la transaccion.
      */
     public TransaccionDTO getTransaccion()
     {
@@ -129,13 +138,16 @@ public class ComentarioDTO implements Serializable
     }
     
     /**
+     * Devuelve el id del usuario.
      * @return conexion con el usuario
      */
     public UsuarioDTO getUsuario()
     {
         return usuario;
     }
+    
     /**
+     * Devuelve el id del vinilo.
      * @return conexion con el vinilo
      */
     public ViniloDTO getVinilo()
@@ -144,6 +156,7 @@ public class ComentarioDTO implements Serializable
     } 
         
     /**
+     * Devuelve el id de la canción.
      * @return conexion con la canción
      */
     public CancionDTO getCancion()
@@ -152,7 +165,7 @@ public class ComentarioDTO implements Serializable
     }
 
     /**
-     * Cambia el id del comentario
+     * Modifica el id del comentario
      * 
      * @param id nuevo id
      */
@@ -162,6 +175,7 @@ public class ComentarioDTO implements Serializable
     }
     
     /**
+     * Modifica 
      * @param escritoPor usuario que comento.
      */
     public void setEscritoPor(UsuarioDTO escritoPor)

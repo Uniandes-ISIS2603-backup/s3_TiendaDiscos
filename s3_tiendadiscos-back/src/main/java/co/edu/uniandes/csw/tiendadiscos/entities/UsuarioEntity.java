@@ -63,10 +63,6 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     private List<ComentarioEntity> comentariosH;
     
     
-    
-    
-    
-
     public List<TransaccionEntity> getTransaccionesR() {
         return transaccionesR;
     }

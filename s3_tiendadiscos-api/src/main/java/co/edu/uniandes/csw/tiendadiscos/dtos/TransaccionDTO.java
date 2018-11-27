@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- *
+ * 
  * @author Laura Isabella Forero Camacho
  */
 public class TransaccionDTO implements Serializable {

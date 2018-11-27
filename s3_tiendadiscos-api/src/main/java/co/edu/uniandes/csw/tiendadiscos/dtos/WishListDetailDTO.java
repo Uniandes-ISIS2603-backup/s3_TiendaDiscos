@@ -11,41 +11,94 @@ import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- *
+ * WishListDetailDTO clase que extiende de {@link WishListDTO} para manejar las relaciones entre los
+ * WishListDTO y otros DTOs. Para conocer el contenido de un vinilo vaya a la 
+ * documentación de {@link WishListDTO}
+ * 
+ * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
+ * <pre>
+ *  {
+ *      "id": number,
+ *      "totalCost":number,
+ *      "vinilos": [{@link ViniloDTO}
+ *  }
+ * </pre> Por ejemplo una WishList se representa así:<br>
+ * 
+ * <pre>
+ * 
+ *  {
+ *      "id":1,
+ *      "totalCost":200000,
+ *      "vinilos": [
+            {
+                "artista": "Pink Floyd",
+                "calificacion": 5,
+                "id": 2,
+                "informacionAdicional": "Nunca ha sido abierto.",
+                "nombre": "The wall",
+                "precio": 50000,
+                "previewURI": "URI",
+                "productora": "Columbia Records",
+                "usuario": {
+                    "calificacion": 0,
+                    "contrasenha": "ContraseÃ±aDificilXD",
+                    "direccion": "cll 6 #1A 99 este Madrid Cund.",
+                    "email": "iam@camilosalinas5.me",
+                    "id": 3,
+                    "nombre": "Camilo Andres Salinas Martinez",
+                    "rol": "ADMIN",
+                    "username": "Rembrandtsx"
+                }
+            }
+        ]
+ *  }
+ * 
+ * </pre>
  * @author Sebastian Martinez
  */
 public class WishListDetailDTO extends WishListDTO implements Serializable{
     
     
-    //relacion 0 a muchos vinilos
+    // Relación de cero o muchos vinilos.
     private List<ViniloDTO> vinilos;
     
+    /**
+     * Constructor por defecto.
+     */
     public WishListDetailDTO()
     {
         super();
     }
     /**
-     * transforma un entity en un dto
-     * @param wish 
+     * Crea un objeto WishListDetailDTO a partir de un objeto WishListEntity
+     * incluyendo los atributos de WishListDTO.
+     * 
+     * @param wishListEntity Entidad WishListEntity desde la cual se va a crear el
+     * nuevo objeto.
      */
-    public WishListDetailDTO(WishListEntity wish)
+    public WishListDetailDTO(WishListEntity wishListEntity)
     {
-        super(wish);
-        if(wish.getVinilos() != null){
+        super(wishListEntity);
+        if(wishListEntity.getVinilos() != null){
             vinilos = new ArrayList<>();
-            for(ViniloEntity actual : wish.getVinilos())
+            for(ViniloEntity actual : wishListEntity.getVinilos())
             {
                 vinilos.add(new ViniloDTO(actual));
             }
-        }
-            
+        }   
     }
     
     /**
-     * Transforma un dto en un entity
+     * Convierte un objeto WishListDetaildDTO a WishListEntity incluyendo
+     * los atributos de viniloDTO.
+     * 
+     * @return Nuevo objeto WishListEntity
      */
+    @Override
     public WishListEntity toEntity()
     {
         WishListEntity wish = super.toEntity();
@@ -65,9 +118,10 @@ public class WishListDetailDTO extends WishListDTO implements Serializable{
     /**
      * Devuelve los vinilos en la wishlist
      *
-     * @return Lista de DTOs de Reseñas
+     * @return Lista de DTOs de vinilos.
      */
-    public List<ViniloDTO> getVinilos() {
+    public List<ViniloDTO> getVinilos() 
+    {
         return vinilos;
     }
 
@@ -76,7 +130,14 @@ public class WishListDetailDTO extends WishListDTO implements Serializable{
      *
      * @param vinilos Los nuevos vinilos
      */
-    public void setVinilos(List<ViniloDTO> vinilos) {
+    public void setVinilos(List<ViniloDTO> vinilos) 
+    {
         this.vinilos = vinilos;
+    }
+    
+    @Override
+    public String toString() 
+    {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }
