@@ -44,7 +44,7 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
     
     
     @PodamExclude
-    @OneToOne(mappedBy = "transaccion", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "transaccion",cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private EnvioEntity envio;
     
     @PodamExclude
@@ -153,6 +153,14 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
 
     public List<ComentarioEntity> getComentario(){
         return comentario;
+    }
+
+    public CarritoDeComprasEntity getCarritoDeCompras() {
+        return carritoDeCompras;
+    }
+
+    public void setCarritoDeCompras(CarritoDeComprasEntity carritoDeCompras) {
+        this.carritoDeCompras = carritoDeCompras;
     }
 
     

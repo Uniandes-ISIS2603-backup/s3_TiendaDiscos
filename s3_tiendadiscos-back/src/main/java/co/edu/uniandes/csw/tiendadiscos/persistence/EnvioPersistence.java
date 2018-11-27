@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.persistence;
 
-
 import co.edu.uniandes.csw.tiendadiscos.entities.EnvioEntity;
 import java.util.List;
 import java.util.logging.Level;
@@ -14,7 +13,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 
 /**
  *
@@ -22,16 +20,18 @@ import javax.transaction.Transactional;
  */
 @Stateless
 public class EnvioPersistence {
+
     private static final Logger LOGGER = Logger.getLogger(EnvioPersistence.class.getName());
+
     @PersistenceContext(unitName = "VinylAppPU")
     protected EntityManager em;
 
-   /**
+    /**
      * Crea un envio en la base de datos
-     * @param EnvioEntity objeto author que se creará en la base de datos
+     *
+     * @param envioEntity
      * @return devuelve la entidad creada con un id dado por la base de datos.
      */
-    
     public EnvioEntity create(EnvioEntity envioEntity) {
         LOGGER.log(Level.INFO, "Creando una tarjeta nueva");
         em.persist(envioEntity);
@@ -39,13 +39,13 @@ public class EnvioPersistence {
         return envioEntity;
     }
 
-     /**
+    /**
      * Busca si hay algun envio con el id que se envía de argumento
      *
      * @param transaccionId: id correspondiente a la author buscada.
      * @return un usuario.
      */
-     public EnvioEntity find(Long transaccionId) {
+    public EnvioEntity find(Long transaccionId) {
         TypedQuery<EnvioEntity> q = em.createQuery("select p from EnvioEntity p where(p.transaccion.id = :transaccionid)", EnvioEntity.class);
         q.setParameter("transaccionid", transaccionId);
         List<EnvioEntity> results = q.getResultList();
@@ -58,13 +58,15 @@ public class EnvioPersistence {
             envio = results.get(0);
         }
         return envio;
-        }
-     /**
+    }
+
+    /**
      * Actualiza una envio.
+     *
      * @param envioEntity: la usuario que viene con los nuevos cambios.
      * @return una usuario con los cambios aplicados.
      */
-     
+
     public EnvioEntity update(EnvioEntity envioEntity) {
         LOGGER.log(Level.INFO, "Actualizando tarjeta con id={0}", envioEntity.getId());
 
@@ -73,25 +75,20 @@ public class EnvioPersistence {
         return em.merge(envioEntity);
 
     }
-     /**
-     * Borra un envio de la base de datos recibiendo como argumento el id del envio.
+
+    /**
+     * Borra un envio de la base de datos recibiendo como argumento el id del
+     * envio.
+     *
      * @param envioId: id correspondiente a la usuario a borrar.
      */
-    
+
     public void delete(Long envioId) {
-        LOGGER.log(Level.INFO, "Borrando tarjeta con id={0}", envioId);
-        EnvioEntity envioEntity = em.find(EnvioEntity.class, envioId);
+        LOGGER.log(Level.INFO, "Borrando envio de transaccion con id={0}", envioId);
+        EnvioEntity envioEntity = find(envioId);
         em.remove(envioEntity);
-        LOGGER.log(Level.INFO, "Saliendo de borrar tarjeta con id = {0}", envioId);
+        LOGGER.log(Level.INFO, "Saliendo de borrar envio con id = {0}", envioId);
 
     }
- 
-    
-    
 
-
-
-
-
-    
 }

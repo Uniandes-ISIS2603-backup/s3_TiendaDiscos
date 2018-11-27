@@ -42,6 +42,13 @@ public class TransaccionDTO implements Serializable {
     private ViniloDTO vinilo;
 
     /**
+     * Envio asociado a la transaccion
+     */
+    private EnvioDTO envio;
+
+    private CarritoDeComprasDTO carrito;
+
+    /**
      * Constructor vacio de TransaccionDTO.
      */
     public TransaccionDTO() {
@@ -157,6 +164,22 @@ public class TransaccionDTO implements Serializable {
 
     }
 
+    public EnvioDTO getEnvio() {
+        return envio;
+    }
+
+    public void setEnvio(EnvioDTO envio) {
+        this.envio = envio;
+    }
+
+    public CarritoDeComprasDTO getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(CarritoDeComprasDTO carrito) {
+        this.carrito = carrito;
+    }
+
     public TransaccionEntity toEntity() {
         TransaccionEntity transaccion = new TransaccionEntity();
         transaccion.setId(this.id);
@@ -172,6 +195,13 @@ public class TransaccionDTO implements Serializable {
 
         if (this.vinilo != null) {
             transaccion.setVinilo(this.vinilo.toEntity());
+        }
+        if (this.envio != null) {
+            transaccion.setEnvio(getEnvio().toEntity());
+        }
+
+        if (this.carrito != null) {
+            transaccion.setCarritoDeCompras(getCarrito().toEntity());
         }
         return transaccion;
     }
@@ -195,6 +225,16 @@ public class TransaccionDTO implements Serializable {
                 this.vinilo = new ViniloDTO(transaccion.getVinilo());
             } else {
                 this.vinilo = null;
+            }
+            if (transaccion.getEnvio() != null) {
+                this.envio = new EnvioDTO(transaccion.getEnvio());
+            } else {
+                this.envio = null;
+            }
+
+            if (transaccion.getCarritoDeCompras() != null) {
+                this.carrito = new CarritoDeComprasDTO(transaccion.getCarritoDeCompras());
+                
             }
         }
     }

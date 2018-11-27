@@ -99,6 +99,7 @@ public class BillingInformationLogic {
             
             throw new BusinessLogicException("No es un numero de cuenta valido");
         }
+        billing.setId(usuario.getBillingInformation().getId());
         billing.setUsuario(usuario);
         BillingInformationEntity newEntity = persistence.update(billing);
 

@@ -51,10 +51,10 @@ public class ComentarioTransaccionResource
 
     
     @GET
-    public List<ComentarioDTO> getComentarios(@PathParam("usuariosId") Long usuariosId)
+    public List<ComentarioDTO> getComentarios(@PathParam("transaccionesId") Long transaccionId)
     {
         List<ComentarioDTO> resp = new ArrayList<>();
-        List<ComentarioEntity> temp = logic.getComentariosToUsuarios(usuariosId);
+        List<ComentarioEntity> temp = logic.getComentariosToTransaccion(transaccionId);
         for(ComentarioEntity com : temp)
             resp.add(new ComentarioDTO(com));        
         return resp;

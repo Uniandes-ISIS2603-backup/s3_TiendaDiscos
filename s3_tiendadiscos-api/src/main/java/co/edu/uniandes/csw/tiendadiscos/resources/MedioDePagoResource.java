@@ -92,9 +92,7 @@ public class MedioDePagoResource {
     @Path("{tarjetaId: \\d+}")
     public MedioDePagoDTO updateTarjetaCredito(@PathParam("usuariosId") Long usuariosId, @PathParam("tarjetaId") Long tarjetaCreditoId, MedioDePagoDTO tarjeta) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ReviewResource updateTarjetaCredito: input: usuariosId: {0} , tarjetaCreditoId: {1} , review:{2}", new Object[]{usuariosId, tarjetaCreditoId, tarjeta.toString()});
-        if (!tarjetaCreditoId.equals(tarjeta.getId())) {
-            throw new BusinessLogicException("Los ids de la Tarjeta no coinciden.");
-        }
+
         MedioDePagoEntity entity = tarjetaLogic.getTarjeta(usuariosId, tarjetaCreditoId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /usuarios/" + usuariosId + "/billing/tarjetasDeCredito/" + tarjetaCreditoId + " no existe.", 404);
