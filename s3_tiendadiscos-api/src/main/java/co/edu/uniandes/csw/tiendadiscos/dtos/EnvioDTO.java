@@ -77,6 +77,8 @@ public class EnvioDTO implements Serializable
      */
     private String estado; 
    
+    private String posicionActual;
+
     /**
      * Constructor por defecto.
      */
@@ -97,6 +99,7 @@ public class EnvioDTO implements Serializable
             this.direccionSalida = envioEntity.getDireccionSalida();
             this.direccionEntrega = envioEntity.getDireccionEntrega();
             this.estado = envioEntity.getEstado();
+            this.posicionActual= envioEntity.getPosicionActual();
         }
     }
    
@@ -112,6 +115,7 @@ public class EnvioDTO implements Serializable
         newEntity.setDireccionSalida(direccionSalida);
         newEntity.setDireccionEntrega(direccionEntrega);
         newEntity.setEstado(estado);       
+        newEntity.setPosicionActual(posicionActual);
         return newEntity;
     }
    
@@ -124,6 +128,7 @@ public class EnvioDTO implements Serializable
     {
         return id;
     }
+
     /**
      * Modifica el ID del envio..
      *
@@ -188,10 +193,28 @@ public class EnvioDTO implements Serializable
     {
         this.estado = estado;
     }
-    
+
+    /**
+     * Obtiene el atributo posición actual.
+     * @return atributo posicionActual.
+     */
+    public String getPosicionActual() 
+    {
+        return posicionActual;
+    }
+
+    /**
+     * Establece el valor de la posición actual.
+     * @param posicionActual El nuevo valor del atributo.
+     */
+    public void setPosicionActual(String posicionActual) 
+    {
+        this.posicionActual = posicionActual;
+    }
+
     @Override
     public String toString()
     {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }   
+    }
 }

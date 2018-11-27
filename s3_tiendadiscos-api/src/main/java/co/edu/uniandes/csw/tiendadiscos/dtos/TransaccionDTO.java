@@ -181,11 +181,6 @@ public class TransaccionDTO implements Serializable {
     private EnvioDTO envio;
 
     /**
-     * Carrito asociado a la transacción.
-     */
-    private CarritoDeComprasDTO carrito;
-
-    /**
      * Constructor vacio de TransaccionDTO.
      */
     public TransaccionDTO() 
@@ -204,16 +199,14 @@ public class TransaccionDTO implements Serializable {
             this.id = transaccion.getId();
             this.estado = transaccion.getEstado();
             this.formaDePago = transaccion.getFormaDePago();
-            if (transaccion.getUsuarioComprador() != null)
+            if (transaccion.getUsuarioComprador() != null) 
                 this.usuarioComprador = new UsuarioDTO(transaccion.getUsuarioComprador());
             if (transaccion.getUsuarioVendedor() != null) 
                 this.usuarioVendedor = new UsuarioDTO(transaccion.getUsuarioVendedor());
-            if (transaccion.getVinilo() != null)
+            if (transaccion.getVinilo() != null) 
                 this.vinilo = new ViniloDTO(transaccion.getVinilo());
-            if (transaccion.getEnvio() != null)
-                this.envio = new EnvioDTO(transaccion.getEnvio());
-            if (transaccion.getCarritoDeCompras() != null) 
-                this.carrito = new CarritoDeComprasDTO(transaccion.getCarritoDeCompras());                
+            if (transaccion.getEnvio() != null) 
+                this.envio = new EnvioDTO(transaccion.getEnvio());            
         }
     }
     
@@ -227,8 +220,7 @@ public class TransaccionDTO implements Serializable {
         transaccion.setId(this.id);
         transaccion.setEstado(this.estado);
         transaccion.setFormaDePago(this.formaDePago);
-
-        if (this.usuarioComprador != null) 
+        if (this.usuarioComprador != null)
             transaccion.setUsuarioComprador(this.usuarioComprador.toEntity());
         if (this.usuarioVendedor != null)
             transaccion.setUsuarioVendedor(this.usuarioVendedor.toEntity());
@@ -236,9 +228,7 @@ public class TransaccionDTO implements Serializable {
             transaccion.setVinilo(this.vinilo.toEntity());
         if (this.envio != null) 
             transaccion.setEnvio(getEnvio().toEntity());
-        if (this.carrito != null) 
-            transaccion.setCarritoDeCompras(getCarrito().toEntity());
-                
+       
         return transaccion;
     }
     
@@ -380,25 +370,7 @@ public class TransaccionDTO implements Serializable {
     public void setEnvio(EnvioDTO envio) 
     {
         this.envio = envio;
-    }
-
-    /**
-     * Obtiene el atributo carritoDeCompras.
-     * @return atributo carrito.
-     */
-    public CarritoDeComprasDTO getCarrito() 
-    {
-        return carrito;
-    }
-
-    /**
-     * Establece el valor del carrito de compras.
-     * @param carrito nuevo valor del atributo.
-     */
-    public void setCarrito(CarritoDeComprasDTO carrito) 
-    {
-        this.carrito = carrito;
-    }
+    }    
 
     @Override
     public String toString()

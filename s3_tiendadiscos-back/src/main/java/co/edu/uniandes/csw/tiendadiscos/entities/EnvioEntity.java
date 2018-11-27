@@ -20,6 +20,7 @@ public class EnvioEntity extends BaseEntity implements Serializable{
     private String direccionEntrega;
     private String direccionSalida;
     private String estado;
+    private String posicionActual;
     
     @PodamExclude
     @OneToOne
@@ -55,6 +56,14 @@ public class EnvioEntity extends BaseEntity implements Serializable{
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getPosicionActual() {
+        return posicionActual;
+    }
+
+    public void setPosicionActual(String posicionActual) {
+        this.posicionActual = posicionActual;
     }
 
    

@@ -81,6 +81,9 @@ public class ViniloDTO implements Serializable {
      * Conexión con el usuario.
      */
     private UsuarioDTO usuario;
+    
+    
+    private String categoria;
 
     /**
      * Empty constructor.
@@ -105,6 +108,7 @@ public class ViniloDTO implements Serializable {
             this.productora = viniloEntity.getProductora();
             this.calificacion = viniloEntity.getCalificacion();
             this.precio = viniloEntity.getPrecio();
+            this.categoria=viniloEntity.getCategoria();
             if (viniloEntity.getUsuario() != null) {
                 this.usuario = new UsuarioDTO(viniloEntity.getUsuario());
             }
@@ -129,6 +133,7 @@ public class ViniloDTO implements Serializable {
         viniloEntity.setProductora(this.productora);
         viniloEntity.setCalificacion(this.calificacion);
         viniloEntity.setPrecio(this.precio);
+        viniloEntity.setCategoria(this.categoria);
         if (this.usuario != null) {
             viniloEntity.setUsuario(this.usuario.toEntity());
         }
@@ -317,6 +322,16 @@ public class ViniloDTO implements Serializable {
         return usuario;
     }
 
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    
+    
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
