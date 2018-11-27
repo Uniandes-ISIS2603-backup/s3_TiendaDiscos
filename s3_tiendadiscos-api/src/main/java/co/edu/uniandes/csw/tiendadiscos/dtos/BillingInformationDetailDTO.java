@@ -12,54 +12,97 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Clase que extiende de {@link BillingInformationDTO} para manejar las relaciones entre los
+ * BillingInformationDTO y otros DTOs. Para conocer el contenido de un BillingInformation vaya a la
+ * documentacion de {@link BillingInformationDTO}
+ * 
+ * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
+ * <pre>
+ * {
+ *      "id": number,
+ *      "cuentaAhorro": String,
+ *      "spent": number,
+ *      "recieved": number
+ *  }
+ * </pre> Por ejemplo un autor se representa asi:<br>
  *
+ * <pre>
+ * {
+ *      "cuentaAhorro": "123321123",
+ *      "id": 1,
+ *      "recieved": 0,
+ *      "spent": 0
+ *  }
+ * </pre>
  * @author Kevin Blanco
  */
-public class BillingInformationDetailDTO extends BillingInformationDTO implements Serializable {
+public class BillingInformationDetailDTO extends BillingInformationDTO implements Serializable 
+{
 
     // relación  cero o muchos tarjeta credito 
     private List<MedioDePagoDTO> tarjetas;
 
-    public BillingInformationDetailDTO() {
+    /**
+     * Constructor vacio.
+     */
+    public BillingInformationDetailDTO() 
+    {
         super();
     }
 
     /**
-     * Constructor para transformar un Entity a un DTO
+     * Crea un objeto BillingInformationDetailDTO a partir de un objeto BillingInformationEntity
+     * incluyendo los atributos de BillingInformationDTO
      *
-     * @param billingInformationEntity La entidad de la cual se construye el DTO
+     * @param billingInformationEntity La entidad de la cual se construye el DTO.
      */
-    public BillingInformationDetailDTO(BillingInformationEntity billingInformationEntity) {
+    public BillingInformationDetailDTO(BillingInformationEntity billingInformationEntity) 
+    {
         super(billingInformationEntity);
-
-        if (billingInformationEntity.getTarjetas().size()>0) {
+        if (billingInformationEntity.getTarjetas().isEmpty()) 
+        {
             tarjetas = new ArrayList<>();
-
-            for (MedioDePagoEntity tarjeta : billingInformationEntity.getTarjetas()) {
-                tarjetas.add(new MedioDePagoDTO(tarjeta));
-            }
+            for (MedioDePagoEntity tarjeta : billingInformationEntity.getTarjetas())
+                tarjetas.add(new MedioDePagoDTO(tarjeta));            
         }
     }
 
+    /**
+     * Convierte un objeto BillingInformationDetailDTO a BillingEntity incluyendo los
+     * atributos de BillingInformationDTO.
+     * 
+     * @return Nuevo objeto BillingInformationEntity.
+     */
+    @Override
     public BillingInformationEntity toEntity() {
         BillingInformationEntity entity = super.toEntity();
-        if (tarjetas != null) {
+        if (tarjetas != null) 
+        {
             List<MedioDePagoEntity> tarjetasEntity = new ArrayList<>();
-
-            for (MedioDePagoDTO tarjetaCreditoDTO : getTarjetas()) {
+            for (MedioDePagoDTO tarjetaCreditoDTO : getTarjetas())
                 tarjetasEntity.add(tarjetaCreditoDTO.toEntity());
-            }
-
             entity.setTarjetas(tarjetasEntity);
         }
         return entity;
     }
 
-    public List<MedioDePagoDTO> getTarjetas() {
+    /**
+     * Obtiene la lista de tarjetas del Billing.
+     * 
+     * @return Las tajetas.
+     */
+    public List<MedioDePagoDTO> getTarjetas() 
+    {
         return tarjetas;
     }
-
-    public void setTarjetas(List<MedioDePagoDTO> tarjetas) {
+    
+    /**
+     * Modifica la lista de tarjetas del Billing.
+     * 
+     * @param tarjetas tarjetas to be set.
+     */
+    public void setTarjetas(List<MedioDePagoDTO> tarjetas) 
+    {
         this.tarjetas = tarjetas;
     }
 }

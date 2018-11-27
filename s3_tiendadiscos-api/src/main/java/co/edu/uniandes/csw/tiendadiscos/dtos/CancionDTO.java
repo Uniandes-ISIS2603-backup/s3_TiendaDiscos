@@ -6,7 +6,33 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
+ * CancionDTO Objeto de transferencia de datos de Canciones. Los DTO contienen las
+ * representaciones de los JSON que se transfieren entre el cliente y el
+ * servidor.
  *
+ * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
+ * <pre>
+ * {
+ *      "id" : number, 
+ *      "nombre" : String,
+ *      "duracion": String ,
+ *      "previewURI": String ,
+ *      "descripcion": String ,
+ *      "calificacion": number
+ *  }
+ * </pre> Por ejemplo una canción se representa asi:<br>
+ * 
+ * <pre>
+ * {
+ *      "id" : 1, 
+ *      "nombre" : "Fast Love",
+ *      "duracion": "5:05" ,
+ *      "previewURI": "URI" ,
+ *      "descripcion": "Excelente canción de George Michael." ,
+ *      "calificacion": 4.5
+ *  }
+ * </pre>
+ * 
  * @author Andrés Hernández León
  */
 public class CancionDTO implements Serializable 
@@ -185,7 +211,6 @@ public class CancionDTO implements Serializable
     public Double getCalificacion() {
         return calificacion;
     }
-
 
     @Override
     public String toString() {
