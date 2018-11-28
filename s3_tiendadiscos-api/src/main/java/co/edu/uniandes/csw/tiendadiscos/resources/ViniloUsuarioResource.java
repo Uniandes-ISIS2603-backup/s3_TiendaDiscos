@@ -68,7 +68,7 @@ public class ViniloUsuarioResource {
             throw new WebApplicationException("El recurso /usuarios/"+ usuarioId);
         List<ViniloDetailDTO> resp = new ArrayList<>();
         List<ViniloEntity> list = logic.getVinilosByUsuario(usuarioId);
-        for (ViniloEntity entity : list) 
+        for(ViniloEntity entity : list) 
             resp.add(new ViniloDetailDTO(entity));
         return resp;
     }   

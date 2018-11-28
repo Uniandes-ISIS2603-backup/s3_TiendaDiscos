@@ -45,13 +45,15 @@ public class CarritoDeComprasResource {
     }
 
     @GET
-    public CarritoDeComprasDetailDTO getCarritoDeCompras(@PathParam("usuariosId") Long usuariosId) throws BusinessLogicException {
+    public CarritoDeComprasDetailDTO getCarritoDeCompras(@PathParam("usuariosId") Long usuariosId) 
+    {
+        LOGGER.log(Level.INFO , "CarritoComprasResource getCarritoDeCompras: input:{0}", usuariosId);
         CarritoDeComprasEntity entity = logic.get(usuariosId);
-        if (entity == null) {
+        if (entity == null) 
             throw new WebApplicationException("El recurso /usuario/" + usuariosId + " no tiene Carrito de compras");
-        }
-        CarritoDeComprasDetailDTO nuevo = new CarritoDeComprasDetailDTO(entity);
-        return nuevo;
+        CarritoDeComprasDetailDTO detailDTO = new CarritoDeComprasDetailDTO(entity);
+        LOGGER.log(Level.INFO , "CarritoComprasResource getCarritoCompras: outpu: {0}", detailDTO);
+        return detailDTO;
     }
 
     @DELETE
@@ -72,12 +74,15 @@ public class CarritoDeComprasResource {
      */
     @PUT
     @Path("{usuariosId: \\d+}")
-    public CarritoDeComprasDTO putCarritoDeCompras(@PathParam("usuariosId") Long usuariosId, CarritoDeComprasDTO carritoDeCompras) throws BusinessLogicException {
+    public CarritoDeComprasDTO putCarritoDeCompras(@PathParam("usuariosId") Long usuariosId, CarritoDeComprasDTO carritoDeCompras) throws BusinessLogicException 
+    {
+        LOGGER.log(Level.INFO , "CarritoDeComprasResource putCarritoDeCompras: input: usuariosId: {0}, carritoDeCompras: {1}", new Object[]{usuariosId, carritoDeCompras});
         CarritoDeComprasEntity entity = logic.get(usuariosId);
         if (entity == null)
             throw new WebApplicationException("El recurso /usuario/" + usuariosId + " no tiene wishList");
-        CarritoDeComprasDTO carritoDeComprasNuevo = new CarritoDeComprasDTO(logic.update(carritoDeCompras.toEntity(), usuariosId));
-        return carritoDeComprasNuevo;
+        CarritoDeComprasDTO detailDTO = new CarritoDeComprasDTO(logic.update(carritoDeCompras.toEntity(), usuariosId));
+        LOGGER.log(Level.INFO , "CarritoDeComprasResource putCarritoDeCompras: output: {0}", detailDTO);
+        return detailDTO;
     }
     
     @Path("/vinilos")
@@ -87,5 +92,4 @@ public class CarritoDeComprasResource {
             throw new WebApplicationException("El recurso /usuarios/" + usuariosId + "/billing  no existe.", 404);
         return CarritoDeComprasVinilosResource.class;
     }
-
 }

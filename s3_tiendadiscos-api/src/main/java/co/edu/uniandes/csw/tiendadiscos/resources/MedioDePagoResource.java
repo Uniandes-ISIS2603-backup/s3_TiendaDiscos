@@ -117,11 +117,11 @@ public class MedioDePagoResource {
      * vamos a convertir a DTO.
      * @return la lista de tarjetas en forma DTO (json)
      */
-    private List<MedioDePagoDTO> listEntity2DTO(List<MedioDePagoEntity> entityList) {
+    private List<MedioDePagoDTO> listEntity2DTO(List<MedioDePagoEntity> entityList) 
+    {
         List<MedioDePagoDTO> list = new ArrayList<>();
-        for (MedioDePagoEntity entity : entityList) {
+        for (MedioDePagoEntity entity : entityList) 
             list.add(new MedioDePagoDTO(entity));
-        }
         return list;
     }
     private ExecutorService executorService = java.util.concurrent.Executors.newCachedThreadPool();
@@ -144,12 +144,9 @@ public class MedioDePagoResource {
     private MedioDePagoDTO doUpdateTarjetaCredito(@PathParam("usuariosId") Long usuariosId, @PathParam("tarjetaId") Long tarjetaCreditoId, MedioDePagoDTO tarjeta) throws BusinessLogicException 
     {
         LOGGER.log(Level.INFO, "ReviewResource updateTarjetaCredito: input: usuariosId: {0} , tarjetaCreditoId: {1} , review:{2}", new Object[]{usuariosId, tarjetaCreditoId, tarjeta.toString()});
-        
         MedioDePagoEntity entity = tarjetaLogic.getTarjeta(usuariosId, tarjetaCreditoId);
-        if (entity == null) {
+        if (entity == null) 
             throw new WebApplicationException(INIC_ERROR + usuariosId + "/billing/tarjetasDeCredito/" + tarjetaCreditoId + NO_EXISTE, 404);
-            
-        }
         MedioDePagoDTO tarjetaDTO = new MedioDePagoDTO(tarjetaLogic.updateTarjeta(usuariosId, tarjetaCreditoId, tarjeta.toEntity()));
         LOGGER.log(Level.INFO, "TarjetaResource updateTarjetaCredito: output:{0}", tarjetaDTO.toString());
         return tarjetaDTO;

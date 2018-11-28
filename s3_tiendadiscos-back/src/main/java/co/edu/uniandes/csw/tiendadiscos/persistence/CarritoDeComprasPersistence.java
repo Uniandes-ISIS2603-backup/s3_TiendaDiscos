@@ -61,7 +61,7 @@ public class CarritoDeComprasPersistence {
         q.setParameter("usuarioId", userId);
         List<CarritoDeComprasEntity> results = q.getResultList();
         CarritoDeComprasEntity carrito = null;
-        if (results.size() >= 1) 
+        if(!results.isEmpty()) 
             carrito = results.get(0);
         
         LOGGER.log(Level.INFO, "Saliendo de consultar el Carrito  del usuario con id ={0}" , userId);

@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -21,8 +20,6 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class WishListPersistence {
-    
- 
     
     @PersistenceContext(unitName = "VinylAppPU")
     protected EntityManager em;
@@ -38,7 +35,6 @@ public class WishListPersistence {
     public WishListEntity update(WishListEntity wish)
     {
         em.merge(wish);
-       
         return wish;
     }
     
@@ -55,19 +51,14 @@ public class WishListPersistence {
     }
     
     public WishListEntity findByUserId(Long userId){
-       LOGGER.log(Level.INFO, "Consultando el WishList asociado al usuario con el id"+userId);
+       LOGGER.log(Level.INFO, "Consultando el WishList asociado al usuario con el id = {0}",userId);
        TypedQuery<WishListEntity> q = em.createQuery("select p from WishListEntity p where p.usuario.id = :usuarioId", WishListEntity.class);
        q.setParameter("usuarioId", userId);
        List<WishListEntity> results = q.getResultList();
        WishListEntity wish = null;
-       if(results == null){
-           wish = null;
-       }else if(results.isEmpty()){
-           wish = null;
-       }else if (results.size()>=1){
+       if(!results.isEmpty())
            wish = results.get(0);
-       }
-       LOGGER.log(Level.INFO, "Saliendo de consultar el WishList  del usuario con id =" + userId);
+       LOGGER.log(Level.INFO, "Saliendo de consultar el WishList  del usuario con id ={0}", userId);
        return wish;
     }
 }

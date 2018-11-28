@@ -53,14 +53,15 @@ public class CancionPersistence {
         return q.getResultList();
     }
 
-    public CancionEntity find(Long cancionId, Long viniloId) {
+    public CancionEntity find(Long cancionId, Long viniloId) 
+    {
         LOGGER.log(Level.INFO, "Consultando cancion con id={0} del vinilo con id = {1}", new Object[]{cancionId,viniloId});
         TypedQuery<CancionEntity> q = em.createQuery("select p from CancionEntity p where (p.vinilo.id = :viniloId) and (p.id = :cancionId)", CancionEntity.class);
         q.setParameter("viniloId", viniloId);
         q.setParameter("cancionId", cancionId);
         List<CancionEntity> results = q.getResultList();
         CancionEntity cancion = null;
-        if (results.size() >= 1) 
+        if(!results.isEmpty()) 
             cancion = results.get(0);
 
         LOGGER.log(Level.INFO, "Saliendo de consultar la cancion  con id = {0} del vinilo con id ={1}", new Object[]{cancionId,viniloId});

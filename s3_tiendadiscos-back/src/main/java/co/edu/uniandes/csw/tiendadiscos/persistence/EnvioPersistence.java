@@ -50,13 +50,9 @@ public class EnvioPersistence {
         q.setParameter("transaccionid", transaccionId);
         List<EnvioEntity> results = q.getResultList();
         EnvioEntity envio = null;
-        if (results == null) {
-            envio = null;
-        } else if (results.isEmpty()) {
-            envio = null;
-        } else if (results.size() >= 1) {
+        if(!results.isEmpty())
             envio = results.get(0);
-        }
+        
         return envio;
     }
 

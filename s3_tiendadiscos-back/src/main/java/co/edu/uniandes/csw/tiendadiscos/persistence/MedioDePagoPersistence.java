@@ -39,14 +39,8 @@ public class MedioDePagoPersistence {
         q.setParameter("tarjetaId", tarjetaId);
         List<MedioDePagoEntity> results = q.getResultList();
         MedioDePagoEntity tarjeta = null;
-
-        if (results == null) {
-            tarjeta = null;
-        } else if (results.isEmpty()) {
-            tarjeta = null;
-        } else if (results.size() >= 1) {
+        if(!results.isEmpty())
             tarjeta = results.get(0);
-        }
 
         LOGGER.log(Level.INFO, "Saliendo de consultar la tarjeta  con id = {0} del billing con id =" + billingId, tarjetaId);
         return tarjeta;

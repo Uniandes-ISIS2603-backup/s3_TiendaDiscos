@@ -10,8 +10,6 @@ import co.edu.uniandes.csw.tiendadiscos.ejb.ComentarioLogic;
 import co.edu.uniandes.csw.tiendadiscos.ejb.TransaccionLogic;
 import co.edu.uniandes.csw.tiendadiscos.ejb.UsuarioLogic;
 import co.edu.uniandes.csw.tiendadiscos.entities.ComentarioEntity;
-import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
-import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;

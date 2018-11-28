@@ -50,15 +50,15 @@ public class WishListResource {
     }    
     
     @GET 
-    public WishListDetailDTO getWishList(@PathParam("usuariosId") Long usuariosId)throws BusinessLogicException
+    public WishListDetailDTO getWishList(@PathParam("usuariosId") Long usuariosId)
     {
         LOGGER.log(Level.INFO, "WishListResource getWishList: input: {0}", usuariosId);
         WishListEntity entity = logic.getWishList(usuariosId);
         if(entity==null)
             throw new WebApplicationException(INIC_ERROR+ usuariosId+ FIN_ERROR,404);
-        WishListDetailDTO nuevo = new WishListDetailDTO(entity);
-        LOGGER.log(Level.INFO , "WishListResource getWishList: output: {0}", nuevo);
-        return nuevo;
+        WishListDetailDTO detailDTO = new WishListDetailDTO(entity);
+        LOGGER.log(Level.INFO , "WishListResource getWishList: output: {0}", detailDTO);
+        return detailDTO;
     }
     
     @DELETE

@@ -45,7 +45,7 @@ public class BillingInformationPersistence {
         q.setParameter("usuarioId", usuarioId);
         List<BillingInformationEntity> results = q.getResultList();
         BillingInformationEntity billing = null;
-        if (results.size() >= 1) 
+        if (!results.isEmpty()) 
             billing = results.get(0);
         LOGGER.log(Level.INFO, "Saliendo de consultar el billing del usuario con id = {0}", usuarioId);
         return billing;

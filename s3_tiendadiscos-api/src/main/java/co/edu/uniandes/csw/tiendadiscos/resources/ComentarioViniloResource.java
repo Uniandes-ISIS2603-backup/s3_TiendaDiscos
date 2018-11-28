@@ -13,6 +13,7 @@ import co.edu.uniandes.csw.tiendadiscos.entities.ComentarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -47,14 +48,15 @@ public class ComentarioViniloResource {
     @Path("{usuariosId: \\d+}")
     public ComentarioDTO createComentarioVinilo(@PathParam("vinilosId") Long vinilosId,ComentarioDTO comentario,@PathParam("usuariosId") Long usuarioId) throws BusinessLogicException 
     {       
+        LOGGER.log(Level.INFO , "ComentarioViniloResource createComentarioVinilo: input: vinilosId: {0} , comentario: {1}, usuariosId{2}", new Object[]{vinilosId, comentario, usuarioId});
         if(viniloLogic.getVinilo(vinilosId) == null)
             throw new WebApplicationException("Vinilo con id: " + vinilosId + " no existe", 404);
         if(usuarioLogic.getUsuario(usuarioId) == null)
             throw new WebApplicationException("Usuario con id: " + usuarioId + " no existe", 404);
         ComentarioDTO nuevo = new ComentarioDTO(logic.createComentarioVinilo(vinilosId, usuarioId, comentario.toEntity()));
+        LOGGER.log(Level.INFO, "ComentarioViniloResource createComentarioVinilo: output: {0}", nuevo);
         return nuevo;
     }
- 
     
     @GET
     public List<ComentarioDTO> getComentarios(@PathParam("vinilosId") Long vinilosId)

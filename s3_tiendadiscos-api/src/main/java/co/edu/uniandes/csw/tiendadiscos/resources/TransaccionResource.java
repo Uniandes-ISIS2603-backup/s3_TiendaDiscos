@@ -71,8 +71,10 @@ public class TransaccionResource
     @GET
     public List<TransaccionDTO> getTransacciones() 
     {
-        List<TransaccionDTO> entity = listEntityDTO(logic.getTransacciones());
-        return entity;
+        LOGGER.log(Level.INFO, "TransaccionResource getTransacciones: input: void");
+        List<TransaccionDTO> listaTransacciones = listEntityDTO(logic.getTransacciones());
+        LOGGER.log(Level.INFO, "TransaccionResource getTransacciones: output: {0}", listaTransacciones);
+        return listaTransacciones;
     }
 
     private List<TransaccionDTO> listEntityDTO(List<TransaccionEntity> entityList) 

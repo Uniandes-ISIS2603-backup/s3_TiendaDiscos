@@ -116,9 +116,8 @@ public class CancionResource {
     //METODOS
     private List<CancionDTO> listEntity2DetailDTO(List<CancionEntity> entityList) {
         List<CancionDTO> list = new ArrayList<>();
-        for (CancionEntity entity : entityList) {
+        for (CancionEntity entity : entityList)
             list.add(new CancionDTO(entity));
-        }
         return list;
     }
 }

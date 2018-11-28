@@ -77,6 +77,7 @@ public class UsuarioResource {
         if (usuarioLogic.getUsuario(usuarioId) == null) 
             throw new WebApplicationException(INIC_ERROR + usuarioId + NO_EXISTE, 404);
         UsuarioDetailDTO detailDTO = new UsuarioDetailDTO(usuarioLogic.updateUsuario(usuarioId, usuario.toEntity()));
+        LOGGER.log(Level.INFO, "UsuarioResource updateUsuario: output: {0}", detailDTO);
         return detailDTO;
     }
 
