@@ -32,15 +32,16 @@ import javax.ws.rs.WebApplicationException;
 public class CarritoDeComprasResource {
 
     private static final Logger LOGGER = Logger.getLogger(CarritoDeComprasResource.class.getName());
-
+    
     @Inject
     private CarritoDeComprasLogic logic;
 
     @POST
-    public CarritoDeComprasDTO createCarritoDeCompras(@PathParam("usuariosId") Long usuariosId, CarritoDeComprasDTO carritoDeCompras) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "CarritoDeComprasResource createCarritoDeCompras: input: {0}", carritoDeCompras.toString());
+    public CarritoDeComprasDTO createCarritoDeCompras(@PathParam("usuariosId") Long usuariosId, CarritoDeComprasDTO carritoDeCompras) throws BusinessLogicException 
+    {
+        LOGGER.log(Level.INFO, "CarritoDeComprasResource createCarritoDeCompras: input: {0}", carritoDeCompras);
         CarritoDeComprasDTO nuevoCarritoDTO = new CarritoDeComprasDTO(logic.create(usuariosId, carritoDeCompras.toEntity()));
-        LOGGER.log(Level.INFO, "CarritoDeComprasResource createCarritoDeCompras: output: {0}", nuevoCarritoDTO.toString());
+        LOGGER.log(Level.INFO, "CarritoDeComprasResource createCarritoDeCompras: output: {0}", nuevoCarritoDTO);
         return nuevoCarritoDTO;
     }
 

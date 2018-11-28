@@ -125,9 +125,6 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
         if (!Objects.equals(this.vinilo, other.vinilo)) {
             return false;
         }
-        if (!Objects.equals(this.cancion, other.cancion)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.cancion, other.cancion);
     }
 }

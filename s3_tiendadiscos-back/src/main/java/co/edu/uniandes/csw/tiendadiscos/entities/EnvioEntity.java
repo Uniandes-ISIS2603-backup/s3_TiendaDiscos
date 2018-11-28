@@ -103,9 +103,6 @@ public class EnvioEntity extends BaseEntity implements Serializable{
         if (!Objects.equals(this.posicionActual, other.posicionActual)) {
             return false;
         }
-        if (!Objects.equals(this.transaccion, other.transaccion)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.transaccion, other.transaccion);
     }
 }

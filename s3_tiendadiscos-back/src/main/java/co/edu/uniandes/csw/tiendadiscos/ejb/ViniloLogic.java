@@ -23,11 +23,14 @@ import javax.inject.Inject;
  * @author Andrés Hernández
  */
 @Stateless
-public class ViniloLogic {
+public class ViniloLogic 
+{
 
     private static final Logger LOGGER = Logger.getLogger(ViniloLogic.class.getName());
 
     private static final String BUSINESS_ERROR = "El vinilo no puede tener valores nulos";
+    
+    private static final String INVALID_ERROR = "El vinilo debe tener valores validos";
     
     @Inject
     private ViniloPersistence persistence;
@@ -51,7 +54,7 @@ public class ViniloLogic {
             throw new BusinessLogicException(BUSINESS_ERROR);
         }
         if (viniloEntity.getNombre().equals("") || viniloEntity.getPrecio() < 0 || viniloEntity.getProductora().equals("") || viniloEntity.getArtista().equals("") || viniloEntity.getCategoria().isEmpty()) {
-            throw new BusinessLogicException("El vinilo debe tener valores validos");
+            throw new BusinessLogicException(INVALID_ERROR);
         }
         persistence.create(viniloEntity);
         LOGGER.log(Level.INFO, "Termina el proceso de creación del vinilo.");
@@ -71,7 +74,7 @@ public class ViniloLogic {
         }
 
         if (viniloEntity.getNombre().equals("") || viniloEntity.getPrecio() < 0 || viniloEntity.getProductora().equals("") || viniloEntity.getArtista().equals("") || viniloEntity.getCategoria().isEmpty()) {
-            throw new BusinessLogicException("El vinilo debe tener valores validos");
+            throw new BusinessLogicException(INVALID_ERROR);
         }
         viniloEntity.setUsuario(usuario);
         persistence.create(viniloEntity);
@@ -135,7 +138,7 @@ public class ViniloLogic {
         }
         
         if (viniloEntity.getNombre().equals("") || viniloEntity.getPrecio() < 0 || viniloEntity.getProductora().equals("") || viniloEntity.getArtista().equals("") || viniloEntity.getCategoria().isEmpty()) {
-            throw new BusinessLogicException("El vinilo debe tener valores validos");
+            throw new BusinessLogicException(INVALID_ERROR);
         }
 
         viniloEntity.setId(viniloId);

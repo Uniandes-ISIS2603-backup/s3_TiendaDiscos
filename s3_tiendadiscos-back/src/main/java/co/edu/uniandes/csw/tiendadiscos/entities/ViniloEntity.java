@@ -360,61 +360,17 @@ public class ViniloEntity extends BaseEntity implements Serializable
     @Override
     public boolean equals(Object obj) 
     {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
         if (getClass() != obj.getClass()) {
             return false;
         }
         final ViniloEntity other = (ViniloEntity) obj;
-        if (!Objects.equals(this.nombre, other.nombre)) {
+        if (!Objects.equals(this.nombre, other.nombre) && !Objects.equals(this.artista, other.artista) && !Objects.equals(this.productora, other.productora) && 
+            !Objects.equals(this.informacionAdicional, other.informacionAdicional) && !Objects.equals(this.previewURI, other.previewURI) &&
+            !Objects.equals(this.categoria, other.categoria) && !Objects.equals(this.fechaLanzamiento, other.fechaLanzamiento) &&
+            !Objects.equals(this.calificacion, other.calificacion) && !Objects.equals(this.precio, other.precio) && !Objects.equals(this.canciones, other.canciones) &&
+            !Objects.equals(this.wishLists, other.wishLists) && !Objects.equals(this.carritosDeCompras, other.carritosDeCompras) &&
+            !Objects.equals(this.transacciones, other.transacciones) && !Objects.equals(this.comentarios, other.comentarios) )
             return false;
-        }
-        if (!Objects.equals(this.artista, other.artista)) {
-            return false;
-        }
-        if (!Objects.equals(this.productora, other.productora)) {
-            return false;
-        }
-        if (!Objects.equals(this.informacionAdicional, other.informacionAdicional)) {
-            return false;
-        }
-        if (!Objects.equals(this.previewURI, other.previewURI)) {
-            return false;
-        }
-        if (!Objects.equals(this.categoria, other.categoria)) {
-            return false;
-        }
-        if (!Objects.equals(this.fechaLanzamiento, other.fechaLanzamiento)) {
-            return false;
-        }
-        if (!Objects.equals(this.calificacion, other.calificacion)) {
-            return false;
-        }
-        if (!Objects.equals(this.precio, other.precio)) {
-            return false;
-        }
-        if (!Objects.equals(this.canciones, other.canciones)) {
-            return false;
-        }
-        if (!Objects.equals(this.wishLists, other.wishLists)) {
-            return false;
-        }
-        if (!Objects.equals(this.carritosDeCompras, other.carritosDeCompras)) {
-            return false;
-        }
-        if (!Objects.equals(this.transacciones, other.transacciones)) {
-            return false;
-        }
-        if (!Objects.equals(this.comentarios, other.comentarios)) {
-            return false;
-        }
-        if (!Objects.equals(this.usuario, other.usuario)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.usuario, other.usuario);
     }
 }

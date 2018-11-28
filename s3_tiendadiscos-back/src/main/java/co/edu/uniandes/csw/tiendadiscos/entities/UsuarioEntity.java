@@ -87,11 +87,10 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         
         this.imagen= imagen;
     }
-    
-    
 
     /**
      * Obtiene el Username del Usuario
+     * @return 
      */
     public String getUsername() {
         return username;
@@ -106,6 +105,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     }
     /**
      * Obtiene el email del usuario
+     * @return 
      */
     public String getEmail() {
         return email;
@@ -228,65 +228,18 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
     @Override
     public boolean equals(Object obj) 
     {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (getClass() != obj.getClass()) 
             return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
         final UsuarioEntity other = (UsuarioEntity) obj;
-        if (!Objects.equals(this.username, other.username)) {
+        
+        if (!Objects.equals(this.username, other.username) && !Objects.equals(this.email, other.email) && !Objects.equals(this.contrasenha, other.contrasenha) &&
+            !Objects.equals(this.nombre, other.nombre) && !Objects.equals(this.direccion, other.direccion) && !Objects.equals(this.rol, other.rol) &&
+            !Objects.equals(this.imagen, other.imagen) && !Objects.equals(this.calificacion, other.calificacion) && !Objects.equals(this.wishList, other.wishList) &&
+            !Objects.equals(this.carritoCompras, other.carritoCompras) && !Objects.equals(this.billingInformation, other.billingInformation) && !Objects.equals(this.vinilos, other.vinilos) &&
+            !Objects.equals(this.transaccionesR, other.transaccionesR) && !Objects.equals(this.transaccionesG, other.transaccionesG) && !Objects.equals(this.comentariosR, other.comentariosR))
             return false;
-        }
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
-        if (!Objects.equals(this.contrasenha, other.contrasenha)) {
-            return false;
-        }
-        if (!Objects.equals(this.nombre, other.nombre)) {
-            return false;
-        }
-        if (!Objects.equals(this.direccion, other.direccion)) {
-            return false;
-        }
-        if (!Objects.equals(this.rol, other.rol)) {
-            return false;
-        }
-        if (!Objects.equals(this.imagen, other.imagen)) {
-            return false;
-        }
-        if (!Objects.equals(this.calificacion, other.calificacion)) {
-            return false;
-        }
-        if (!Objects.equals(this.wishList, other.wishList)) {
-            return false;
-        }
-        if (!Objects.equals(this.carritoCompras, other.carritoCompras)) {
-            return false;
-        }
-        if (!Objects.equals(this.billingInformation, other.billingInformation)) {
-            return false;
-        }
-        if (!Objects.equals(this.vinilos, other.vinilos)) {
-            return false;
-        }
-        if (!Objects.equals(this.transaccionesR, other.transaccionesR)) {
-            return false;
-        }
-        if (!Objects.equals(this.transaccionesG, other.transaccionesG)) {
-            return false;
-        }
-        if (!Objects.equals(this.comentariosR, other.comentariosR)) {
-            return false;
-        }
-        if (!Objects.equals(this.comentariosH, other.comentariosH)) {
-            return false;
-        }
-        return true;
+        
+        return Objects.equals(this.comentariosH, other.comentariosH);
     }
     
     

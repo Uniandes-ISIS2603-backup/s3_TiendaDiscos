@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.tiendadiscos.dtos;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.CarritoDeComprasEntity;
-import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
 import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -173,15 +172,11 @@ public class CarritoDeComprasDetailDTO extends CarritoDeComprasDTO implements Se
     public CarritoDeComprasDetailDTO(CarritoDeComprasEntity carritoDeComprasEntity)
     {
         super(carritoDeComprasEntity);
-        if(carritoDeComprasEntity != null)
+        if(carritoDeComprasEntity != null && carritoDeComprasEntity.getVinilosDeCarritoCompras() != null)
         {
-            if(carritoDeComprasEntity.getVinilosDeCarritoCompras() != null)
-            {
-                vinilos = new ArrayList<>();
-                for(ViniloEntity viniloEntity : carritoDeComprasEntity.getVinilosDeCarritoCompras())
-                    vinilos.add(new ViniloDTO(viniloEntity));
-            }
-           
+            vinilos = new ArrayList<>();
+            for(ViniloEntity viniloEntity : carritoDeComprasEntity.getVinilosDeCarritoCompras())
+                vinilos.add(new ViniloDTO(viniloEntity));
         }
     }
 
