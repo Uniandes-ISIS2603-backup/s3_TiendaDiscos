@@ -202,6 +202,9 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
         if (!Objects.equals(this.envio, other.envio)) {
             return false;
         }
-        return Objects.equals(this.vinilo, other.vinilo);
+        if (!Objects.equals(this.vinilo, other.vinilo)) {
+            return false;
+        }
+        return true;
     }
 }

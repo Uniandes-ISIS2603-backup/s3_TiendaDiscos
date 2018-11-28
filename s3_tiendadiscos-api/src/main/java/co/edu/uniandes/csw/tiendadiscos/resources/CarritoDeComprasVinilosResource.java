@@ -34,8 +34,6 @@ public class CarritoDeComprasVinilosResource {
 
     private static final Logger LOGGER = Logger.getLogger(CarritoDeComprasVinilosResource.class.getName());
 
-    private static final String NO_EXISTE = " no existe.";
-    
     @Inject
     private UsuarioLogic usuarioLogic;
     
@@ -51,14 +49,14 @@ public class CarritoDeComprasVinilosResource {
     {
         LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource addViniloCarritoCompras con id : input: {0}", vinilosId);
         if(usuarioLogic.getUsuario(usuariosId)== null)
-            throw new WebApplicationException("El recurso /usuarios/"+ usuariosId + NO_EXISTE, 404);
+            throw new WebApplicationException("El recurso /usuarios/"+ usuariosId + " no existe.", 404);
         if(viniloLogic.getVinilo(vinilosId) == null)
-            throw new WebApplicationException("El recurso /vinilos/"+ vinilosId + NO_EXISTE, 404);
+            throw new WebApplicationException("El recurso /vinilos/"+ vinilosId + " no existe.", 404);
         if(logic.get(usuariosId) == null)
-            throw new WebApplicationException("El subrecurso carrito de compras del usuario con id:"+ usuariosId+ NO_EXISTE,404);
+            throw new WebApplicationException("El subrecurso carrito de compras del usuario con id:"+ usuariosId+ " no existe.",404);
         CarritoDeComprasEntity carrito = logic.agregarVinilo(usuariosId, vinilosId);        
         CarritoDeComprasDetailDTO newCarritoDto = new CarritoDeComprasDetailDTO(carrito);
-        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource addViniloCarritoCompras: output: {0}", newCarritoDto);
+        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource addViniloCarritoCompras: output: {0}", newCarritoDto.toString());
 
         return newCarritoDto;
     }
@@ -69,20 +67,20 @@ public class CarritoDeComprasVinilosResource {
     {
         LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource getViniloCarritoCompras con id : input: {0}", vinilosId);
         if(usuarioLogic.getUsuario(usuariosId)== null)
-            throw new WebApplicationException("El recurso /usuarios/"+ usuariosId + NO_EXISTE, 404);
+            throw new WebApplicationException("El recurso /usuarios/"+ usuariosId + " no existe.", 404);
         CarritoDeComprasEntity carrito = logic.get(usuariosId);
         if(carrito == null)
-            throw new WebApplicationException("El subrecurso carrito de compras del usuario con id:"+ usuariosId+ NO_EXISTE,404);
+            throw new WebApplicationException("El subrecurso carrito de compras del usuario con id:"+ usuariosId+ " no existe.",404);
         ViniloEntity vinilo = viniloLogic.getVinilo(vinilosId);
         if(vinilo == null)
-            throw new WebApplicationException("El recurso /vinilos/"+ vinilosId + NO_EXISTE, 404);
+            throw new WebApplicationException("El recurso /vinilos/"+ vinilosId + " no existe.", 404);
         ViniloDetailDTO viniloDTO = null;
         if (carrito.getVinilosDeCarritoCompras().contains(vinilo)) 
             viniloDTO = new ViniloDetailDTO(vinilo);
         else 
             throw new WebApplicationException("El vinilo no existe en el carrito", 404);
         
-        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource getViniloCarritoCompras: output: {0}", viniloDTO);
+        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource getViniloCarritoCompras: output: {0}", viniloDTO.toString());
 
         return viniloDTO;
     }
@@ -95,7 +93,7 @@ public class CarritoDeComprasVinilosResource {
         List<ViniloDetailDTO> vinilos = new ArrayList<>();
         for (ViniloEntity vinilosDeCarritoCompra : carrito.getVinilosDeCarritoCompras())
             vinilos.add(new ViniloDetailDTO(vinilosDeCarritoCompra));
-        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource getVinilosCarritoCompras: output: {0}", vinilos);
+        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource getVinilosCarritoCompras: output: {0}", vinilos.toString());
         return vinilos;
     }
 
@@ -105,7 +103,7 @@ public class CarritoDeComprasVinilosResource {
     {
         LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource deleteViniloCarritoCompras con id : input: {0}", vinilosId);
         CarritoDeComprasEntity carrito = logic.eliminarVinilo(usuariosId, vinilosId);
-        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource deleteViniloCarritoCompras: output: {0}", carrito);
+        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource deleteViniloCarritoCompras: output: {0}", carrito.toString());
     }
 
 }

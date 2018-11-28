@@ -85,7 +85,10 @@ public class WishListEntity extends BaseEntity implements Serializable {
         if (!Objects.equals(this.vinilos, other.vinilos)) {
             return false;
         }
-        return Objects.equals(this.usuario, other.usuario);
+        if (!Objects.equals(this.usuario, other.usuario)) {
+            return false;
+        }
+        return true;
     }
     
     
