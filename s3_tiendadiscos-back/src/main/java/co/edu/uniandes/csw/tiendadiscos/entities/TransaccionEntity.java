@@ -82,7 +82,7 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
         this.vinilo = vinilo;
     }
 
-    private void setComentarios(List<ComentarioEntity> comentarios)
+    public void setComentarios(List<ComentarioEntity> comentarios)
     {
         this.comentarios = comentarios;
     }

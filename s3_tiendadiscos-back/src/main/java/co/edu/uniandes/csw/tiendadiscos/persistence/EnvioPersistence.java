@@ -32,7 +32,8 @@ public class EnvioPersistence {
      * @param envioEntity
      * @return devuelve la entidad creada con un id dado por la base de datos.
      */
-    public EnvioEntity create(EnvioEntity envioEntity) {
+    public EnvioEntity create(EnvioEntity envioEntity) 
+    {
         LOGGER.log(Level.INFO, "Creando una tarjeta nueva");
         em.persist(envioEntity);
         LOGGER.log(Level.INFO, "Saliendo de crear una tarjeta nueva ");
@@ -45,14 +46,14 @@ public class EnvioPersistence {
      * @param transaccionId: id correspondiente a la author buscada.
      * @return un usuario.
      */
-    public EnvioEntity find(Long transaccionId) {
+    public EnvioEntity find(Long transaccionId) 
+    {
         TypedQuery<EnvioEntity> q = em.createQuery("select p from EnvioEntity p where(p.transaccion.id = :transaccionid)", EnvioEntity.class);
         q.setParameter("transaccionid", transaccionId);
         List<EnvioEntity> results = q.getResultList();
         EnvioEntity envio = null;
         if(!results.isEmpty())
             envio = results.get(0);
-        
         return envio;
     }
 
@@ -63,13 +64,11 @@ public class EnvioPersistence {
      * @return una usuario con los cambios aplicados.
      */
 
-    public EnvioEntity update(EnvioEntity envioEntity) {
+    public EnvioEntity update(EnvioEntity envioEntity) 
+    {
         LOGGER.log(Level.INFO, "Actualizando tarjeta con id={0}", envioEntity.getId());
-
         LOGGER.log(Level.INFO, "Saliendo de actualizar tarjeta con id = {0}", envioEntity.getId());
-
         return em.merge(envioEntity);
-
     }
 
     /**
@@ -79,12 +78,11 @@ public class EnvioPersistence {
      * @param envioId: id correspondiente a la usuario a borrar.
      */
 
-    public void delete(Long envioId) {
+    public void delete(Long envioId) 
+    {
         LOGGER.log(Level.INFO, "Borrando envio de transaccion con id={0}", envioId);
         EnvioEntity envioEntity = find(envioId);
         em.remove(envioEntity);
         LOGGER.log(Level.INFO, "Saliendo de borrar envio con id = {0}", envioId);
-
     }
-
 }

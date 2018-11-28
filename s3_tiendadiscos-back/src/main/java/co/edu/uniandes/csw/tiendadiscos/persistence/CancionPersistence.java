@@ -40,14 +40,16 @@ public class CancionPersistence {
         return cancionEntity;
     }
 
-    public List<CancionEntity> findCancionesUsuario(Long viniloId) {
+    public List<CancionEntity> findCancionesUsuario(Long viniloId) 
+    {
         LOGGER.log(Level.INFO, "Consultando todos las canciones del vinilo:{0}", viniloId);
         TypedQuery<CancionEntity> q = em.createQuery("select p from CancionEntity p where (p.vinilo.id = :viniloId)", CancionEntity.class);
         q.setParameter("viniloId", viniloId);
         return q.getResultList();
     }
 
-    public List<CancionEntity> findAll() {
+    public List<CancionEntity> findAll() 
+    {
         LOGGER.log(Level.INFO, "Consultando todas las canciones.");
         Query q = em.createQuery("select u from CancionEntity u");
         return q.getResultList();
@@ -68,12 +70,14 @@ public class CancionPersistence {
         return cancion;
     }
 
-    public CancionEntity update(CancionEntity cancionEntity) {
+    public CancionEntity update(CancionEntity cancionEntity) 
+    {
         LOGGER.log(Level.INFO, "Actualizando la canción con el id={0}", cancionEntity.getId());
         return em.merge(cancionEntity);
     }
 
-    public void delete(Long cancionId) {
+    public void delete(Long cancionId) 
+    {
         LOGGER.log(Level.INFO, "Borrando la canción con el id={0}", cancionId);
         CancionEntity cancionEntity = em.find(CancionEntity.class, cancionId);
         em.remove(cancionEntity);

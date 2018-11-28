@@ -43,14 +43,15 @@ public class BillingInformationResource {
     private BillingInformationLogic billingLogic;
 
     @GET
-    public BillingInformationDetailDTO getBilling(@PathParam("usuariosId") Long usuariosId) {
+    public BillingInformationDetailDTO getBilling(@PathParam("usuariosId") Long usuariosId) 
+    {
         LOGGER.log(Level.INFO, "BillingInformationResource getBilling: input: {0}", usuariosId);
         BillingInformationEntity billingEntity = billingLogic.getBilling(usuariosId);
         if (billingEntity == null) {
             throw new WebApplicationException(INICIO_EXCEPTION + usuariosId + BILLING_INEXISTENTE, 404);
         }
         BillingInformationDetailDTO detailDTO = new BillingInformationDetailDTO(billingEntity);
-        LOGGER.log(Level.INFO, "BillingInformationResource getBilling: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "BillingInformationResource getBilling: output: {0}", detailDTO);
         return detailDTO;
     }
 
@@ -64,33 +65,31 @@ public class BillingInformationResource {
     }
 
     @PUT
-    public BillingInformationDetailDTO updateBilling(@PathParam("usuariosId") Long usuariosId, BillingInformationDetailDTO billing) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "BillingResource updateBilling: input: usuariosId: {0} , billing: {1}", new Object[]{usuariosId, billing.toString()});
-
+    public BillingInformationDetailDTO updateBilling(@PathParam("usuariosId") Long usuariosId, BillingInformationDetailDTO billing) throws BusinessLogicException 
+    {
+        LOGGER.log(Level.INFO, "BillingResource updateBilling: input: usuariosId: {0} , billing: {1}", new Object[]{usuariosId, billing});
         BillingInformationEntity entity = billingLogic.getBilling(usuariosId);
-        if (entity == null) {
+        if (entity == null) 
             throw new WebApplicationException(INICIO_EXCEPTION + usuariosId + BILLING_INEXISTENTE, 404);
-
-        }
         BillingInformationDetailDTO billingDTO = new BillingInformationDetailDTO(billingLogic.updateBilling(usuariosId, billing.toEntity()));
-        LOGGER.log(Level.INFO, "BillingResource updateBilling: output:{0}", billingDTO.toString());
+        LOGGER.log(Level.INFO, "BillingResource updateBilling: output:{0}", billingDTO);
         return billingDTO;
     }
 
     @DELETE
-    public void deleteBilling(@PathParam("usuariosId") Long usuariosId) throws BusinessLogicException {
+    public void deleteBilling(@PathParam("usuariosId") Long usuariosId) throws BusinessLogicException 
+    {
         BillingInformationEntity entity = billingLogic.getBilling(usuariosId);
-        if (entity == null) {
+        if (entity == null) 
             throw new WebApplicationException(INICIO_EXCEPTION + usuariosId + BILLING_INEXISTENTE, 404);
-        }
         billingLogic.deleteBilling(usuariosId);
     }
 
     @Path("/tarjetasDeCredito")
     public Class<MedioDePagoResource> getTarjetaResource(@PathParam("usuariosId") Long usuariosId) {
-        if (billingLogic.getBilling(usuariosId) == null) {
+        if (billingLogic.getBilling(usuariosId) == null) 
             throw new WebApplicationException(INICIO_EXCEPTION + usuariosId + BILLING_INEXISTENTE, 404);
-        }
+        
         return MedioDePagoResource.class;
     }
 }

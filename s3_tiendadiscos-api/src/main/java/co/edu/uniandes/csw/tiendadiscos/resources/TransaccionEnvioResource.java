@@ -23,8 +23,8 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @RequestScoped
-public class TransaccionEnvioResource {
-
+public class TransaccionEnvioResource 
+{
     private static final Logger LOGGER = Logger.getLogger(TransaccionEnvioResource.class.getName());
 
     @Inject
@@ -32,43 +32,43 @@ public class TransaccionEnvioResource {
 
     @POST
     @Path("envio")
-    public EnvioDTO crearEnvio(@PathParam("transaccionesId") Long transaccionId, EnvioDTO envio) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "transaccionEnvioResource crearEnvio: input: {0}", envio.toString());
+    public EnvioDTO crearEnvio(@PathParam("transaccionesId") Long transaccionId, EnvioDTO envio) throws BusinessLogicException 
+    {
+        LOGGER.log(Level.INFO, "transaccionEnvioResource crearEnvio: input: {0}", envio);
         EnvioDTO nuevoEnvioDTO = new EnvioDTO(envioLogic.create(envio.toEntity(), transaccionId));
-        LOGGER.log(Level.INFO, "transaccionEnvioResource crearEnvio: output: {0}", nuevoEnvioDTO.toString());
+        LOGGER.log(Level.INFO, "transaccionEnvioResource crearEnvio: output: {0}", nuevoEnvioDTO);
         return nuevoEnvioDTO;
     }
 
     @GET
     @Path("envio")
-    public EnvioDTO obtenerEnvio(@PathParam("transaccionesId") Long transaccionesId) {
+    public EnvioDTO obtenerEnvio(@PathParam("transaccionesId") Long transaccionesId) 
+    {
         LOGGER.log(Level.INFO, "TransaccionEnvioResource obtenerEnvio: input: {0}", transaccionesId);
-
         EnvioEntity entity = envioLogic.getEnvio(transaccionesId);
-        if (entity == null) {
+        if (entity == null) 
             throw new WebApplicationException("El recurso /transacciones/" + transaccionesId + "/envio no existe.", 404);
-        }
         EnvioDTO nuevo = new EnvioDTO(entity);
-        LOGGER.log(Level.INFO, "TransaccionEnvioResource obtenerEnvio: output: {0}", nuevo.toString());
-
+        LOGGER.log(Level.INFO, "TransaccionEnvioResource obtenerEnvio: output: {0}", nuevo);
         return nuevo;
     }
 
     @PUT
     @Path("envio")
-    public EnvioDTO actualizarEnvio(@PathParam("transaccionesId") Long transaccionesId, EnvioDTO envio) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "transaccionEnvioResource actualizarEnvio: input: {0}", envio.toString());
+    public EnvioDTO actualizarEnvio(@PathParam("transaccionesId") Long transaccionesId, EnvioDTO envio) throws BusinessLogicException 
+    {
+        LOGGER.log(Level.INFO, "transaccionEnvioResource actualizarEnvio: input: {0}", envio);
         EnvioDTO nuevoEnvio = new EnvioDTO(envioLogic.updateEnvio(transaccionesId, envio.toEntity()));
-        LOGGER.log(Level.INFO, "transaccionEnvioResource actualizarEnvio: output: {0}", nuevoEnvio.toString());
+        LOGGER.log(Level.INFO, "transaccionEnvioResource actualizarEnvio: output: {0}", nuevoEnvio);
         return nuevoEnvio;
     }
 
     @DELETE
     @Path("envio")
-    public void eliminarEnvio(@PathParam("transaccionesId") Long transaccionesId) throws BusinessLogicException {
+    public void eliminarEnvio(@PathParam("transaccionesId") Long transaccionesId) throws BusinessLogicException 
+    {
         LOGGER.log(Level.INFO, "transaccionEnvioResource eliminarEnvio: input: {0}", transaccionesId);
         envioLogic.deleteEnvio(transaccionesId);
         LOGGER.log(Level.INFO, "transaccionEnvioResource eliminarEnvio: output: {0}", transaccionesId);
     }
-
 }

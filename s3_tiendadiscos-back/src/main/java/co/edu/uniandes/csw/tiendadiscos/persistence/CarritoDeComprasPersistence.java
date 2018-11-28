@@ -26,36 +26,37 @@ public class CarritoDeComprasPersistence {
 
     private static final Logger LOGGER = Logger.getLogger(CarritoDeComprasPersistence.class.getName());
 
-    public CarritoDeComprasEntity create(CarritoDeComprasEntity carritoDeComprasEntity) {
+    public CarritoDeComprasEntity create(CarritoDeComprasEntity carritoDeComprasEntity) 
+    {
         LOGGER.log(Level.INFO, "Creando un carrito de compra nuevo");
         em.persist(carritoDeComprasEntity);
         LOGGER.log(Level.INFO, "Saliendo de crear un carrito de compras nuevo");
         return carritoDeComprasEntity;
     }
 
-    public CarritoDeComprasEntity find(Long carritoDeComprasId) {
+    public CarritoDeComprasEntity find(Long carritoDeComprasId) 
+    {
         LOGGER.log(Level.INFO, "Consultando CarritoDeCompras con id={0}", carritoDeComprasId);
         return em.find(CarritoDeComprasEntity.class, carritoDeComprasId);
     }
 
-    public CarritoDeComprasEntity update(CarritoDeComprasEntity carritoDeComprasEntity) {
+    public CarritoDeComprasEntity update(CarritoDeComprasEntity carritoDeComprasEntity) 
+    {
         LOGGER.log(Level.INFO, "Actualizando CarritoDeCompras con id={0}", carritoDeComprasEntity.getId());
-
         LOGGER.log(Level.INFO, "Saliendo de actualizar CarritoDeCompras con id = {0}", carritoDeComprasEntity.getId());
-
         return em.merge(carritoDeComprasEntity);
-
     }
 
-    public void delete(Long carritoDeComprasId) {
+    public void delete(Long carritoDeComprasId) 
+    {
         LOGGER.log(Level.INFO, "Borrando un carrito de compras con id={0}", carritoDeComprasId);
         CarritoDeComprasEntity carritoDeComprasEntity = find(carritoDeComprasId);
         em.remove(carritoDeComprasEntity);
         LOGGER.log(Level.INFO, "Saliendo de borrar carrito compras con id = {0}", carritoDeComprasId);
-
     }
 
-    public CarritoDeComprasEntity findByUserId(Long userId) {
+    public CarritoDeComprasEntity findByUserId(Long userId) 
+    {
         LOGGER.log(Level.INFO, "Consultando el Carrito de Compras asociado al usuario con el id = {0}" , userId);
         TypedQuery<CarritoDeComprasEntity> q = em.createQuery("select p from CarritoDeComprasEntity p where p.usuario.id = :usuarioId", CarritoDeComprasEntity.class);
         q.setParameter("usuarioId", userId);

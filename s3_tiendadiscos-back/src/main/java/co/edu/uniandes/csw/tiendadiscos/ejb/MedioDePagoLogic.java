@@ -37,32 +37,24 @@ public class MedioDePagoLogic {
     {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de la tarjeta");
         if (tarjeta.getNumero() == null || tarjeta.getCvc() == null || tarjeta.getFechaVencimiento() == null || tarjeta.getName() == null
-                || tarjeta.getNumeroVerificacion() == null) {
+                || tarjeta.getNumeroVerificacion() == null) 
             throw new BusinessLogicException("El medio de pago no puede tener valores nulos");
-        }
+        
         UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
-        if (usuario == null) {
+        if (usuario == null)
             //Esta exception la produce usuario BORRAR
             throw new BusinessLogicException("No existe el usuario con ese id");
-        }
         BillingInformationEntity billing = usuario.getBillingInformation();
 
-        if (billing == null) {
+        if (billing == null)
             throw new BusinessLogicException("El usuario no tiene billing asignado");
-        }
-
-        if (!tarjeta.getNumero().equals(tarjeta.getNumeroVerificacion())) {
+        if (!tarjeta.getNumero().equals(tarjeta.getNumeroVerificacion()))
             throw new BusinessLogicException("Numero de verificacion no coincide");
-
-        }
-        if (tarjeta.getFechaVencimiento().compareTo(new Date()) < 0) {
+        if (tarjeta.getFechaVencimiento().compareTo(new Date()) < 0) 
             throw new BusinessLogicException("Fecha invalida");
-        }
-
         tarjeta.setBilling(billing);
         LOGGER.log(Level.INFO, "Termina proceso de creación de la tarjeta");
         return persistence.create(tarjeta);
-
     }
 
     public MedioDePagoEntity getTarjeta(Long usuariosId, Long tarjetaId) throws BusinessLogicException {
@@ -96,27 +88,19 @@ public class MedioDePagoLogic {
 
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar la tarjeta con id {0} del usuario con id = {1}", new Object[]{tarjetaId, usuariosId});
         if (tarjeta.getNumero() == null || tarjeta.getCvc() == null || tarjeta.getFechaVencimiento() == null || tarjeta.getName() == null
-                || tarjeta.getNumeroVerificacion() == null) {
+                || tarjeta.getNumeroVerificacion() == null)
             throw new BusinessLogicException("El medio de pago no puede tener valores nulos");
-        }
         UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
         BillingInformationEntity billing = usuario.getBillingInformation();
 
-        if (billing == null) {
+        if (billing == null) 
             throw new BusinessLogicException("El usuario no tiene billing asignado");
-        }
-
-        if (persistence.find(billing.getId(), tarjetaId) == null) {
+        if (persistence.find(billing.getId(), tarjetaId) == null) 
             throw new BusinessLogicException("La tarjeta a actualizar no existe");
-        }
-
-        if (!tarjeta.getNumero().equals(tarjeta.getNumeroVerificacion())) {
+        if (!tarjeta.getNumero().equals(tarjeta.getNumeroVerificacion()))             
             throw new BusinessLogicException("Numero de verificacion no coincide");
-
-        }
-        if (tarjeta.getFechaVencimiento().compareTo(new Date()) < 0) {
+        if (tarjeta.getFechaVencimiento().compareTo(new Date()) < 0) 
             throw new BusinessLogicException("Fecha invalida");
-        }
 
         tarjeta.setBilling(billing);
         tarjeta.setId(tarjetaId);

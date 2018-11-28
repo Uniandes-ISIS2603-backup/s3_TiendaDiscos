@@ -52,7 +52,7 @@ public class BillingInformationLogic {
         {
             Integer.parseInt(billingEntity.getCuentaAhorro());
         }
-        catch(Exception e) 
+        catch(NumberFormatException e) 
         {    
             throw new BusinessLogicException("No es un numero de cuenta valido");
         }
@@ -83,14 +83,21 @@ public class BillingInformationLogic {
     }
 
     //BILLING ID ???
-    public BillingInformationEntity updateBilling(Long usuariosId, BillingInformationEntity billing) throws BusinessLogicException {
+    public BillingInformationEntity updateBilling(Long usuariosId, BillingInformationEntity billingEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el billing del usuario con id = {0}", usuariosId);
         UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
         if (usuario.getBillingInformation() == null)
             throw new BusinessLogicException("El usuario no tiene asociado un billing");
-        billing.setId(usuario.getBillingInformation().getId());
-        billing.setUsuario(usuario);
-        BillingInformationEntity newEntity = persistence.update(billing);
+        try{
+            Integer.parseInt(billingEntity.getCuentaAhorro());
+        }
+        catch(NumberFormatException e) 
+        {    
+            throw new BusinessLogicException("No es un numero de cuenta valido.");
+        }
+        billingEntity.setId(usuario.getBillingInformation().getId());
+        billingEntity.setUsuario(usuario);
+        BillingInformationEntity newEntity = persistence.update(billingEntity);
         //Usuario maneja exception de que exista 
         LOGGER.log(Level.INFO, "Termina proceso de actualizar el billing con id = {0}", newEntity.getId());
         return newEntity;

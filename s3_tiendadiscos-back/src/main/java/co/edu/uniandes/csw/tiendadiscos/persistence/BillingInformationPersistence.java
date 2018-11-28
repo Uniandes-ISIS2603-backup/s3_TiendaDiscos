@@ -26,7 +26,8 @@ public class BillingInformationPersistence {
 
     private static final Logger LOGGER = Logger.getLogger(BillingInformationPersistence.class.getName());
 
-    public BillingInformationEntity create(BillingInformationEntity billingInformationEntity) {
+    public BillingInformationEntity create(BillingInformationEntity billingInformationEntity) 
+    {
         LOGGER.log(Level.INFO, "Creando un billing nuevo");
         em.persist(billingInformationEntity);
         LOGGER.log(Level.INFO, "Saliendo de crear un billing nuevo");

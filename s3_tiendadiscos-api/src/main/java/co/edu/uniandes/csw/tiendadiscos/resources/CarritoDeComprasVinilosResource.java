@@ -86,22 +86,21 @@ public class CarritoDeComprasVinilosResource {
     }
 
     @GET
-    public List<ViniloDetailDTO> getVinilosCarritoCompras(@PathParam("usuariosId") Long usuariosId) {
-
-        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource getVinilosCarritoCompras del usaurio " + usuariosId);
+    public List<ViniloDetailDTO> getVinilosCarritoCompras(@PathParam("usuariosId") Long usuariosId) 
+    {
+        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource getVinilosCarritoCompras del usaurio {0}" , usuariosId);
         CarritoDeComprasEntity carrito = logic.get(usuariosId);
-        List<ViniloDetailDTO> vinilos = new ArrayList<ViniloDetailDTO>();
-        for (ViniloEntity vinilosDeCarritoCompra : carrito.getVinilosDeCarritoCompras()) {
+        List<ViniloDetailDTO> vinilos = new ArrayList<>();
+        for (ViniloEntity vinilosDeCarritoCompra : carrito.getVinilosDeCarritoCompras())
             vinilos.add(new ViniloDetailDTO(vinilosDeCarritoCompra));
-        }
         LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource getVinilosCarritoCompras: output: {0}", vinilos.toString());
-
         return vinilos;
     }
 
     @DELETE
     @Path("{vinilosId: \\d+}")
-    public void deleteViniloCarritoCompras(@PathParam("usuariosId") Long usuariosId,@PathParam("vinilosId") Long vinilosId) throws BusinessLogicException {
+    public void deleteViniloCarritoCompras(@PathParam("usuariosId") Long usuariosId,@PathParam("vinilosId") Long vinilosId) throws BusinessLogicException 
+    {
         LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource deleteViniloCarritoCompras con id : input: {0}", vinilosId);
         CarritoDeComprasEntity carrito = logic.eliminarVinilo(usuariosId, vinilosId);
         LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource deleteViniloCarritoCompras: output: {0}", carrito.toString());

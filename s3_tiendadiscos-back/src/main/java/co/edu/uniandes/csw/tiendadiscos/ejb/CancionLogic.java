@@ -100,17 +100,15 @@ public class CancionLogic {
      * @throws
      * co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException
      */
-    public CancionEntity getCancion(Long viniloId, Long cancionId) throws BusinessLogicException {
+    public CancionEntity getCancion(Long viniloId, Long cancionId) throws BusinessLogicException 
+    {
         LOGGER.log(Level.INFO, "Incia el proceso de consulta de la cancion con el id = {0}", cancionId);
-        if (viniloPersistence.find(viniloId) == null) {
+        if (viniloPersistence.find(viniloId) == null)
             throw new BusinessLogicException("El vinilo no existe");
-        }
         CancionEntity cancionEntity = persistence.find(cancionId, viniloId);
-
-        if (cancionEntity == null) {
+        if (cancionEntity == null) 
             LOGGER.log(Level.INFO, "La canción con el id = {0} no existe", cancionId);
-        }
-        LOGGER.log(Level.INFO, "Termina el proceso de consulta de la canción ", cancionEntity);
+        LOGGER.log(Level.INFO, "Termina el proceso de consulta de la canción {0}", cancionEntity);
         return cancionEntity;
     }
 

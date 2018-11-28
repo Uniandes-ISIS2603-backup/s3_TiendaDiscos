@@ -19,21 +19,24 @@ import javax.persistence.TypedQuery;
  * @author Kevin Blanco
  */
 @Stateless
-public class MedioDePagoPersistence {
+public class MedioDePagoPersistence 
+{
 
     @PersistenceContext(unitName = "VinylAppPU")
     protected EntityManager em;
     private static final Logger LOGGER = Logger.getLogger(MedioDePagoPersistence.class.getName());
 
-    public MedioDePagoEntity create(MedioDePagoEntity tarjetaEntity) {
+    public MedioDePagoEntity create(MedioDePagoEntity tarjetaEntity) 
+    {
         LOGGER.log(Level.INFO, "Creando una tarjeta nueva");
         em.persist(tarjetaEntity);
         LOGGER.log(Level.INFO, "Saliendo de crear una tarjeta nueva ");
         return tarjetaEntity;
     }
 
-    public MedioDePagoEntity find(Long billingId, Long tarjetaId) {
-        LOGGER.log(Level.INFO, "Consultando tarjeta con id={0} del billing con id = " + billingId, tarjetaId);
+    public MedioDePagoEntity find(Long billingId, Long tarjetaId) 
+    {
+        LOGGER.log(Level.INFO, "Consultando tarjeta con id={0} del billing con id = {1}", new Object[]{tarjetaId, billingId});
         TypedQuery<MedioDePagoEntity> q = em.createQuery("select p from MedioDePagoEntity p where (p.billing.id = :billingId) and (p.id = :tarjetaId)", MedioDePagoEntity.class);
         q.setParameter("billingId", billingId);
         q.setParameter("tarjetaId", tarjetaId);
@@ -41,28 +44,22 @@ public class MedioDePagoPersistence {
         MedioDePagoEntity tarjeta = null;
         if(!results.isEmpty())
             tarjeta = results.get(0);
-
-        LOGGER.log(Level.INFO, "Saliendo de consultar la tarjeta  con id = {0} del billing con id =" + billingId, tarjetaId);
+        LOGGER.log(Level.INFO, "Saliendo de consultar la tarjeta  con id = {0} del billing con id = {1}" , new Object[]{tarjetaId, billingId});
         return tarjeta;
     }
 
-    public MedioDePagoEntity update(MedioDePagoEntity tarjetaEntity) {
+    public MedioDePagoEntity update(MedioDePagoEntity tarjetaEntity) 
+    {
         LOGGER.log(Level.INFO, "Actualizando tarjeta con id={0}", tarjetaEntity.getId());
-
         LOGGER.log(Level.INFO, "Saliendo de actualizar tarjeta con id = {0}", tarjetaEntity.getId());
-
         return em.merge(tarjetaEntity);
-
     }
 
-    public void delete(Long tarjetaId) {
+    public void delete(Long tarjetaId) 
+    {
         LOGGER.log(Level.INFO, "Borrando tarjeta con id={0}", tarjetaId);
-
         MedioDePagoEntity tarjetaEntity = em.find(MedioDePagoEntity.class, tarjetaId);
-
         em.remove(tarjetaEntity);
         LOGGER.log(Level.INFO, "Saliendo de borrar tarjeta con id = {0}", tarjetaId);
-
     }
-
 }

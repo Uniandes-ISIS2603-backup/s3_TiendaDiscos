@@ -47,10 +47,11 @@ public class MedioDePagoResource {
     private MedioDePagoLogic tarjetaLogic;
 
     @POST
-    public MedioDePagoDTO createTarjetaCredito(@PathParam("usuariosId") Long usuariosId, MedioDePagoDTO tarjeta) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "TarjetaResource createTarjeta: input: {0}", tarjeta.toString());
+    public MedioDePagoDTO createTarjetaCredito(@PathParam("usuariosId") Long usuariosId, MedioDePagoDTO tarjeta) throws BusinessLogicException 
+    {
+        LOGGER.log(Level.INFO, "TarjetaResource createTarjeta: input: {0}", tarjeta);
         MedioDePagoDTO nuevoTarjetaDTO = new MedioDePagoDTO(tarjetaLogic.createTarjeta(usuariosId, tarjeta.toEntity()));
-        LOGGER.log(Level.INFO, "TarjetaResource createTarjeta: output: {0}", nuevoTarjetaDTO.toString());
+        LOGGER.log(Level.INFO, "TarjetaResource createTarjeta: output: {0}", nuevoTarjetaDTO);
         return nuevoTarjetaDTO;
     }
 
@@ -66,7 +67,7 @@ public class MedioDePagoResource {
     {
         LOGGER.log(Level.INFO, "TarjetaResource getReviews: input: {0}", usuariosId);
         List<MedioDePagoDTO> listaDTOs = listEntity2DTO(tarjetaLogic.getTarjetas(usuariosId));
-        LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaDTOs.toString());
+        LOGGER.log(Level.INFO, "EditorialBooksResource getBooks: output: {0}", listaDTOs);
         return listaDTOs;
     }
 
@@ -76,17 +77,18 @@ public class MedioDePagoResource {
      * @param usuariosId id usuario
      * @param tarjetaCreditoId id tarjeta
      * @return
+     * @throws co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException
      */
     @GET
     @Path("{tarjetaCreditoId: \\d+}") 
-    public MedioDePagoDTO getTarjetaCredito(@PathParam("usuariosId") Long usuariosId, @PathParam("tarjetaCreditoId") Long tarjetaCreditoId) throws BusinessLogicException {
+    public MedioDePagoDTO getTarjetaCredito(@PathParam("usuariosId") Long usuariosId, @PathParam("tarjetaCreditoId") Long tarjetaCreditoId) throws BusinessLogicException
+    {
         LOGGER.log(Level.INFO, "TarjetaCreditoResource getTarjetaCredito: input: {0}", tarjetaCreditoId);
         MedioDePagoEntity entity = tarjetaLogic.getTarjeta(usuariosId, tarjetaCreditoId);
-        if (entity == null) {
+        if (entity == null)
             throw new WebApplicationException(INIC_ERROR + usuariosId + "/billing/tarjetasDeCredito" + tarjetaCreditoId + NO_EXISTE, 404);
-        }
         MedioDePagoDTO tarjetaDTO = new MedioDePagoDTO(entity);
-        LOGGER.log(Level.INFO, "TarjetaCreditoResource getTarjetaCredito: output: {0}", tarjetaDTO.toString());
+        LOGGER.log(Level.INFO, "TarjetaCreditoResource getTarjetaCredito: output: {0}", tarjetaDTO);
         return tarjetaDTO;
     }
 
@@ -143,12 +145,12 @@ public class MedioDePagoResource {
 
     private MedioDePagoDTO doUpdateTarjetaCredito(@PathParam("usuariosId") Long usuariosId, @PathParam("tarjetaId") Long tarjetaCreditoId, MedioDePagoDTO tarjeta) throws BusinessLogicException 
     {
-        LOGGER.log(Level.INFO, "ReviewResource updateTarjetaCredito: input: usuariosId: {0} , tarjetaCreditoId: {1} , review:{2}", new Object[]{usuariosId, tarjetaCreditoId, tarjeta.toString()});
+        LOGGER.log(Level.INFO, "ReviewResource updateTarjetaCredito: input: usuariosId: {0} , tarjetaCreditoId: {1} , review:{2}", new Object[]{usuariosId, tarjetaCreditoId, tarjeta});
         MedioDePagoEntity entity = tarjetaLogic.getTarjeta(usuariosId, tarjetaCreditoId);
         if (entity == null) 
             throw new WebApplicationException(INIC_ERROR + usuariosId + "/billing/tarjetasDeCredito/" + tarjetaCreditoId + NO_EXISTE, 404);
         MedioDePagoDTO tarjetaDTO = new MedioDePagoDTO(tarjetaLogic.updateTarjeta(usuariosId, tarjetaCreditoId, tarjeta.toEntity()));
-        LOGGER.log(Level.INFO, "TarjetaResource updateTarjetaCredito: output:{0}", tarjetaDTO.toString());
+        LOGGER.log(Level.INFO, "TarjetaResource updateTarjetaCredito: output:{0}", tarjetaDTO);
         return tarjetaDTO;
     }
 

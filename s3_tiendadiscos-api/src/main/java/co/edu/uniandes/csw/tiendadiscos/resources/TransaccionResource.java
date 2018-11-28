@@ -46,10 +46,11 @@ public class TransaccionResource
     TransaccionLogic logic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
     @POST
-    public TransaccionDTO createTransaccion(TransaccionDTO transaccion) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "transaccionResource createTransaccion: input: {0}", transaccion.toString());
+    public TransaccionDTO createTransaccion(TransaccionDTO transaccion) throws BusinessLogicException 
+    {
+        LOGGER.log(Level.INFO, "transaccionResource createTransaccion: input: {0}", transaccion);
         TransaccionDTO nuevaTransaccionDTO = new TransaccionDTO(logic.create(transaccion.toEntity()));
-        LOGGER.log(Level.INFO, "transaccionResource createTransaccion: output: {0}", nuevaTransaccionDTO.toString());
+        LOGGER.log(Level.INFO, "transaccionResource createTransaccion: output: {0}", nuevaTransaccionDTO);
         return nuevaTransaccionDTO;
     }
 
@@ -58,13 +59,11 @@ public class TransaccionResource
     public TransaccionDTO getTransaccion(@PathParam("transaccionesId") Long transaccionesId) 
     {
         LOGGER.log(Level.INFO, "TransaccionResource getTransaccion: input: {0}", transaccionesId);
-
         TransaccionEntity entity = logic.get(transaccionesId);
         if (entity == null)
             throw new WebApplicationException(INIC_ERROR + transaccionesId + NO_EXISTE, 404);
         TransaccionDTO nuevo = new TransaccionDTO(entity);
-        LOGGER.log(Level.INFO, "TransaccionResource getTransaccion: output: {0}", nuevo.toString());
-
+        LOGGER.log(Level.INFO, "TransaccionResource getTransaccion: output: {0}", nuevo);
         return nuevo;
     }
 
@@ -89,18 +88,19 @@ public class TransaccionResource
     @Path("{transaccionesId: \\d+}")
     public TransaccionDTO updateTransaccion(@PathParam("transaccionesId") Long transaccionesId, TransaccionDTO transaccion) throws BusinessLogicException 
     {
-        LOGGER.log(Level.INFO, "transaccionResource updateTransaccion: input: {0}", transaccion.toString());
+        LOGGER.log(Level.INFO, "transaccionResource updateTransaccion: input: {0}", transaccion);
         transaccion.setId(transaccionesId);
         if (logic.get(transaccionesId) == null) 
             throw new WebApplicationException(INIC_ERROR + transaccionesId + NO_EXISTE, 404);
         TransaccionDTO transaccionDTO = new TransaccionDTO(logic.update(transaccion.toEntity(), transaccionesId));
-        LOGGER.log(Level.INFO, "transaccionResource putTransaccion: output: {0}", transaccionDTO.toString());
+        LOGGER.log(Level.INFO, "transaccionResource putTransaccion: output: {0}", transaccionDTO);
         return transaccionDTO;
     }
 
     @DELETE
     @Path("{transaccionesId: \\d+}")
-    public void deleteTransaccion(@PathParam("transaccionesId") Long transaccionesId) throws BusinessLogicException {
+    public void deleteTransaccion(@PathParam("transaccionesId") Long transaccionesId) throws BusinessLogicException 
+    {
         LOGGER.log(Level.INFO, "transaccionResource deleteTransaccion: input: {0}", transaccionesId);
         TransaccionEntity entity = logic.get(transaccionesId);
         if (entity == null) 
@@ -110,14 +110,16 @@ public class TransaccionResource
     }
 
     @Path("{transaccionesId: \\d+}")
-    public Class<TransaccionEnvioResource> getTransaccionEnvioResource(@PathParam("transaccionesId") Long transaccionId) {
+    public Class<TransaccionEnvioResource> getTransaccionEnvioResource(@PathParam("transaccionesId") Long transaccionId) 
+    {
         if (logic.get(transaccionId) == null) 
             throw new WebApplicationException(INIC_ERROR + transaccionId + NO_EXISTE, 404);
         return TransaccionEnvioResource.class;
     }
 
     @Path("{transaccionesId: \\d+}/comentarios")
-    public Class<ComentarioTransaccionResource> getComentariosResource(@PathParam("transaccionesId") Long transaccionId) {
+    public Class<ComentarioTransaccionResource> getComentariosResource(@PathParam("transaccionesId") Long transaccionId) 
+    {
         if (logic.get(transaccionId) == null) 
             throw new WebApplicationException(INIC_ERROR + transaccionId + NO_EXISTE, 404);
         return ComentarioTransaccionResource.class;

@@ -124,8 +124,10 @@ public class ViniloLogic {
      * @param viniloId Id del vinilo para buscarlo en persistence.
      * @param viniloEntity Objeto entity con la nueva información del vinilo.
      * @return Vinilo Actualizado.
+     * @throws BusinessLogicException
      */
-    public ViniloEntity updateVinilo(Long viniloId, ViniloEntity viniloEntity) throws BusinessLogicException {
+    public ViniloEntity updateVinilo(Long viniloId, ViniloEntity viniloEntity) throws BusinessLogicException 
+    {
         LOGGER.log(Level.INFO, "Inicia el proceso de actualizar el vinilo con el id = {0}", viniloId);
         if (viniloEntity.getNombre() == null || viniloEntity.getProductora() == null
                 || viniloEntity.getArtista() == null || viniloEntity.getCategoria() == null) {
