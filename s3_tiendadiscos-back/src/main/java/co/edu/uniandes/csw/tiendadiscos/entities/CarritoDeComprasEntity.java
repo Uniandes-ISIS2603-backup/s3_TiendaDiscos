@@ -7,11 +7,9 @@ package co.edu.uniandes.csw.tiendadiscos.entities;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
+import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -29,7 +27,6 @@ public class CarritoDeComprasEntity extends BaseEntity implements Serializable
     @ManyToMany(mappedBy = "carritosDeCompras")
     private List<ViniloEntity> vinilos;
     
-   
     
     @PodamExclude
     @OneToOne
@@ -39,7 +36,6 @@ public class CarritoDeComprasEntity extends BaseEntity implements Serializable
     {
         this.totalCost = totalCost;
     }
-
     
     public Double  getTotalCostDeCarritoCompras() 
     {
@@ -50,7 +46,6 @@ public class CarritoDeComprasEntity extends BaseEntity implements Serializable
     {
         this.usuario = usuario;
     }
-
     
     public UsuarioEntity  getUsuario() 
     {
@@ -61,12 +56,42 @@ public class CarritoDeComprasEntity extends BaseEntity implements Serializable
     {
         this.vinilos = vinilos;
     }
-
     
     public List<ViniloEntity>  getVinilosDeCarritoCompras() 
     {
         return vinilos;
     }
-    
- 
+
+    @Override
+    public int hashCode() 
+    {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.totalCost);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) 
+    {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CarritoDeComprasEntity other = (CarritoDeComprasEntity) obj;
+        if (!Objects.equals(this.totalCost, other.totalCost)) {
+            return false;
+        }
+        if (!Objects.equals(this.vinilos, other.vinilos)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuario, other.usuario)) {
+            return false;
+        }
+        return true;
+    }   
 }

@@ -7,9 +7,9 @@ package co.edu.uniandes.csw.tiendadiscos.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -19,7 +19,8 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author Kevin Blanco
  */
 @Entity
-public class BillingInformationEntity extends BaseEntity implements Serializable {
+public class BillingInformationEntity extends BaseEntity implements Serializable 
+{
 
     /**
      * numero de cuenta de ahorro
@@ -137,4 +138,45 @@ public class BillingInformationEntity extends BaseEntity implements Serializable
     {
         this.tarjetas = tarjetas;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + Objects.hashCode(this.cuentaAhorro);
+        hash = 59 * hash + Objects.hashCode(this.spent);
+        hash = 59 * hash + Objects.hashCode(this.recieved);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BillingInformationEntity other = (BillingInformationEntity) obj;
+        if (!Objects.equals(this.cuentaAhorro, other.cuentaAhorro)) {
+            return false;
+        }
+        if (!Objects.equals(this.spent, other.spent)) {
+            return false;
+        }
+        if (!Objects.equals(this.recieved, other.recieved)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuario, other.usuario)) {
+            return false;
+        }
+        if (!Objects.equals(this.tarjetas, other.tarjetas)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

@@ -99,7 +99,7 @@ public class ViniloDetailDTO extends ViniloDTO implements Serializable {
         ViniloEntity viniloEntity = super.toEntity();
         List<CancionEntity> cancionesEntity = null;
 
-        if (getCanciones() != null && getCanciones().size() > 0) {
+        if (getCanciones() != null && getCanciones().isEmpty()) {
             cancionesEntity = new ArrayList<>();
             for (CancionDTO cancionDTO : canciones) {
                 cancionesEntity.add(cancionDTO.toEntity());

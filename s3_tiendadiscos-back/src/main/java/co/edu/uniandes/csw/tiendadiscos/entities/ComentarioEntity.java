@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.entities;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -88,5 +89,45 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     public void setVinilo(ViniloEntity vinilo)
     {
         this.vinilo = vinilo;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.contenido);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ComentarioEntity other = (ComentarioEntity) obj;
+        if (!Objects.equals(this.contenido, other.contenido)) {
+            return false;
+        }
+        if (!Objects.equals(this.transaccion, other.transaccion)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuarioDestino, other.usuarioDestino)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuarioInicio, other.usuarioInicio)) {
+            return false;
+        }
+        if (!Objects.equals(this.vinilo, other.vinilo)) {
+            return false;
+        }
+        if (!Objects.equals(this.cancion, other.cancion)) {
+            return false;
+        }
+        return true;
     }
 }

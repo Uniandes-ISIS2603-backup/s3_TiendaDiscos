@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -70,7 +71,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     
     @PodamExclude
     @OneToMany(mappedBy = "vinilo", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<CancionEntity> canciones = new ArrayList<CancionEntity>();
+    private List<CancionEntity> canciones = new ArrayList<>();
     
     @PodamExclude
     @ManyToMany
@@ -339,6 +340,81 @@ public class ViniloEntity extends BaseEntity implements Serializable
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-    
-    
+
+    @Override
+    public int hashCode() 
+    {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.nombre);
+        hash = 97 * hash + Objects.hashCode(this.artista);
+        hash = 97 * hash + Objects.hashCode(this.fechaLanzamiento);
+        hash = 97 * hash + Objects.hashCode(this.productora);
+        hash = 97 * hash + Objects.hashCode(this.informacionAdicional);
+        hash = 97 * hash + Objects.hashCode(this.previewURI);
+        hash = 97 * hash + Objects.hashCode(this.calificacion);
+        hash = 97 * hash + Objects.hashCode(this.precio);
+        hash = 97 * hash + Objects.hashCode(this.categoria);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) 
+    {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ViniloEntity other = (ViniloEntity) obj;
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.artista, other.artista)) {
+            return false;
+        }
+        if (!Objects.equals(this.productora, other.productora)) {
+            return false;
+        }
+        if (!Objects.equals(this.informacionAdicional, other.informacionAdicional)) {
+            return false;
+        }
+        if (!Objects.equals(this.previewURI, other.previewURI)) {
+            return false;
+        }
+        if (!Objects.equals(this.categoria, other.categoria)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechaLanzamiento, other.fechaLanzamiento)) {
+            return false;
+        }
+        if (!Objects.equals(this.calificacion, other.calificacion)) {
+            return false;
+        }
+        if (!Objects.equals(this.precio, other.precio)) {
+            return false;
+        }
+        if (!Objects.equals(this.canciones, other.canciones)) {
+            return false;
+        }
+        if (!Objects.equals(this.wishLists, other.wishLists)) {
+            return false;
+        }
+        if (!Objects.equals(this.carritosDeCompras, other.carritosDeCompras)) {
+            return false;
+        }
+        if (!Objects.equals(this.transacciones, other.transacciones)) {
+            return false;
+        }
+        if (!Objects.equals(this.comentarios, other.comentarios)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuario, other.usuario)) {
+            return false;
+        }
+        return true;
+    }
 }

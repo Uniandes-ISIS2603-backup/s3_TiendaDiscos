@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.tiendadiscos.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -161,5 +162,49 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
     public List<ComentarioEntity> getComentario()
     {
         return comentarios;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 41 * hash + Objects.hashCode(this.formaDePago);
+        hash = 41 * hash + Objects.hashCode(this.estado);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TransaccionEntity other = (TransaccionEntity) obj;
+        if (!Objects.equals(this.formaDePago, other.formaDePago)) {
+            return false;
+        }
+        if (!Objects.equals(this.estado, other.estado)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuarioComprador, other.usuarioComprador)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuarioVendedor, other.usuarioVendedor)) {
+            return false;
+        }
+        if (!Objects.equals(this.comentarios, other.comentarios)) {
+            return false;
+        }
+        if (!Objects.equals(this.envio, other.envio)) {
+            return false;
+        }
+        if (!Objects.equals(this.vinilo, other.vinilo)) {
+            return false;
+        }
+        return true;
     }
 }

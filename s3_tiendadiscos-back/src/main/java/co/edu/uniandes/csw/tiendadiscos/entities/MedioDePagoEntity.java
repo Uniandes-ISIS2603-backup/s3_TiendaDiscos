@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.tiendadiscos.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -172,4 +173,50 @@ public class MedioDePagoEntity extends BaseEntity implements Serializable {
         this.cvc = cvc;
     }
 
+    @Override
+    public int hashCode() 
+    {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.numero);
+        hash = 29 * hash + Objects.hashCode(this.numeroVerificacion);
+        hash = 29 * hash + Objects.hashCode(this.fechaVencimiento);
+        hash = 29 * hash + Objects.hashCode(this.name);
+        hash = 29 * hash + Objects.hashCode(this.cvc);
+        hash = 29 * hash + Objects.hashCode(this.imagen);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) 
+    {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final MedioDePagoEntity other = (MedioDePagoEntity) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.cvc, other.cvc)) {
+            return false;
+        }
+        if (!Objects.equals(this.imagen, other.imagen)) {
+            return false;
+        }
+        if (!Objects.equals(this.billing, other.billing)) {
+            return false;
+        }
+        if (!Objects.equals(this.numero, other.numero)) {
+            return false;
+        }
+        if (!Objects.equals(this.numeroVerificacion, other.numeroVerificacion)) {
+            return false;
+        }
+        return Objects.equals(this.fechaVencimiento, other.fechaVencimiento);
+    }
 }

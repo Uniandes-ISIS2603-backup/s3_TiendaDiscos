@@ -167,14 +167,16 @@ public class ComentarioLogic {
         return comentarioEntity;
     }
 
-    public ComentarioEntity updateComentario(Long usuarioId, ComentarioEntity entity) {
+    public ComentarioEntity updateComentario(Long usuarioId, ComentarioEntity entity) 
+    {
         UsuarioEntity usuario = usuarioPersistence.find(usuarioId);
         entity.setUsuarioI(usuario);
         persistence.update(entity);
         return entity;
     }
 
-    public void deleteComentario(Long comentarioId) throws BusinessLogicException {
+    public void deleteComentario(Long comentarioId) 
+    {
         LOGGER.log(Level.INFO, "Iniciando borrar comentario con id{0}", comentarioId);
         persistence.delete(comentarioId);
         LOGGER.log(Level.INFO, "Se ha borrado el comentario con id{0}", comentarioId);

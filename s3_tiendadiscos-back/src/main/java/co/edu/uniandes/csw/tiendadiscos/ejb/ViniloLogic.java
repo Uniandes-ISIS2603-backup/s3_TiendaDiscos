@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.tiendadiscos.ejb;
 
-import co.edu.uniandes.csw.tiendadiscos.entities.CancionEntity;
 import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
@@ -43,7 +42,8 @@ public class ViniloLogic {
      * @return vinilo que se agrego a persistence.
      * @throws co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException
      */
-    public ViniloEntity createVinilo(ViniloEntity viniloEntity) throws BusinessLogicException {
+    public ViniloEntity createVinilo(ViniloEntity viniloEntity) throws BusinessLogicException 
+    {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación del vinilo.");
         // Se procede a crear el vinilo.
         if (viniloEntity.getNombre() == null || viniloEntity.getProductora() == null
@@ -58,7 +58,8 @@ public class ViniloLogic {
         return viniloEntity;
     }
 
-    public ViniloEntity createViniloUsuario(Long usuarioId, ViniloEntity viniloEntity) throws BusinessLogicException {
+    public ViniloEntity createViniloUsuario(Long usuarioId, ViniloEntity viniloEntity) throws BusinessLogicException 
+    {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación del vinilo de un usuario con id = {0}", usuarioId);
         UsuarioEntity usuario = usuarioPersistence.find(usuarioId);
         if (viniloEntity.getNombre() == null || viniloEntity.getProductora() == null
@@ -91,12 +92,11 @@ public class ViniloLogic {
         return vinilos;
     }
 
-    public List<ViniloEntity> getVinilosByUsuario(Long usuarioId) throws BusinessLogicException {
+    public List<ViniloEntity> getVinilosByUsuario(Long usuarioId) throws BusinessLogicException 
+    {
         LOGGER.log(Level.INFO, "Inicia la consulta de todos los vinilos del usuario:{0}", usuarioId);
-        if (usuarioPersistence.find(usuarioId) == null) {
+        if (usuarioPersistence.find(usuarioId) == null) 
             throw new BusinessLogicException("El usuario no existe. id Recibido: " + usuarioId);
-        }
-
         List<ViniloEntity> vinilos = persistence.findAllByUsuario(usuarioId);
         LOGGER.log(Level.INFO, "Termina el proceso de consulta de los vinilos de un usuario.");
         return vinilos;

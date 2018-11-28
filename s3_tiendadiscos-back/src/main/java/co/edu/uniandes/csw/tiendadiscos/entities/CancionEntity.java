@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.tiendadiscos.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -168,4 +169,53 @@ public class CancionEntity extends BaseEntity implements Serializable
     {
         return comentarios;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + Objects.hashCode(this.nombre);
+        hash = 17 * hash + Objects.hashCode(this.duracion);
+        hash = 17 * hash + Objects.hashCode(this.previewURI);
+        hash = 17 * hash + Objects.hashCode(this.descripcion);
+        hash = 17 * hash + Objects.hashCode(this.calificacion);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CancionEntity other = (CancionEntity) obj;
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.duracion, other.duracion)) {
+            return false;
+        }
+        if (!Objects.equals(this.previewURI, other.previewURI)) {
+            return false;
+        }
+        if (!Objects.equals(this.descripcion, other.descripcion)) {
+            return false;
+        }
+        if (!Objects.equals(this.calificacion, other.calificacion)) {
+            return false;
+        }
+        if (!Objects.equals(this.vinilo, other.vinilo)) {
+            return false;
+        }
+        if (!Objects.equals(this.comentarios, other.comentarios)) {
+            return false;
+        }
+        return true;
+    }
+
+    
 }
