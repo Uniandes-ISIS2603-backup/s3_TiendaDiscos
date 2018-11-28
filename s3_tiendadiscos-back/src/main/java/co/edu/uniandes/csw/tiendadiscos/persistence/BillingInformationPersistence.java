@@ -32,29 +32,27 @@ public class BillingInformationPersistence {
         LOGGER.log(Level.INFO, "Saliendo de crear un billing nuevo");
         return billingInformationEntity;
     }
-    public BillingInformationEntity find(Long billingId){
+    
+    public BillingInformationEntity find(Long billingId)
+    {
         return em.find(BillingInformationEntity.class, billingId);
     }
-    public BillingInformationEntity findBillingByUserId(Long usuarioId) {
-
-        LOGGER.log(Level.INFO, "Consultando el billing del usuario con id = " + usuarioId);
+    
+    public BillingInformationEntity findBillingByUserId(Long usuarioId) 
+    {
+        LOGGER.log(Level.INFO, "Consultando el billing del usuario con id = {0}" , usuarioId);
         TypedQuery<BillingInformationEntity> q = em.createQuery("select p from BillingInformationEntity p where p.usuario.id = :usuarioId", BillingInformationEntity.class);
         q.setParameter("usuarioId", usuarioId);
         List<BillingInformationEntity> results = q.getResultList();
         BillingInformationEntity billing = null;
-        if (results == null) {
-            billing = null;
-        } else if (results.isEmpty()) {
-            billing = null;
-        } else if (results.size() >= 1) {
+        if (results.size() >= 1) 
             billing = results.get(0);
-        }
-        LOGGER.log(Level.INFO, "Saliendo de consultar el billing del usuario con id =" + usuarioId);
+        LOGGER.log(Level.INFO, "Saliendo de consultar el billing del usuario con id = {0}", usuarioId);
         return billing;
-
     }
 
-    public BillingInformationEntity update(BillingInformationEntity billingInformationEntity) {
+    public BillingInformationEntity update(BillingInformationEntity billingInformationEntity) 
+    {
         LOGGER.log(Level.INFO, "Actualizando billing con id={0}", billingInformationEntity.getId());
 
         LOGGER.log(Level.INFO, "Saliendo de actualizar billing con id = {0}", billingInformationEntity.getId());

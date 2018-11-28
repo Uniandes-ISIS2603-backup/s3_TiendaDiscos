@@ -28,6 +28,10 @@ import javax.ws.rs.core.MediaType;
 @RequestScoped
 public class CancionResource {
 
+    private static final String CANCION_NULL = "El recurso /canciones/";
+    
+    private static final String NO_EXISTE = " no existe.";
+    
     private static final Logger LOGGER = Logger.getLogger(CancionResource.class.getName());
 
     @Inject
@@ -62,10 +66,10 @@ public class CancionResource {
     {
         LOGGER.log(Level.INFO, "CancionResource getCancion: input: {0}", cancionesId);
         if(viniloLogic.getVinilo(viniloId) == null)
-            throw new WebApplicationException("El recurso /vinilos/"+ viniloId+" no existe.", 404);
+            throw new WebApplicationException("El recurso /vinilos/"+ viniloId+NO_EXISTE, 404);
         CancionEntity laCancion = logic.getCancion(viniloId, cancionesId);
         if (null == laCancion) 
-            throw new WebApplicationException("El recurso /canciones/" + cancionesId + " no existe.", 404);
+            throw new WebApplicationException(CANCION_NULL + cancionesId + NO_EXISTE, 404);
         CancionDTO cancion = new CancionDTO(laCancion);
         LOGGER.log(Level.INFO, "CancionResource getCancion: output: {0}", cancion);
         return cancion;
@@ -77,9 +81,9 @@ public class CancionResource {
     {
         LOGGER.log(Level.INFO, "CancionResource updateCancion : input: cancionesId: {0}, cancion: {1}", new Object[]{cancionesId, cancion});
         if(viniloLogic.getVinilo(viniloId) == null)
-            throw new WebApplicationException("El recurso /vinilos/"+viniloId+" no existe.", 404);
+            throw new WebApplicationException("El recurso /vinilos/"+viniloId+NO_EXISTE, 404);
         if (logic.getCancion(viniloId, cancionesId) == null)
-            throw new WebApplicationException("El recurso /canciones/" + cancionesId + " no existe.", 404);
+            throw new WebApplicationException(CANCION_NULL + cancionesId + NO_EXISTE, 404);
         cancion.setId(cancionesId);
         if(cancion.getNombre().isEmpty() && cancion.getDescripcion().isEmpty())
             throw new BusinessLogicException("El vinilo no es valido, ingrese todos los valores");       
@@ -95,17 +99,17 @@ public class CancionResource {
     {
         LOGGER.log(Level.INFO, "CancionResource deleteCancion: input: {0}", cancionesId);
         if (logic.getCancion(viniloId, cancionesId) == null) {
-            throw new WebApplicationException("El recurso /canciones/" + cancionesId + " no existe.", 404);
+            throw new WebApplicationException(CANCION_NULL + cancionesId + NO_EXISTE, 404);
         }
         logic.deleteCancion(viniloId, cancionesId);
         LOGGER.log(Level.INFO, "CancionResource deleteCancion: output: void");
     }
 
     @Path("{cancionesId: \\d+}/comentarios")
-    public Class<ComentarioCancionResource> getComentariosResource(@PathParam("vinilosId") Long viniloId, @PathParam("cancionesId") Long cancionesId) throws BusinessLogicException {
-        if (logic.getCancion(viniloId, cancionesId) == null) {
-            throw new WebApplicationException("El recurso /canciones/" + cancionesId + " no existe.", 404);
-        }
+    public Class<ComentarioCancionResource> getComentariosResource(@PathParam("vinilosId") Long viniloId, @PathParam("cancionesId") Long cancionesId) throws BusinessLogicException 
+    {
+        if (logic.getCancion(viniloId, cancionesId) == null) 
+            throw new WebApplicationException(CANCION_NULL + cancionesId + NO_EXISTE, 404);
         return ComentarioCancionResource.class;
     }
 

@@ -66,7 +66,7 @@ public class ViniloEntity extends BaseEntity implements Serializable
     private Double precio;
     
     
-    private String categoria ;
+    private String categoria;
     
     @PodamExclude
     @OneToMany(mappedBy = "vinilo", cascade = CascadeType.PERSIST, orphanRemoval = true)

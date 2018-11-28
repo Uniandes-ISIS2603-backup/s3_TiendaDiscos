@@ -29,12 +29,12 @@ public class BillingInformationEntity extends BaseEntity implements Serializable
     /**
      * Dinero gastado
      */
-    private double spent;
+    private Double spent;
 
     /**
      * dinero recibido
      */
-    private double recieved;
+    private Double recieved;
 
     /**
      * tarjetas de credito del Billing
@@ -50,6 +50,7 @@ public class BillingInformationEntity extends BaseEntity implements Serializable
     
     /**
      * devuelve el usuario asociado al billing 
+     * @return 
     */
     public UsuarioEntity getUsuario() {
         return usuario;
@@ -132,7 +133,8 @@ public class BillingInformationEntity extends BaseEntity implements Serializable
      *
      * @param tarjetas nuevas tarjetas para el Billing
      */
-    public void setTarjetas(List<MedioDePagoEntity> tarjetas) {
+    public void setTarjetas(List<MedioDePagoEntity> tarjetas) 
+    {
         this.tarjetas = tarjetas;
     }
 }

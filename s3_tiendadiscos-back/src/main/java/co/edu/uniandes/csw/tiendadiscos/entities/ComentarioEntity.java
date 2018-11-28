@@ -17,7 +17,6 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class ComentarioEntity extends BaseEntity implements Serializable{
     
-    
     //Atributos
     private String contenido;
     
@@ -90,6 +89,4 @@ public class ComentarioEntity extends BaseEntity implements Serializable{
     {
         this.vinilo = vinilo;
     }
-    
-    public ComentarioEntity(){}
 }

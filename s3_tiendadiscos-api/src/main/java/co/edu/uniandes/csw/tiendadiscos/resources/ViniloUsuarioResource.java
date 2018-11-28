@@ -71,15 +71,5 @@ public class ViniloUsuarioResource {
         for (ViniloEntity entity : list) 
             resp.add(new ViniloDetailDTO(entity));
         return resp;
-    }
-    /**
-     * @PUT @Path("{vinilosId: \\d+}") public ViniloDTO putVinilo() { return
-     * null; }
-     *
-     * @DELETE public void deleteVinilo(@PathParam("usuariosId") Long usuarioId,
-     * Long viniloId) {
-     *
-     * }
-     * *
-     *///
+    }   
 }

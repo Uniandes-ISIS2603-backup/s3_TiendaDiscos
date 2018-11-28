@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tiendadiscos.persistence.BillingInformationPersistence;
 import co.edu.uniandes.csw.tiendadiscos.persistence.UsuarioPersistence;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -35,39 +34,36 @@ public class BillingInformationLogic {
     /**
      * Se encarga de crear un Billing en la base de datos.
      *
-     * @param BillingEntity Objeto de BillingEntity con los datos nuevos
-     * @param usuarioId id del usuario el cual sera padre del nuevo Billing.
+     * @param billingEntity Objeto de BillingEntity con los datos nuevos
+     * @param usuariosId id del usuario el cual sera padre del nuevo Billing.
      * @return Objeto de BillingEntity con los datos nuevos y su ID.
      * @throws BusinessLogicException si el usuario con id usuarioId ya tiene
      * asignado un billing
      *                                Si el usuario con id usuarioId no existe.
      *
      */
-    public BillingInformationEntity createBilling(Long usuariosId, BillingInformationEntity billing) throws BusinessLogicException {
+    public BillingInformationEntity createBilling(Long usuariosId, BillingInformationEntity billingEntity) throws BusinessLogicException 
+    {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del billing");
-        UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
-        if (usuario == null) {
-            
+        UsuarioEntity usuarioEntity = usuarioPersistence.find(usuariosId);
+        if (usuarioEntity == null) 
             throw new BusinessLogicException("No existe el usuario con ese id");
-
-        }
         try 
         {
-            Integer.parseInt(billing.getCuentaAhorro());
+            Integer.parseInt(billingEntity.getCuentaAhorro());
         }
         catch(Exception e) 
         {    
             throw new BusinessLogicException("No es un numero de cuenta valido");
         }
-        if(persistence.findBillingByUserId(usuariosId)!=null){
+        if(persistence.findBillingByUserId(usuariosId)!=null)
             throw new BusinessLogicException("El Usuario ya tiene billings");
-        }
-
-        billing.setUsuario(usuario);        
+        
+        billingEntity.setUsuario(usuarioEntity);        
         
         LOGGER.log(Level.INFO, "Termina proceso de creación del billing");
 
-        return persistence.create(billing);
+        return persistence.create(billingEntity);
 
     }
 

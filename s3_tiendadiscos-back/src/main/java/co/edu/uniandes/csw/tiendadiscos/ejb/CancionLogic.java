@@ -27,6 +27,8 @@ public class CancionLogic {
 
     private static final Logger LOGGER = Logger.getLogger(CancionLogic.class.getName());
 
+    private static final String ERROR_FALTA_VINILO = "El vinilo no existe. id Recibido: ";
+    
     @Inject
     private CancionPersistence persistence;
 
@@ -49,7 +51,7 @@ public class CancionLogic {
         }
         ViniloEntity vinilo = viniloPersistence.find(viniloId);
         if (vinilo == null) {
-            throw new BusinessLogicException("El vinilo no existe. id Recibido: " + viniloId);
+            throw new BusinessLogicException(ERROR_FALTA_VINILO + viniloId);
         }
 
         cancionEntity.setVinilo(vinilo);
@@ -81,7 +83,7 @@ public class CancionLogic {
     public List<CancionEntity> getCancionesDeVinilo(Long viniloId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de consulta de todos las canciones");
         if (viniloPersistence.find(viniloId) == null) {
-            throw new BusinessLogicException("El vinilo no existe. id Recibido: " + viniloId);
+            throw new BusinessLogicException(ERROR_FALTA_VINILO + viniloId);
         }
 
         List<CancionEntity> canciones = persistence.findCancionesUsuario(viniloId);
@@ -132,7 +134,7 @@ public class CancionLogic {
         ViniloEntity vinilo = viniloPersistence.find(viniloId);
 
         if (vinilo == null) {
-            throw new BusinessLogicException("El vinilo no existe. id Recibido: " + viniloId);
+            throw new BusinessLogicException(ERROR_FALTA_VINILO + viniloId);
         }
         cancionEntity.setVinilo(vinilo);
         CancionEntity newEntity = persistence.update(cancionEntity);

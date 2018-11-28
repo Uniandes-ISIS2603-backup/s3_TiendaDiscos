@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "83ec3bd1-ec2e-4666-aa05-3e410da8185b",
+		"_postman_id": "0e4f3760-f2fd-4f86-b61b-f455d8bff085",
 		"name": "Prueba completa",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -297,7 +297,6 @@
 					"script": {
 						"id": "810b7202-d122-4760-a3af-738368e163e2",
 						"exec": [
-							"",
 							"tests['No genera error en el Post'] = responseCode.code===200;",
 							"var data=JSON.parse(responseBody);",
 							"postman.setGlobalVariable(\"cuentaAhorro\",  data.cuentaAhorro);"
@@ -316,7 +315,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "\n{\n\t\"cuentaAhorro\":\"123321123\"\n}"
+					"raw": "{\n\t\"cuentaAhorro\":\"123321123\"\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}/billing",
@@ -428,7 +427,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "\n{\n\t\"cuentaAhorro\":\"987654322\",\n\t\"spent\":{{spent}},\n\t\"recieved\":{{recieved}}\n\n}"
+					"raw": "\n{\n\t\"cuentaAhorro\":\"987654322\",\n\t\"spent\":\"{{spent}}\",\n\t\"recieved\":\"{{recieved}}\"\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/usuarios/{{usuario_id}}/billing",
@@ -816,7 +815,7 @@
 					"raw": "{\r\n\r\n\"nombre\": \"The wall\" ,\r\n\r\n\"fechaLanzamiento\": \"1979-11-15\" ,\r\n\r\n\"artista\" : \"Pink Floyd\" ,\r\n\r\n\"precio\" : 50000.0 ,\r\n\r\n\"productora\" : \"Columbia Records\" ,\r\n\r\n\"informacionAdicional\" : \"Nunca ha sido abierto.\" ,\r\n\r\n\"previewURI\" : \"URI\" ,\r\n\r\n\"calificacion\": 5.0,\r\n\r\n\"categoria\":\"ROCK\"\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuario_id}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuario_id}}?",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -926,7 +925,7 @@
 					"raw": "{\r\n\r\n\"nombre\": \"Tu sin mi \" ,\r\n\r\n\"fechaLanzamiento\":\"2017-02-09\" ,\r\n\r\n\"artista\" : \"Los De Allá\" ,\r\n\r\n\"precio\" : 550000.0 ,\r\n\r\n\"productora\" : \"Columbia Records\" ,\r\n\r\n\"informacionAdicional\" : \"Nunca ha sido oido.\" ,\r\n\r\n\"previewURI\" : \"URI\" ,\r\n\r\n\"calificacion\": 1.0,\r\n\"categoria\":\"POP\"\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuario_id}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuario_id}}?",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -1201,7 +1200,7 @@
 					"raw": "{\r\n\r\n\"nombre\": \"Tu sin mi \" ,\r\n\r\n\"fechaLanzamiento\":\"2017-02-09\" ,\r\n\r\n\"artista\" : \"Los De Allá\" ,\r\n\r\n\"precio\" : 550000.0 ,\r\n\r\n\"productora\" : \"Columbia Records\" ,\r\n\r\n\"informacionAdicional\" : \"Nunca ha sido oido.\" ,\r\n\r\n\"previewURI\" : \"URI\" ,\r\n\r\n\"calificacion\": 1.0,\r\n\"categoria\":\"POP\"\r\n\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuario_id}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuario_id}}?",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -2168,7 +2167,7 @@
 					"raw": "{\r\n\r\n\"nombre\": \"Jazz in the Jungle\" ,\r\n\r\n\"fechaLanzamiento\": \"2002-11-15\" ,\r\n\r\n\"artista\" : \"El Rey Leon\" ,\r\n\r\n\"precio\" : 70000.0 ,\r\n\r\n\"productora\" : \"Sony Music\" ,\r\n\r\n\"informacionAdicional\" : \"Fue grabado en la selva\" ,\r\n\r\n\"previewURI\" : \"URI\" ,\r\n\r\n\"calificacion\": 4.9,\r\n\"categoria\":\"BALADA\"\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuarioVendedor_id}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/vinilos/usuarios/{{usuarioVendedor_id}}?",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -2291,7 +2290,7 @@
 					"raw": "{\r\n\"estado\" : \"peticion\",\r\n\r\n\"formaDePago\" : \"tarjeta-credito\",\r\n\"usuarioComprador\": {\r\n    \"type\": \"usuarioDetailDTO\",\r\n    \"billingInformation\": {\r\n        \"cuentaAhorro\": \"987654321\",\r\n        \"id\":{{usuarioComprador_billing_id}},\r\n        \"recieved\": 0,\r\n        \"spent\": 0\r\n    },\r\n    \"calificacion\": 0,\r\n    \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n    \"direccion\": \"cll 12 #25 105 este BogotÃ¡\",\r\n    \"email\": \"comprador@gmail.com\",\r\n    \"id\": {{usuarioComprador_id}},\r\n    \"nombre\": \"El Que Compra el vinilo\",\r\n    \"rol\": \"Usuario\",\r\n    \"username\": \"elComprador\",\r\n    \"comentarios\": [],\r\n    \"transaccionesGeneradas\": [],\r\n    \"transaccionesRecibidas\": [],\r\n    \"vinilos\": []\r\n},\r\n\"usuarioVendedor\":{\r\n    \"type\": \"usuarioDetailDTO\",\r\n    \"billingInformation\": {\r\n        \"cuentaAhorro\": \"654654654\",\r\n        \"id\": {{usuarioVendedor_billing_id}},\r\n        \"recieved\": 0,\r\n        \"spent\": 0\r\n    },\r\n    \"calificacion\": 0,\r\n    \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n    \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n    \"email\": \"vendedor@gmail.com\",\r\n    \"id\": {{usuarioVendedor_id}},\r\n    \"nombre\": \"El Que Vende el vinilo\",\r\n    \"rol\": \"Usuario\",\r\n    \"username\": \"elVendedor\",\r\n    \"comentarios\": [],\r\n    \"transaccionesGeneradas\": [],\r\n    \"transaccionesRecibidas\": [],\r\n    \"vinilos\": [\r\n        {\r\n            \"fechaLanzamiento\": \"2002-11-15\",\r\n            \"artista\": \"El Rey Leon\",\r\n            \"calificacion\": 4.9,\r\n            \"id\": {{viniloVender_id}},\r\n            \"informacionAdicional\": \"Fue grabado en la selva\",\r\n            \"nombre\": \"Jazz in the Jungle\",\r\n            \"precio\": 70000,\r\n            \"previewURI\": \"URI\",\r\n            \"productora\": \"Sony Music\",\r\n            \"usuario\": {\r\n                \"billingInformation\": {\r\n                    \"cuentaAhorro\": \"654654654\",\r\n                    \"id\":  {{usuarioVendedor_billing_id}},\r\n                    \"recieved\": 0,\r\n                    \"spent\": 0\r\n                },\r\n                \"calificacion\": 0,\r\n                \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n                \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n                \"email\": \"vendedor@gmail.com\",\r\n                \"id\": {{usuarioVendedor_id}},\r\n                \"nombre\": \"El Que Vende el vinilo\",\r\n                \"rol\": \"Usuario\",\r\n                \"username\": \"elVendedor\"\r\n            }\r\n        }\r\n    ]\r\n},\r\n\r\n\"vinilo\":{\r\n    \"type\": \"viniloDetailDTO\",\r\n    \"fechaLanzamiento\": \"2002-11-15\",\r\n    \"artista\": \"El Rey Leon\",\r\n    \"calificacion\": 4.9,\r\n    \"id\": {{viniloVender_id}},\r\n    \"nombre\": \"Jazz in the Jungle\",\r\n    \"precio\": 70000,\r\n    \"previewURI\": \"URI\",\r\n    \"productora\": \"Sony Music\",\r\n    \"usuario\": {\r\n        \"billingInformation\": {\r\n            \"cuentaAhorro\": \"654654654\",\r\n            \"id\": {{usuarioVendedor_billing_id}},\r\n            \"recieved\": 0,\r\n            \"spent\": 0\r\n        },\r\n        \"calificacion\": 0,\r\n        \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n        \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n        \"email\": \"vendedor@gmail.com\",\r\n        \"id\": {{usuarioVendedor_id}},\r\n        \"nombre\": \"El Que Vende el vinilo\",\r\n        \"rol\": \"Usuario\",\r\n        \"username\": \"elVendedor\"\r\n    },\r\n    \"canciones\": []\r\n}\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones?",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -2356,7 +2355,7 @@
 					"raw": "{\r\n\t\"direccionEntrega\":\"Calle 19 # 2a -10\",\r\n\t\"direccionSalida\":\"Carrera 13 # 51-43\",\r\n\t\"estado\":\"PENDIENTE\",\r\n\t\"ubicacion\":\"Algun lugar\"\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio?",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -2423,7 +2422,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio?",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -2501,7 +2500,7 @@
 					"raw": "{\r\n\t\"direccionEntrega\":\"Calle 19 # 2a -10\",\r\n\t\"direccionSalida\":\"Carrera 13 # 51-43\",\r\n\t\"estado\":\"ENTREGADO\"\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio?",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -2568,7 +2567,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio?",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -2635,7 +2634,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}?",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -2717,7 +2716,7 @@
 					"raw": "{\r\n\"estado\" : \"Entregado\",\r\n\r\n\"formaDePago\" : \"tarjeta-credito\",\r\n\"usuarioComprador\": {\r\n    \"type\": \"usuarioDetailDTO\",\r\n    \"billingInformation\": {\r\n        \"cuentaAhorro\": \"987654321\",\r\n        \"id\":{{usuarioComprador_billing_id}},\r\n        \"recieved\": 0,\r\n        \"spent\": 0\r\n    },\r\n    \"calificacion\": 0,\r\n    \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n    \"direccion\": \"cll 12 #25 105 este BogotÃ¡\",\r\n    \"email\": \"comprador@gmail.com\",\r\n    \"id\": {{usuarioComprador_id}},\r\n    \"nombre\": \"El Que Compra el vinilo\",\r\n    \"rol\": \"Usuario\",\r\n    \"username\": \"elComprador\",\r\n    \"comentarios\": [],\r\n    \"transaccionesGeneradas\": [],\r\n    \"transaccionesRecibidas\": [],\r\n    \"vinilos\": []\r\n},\r\n\"usuarioVendedor\":{\r\n    \"type\": \"usuarioDetailDTO\",\r\n    \"billingInformation\": {\r\n        \"cuentaAhorro\": \"654654654\",\r\n        \"id\": {{usuarioVendedor_billing_id}},\r\n        \"recieved\": 0,\r\n        \"spent\": 0\r\n    },\r\n    \"calificacion\": 0,\r\n    \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n    \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n    \"email\": \"vendedor@gmail.com\",\r\n    \"id\": {{usuarioVendedor_id}},\r\n    \"nombre\": \"El Que Vende el vinilo\",\r\n    \"rol\": \"Usuario\",\r\n    \"username\": \"elVendedor\",\r\n    \"comentarios\": [],\r\n    \"transaccionesGeneradas\": [],\r\n    \"transaccionesRecibidas\": [],\r\n    \"vinilos\": [\r\n        {\r\n            \"fechaLanzamiento\": \"2002-11-15\",\r\n            \"artista\": \"El Rey Leon\",\r\n            \"calificacion\": 4.9,\r\n            \"id\": {{viniloVender_id}},\r\n            \"informacionAdicional\": \"Fue grabado en la selva\",\r\n            \"nombre\": \"Jazz in the Jungle\",\r\n            \"precio\": 70000,\r\n            \"previewURI\": \"URI\",\r\n            \"productora\": \"Sony Music\",\r\n            \"usuario\": {\r\n                \"billingInformation\": {\r\n                    \"cuentaAhorro\": \"654654654\",\r\n                    \"id\":  {{usuarioVendedor_billing_id}},\r\n                    \"recieved\": 0,\r\n                    \"spent\": 0\r\n                },\r\n                \"calificacion\": 0,\r\n                \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n                \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n                \"email\": \"vendedor@gmail.com\",\r\n                \"id\": {{usuarioVendedor_id}},\r\n                \"nombre\": \"El Que Vende el vinilo\",\r\n                \"rol\": \"Usuario\",\r\n                \"username\": \"elVendedor\"\r\n            }\r\n        }\r\n    ]\r\n},\r\n\r\n\"vinilo\":{\r\n    \"type\": \"viniloDetailDTO\",\r\n    \"fechaLanzamiento\": \"2002-11-15\",\r\n    \"artista\": \"El Rey Leon\",\r\n    \"calificacion\": 4.9,\r\n    \"id\": {{viniloVender_id}},\r\n    \"informacionAdicional\": \"Fue grabado en la selva\",\r\n    \"nombre\": \"Jazz in the Jungle\",\r\n    \"precio\": 70000,\r\n    \"previewURI\": \"URI\",\r\n    \"productora\": \"Sony Music\",\r\n    \"usuario\": {\r\n        \"billingInformation\": {\r\n            \"cuentaAhorro\": \"654654654\",\r\n            \"id\": {{usuarioVendedor_billing_id}},\r\n            \"recieved\": 0,\r\n            \"spent\": 0\r\n        },\r\n        \"calificacion\": 0,\r\n        \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n        \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n        \"email\": \"vendedor@gmail.com\",\r\n        \"id\": {{usuarioVendedor_id}},\r\n        \"nombre\": \"El Que Vende el vinilo\",\r\n        \"rol\": \"Usuario\",\r\n        \"username\": \"elVendedor\"\r\n    },\r\n    \"canciones\": []\r\n}\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}?",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -2783,7 +2782,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}?",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -2851,7 +2850,7 @@
 					"raw": "{\r\n\"estado\" : \"peticion\",\r\n\r\n\"formaDePago\" : \"tarjeta-credito\",\r\n\"usuarioComprador\": {\r\n    \"type\": \"usuarioDetailDTO\",\r\n    \"billingInformation\": {\r\n        \"cuentaAhorro\": \"987654321\",\r\n        \"id\":{{usuarioComprador_billing_id}},\r\n        \"recieved\": 0,\r\n        \"spent\": 0\r\n    },\r\n    \"calificacion\": 0,\r\n    \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n    \"direccion\": \"cll 12 #25 105 este BogotÃ¡\",\r\n    \"email\": \"comprador@gmail.com\",\r\n    \"id\": {{usuarioComprador_id}},\r\n    \"nombre\": \"El Que Compra el vinilo\",\r\n    \"rol\": \"Usuario\",\r\n    \"username\": \"elComprador\",\r\n    \"comentarios\": [],\r\n    \"transaccionesGeneradas\": [],\r\n    \"transaccionesRecibidas\": [],\r\n    \"vinilos\": []\r\n},\r\n\"usuarioVendedor\":{\r\n    \"type\": \"usuarioDetailDTO\",\r\n    \"billingInformation\": {\r\n        \"cuentaAhorro\": \"654654654\",\r\n        \"id\": {{usuarioVendedor_billing_id}},\r\n        \"recieved\": 0,\r\n        \"spent\": 0\r\n    },\r\n    \"calificacion\": 0,\r\n    \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n    \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n    \"email\": \"vendedor@gmail.com\",\r\n    \"id\": {{usuarioVendedor_id}},\r\n    \"nombre\": \"El Que Vende el vinilo\",\r\n    \"rol\": \"Usuario\",\r\n    \"username\": \"elVendedor\",\r\n    \"comentarios\": [],\r\n    \"transaccionesGeneradas\": [],\r\n    \"transaccionesRecibidas\": [],\r\n    \"vinilos\": [\r\n        {\r\n            \"fechaLanzamiento\": \"2002-11-15\",\r\n            \"artista\": \"El Rey Leon\",\r\n            \"calificacion\": 4.9,\r\n            \"id\": {{viniloVender_id}},\r\n            \"informacionAdicional\": \"Fue grabado en la selva\",\r\n            \"nombre\": \"Jazz in the Jungle\",\r\n            \"precio\": 70000,\r\n            \"previewURI\": \"URI\",\r\n            \"productora\": \"Sony Music\",\r\n            \"usuario\": {\r\n                \"billingInformation\": {\r\n                    \"cuentaAhorro\": \"654654654\",\r\n                    \"id\":  {{usuarioVendedor_billing_id}},\r\n                    \"recieved\": 0,\r\n                    \"spent\": 0\r\n                },\r\n                \"calificacion\": 0,\r\n                \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n                \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n                \"email\": \"vendedor@gmail.com\",\r\n                \"id\": {{usuarioVendedor_id}},\r\n                \"nombre\": \"El Que Vende el vinilo\",\r\n                \"rol\": \"Usuario\",\r\n                \"username\": \"elVendedor\"\r\n            }\r\n        }\r\n    ]\r\n},\r\n\r\n\"vinilo\":{\r\n    \"type\": \"viniloDetailDTO\",\r\n    \"fechaLanzamiento\": \"2002-11-15\",\r\n    \"artista\": \"El Rey Leon\",\r\n    \"calificacion\": 4.9,\r\n    \"id\": {{viniloVender_id}},\r\n    \"nombre\": \"Jazz in the Jungle\",\r\n    \"precio\": 70000,\r\n    \"previewURI\": \"URI\",\r\n    \"productora\": \"Sony Music\",\r\n    \"usuario\": {\r\n        \"billingInformation\": {\r\n            \"cuentaAhorro\": \"654654654\",\r\n            \"id\": {{usuarioVendedor_billing_id}},\r\n            \"recieved\": 0,\r\n            \"spent\": 0\r\n        },\r\n        \"calificacion\": 0,\r\n        \"contrasenha\": \"ContraseÃ±aDificilXD\",\r\n        \"direccion\": \"cll 32 #85 5 este BogotÃ¡\",\r\n        \"email\": \"vendedor@gmail.com\",\r\n        \"id\": {{usuarioVendedor_id}},\r\n        \"nombre\": \"El Que Vende el vinilo\",\r\n        \"rol\": \"Usuario\",\r\n        \"username\": \"elVendedor\"\r\n    },\r\n    \"canciones\": []\r\n}\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones?",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -2916,7 +2915,7 @@
 					"raw": "{\r\n\t\"direccionEntrega\":\"Calle 19 # 2a -10\",\r\n\t\"direccionSalida\":\"Carrera 13 # 51-43\",\r\n\t\"estado\":\"PENDIENTE\"\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio",
+					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio?",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"

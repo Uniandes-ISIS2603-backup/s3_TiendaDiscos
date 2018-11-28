@@ -28,6 +28,8 @@ public class ViniloLogic {
 
     private static final Logger LOGGER = Logger.getLogger(ViniloLogic.class.getName());
 
+    private static final String BUSINESS_ERROR = "El vinilo no puede tener valores nulos";
+    
     @Inject
     private ViniloPersistence persistence;
 
@@ -39,13 +41,14 @@ public class ViniloLogic {
      *
      * @param viniloEntity Vinilo que se desea registrar.
      * @return vinilo que se agrego a persistence.
+     * @throws co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException
      */
     public ViniloEntity createVinilo(ViniloEntity viniloEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación del vinilo.");
         // Se procede a crear el vinilo.
         if (viniloEntity.getNombre() == null || viniloEntity.getProductora() == null
                 || viniloEntity.getArtista() == null || viniloEntity.getCategoria() == null) {
-            throw new BusinessLogicException("El vinilono puede tener valores nulos");
+            throw new BusinessLogicException(BUSINESS_ERROR);
         }
         if (viniloEntity.getNombre().equals("") || viniloEntity.getPrecio() < 0 || viniloEntity.getProductora().equals("") || viniloEntity.getArtista().equals("") || viniloEntity.getCategoria().isEmpty()) {
             throw new BusinessLogicException("El vinilo debe tener valores validos");
@@ -60,7 +63,7 @@ public class ViniloLogic {
         UsuarioEntity usuario = usuarioPersistence.find(usuarioId);
         if (viniloEntity.getNombre() == null || viniloEntity.getProductora() == null
                 || viniloEntity.getArtista() == null || viniloEntity.getCategoria() == null) {
-            throw new BusinessLogicException("El vinilono puede tener valores nulos");
+            throw new BusinessLogicException(BUSINESS_ERROR);
         }
         if (usuario == null) {
             throw new BusinessLogicException("El usuario no existe. id Recibido: " + usuarioId);
@@ -126,7 +129,7 @@ public class ViniloLogic {
         LOGGER.log(Level.INFO, "Inicia el proceso de actualizar el vinilo con el id = {0}", viniloId);
         if (viniloEntity.getNombre() == null || viniloEntity.getProductora() == null
                 || viniloEntity.getArtista() == null || viniloEntity.getCategoria() == null) {
-            throw new BusinessLogicException("El vinilono puede tener valores nulos");
+            throw new BusinessLogicException(BUSINESS_ERROR);
         }
         
         if (viniloEntity.getNombre().equals("") || viniloEntity.getPrecio() < 0 || viniloEntity.getProductora().equals("") || viniloEntity.getArtista().equals("") || viniloEntity.getCategoria().isEmpty()) {
@@ -144,9 +147,9 @@ public class ViniloLogic {
      *
      * @param viniloId vinilosId
      */
-    public void deleteVinilo(Long viniloId) {
+    public void deleteVinilo(Long viniloId) 
+    {
         LOGGER.log(Level.INFO, "Inicia el proceso para borrar el vinilo con id = {0}", viniloId);
-        List<CancionEntity> canciones = persistence.find(viniloId).getCanciones();
         persistence.delete(viniloId);
         LOGGER.log(Level.INFO, "Termina el proceso de borrar un vinilo con id = {0}", viniloId);
     }

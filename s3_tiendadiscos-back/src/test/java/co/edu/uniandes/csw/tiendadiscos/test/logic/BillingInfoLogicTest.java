@@ -45,9 +45,10 @@ public class BillingInfoLogicTest {
     @Inject
     private UserTransaction utx;
     
-    private List<BillingInformationEntity> data = new ArrayList<BillingInformationEntity>();
+    private List<BillingInformationEntity> data = new ArrayList<>();
     
-    private List<UsuarioEntity> dataUsuario = new ArrayList<UsuarioEntity>();
+    
+    private List<UsuarioEntity> dataUsuario = new ArrayList<>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.

@@ -77,15 +77,14 @@ public class UsuarioLogic {
     /**
      * Obtiene los datos de una instancia de Usuario a partir de su ID.
      *
-     * @param usuariId Identificador de la instancia a consultar
+     * @param usuarioId Identificador de la instancia a consultar
      * @return Instancia de UsuarioEntity con los datos del Usuario consultado.
      */
     public UsuarioEntity getUsuario(Long usuarioId) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar el usuario con id = {0}", usuarioId);
         UsuarioEntity usuarioEntity = usuarioPersistence.find(usuarioId);
-        if (usuarioEntity == null) {
+        if (usuarioEntity == null)
             LOGGER.log(Level.SEVERE, "el usuario con el id = {0} no existe", usuarioId);
-        }
         LOGGER.log(Level.INFO, "Termina proceso de consultar el usuario con id = {0}", usuarioId);
         return usuarioEntity;
     }

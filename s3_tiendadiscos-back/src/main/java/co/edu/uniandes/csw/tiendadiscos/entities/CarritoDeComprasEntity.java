@@ -34,10 +34,7 @@ public class CarritoDeComprasEntity extends BaseEntity implements Serializable
     @PodamExclude
     @OneToOne
     private UsuarioEntity usuario;
-    
-    public CarritoDeComprasEntity() 
-    {}
-    
+        
     public void setTotalCostDeCarritoCompras(Double totalCost) 
     {
         this.totalCost = totalCost;

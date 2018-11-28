@@ -33,6 +33,10 @@ public class UsuarioResource {
 
     private static final Logger LOGGER = Logger.getLogger(UsuarioResource.class.getName());
 
+    private static final String INIC_ERROR = "El recurso /usuarios/";
+    
+    private static final String NO_EXISTE = " no existe.";
+    
     @Inject
     UsuarioLogic usuarioLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
@@ -58,7 +62,7 @@ public class UsuarioResource {
         LOGGER.log(Level.INFO, "UsuarioResource getUsuario: input: {0}", usuarioId);
         UsuarioEntity usuarioEntity = usuarioLogic.getUsuario(usuarioId);
         if (usuarioEntity == null) {
-            throw new WebApplicationException("El recurso /usuario/" + usuarioId + " no existe.", 404);
+            throw new WebApplicationException(INIC_ERROR+ usuarioId + NO_EXISTE, 404);
         }
         UsuarioDetailDTO usuarioDetailDTO = new UsuarioDetailDTO(usuarioEntity);
         LOGGER.log(Level.INFO, "UsuarioResource getUsuario: output: {0}", usuarioDetailDTO);
@@ -70,9 +74,8 @@ public class UsuarioResource {
     public UsuarioDetailDTO updateUsuario(@PathParam("usuariosId") Long usuarioId, UsuarioDTO usuario) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "UsuarioResource updateUsuario: input: usuarioId: {0} , usuario:{1}", new Object[]{usuarioId, usuario});
         usuario.setId(usuarioId);
-        if (usuarioLogic.getUsuario(usuarioId) == null) {
-            throw new WebApplicationException("El recurso /usuario/" + usuarioId + " no existe.", 404);
-        }
+        if (usuarioLogic.getUsuario(usuarioId) == null) 
+            throw new WebApplicationException(INIC_ERROR + usuarioId + NO_EXISTE, 404);
         UsuarioDetailDTO detailDTO = new UsuarioDetailDTO(usuarioLogic.updateUsuario(usuarioId, usuario.toEntity()));
         return detailDTO;
     }
@@ -81,25 +84,23 @@ public class UsuarioResource {
     @Path("{usuariosId: \\d+}")
     public void deleteUsuarios(@PathParam("usuariosId") Long usuariosId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "UsuarioResource deleteUsuario: input: {0}", usuariosId);
-        if (usuarioLogic.getUsuario(usuariosId) == null) {
-            throw new WebApplicationException("El recurso /usuarios/" + usuariosId + " no existe.", 404);
-        }
+        if (usuarioLogic.getUsuario(usuariosId) == null) 
+            throw new WebApplicationException(INIC_ERROR + usuariosId + NO_EXISTE, 404);
         usuarioLogic.deleteUsuario(usuariosId);
         LOGGER.log(Level.INFO, "UsuarioResource deleteUsuario: output: void");
     }
 
     @Path("{usuariosId: \\d+}/billing")
     public Class<BillingInformationResource> getBillingResource(@PathParam("usuariosId") Long usuariosId) {
-        if (usuarioLogic.getUsuario(usuariosId) == null) {
-            throw new WebApplicationException("El recurso /usuario/" + usuariosId + " no existe.", 404);
-        }
+        if (usuarioLogic.getUsuario(usuariosId) == null) 
+            throw new WebApplicationException(INIC_ERROR + usuariosId + NO_EXISTE, 404);
         return BillingInformationResource.class;
     }
 
     @Path("{usuariosId: \\d+}/wishlist")
     public Class<WishListResource> getWishListResource(@PathParam("usuariosId") Long usuariosId) {
         if (usuarioLogic.getUsuario(usuariosId) == null) {
-            throw new WebApplicationException("El recurso /usuario/" + usuariosId + " no existe.", 404);
+            throw new WebApplicationException(INIC_ERROR + usuariosId + NO_EXISTE, 404);
         }
         return WishListResource.class;
     }
@@ -107,7 +108,7 @@ public class UsuarioResource {
     @Path("{usuariosId: \\d+}/carrito")
     public Class<CarritoDeComprasResource> getCarritoDeComprasResource(@PathParam("usuariosId") Long usuariosId) {
         if (usuarioLogic.getUsuario(usuariosId) == null) {
-            throw new WebApplicationException("El recurso /usuario/" + usuariosId + " no existe.", 404);
+            throw new WebApplicationException(INIC_ERROR + usuariosId + NO_EXISTE, 404);
         }
         return CarritoDeComprasResource.class;
     }
@@ -115,7 +116,7 @@ public class UsuarioResource {
     @Path("{usuariosId: \\d+}/comentarios")
     public Class<ComentarioUsuarioResource> getComentariosResource(@PathParam("usuariosId") Long usuariosId) {
         if (usuarioLogic.getUsuario(usuariosId) == null) {
-            throw new WebApplicationException("El recurso /usuario/" + usuariosId + " no existe.", 404);
+            throw new WebApplicationException(INIC_ERROR + usuariosId + NO_EXISTE, 404);
         }
         return ComentarioUsuarioResource.class;
     }
@@ -125,7 +126,7 @@ public class UsuarioResource {
     //----------------------------------------------------------------   
     private List<UsuarioDetailDTO> listEntity2DetailDTO(List<UsuarioEntity> entityList) {
         List<UsuarioDetailDTO> list = new ArrayList<>();
-        for (UsuarioEntity entity : entityList) {
+        for(UsuarioEntity entity : entityList) {
             list.add(new UsuarioDetailDTO(entity));
         }
         return list;

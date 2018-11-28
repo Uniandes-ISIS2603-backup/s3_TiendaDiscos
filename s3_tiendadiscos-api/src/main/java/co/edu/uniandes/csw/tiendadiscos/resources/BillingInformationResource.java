@@ -33,6 +33,10 @@ import javax.ws.rs.WebApplicationException;
 @RequestScoped
 public class BillingInformationResource {
 
+    private static final String INICIO_EXCEPTION = "El recurso /usuarios/";
+    
+    private static final String BILLING_INEXISTENTE= "/billing  no existe.";
+    
     private static final Logger LOGGER = Logger.getLogger(BillingInformationResource.class.getName());
 
     @Inject
@@ -43,7 +47,7 @@ public class BillingInformationResource {
         LOGGER.log(Level.INFO, "BillingInformationResource getBilling: input: {0}", usuariosId);
         BillingInformationEntity billingEntity = billingLogic.getBilling(usuariosId);
         if (billingEntity == null) {
-            throw new WebApplicationException("El recurso /usurios/" + usuariosId + "/billing  no existe.", 404);
+            throw new WebApplicationException(INICIO_EXCEPTION + usuariosId + BILLING_INEXISTENTE, 404);
         }
         BillingInformationDetailDTO detailDTO = new BillingInformationDetailDTO(billingEntity);
         LOGGER.log(Level.INFO, "BillingInformationResource getBilling: output: {0}", detailDTO.toString());
@@ -51,10 +55,11 @@ public class BillingInformationResource {
     }
 
     @POST
-    public BillingInformationDTO createBilling(@PathParam("usuariosId") Long usuariosId, BillingInformationDTO billig) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "BillingInformationResource createBilling: input: {0}", billig.toString());
+    public BillingInformationDTO createBilling(@PathParam("usuariosId") Long usuariosId, BillingInformationDTO billig) throws BusinessLogicException 
+    {
+        LOGGER.log(Level.INFO, "BillingInformationResource createBilling: input: {0}", billig);
         BillingInformationDTO nuevoBillingDTO = new BillingInformationDTO(billingLogic.createBilling(usuariosId, billig.toEntity()));
-        LOGGER.log(Level.INFO, "BillingInformationResource createBilling: output: {0}", nuevoBillingDTO.toString());
+        LOGGER.log(Level.INFO, "BillingInformationResource createBilling: output: {0}", nuevoBillingDTO);
         return nuevoBillingDTO;
     }
 
@@ -64,7 +69,7 @@ public class BillingInformationResource {
 
         BillingInformationEntity entity = billingLogic.getBilling(usuariosId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /usuarios/" + usuariosId + "/billing  no existe.", 404);
+            throw new WebApplicationException(INICIO_EXCEPTION + usuariosId + BILLING_INEXISTENTE, 404);
 
         }
         BillingInformationDetailDTO billingDTO = new BillingInformationDetailDTO(billingLogic.updateBilling(usuariosId, billing.toEntity()));
@@ -76,7 +81,7 @@ public class BillingInformationResource {
     public void deleteBilling(@PathParam("usuariosId") Long usuariosId) throws BusinessLogicException {
         BillingInformationEntity entity = billingLogic.getBilling(usuariosId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /usuarios/" + usuariosId + "/billing  no existe.", 404);
+            throw new WebApplicationException(INICIO_EXCEPTION + usuariosId + BILLING_INEXISTENTE, 404);
         }
         billingLogic.deleteBilling(usuariosId);
     }
@@ -84,7 +89,7 @@ public class BillingInformationResource {
     @Path("/tarjetasDeCredito")
     public Class<MedioDePagoResource> getTarjetaResource(@PathParam("usuariosId") Long usuariosId) {
         if (billingLogic.getBilling(usuariosId) == null) {
-            throw new WebApplicationException("El recurso /usuarios/" + usuariosId + "/billing  no existe.", 404);
+            throw new WebApplicationException(INICIO_EXCEPTION + usuariosId + BILLING_INEXISTENTE, 404);
         }
         return MedioDePagoResource.class;
     }

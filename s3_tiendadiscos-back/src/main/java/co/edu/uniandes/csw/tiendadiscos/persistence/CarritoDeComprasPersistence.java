@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -16,7 +15,7 @@ import javax.persistence.TypedQuery;
  * and open the template in the editor.
  */
 /**
- *
+ * 
  * @author Laura Isabella Forero Camacho
  */
 @Stateless
@@ -57,20 +56,15 @@ public class CarritoDeComprasPersistence {
     }
 
     public CarritoDeComprasEntity findByUserId(Long userId) {
-        LOGGER.log(Level.INFO, "Consultando el Carrito de Compras asociado al usuario con el id" + userId);
+        LOGGER.log(Level.INFO, "Consultando el Carrito de Compras asociado al usuario con el id = {0}" , userId);
         TypedQuery<CarritoDeComprasEntity> q = em.createQuery("select p from CarritoDeComprasEntity p where p.usuario.id = :usuarioId", CarritoDeComprasEntity.class);
         q.setParameter("usuarioId", userId);
         List<CarritoDeComprasEntity> results = q.getResultList();
         CarritoDeComprasEntity carrito = null;
-        if (results == null) {
-            carrito = null;
-        } else if (results.isEmpty()) {
-            carrito = null;
-        } else if (results.size() >= 1) {
+        if (results.size() >= 1) 
             carrito = results.get(0);
-        }
-        LOGGER.log(Level.INFO, "Saliendo de consultar el Carrito  del usuario con id =" + userId);
+        
+        LOGGER.log(Level.INFO, "Saliendo de consultar el Carrito  del usuario con id ={0}" , userId);
         return carrito;
     }
-    
 }

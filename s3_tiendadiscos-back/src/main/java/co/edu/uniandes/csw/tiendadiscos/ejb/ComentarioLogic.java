@@ -30,6 +30,8 @@ public class ComentarioLogic {
 
     private static final Logger LOGGER = Logger.getLogger(ComentarioLogic.class.getName());
 
+    private static final String ERROR_VACIO = "No se puede crear un comentario vacio";
+    
     @Inject
     private ComentarioPersistence persistence;
 
@@ -53,7 +55,7 @@ public class ComentarioLogic {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación de un comentario a el usuario {0}", usuarioIdDestino);
 
         if (comentarioEntity.getContenido() == null || comentarioEntity.getContenido().isEmpty()) {
-            throw new BusinessLogicException("No se puede crear un comentario vacio");
+            throw new BusinessLogicException(ERROR_VACIO);
         }
 
         comentarioEntity.setUsuario(usuarioPersistence.find(usuarioIdDestino));
@@ -68,7 +70,7 @@ public class ComentarioLogic {
     public ComentarioEntity createComentarioTransaccion(Long transaccionId, Long usuarioId, ComentarioEntity comentarioEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación de un comentario a la transacción {0}", transaccionId);
         if (comentarioEntity.getContenido() == null || comentarioEntity.getContenido().isEmpty()) {
-            throw new BusinessLogicException("No se puede crear un comentario vacio");
+            throw new BusinessLogicException(ERROR_VACIO);
         }
         if (transaccionPersistence.find(transaccionId) == null) {
             throw new BusinessLogicException("La transacción destino no existe.");
@@ -89,7 +91,7 @@ public class ComentarioLogic {
     public ComentarioEntity createComentarioCancion(Long viniloId, Long cancionesId, Long usuarioId, ComentarioEntity comentarioEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación de un comentario a la canción {0}", cancionesId);
         if (comentarioEntity.getContenido() == null || comentarioEntity.getContenido().isEmpty()) {
-            throw new BusinessLogicException("No se puede crear un comentario vacio");
+            throw new BusinessLogicException(ERROR_VACIO);
         }
         UsuarioEntity usuario = usuarioPersistence.find(usuarioId);
         CancionEntity cancion = cancionPersistence.find(cancionesId, viniloId);
@@ -113,7 +115,7 @@ public class ComentarioLogic {
         LOGGER.log(Level.INFO, "Inicia el proceso de creación de un comentario al vinilo {0}", viniloId);
 
         if (comentarioEntity.getContenido() == null || comentarioEntity.getContenido().isEmpty()) {
-            throw new BusinessLogicException("No se puede crear un comentario vacio");
+            throw new BusinessLogicException(ERROR_VACIO);
         }
 
         if (comentarioEntity.getContenido().isEmpty()) {

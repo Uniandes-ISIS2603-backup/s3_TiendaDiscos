@@ -33,7 +33,8 @@ public class MedioDePagoLogic {
     @Inject
     private UsuarioPersistence usuarioPersistence;
 
-    public MedioDePagoEntity createTarjeta(Long usuariosId, MedioDePagoEntity tarjeta) throws BusinessLogicException {
+    public MedioDePagoEntity createTarjeta(Long usuariosId, MedioDePagoEntity tarjeta) throws BusinessLogicException 
+    {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de la tarjeta");
         if (tarjeta.getNumero() == null || tarjeta.getCvc() == null || tarjeta.getFechaVencimiento() == null || tarjeta.getName() == null
                 || tarjeta.getNumeroVerificacion() == null) {
@@ -65,18 +66,17 @@ public class MedioDePagoLogic {
     }
 
     public MedioDePagoEntity getTarjeta(Long usuariosId, Long tarjetaId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar la tarjeta con id = {0}", tarjetaId);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar la tarjeta con id = {0} del usuario con id = {1}", new Object[]{tarjetaId, usuariosId});
 
         // probar si usuario es nulo, en billing cambiar la forma porque yo no se el usuario toca con el path
         UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
-        if (usuario == null) {
+        if (usuario == null) 
             //Esta exception la produce usuario BORRAR
             throw new BusinessLogicException("No existe el usuario con ese id");
-        }
         MedioDePagoEntity tarjeta = persistence.find(usuarioPersistence.find(usuariosId).getBillingInformation().getId(), tarjetaId);
-        if (tarjeta == null) {
+        if (tarjeta == null) 
             LOGGER.log(Level.SEVERE, "La tarjeta con el id = {0} no existe", tarjetaId);
-        }
+        LOGGER.log(Level.INFO, "Termina el proceso de consultar la tarjeta con id= {0}",tarjetaId);
         return tarjeta;
     }
 
@@ -94,7 +94,7 @@ public class MedioDePagoLogic {
 
     public MedioDePagoEntity updateTarjeta(Long usuariosId, Long tarjetaId, MedioDePagoEntity tarjeta) throws BusinessLogicException {
 
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar la tarjeta con id" + tarjetaId + " del usuario con id = {0}", usuariosId);
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar la tarjeta con id {0} del usuario con id = {1}", new Object[]{tarjetaId, usuariosId});
         if (tarjeta.getNumero() == null || tarjeta.getCvc() == null || tarjeta.getFechaVencimiento() == null || tarjeta.getName() == null
                 || tarjeta.getNumeroVerificacion() == null) {
             throw new BusinessLogicException("El medio de pago no puede tener valores nulos");
@@ -128,16 +128,14 @@ public class MedioDePagoLogic {
 
     }
 
-    public void deleteTarjeta(Long usuariosId, Long tarjetaId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar la tarjeta con id " + tarjetaId + " del usuario con id = {0}", usuariosId);
+    public void deleteTarjeta(Long usuariosId, Long tarjetaId) throws BusinessLogicException 
+    {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar la tarjeta con id {0} del usuario con id = {1}", new Object[]{tarjetaId, usuariosId});
         BillingInformationEntity billing = usuarioPersistence.find(usuariosId).getBillingInformation();
         MedioDePagoEntity tarjeta = persistence.find(billing.getId(), tarjetaId);
-
-        if (tarjeta == null) {
+        if (tarjeta == null)
             throw new BusinessLogicException("La tarjeta con id " + tarjetaId + "no existe");
-        }
-
         persistence.delete(tarjetaId);
-        LOGGER.log(Level.INFO, "Termina proceso de borrar la tarjeta con id " + tarjetaId + " del usuario con id  = {0}", usuariosId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar la tarjeta con id {0} del usuario con id  = {1}", new Object[]{tarjetaId, usuariosId});
     }
 }

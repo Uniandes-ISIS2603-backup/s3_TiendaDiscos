@@ -32,6 +32,10 @@ public class ViniloResource {
 
     private static final Logger LOGGER = Logger.getLogger(ViniloResource.class.getName());
 
+    private static final String INIC_ERROR = "El recurso /vinilos/";
+    
+    private static final String NO_EXISTE = " no existe.";
+    
     @Inject
     private ViniloLogic viniloLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
     
@@ -47,12 +51,6 @@ public class ViniloResource {
         return viniloCreado;
     }
 
-    /**
-     *
-     * @param vinilosId
-     * @return
-     * @throws WebApplicationException
-     */
     @GET
     @Path("{vinilosId: \\d+}")
     public ViniloDetailDTO getVinilo(@PathParam("vinilosId") Long vinilosId) 
@@ -60,7 +58,7 @@ public class ViniloResource {
         LOGGER.log(Level.INFO, "ViniloResource getVinilo: input: {0}", vinilosId);
         ViniloEntity viniloEntity = viniloLogic.getVinilo(vinilosId);
         if (viniloEntity == null) 
-            throw new WebApplicationException("El recurso /vinilo/" + vinilosId + " no existe.", 404);
+            throw new WebApplicationException(INIC_ERROR + vinilosId + NO_EXISTE, 404);
         
         ViniloDetailDTO detailDTO = new ViniloDetailDTO(viniloEntity);
         LOGGER.log(Level.INFO, "Vinilo Resource getVinilo: output: {0}", detailDTO);
@@ -83,7 +81,7 @@ public class ViniloResource {
         LOGGER.log(Level.INFO, "ViniloResource updateVinilo: input: vinilosId: {0} , vinilo: {1}", new Object[]{vinilosId, vinilo});
         vinilo.setId(vinilosId);
         if (viniloLogic.getVinilo(vinilosId) == null) 
-            throw new WebApplicationException("El recurso /vinilos/" + vinilosId + " no existe.", 404);
+            throw new WebApplicationException(INIC_ERROR + vinilosId + NO_EXISTE, 404);
 
         ViniloDetailDTO detailDTO = new ViniloDetailDTO(viniloLogic.updateVinilo(vinilosId, vinilo.toEntity()));
         LOGGER.log(Level.INFO, "ViniloResource updateVinilo: output: {0}", detailDTO);
@@ -99,7 +97,7 @@ public class ViniloResource {
     public void deleteVinilo(@PathParam("vinilosId") Long vinilosId) {
         LOGGER.log(Level.INFO, "ViniloResource deleteVinilo: input: {0}", vinilosId);
         if (viniloLogic.getVinilo(vinilosId) == null) 
-            throw new WebApplicationException("El recurso /vinilos/" + vinilosId + " no existe.", 404);
+            throw new WebApplicationException(INIC_ERROR + vinilosId + NO_EXISTE, 404);
         viniloLogic.deleteVinilo(vinilosId);
         LOGGER.log(Level.INFO, "ViniloResource deleteVinilo: output: void");
     }
@@ -108,7 +106,7 @@ public class ViniloResource {
     public Class<CancionResource> getCancionResource(@PathParam("vinilosId") Long vinilosId) 
     {
         if (viniloLogic.getVinilo(vinilosId) == null) 
-            throw new WebApplicationException("El recurso /vinilos/" + vinilosId + " no existe.", 404);
+            throw new WebApplicationException(INIC_ERROR + vinilosId + NO_EXISTE, 404);
         return CancionResource.class;
     }
 
@@ -116,23 +114,22 @@ public class ViniloResource {
     public Class<ComentarioViniloResource> getComentariosResource(@PathParam("vinilosId") Long vinilosId) 
     {
         if (viniloLogic.getVinilo(vinilosId) == null) 
-            throw new WebApplicationException("El recurso /vinilos/" + vinilosId + " no existe.", 404);
+            throw new WebApplicationException(INIC_ERROR+ vinilosId + NO_EXISTE, 404);
         return ComentarioViniloResource.class;
     }
 
+    @Path("/usuarios")
+    public Class<ViniloUsuarioResource> getViniloUsuarioResource() 
+    {
+        return ViniloUsuarioResource.class;
+    }
+    
     private List<ViniloDetailDTO> listEntity2DTO(List<ViniloEntity> entityList) 
     {
         List<ViniloDetailDTO> list = new ArrayList<>();
-        for (ViniloEntity entity : entityList) 
+        for(ViniloEntity entity : entityList) 
             list.add(new ViniloDetailDTO(entity));
         return list;
     }
-
-    @Path("usuarios")
-    public Class<ViniloUsuarioResource> getViniloUsuarioResource(@PathParam("usuariosId") Long usuariosId) 
-    {
-        if (usuarioLogic.getUsuario(usuariosId) == null) 
-            throw new WebApplicationException("El recurso /vinilos/" + usuariosId + " no existe.", 404);
-        return ViniloUsuarioResource.class;
-    }
+   
 }

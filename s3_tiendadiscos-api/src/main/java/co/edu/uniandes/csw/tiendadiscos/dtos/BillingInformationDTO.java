@@ -182,12 +182,14 @@ public class BillingInformationDTO  implements Serializable{
      * @return Entity con los valores del DTO
      */
     public BillingInformationEntity toEntity () 
-    {        
+    {
         BillingInformationEntity billingInformationEntity = new BillingInformationEntity();
         billingInformationEntity.setId(this.id);
-        billingInformationEntity.setCuentaAhorro(this.getCuentaAhorro());
-        billingInformationEntity.setRecieved(this.getRecieved());
-        billingInformationEntity.setSpent(this.getSpent());
+        billingInformationEntity.setCuentaAhorro(this.cuentaAhorro);
+        billingInformationEntity.setRecieved(this.recieved);
+        billingInformationEntity.setSpent(this.spent);
+        if(this.usuario != null)
+            billingInformationEntity.setUsuario(this.usuario.toEntity());
         return billingInformationEntity;
     }
     

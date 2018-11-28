@@ -40,7 +40,7 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
     
     @PodamExclude
     @OneToMany(mappedBy = "transaccion", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<ComentarioEntity> comentario;
+    private List<ComentarioEntity> comentarios;
     
     
     @PodamExclude
@@ -60,43 +60,47 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
      */
     private String estado;
     
-    
-    
 
-
-    public EnvioEntity getEnvio() {
+    public EnvioEntity getEnvio() 
+    {
         return envio;
     }
 
-    public void setEnvio(EnvioEntity envio) {
+    public void setEnvio(EnvioEntity envio) 
+    {
         this.envio = envio;
     }
-    public ViniloEntity getVinilo() {
+    
+    public ViniloEntity getVinilo() 
+    {
         return vinilo;
     }
 
-    public void setVinilo(ViniloEntity vinilo) {
+    public void setVinilo(ViniloEntity vinilo) 
+    {
         this.vinilo = vinilo;
     }
 
-    private void setComentario(List<ComentarioEntity> comentario)
+    private void setComentarios(List<ComentarioEntity> comentarios)
     {
-        this.comentario = comentario;
+        this.comentarios = comentarios;
     }
     
     /**
      * Modifica el valor del atributo vendedorID.
-     * @param vendedorID nuevo valor del atributo.
+     * @param vendedor nuevo valor del atributo.
      */
-    public void setUsuarioVendedor(UsuarioEntity  vendedor) {
+    public void setUsuarioVendedor(UsuarioEntity  vendedor) 
+    {
         this.usuarioVendedor = vendedor;
     }
 
     /**
      * Modifica el valor del atributo compradorID.
-     * @param compradorID nuevo valor del atributo.
+     * @param comprador nuevo valor del atributo.
      */
-    public void setUsuarioComprador(UsuarioEntity  comprador) {
+    public void setUsuarioComprador(UsuarioEntity  comprador) 
+    {
         this.usuarioComprador = comprador;
     }
 
@@ -104,7 +108,8 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
      * Modifica el valor del atributo formaDePago.
      * @param formaDePago nuevo valor del atributo.
      */
-    public void setFormaDePago(String formaDePago) {
+    public void setFormaDePago(String formaDePago)
+    {
         this.formaDePago = formaDePago;
     }
     
@@ -112,7 +117,8 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
      * Modifica el valor del atributo estado.
      * @param estado nuevo valor del atributo.
      */
-    public void setEstado(String estado) {
+    public void setEstado(String estado) 
+    {
         this.estado = estado;
     }
 
@@ -120,7 +126,8 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
      * Obtiene le atributo nombre.
      * @return atributo nombre.
      */
-    public UsuarioEntity  getUsuarioVendedor() {
+    public UsuarioEntity  getUsuarioVendedor() 
+    {
         return usuarioVendedor;
     }
 
@@ -128,7 +135,8 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
      * Retorna la duración de la cación.
      * @return atributo duración.
      */
-    public UsuarioEntity  getUsuarioComprador() {
+    public UsuarioEntity  getUsuarioComprador() 
+    {
         return usuarioComprador;
     }
 
@@ -136,7 +144,8 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
      * Obtiene el atributo preview URI.
      * @return previewURI
      */
-    public String getEstado() {
+    public String getEstado() 
+    {
         return estado;
     }
 
@@ -144,16 +153,13 @@ public class TransaccionEntity extends BaseEntity implements Serializable{
      * Obtiene la descripcion.
      * @return atributo descripcion.
      */
-    public String getFormaDePago() {
+    public String getFormaDePago() 
+    {
         return formaDePago;
     }   
 
-    public List<ComentarioEntity> getComentario(){
-        return comentario;
+    public List<ComentarioEntity> getComentario()
+    {
+        return comentarios;
     }
-
-
-    
-    
-    
 }
