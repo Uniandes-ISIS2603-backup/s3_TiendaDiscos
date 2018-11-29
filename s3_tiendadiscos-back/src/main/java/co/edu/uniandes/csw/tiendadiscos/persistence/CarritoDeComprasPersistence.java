@@ -1,7 +1,6 @@
 package co.edu.uniandes.csw.tiendadiscos.persistence;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.CarritoDeComprasEntity;
-import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

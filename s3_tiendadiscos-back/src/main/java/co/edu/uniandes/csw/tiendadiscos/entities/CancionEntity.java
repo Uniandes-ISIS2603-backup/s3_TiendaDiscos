@@ -211,10 +211,7 @@ public class CancionEntity extends BaseEntity implements Serializable
         if (!Objects.equals(this.vinilo, other.vinilo)) {
             return false;
         }
-        if (!Objects.equals(this.comentarios, other.comentarios)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.comentarios, other.comentarios);
     }
 
     

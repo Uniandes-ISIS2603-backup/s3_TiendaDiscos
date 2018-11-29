@@ -283,10 +283,7 @@ public class UsuarioEntity extends BaseEntity implements Serializable{
         if (!Objects.equals(this.comentariosR, other.comentariosR)) {
             return false;
         }
-        if (!Objects.equals(this.comentariosH, other.comentariosH)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.comentariosH, other.comentariosH);
     }
     
     

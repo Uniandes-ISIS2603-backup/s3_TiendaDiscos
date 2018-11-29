@@ -101,12 +101,12 @@ public class WishListLogic {
         LOGGER.log(Level.INFO, "Termina el proceso de borrar la WishList del usuario con el id {0}", usuarioId);
     }
 
-    public WishListEntity agregarVinilo(Long usuariosId, Long vinilosId) throws BusinessLogicException, BusinessLogicException {
+    public WishListEntity agregarVinilo(Long usuariosId, Long vinilosId) throws BusinessLogicException
+    {
         LOGGER.log(Level.INFO, "Inicia el proceso de agregar un vinilo con el id = {0} a la wishList del usuario con el id = {1}", new Object[]{vinilosId, usuariosId});
         ViniloEntity vinilo = viniloPersistence.find(vinilosId);
-        if (vinilo == null) {
+        if (vinilo == null) 
             throw new BusinessLogicException("El vinilo no existe");
-        }
         WishListEntity wishListEntity = wishlistPersitence.findByUserId(usuariosId);
         vinilo.getWishLists().add(wishListEntity);
         wishListEntity.setCosto(wishListEntity.getCosto() + vinilo.getPrecio());
