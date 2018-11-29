@@ -6,9 +6,11 @@
 package co.edu.uniandes.csw.tiendadiscos.ejb;
 
 import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity;
 import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tiendadiscos.persistence.UsuarioPersistence;
+import co.edu.uniandes.csw.tiendadiscos.persistence.ViniloPersistence;
 import co.edu.uniandes.csw.tiendadiscos.persistence.WishListPersistence;
 
 
@@ -28,6 +30,9 @@ public class WishListLogic {
 
     @Inject
     public WishListPersistence wishlistPersitence;
+    
+    @Inject
+    public ViniloPersistence viniloPersistence;
     
     @Inject
     public UsuarioPersistence usuarioPersistence;
@@ -95,5 +100,34 @@ public class WishListLogic {
 
         wishlistPersitence.delete(usuarioId);
         LOGGER.log(Level.INFO, "Termina el proceso de borrar la WishList del usuario con el id {0}" , usuarioId);        
+    }
+    
+    public WishListEntity agregarVinilo(Long usuariosId, Long vinilosId) throws BusinessLogicException, BusinessLogicException
+    {
+        LOGGER.log(Level.INFO , "Inicia el proceso de agregar un vinilo con el id = {0} a la wishList del usuario con el id = {1}" , new Object[]{vinilosId, usuariosId});
+        ViniloEntity vinilo = viniloPersistence.find(vinilosId);
+        if (vinilo == null) 
+            throw new BusinessLogicException("El vinilo no existe");
+        WishListEntity wishListEntity = wishlistPersitence.findByUserId(usuariosId);
+        vinilo.getWishLists().add(wishListEntity);
+        wishListEntity.setCosto(wishListEntity.getCosto() + vinilo.getPrecio());
+        LOGGER.log(Level.INFO , "Termina el proceso de agregar el vinilo con el id = {0} a la wishList del usuario con el id = {1}" , new Object[]{vinilosId, usuariosId});
+        return wishListEntity;
+    }   
+    
+    public WishListEntity eliminarVinilo(Long usuariosId, Long vinilosId) throws BusinessLogicException
+    {
+        LOGGER.log(Level.INFO , "Inicia el proceso de eliminar el vinilo con el id = {0} a la wishList del usuario con el id = {1}" , new Object[]{vinilosId, usuariosId});
+        ViniloEntity viniloEntity = viniloPersistence.find(vinilosId);
+        if(viniloEntity == null)
+            throw new BusinessLogicException("El vinilo no existe.");
+        WishListEntity wishListEntity = wishlistPersitence.findByUserId(usuariosId);
+        if(!wishListEntity.getVinilos().contains(viniloEntity))
+            throw new BusinessLogicException("El vinilo no estaba en la wishList.");
+        viniloEntity.getWishLists().remove(wishListEntity);
+        wishListEntity.setCosto(wishListEntity.getCosto() - viniloEntity.getPrecio());
+        wishListEntity.getVinilos().remove(viniloEntity);
+        LOGGER.log(Level.INFO , "Termina el proceso de eliminar el vinilo con el id = {0} a la wishList del usuario con el id = {1}" , new Object[]{vinilosId, usuariosId});
+        return wishListEntity;
     }
 }
