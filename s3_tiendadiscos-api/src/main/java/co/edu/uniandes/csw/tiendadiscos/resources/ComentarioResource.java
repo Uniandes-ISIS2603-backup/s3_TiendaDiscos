@@ -36,7 +36,7 @@ public class ComentarioResource {
     
     @DELETE
     @Path("{comentariosId: \\d+}")
-    public void deleteComentario(@PathParam("comentariosId") Long comentariosId)
+    public void deleteComentario(@PathParam("comentariosId") Long comentariosId) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "ComentarioResource deleteComentario: input: {0}", comentariosId);
         if(logic.getComentario(comentariosId) == null)

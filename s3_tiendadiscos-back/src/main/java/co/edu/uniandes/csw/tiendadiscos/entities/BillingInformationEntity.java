@@ -172,7 +172,10 @@ public class BillingInformationEntity extends BaseEntity implements Serializable
         if (!Objects.equals(this.usuario, other.usuario)) {
             return false;
         }
-        return Objects.equals(this.tarjetas, other.tarjetas);
+        if (!Objects.equals(this.tarjetas, other.tarjetas)) {
+            return false;
+        }
+        return true;
     }
     
     

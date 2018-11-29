@@ -38,9 +38,9 @@ public class CarritoDeComprasResource {
 
     @POST
     public CarritoDeComprasDTO createCarritoDeCompras(@PathParam("usuariosId") Long usuariosId, CarritoDeComprasDTO carritoDeCompras) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "CarritoDeComprasResource createCarritoDeCompras: input: {0}", carritoDeCompras);
+        LOGGER.log(Level.INFO, "CarritoDeComprasResource createCarritoDeCompras: input: {0}", carritoDeCompras.toString());
         CarritoDeComprasDTO nuevoCarritoDTO = new CarritoDeComprasDTO(logic.create(usuariosId, carritoDeCompras.toEntity()));
-        LOGGER.log(Level.INFO, "CarritoDeComprasResource createCarritoDeCompras: output: {0}", nuevoCarritoDTO);
+        LOGGER.log(Level.INFO, "CarritoDeComprasResource createCarritoDeCompras: output: {0}", nuevoCarritoDTO.toString());
         return nuevoCarritoDTO;
     }
 

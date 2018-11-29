@@ -45,8 +45,7 @@ public class CarritoDeComprasVinilosResource {
 
     @POST
     @Path("{vinilosId: \\d+}")
-    public CarritoDeComprasDetailDTO addViniloCarritoCompras(@PathParam("usuariosId") Long usuariosId, @PathParam("vinilosId") Long vinilosId) throws BusinessLogicException 
-    {
+    public CarritoDeComprasDetailDTO addViniloCarritoCompras(@PathParam("usuariosId") Long usuariosId, @PathParam("vinilosId") Long vinilosId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource addViniloCarritoCompras con id : input: {0}", vinilosId);
         if (usuarioLogic.getUsuario(usuariosId) == null) {
             throw new WebApplicationException("El recurso /usuarios/" + usuariosId + " no existe.", 404);
@@ -59,7 +58,8 @@ public class CarritoDeComprasVinilosResource {
         }
         CarritoDeComprasEntity carrito = logic.agregarVinilo(usuariosId, vinilosId);
         CarritoDeComprasDetailDTO newCarritoDto = new CarritoDeComprasDetailDTO(carrito);
-        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource addViniloCarritoCompras: output: {0}", newCarritoDto);
+        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource addViniloCarritoCompras: output: {0}", newCarritoDto.toString());
+
         return newCarritoDto;
     }
 
@@ -81,24 +81,28 @@ public class CarritoDeComprasVinilosResource {
         ViniloDetailDTO viniloDTO = null;
         List<ViniloEntity> vinilos = carrito.getVinilosDeCarritoCompras();
         for (ViniloEntity vinilo1 : vinilos) {
-            if (vinilo1.getId().equals(vinilo.getId()) && vinilo1.getInformacionAdicional().equals(vinilo.getInformacionAdicional()) && vinilo1.getNombre().equals(vinilo.getNombre())) 
+            if (vinilo1.getId() == vinilo.getId() && vinilo1.getInformacionAdicional().equals(vinilo.getInformacionAdicional()) && vinilo1.getNombre().equals(vinilo.getNombre())) {
                 viniloDTO = new ViniloDetailDTO(vinilo);
+            }
         }
-        if (viniloDTO == null) 
+        if (viniloDTO == null) {
             throw new WebApplicationException("El vinilo no existe en el carrito", 404);
-        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource getViniloCarritoCompras: output: {0}", viniloDTO);
+        }
+
+        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource getViniloCarritoCompras: output: {0}", viniloDTO.toString());
+
         return viniloDTO;
     }
 
     @GET
-    public List<ViniloDetailDTO> getVinilosCarritoCompras(@PathParam("usuariosId") Long usuariosId) 
-    {
+    public List<ViniloDetailDTO> getVinilosCarritoCompras(@PathParam("usuariosId") Long usuariosId) {
         LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource getVinilosCarritoCompras del usaurio {0}", usuariosId);
         CarritoDeComprasEntity carrito = logic.get(usuariosId);
         List<ViniloDetailDTO> vinilos = new ArrayList<>();
-        for (ViniloEntity vinilosDeCarritoCompra : carrito.getVinilosDeCarritoCompras())
+        for (ViniloEntity vinilosDeCarritoCompra : carrito.getVinilosDeCarritoCompras()) {
             vinilos.add(new ViniloDetailDTO(vinilosDeCarritoCompra));
-        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource getVinilosCarritoCompras: output: {0}", vinilos);
+        }
+        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource getVinilosCarritoCompras: output: {0}", vinilos.toString());
         return vinilos;
     }
 
@@ -107,7 +111,7 @@ public class CarritoDeComprasVinilosResource {
     public void deleteViniloCarritoCompras(@PathParam("usuariosId") Long usuariosId, @PathParam("vinilosId") Long vinilosId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource deleteViniloCarritoCompras con id : input: {0}", vinilosId);
         CarritoDeComprasEntity carrito = logic.eliminarVinilo(usuariosId, vinilosId);
-        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource deleteViniloCarritoCompras: output: {0}", carrito);
+        LOGGER.log(Level.INFO, "CarritoDeComprasVinilosResource deleteViniloCarritoCompras: output: {0}", carrito.toString());
     }
 
 }

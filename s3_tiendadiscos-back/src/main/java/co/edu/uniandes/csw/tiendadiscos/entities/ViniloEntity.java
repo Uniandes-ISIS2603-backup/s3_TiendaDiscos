@@ -412,6 +412,9 @@ public class ViniloEntity extends BaseEntity implements Serializable
         if (!Objects.equals(this.comentarios, other.comentarios)) {
             return false;
         }
-        return Objects.equals(this.usuario, other.usuario);
+        if (!Objects.equals(this.usuario, other.usuario)) {
+            return false;
+        }
+        return true;
     }
 }
