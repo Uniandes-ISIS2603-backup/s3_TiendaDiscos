@@ -90,4 +90,12 @@ public class WishListResource {
         LOGGER.log(Level.INFO, "WishListResource updateWishList: output: {0}", wishNueva);
         return wishNueva;
     }   
+    
+    @Path("/vinilos")
+    public Class<WishListViniloResource> getWishListVinilosResource(@PathParam("usuariosId") Long usuariosId) 
+    {
+        if(logic.getWishList(usuariosId) == null)
+            throw new WebApplicationException("El recurso /usuarios/" + usuariosId + " no existe.", 404);
+        return WishListViniloResource.class;
+    }
 }
