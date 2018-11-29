@@ -13,6 +13,7 @@ import co.edu.uniandes.csw.tiendadiscos.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.tiendadiscos.persistence.CarritoDeComprasPersistence;
 import co.edu.uniandes.csw.tiendadiscos.persistence.UsuarioPersistence;
 import co.edu.uniandes.csw.tiendadiscos.persistence.ViniloPersistence;
+import java.util.List;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -84,49 +85,71 @@ public class CarritoDeComprasLogic {
 
     public CarritoDeComprasEntity update(CarritoDeComprasEntity carritoCompras, Long usuarioId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de actualizar el Carrito de compras del usuario con el id{0}", usuarioId);
-        if (usuarioPersistence.find(usuarioId).getCarritoCompras() == null) 
+        if (usuarioPersistence.find(usuarioId).getCarritoCompras() == null) {
             throw new BusinessLogicException("El usuario no tiene asociado un carrito.");
+        }
         CarritoDeComprasEntity newEntity = carritoComprasPersitence.update(carritoCompras);
         LOGGER.log(Level.INFO, "Termina el proceso de actualizar el carrito de compras con id {0}", newEntity.getId());
         return newEntity;
     }
 
-    public void delete(Long usuarioId) throws BusinessLogicException 
-    {
+    public void delete(Long usuarioId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de borrar el carrito de compras del usuario con id={0}", usuarioId);
         CarritoDeComprasEntity carrito = usuarioPersistence.find(usuarioId).getCarritoCompras();
-        if (carrito == null) 
+        if (carrito == null) {
             throw new BusinessLogicException("El usuario no tiene un carrito de compras asociado.");
+        }
         carritoComprasPersitence.delete(usuarioId);
         LOGGER.log(Level.INFO, "Termina el proceso de borrar el carrito de compras del usuario con id{0}", usuarioId);
     }
 
-    public CarritoDeComprasEntity agregarVinilo(Long usuarioId, Long viniloId) throws BusinessLogicException 
-    {
+    public CarritoDeComprasEntity agregarVinilo(Long usuarioId, Long viniloId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de agregar el vinilo con id= {0} al carrito de compras del usuario con id={1}", new Object[]{usuarioId, viniloId});
         ViniloEntity vinilo = viniloPersistence.find(viniloId);
-        if (vinilo == null) 
+        if (vinilo == null) {
             throw new BusinessLogicException("El vinilo no existe");
+        }
         CarritoDeComprasEntity carrito = carritoComprasPersitence.findByUserId(usuarioId);
         vinilo.getCarritosDeCompras().add(carrito);
         carrito.setTotalCostDeCarritoCompras(carrito.getTotalCostDeCarritoCompras() + vinilo.getPrecio());
         LOGGER.log(Level.INFO, "Termina el proceso de agregar el vinilo con id= {0} al carrito de compras del usuario con id={1}", new Object[]{usuarioId, viniloId});
-        return carrito;
+        return carritoComprasPersitence.findByUserId(usuarioId);
     }
-    
-     public CarritoDeComprasEntity eliminarVinilo(Long usuarioId, Long viniloId) throws BusinessLogicException 
-     {
+
+    public CarritoDeComprasEntity eliminarVinilo(Long usuarioId, Long viniloId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia el proceso de eliminar el vinilo con id= {0} al carrito de compras del usuario con id={1}", new Object[]{usuarioId, viniloId});
-        ViniloEntity vinilo = viniloPersistence.find(viniloId);
-        if (vinilo == null) 
+        ViniloEntity viniloEntity = viniloPersistence.find(viniloId);
+        if (viniloEntity == null) {
             throw new BusinessLogicException("El vinilo no existe");
+        }
         CarritoDeComprasEntity carrito = carritoComprasPersitence.findByUserId(usuarioId);
-        if(!carrito.getVinilosDeCarritoCompras().contains(vinilo))
-            throw new BusinessLogicException("El vinilo no existe en el carrito");
-        vinilo.getCarritosDeCompras().remove(carrito);
-        carrito.setTotalCostDeCarritoCompras(carrito.getTotalCostDeCarritoCompras() - vinilo.getPrecio());
-        carrito.getVinilosDeCarritoCompras().remove(vinilo);
+        List<ViniloEntity> vinilos = carrito.getVinilosDeCarritoCompras();
+        boolean estaConetinido = false;
+        int posicion = -1;
+        for (int i = 0; i < vinilos.size() && !estaConetinido; i++) {
+            ViniloEntity vinilo1 = vinilos.get(i);
+            if (viniloEntity.getId() == vinilo1.getId() && vinilo1.getInformacionAdicional().equals(viniloEntity.getInformacionAdicional()) && vinilo1.getNombre().equals(viniloEntity.getNombre())) {
+                estaConetinido = true;
+
+            }
+        }
+
+        if (estaConetinido) {
+            List<CarritoDeComprasEntity> carritos = viniloEntity.getCarritosDeCompras();
+            for (int i = 0; i < carritos.size() && posicion==-1; i++) {
+                CarritoDeComprasEntity carrito1 = carritos.get(i);
+                if (carrito1.getId() == carrito.getId() && carrito1.getTotalCostDeCarritoCompras() == carrito.getTotalCostDeCarritoCompras()) {
+                    posicion=i;
+                }
+            }
+            viniloEntity.getCarritosDeCompras().remove(posicion);
+            carrito.setTotalCostDeCarritoCompras(carrito.getTotalCostDeCarritoCompras() - viniloEntity.getPrecio());
+        } else {
+            throw new BusinessLogicException("El vinilo no existe en el carrito de compras");
+
+        }
         LOGGER.log(Level.INFO, "Termina el proceso de eliminar el vinilo con id= {0} al carrito de compras del usuario con id={1}", new Object[]{usuarioId, viniloId});
-        return carrito;
+
+        return carritoComprasPersitence.findByUserId(usuarioId);
     }
 }

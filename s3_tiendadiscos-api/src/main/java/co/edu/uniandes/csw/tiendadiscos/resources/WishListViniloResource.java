@@ -34,73 +34,85 @@ import javax.ws.rs.core.MediaType;
  */
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class WishListViniloResource 
-{
+public class WishListViniloResource {
+
     private static final Logger LOGGER = Logger.getLogger(CarritoDeComprasVinilosResource.class.getName());
 
     @Inject
     private UsuarioLogic usuarioLogic;
-    
+
     @Inject
     private WishListLogic wishListLogic;
-    
+
     @Inject
     private ViniloLogic viniloLogic;
-    
+
     @POST
     @Path("{vinilosId: \\d+}")
-    public WishListDetailDTO addViniloWishList(@PathParam("usuariosId") Long usuariosId, @PathParam("vinilosId") Long vinilosId) throws BusinessLogicException
-    {
+    public WishListDetailDTO addViniloWishList(@PathParam("usuariosId") Long usuariosId, @PathParam("vinilosId") Long vinilosId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "WishListViniloResource addViniloWishList: input: usuariosId: {0} , vinilosId: {1}", new Object[]{usuariosId, vinilosId});
-        if(usuarioLogic.getUsuario(usuariosId)== null)
-            throw new WebApplicationException("El recurso /usuarios/"+ usuariosId + " no existe.", 404);
-        if(viniloLogic.getVinilo(vinilosId) == null)
-            throw new WebApplicationException("El recurso /vinilos/"+ vinilosId + " no existe.", 404);
-        if(wishListLogic.getWishList(usuariosId) == null)
-            throw new WebApplicationException("El subrecurso carrito de compras del usuario con id:"+ usuariosId+ " no existe.",404);
+        if (usuarioLogic.getUsuario(usuariosId) == null) {
+            throw new WebApplicationException("El recurso /usuarios/" + usuariosId + " no existe.", 404);
+        }
+        if (viniloLogic.getVinilo(vinilosId) == null) {
+            throw new WebApplicationException("El recurso /vinilos/" + vinilosId + " no existe.", 404);
+        }
+        if (wishListLogic.getWishList(usuariosId) == null) {
+            throw new WebApplicationException("El subrecurso carrito de compras del usuario con id:" + usuariosId + " no existe.", 404);
+        }
         WishListEntity wishListEntity = wishListLogic.agregarVinilo(usuariosId, vinilosId);
         WishListDetailDTO newWishListDTO = new WishListDetailDTO(wishListEntity);
         LOGGER.log(Level.INFO, "WishListViniloResource addViniloWishList: output: {0}", newWishListDTO);
         return newWishListDTO;
-        
+
     }
-    
+
     @GET
     @Path("{vinilosId: \\d+}")
-    public ViniloDetailDTO getViniloWishList(@PathParam("usuariosId") Long usuariosId, @PathParam("vinilosid") Long vinilosId)
-    {
+    public ViniloDetailDTO getViniloWishList(@PathParam("usuariosId") Long usuariosId, @PathParam("vinilosId") Long vinilosId) {
         LOGGER.log(Level.INFO, "WishListViniloResource getViniloWishList: input: usuariosId: {0} , vinilosId: {1}", new Object[]{usuariosId, vinilosId});
-        if(usuarioLogic.getUsuario(usuariosId) == null)
-            throw new WebApplicationException("El recurso /usuarios/"+ usuariosId + " no existe.", 404);
+        if (usuarioLogic.getUsuario(usuariosId) == null) {
+            throw new WebApplicationException("El recurso /usuarios/" + usuariosId + " no existe.", 404);
+        }
         WishListEntity wishListEntity = wishListLogic.getWishList(usuariosId);
-        if(wishListEntity == null)
-            throw new WebApplicationException("El subrecurso carrito de compras del usuario con id:"+ usuariosId+ " no existe.",404);
+        if (wishListEntity == null) {
+            throw new WebApplicationException("El subrecurso carrito de compras del usuario con id:" + usuariosId + " no existe.", 404);
+        }
         ViniloEntity viniloEntity = viniloLogic.getVinilo(vinilosId);
-        if(viniloEntity == null)
-            throw new WebApplicationException("El recurso /vinilos/"+ vinilosId + " no existe.", 404);
+        if (viniloEntity == null) {
+            throw new WebApplicationException("El recurso /vinilos/" + vinilosId + " no existe.", 404);
+        }
         ViniloDetailDTO viniloDTO = null;
-        if(!wishListEntity.getVinilos().contains(viniloEntity))
-            throw new WebApplicationException("El vinilo no existe en la wishList.", 404);
-        viniloDTO = new ViniloDetailDTO(viniloEntity);
-        LOGGER.log(Level.INFO , "WishListViniloResource getViniloWishList: output: {0}", viniloDTO);
+        List<ViniloEntity> vinilos = wishListEntity.getVinilos();
+
+        for (ViniloEntity vinilo1 : vinilos) {
+            if (vinilo1.getId() == viniloEntity.getId() && vinilo1.getInformacionAdicional().equals(viniloEntity.getInformacionAdicional()) && vinilo1.getNombre().equals(viniloEntity.getNombre())) {
+                viniloDTO = new ViniloDetailDTO(viniloEntity);
+            }
+        }
+        if (viniloDTO == null) {
+            throw new WebApplicationException("El vinilo no existe en el carrito", 404);
+        }
+
+        LOGGER.log(Level.INFO, "WishListViniloResource getViniloWishList: output: {0}", viniloDTO);
         return viniloDTO;
     }
-    
-    public List<ViniloDetailDTO> getVinilosWishList(@PathParam("usuariosId") Long usuariosId)
-    {
-        LOGGER.log(Level.INFO , "WishListViniloResource getVinilosWishList: input: usuariosId : {0}", usuariosId);
+
+    @GET
+    public List<ViniloDetailDTO> getVinilosWishList(@PathParam("usuariosId") Long usuariosId) {
+        LOGGER.log(Level.INFO, "WishListViniloResource getVinilosWishList: input: usuariosId : {0}", usuariosId);
         WishListEntity wishListEntity = wishListLogic.getWishList(usuariosId);
         List<ViniloDetailDTO> vinilos = new ArrayList<>();
-        for(ViniloEntity vinilo : wishListEntity.getVinilos())
+        for (ViniloEntity vinilo : wishListEntity.getVinilos()) {
             vinilos.add(new ViniloDetailDTO(vinilo));
+        }
         LOGGER.log(Level.INFO, "WishListViniloResource getVinilosWishList: output: {0}", vinilos);
         return vinilos;
     }
-    
+
     @DELETE
     @Path("{vinilosId: \\d+}")
-    public void deleteViniloWishList(@PathParam("usuariosId") Long usuariosId, @PathParam("vinilosId") Long vinilosId) throws BusinessLogicException
-    {
+    public void deleteViniloWishList(@PathParam("usuariosId") Long usuariosId, @PathParam("vinilosId") Long vinilosId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "WishListViniloResource deleteViniloWishList: input: usuariosId {0} , vinilosId {1}", new Object[]{usuariosId, vinilosId});
         wishListLogic.eliminarVinilo(usuariosId, vinilosId);
         LOGGER.log(Level.INFO, "WishListViniloResource deleteViniloWishList: output: usuariosId {0} , vinilosId {1}", new Object[]{usuariosId, vinilosId});
