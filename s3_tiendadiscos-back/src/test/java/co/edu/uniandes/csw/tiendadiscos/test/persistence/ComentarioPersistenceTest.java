@@ -22,9 +22,10 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 import co.edu.uniandes.csw.tiendadiscos.entities.ComentarioEntity;
 import co.edu.uniandes.csw.tiendadiscos.entities.UsuarioEntity;
-import co.edu.uniandes.csw.tiendadiscos.entities.WishListEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.CancionEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.TransaccionEntity;
+import co.edu.uniandes.csw.tiendadiscos.entities.ViniloEntity;
 import co.edu.uniandes.csw.tiendadiscos.persistence.ComentarioPersistence;
-
 
 /**
  *
@@ -42,21 +43,29 @@ public class ComentarioPersistenceTest {
     @Inject
     UserTransaction utx;
     
-    private List<ComentarioEntity> data = new ArrayList<ComentarioEntity>();
+    private List<ComentarioEntity> data = new ArrayList<>();
     
-    private List<UsuarioEntity> dataUsuario = new ArrayList<UsuarioEntity>();
+    private List<UsuarioEntity> usuarios = new ArrayList<>();
+
+    private List<ViniloEntity> vinilos= new ArrayList<>();
+    
+    private List<CancionEntity> canciones = new ArrayList<>();
+    
+    private List<TransaccionEntity> transacciones = new ArrayList<>();
+    
     @Deployment
-    public static JavaArchive createDeployment() {
+    public static JavaArchive createDeployment() 
+    {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(ComentarioEntity.class.getPackage())
                 .addPackage(ComentarioPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
-    
+        
     @Test
-    public void createComentario(){
+    public void createComentario()
+    {
         PodamFactory factory = new PodamFactoryImpl();
         ComentarioEntity newEntity = factory.manufacturePojo(ComentarioEntity.class);
         ComentarioEntity result = comentarioPersistence.create(newEntity);
@@ -64,52 +73,71 @@ public class ComentarioPersistenceTest {
         Assert.assertNotNull(result);
 
         ComentarioEntity entity = em.find(ComentarioEntity.class, result.getId());
-
         Assert.assertEquals(newEntity.getContenido(),entity.getContenido());
-    }
-    
-    @Test
-    public void update()
-    {
-        ComentarioEntity entity = data.get(0);
-        PodamFactory factory = new PodamFactoryImpl();
-        ComentarioEntity newEntity = factory.manufacturePojo(ComentarioEntity.class);
-        newEntity.setId(entity.getId());
-        comentarioPersistence.update(newEntity);
-        ComentarioEntity result = em.find(ComentarioEntity.class,entity.getId());
-        Assert.assertEquals(newEntity.getContenido(), result.getContenido());
-        Assert.assertEquals(entity.getId(), result.getId());
+        Assert.assertEquals(newEntity.getCancion(), entity.getCancion());
+        Assert.assertEquals(newEntity.getTransaccion(), entity.getTransaccion());
+        Assert.assertEquals(newEntity.getUsuario(), entity.getUsuario());
+        Assert.assertEquals(newEntity.getUsuarioI(), entity.getUsuarioI());
+        Assert.assertEquals(newEntity.getVinilo(), entity.getVinilo());
     }
     
     @Test
     public void getTest()
     {
-        ComentarioEntity entity= data.get(0);
-        List<ComentarioEntity> comentario = comentarioPersistence.findAllToUsuario(dataUsuario.get(0).getId());
-        Assert.assertNotNull(comentario);
-//        Assert.assertEquals(entity.getContenido(),comentario.getContenido());
-//        Assert.assertEquals(entity.getCancion()==null,comentario.getCancion()==null);
-//        Assert.assertEquals(entity.getVinilo()==null,comentario.getVinilo()==null);
-//        Assert.assertEquals(entity.getUsuario()==null,comentario.getUsuario()==null);
-//        Assert.assertEquals(entity.getUsuarioI()==null,comentario.getUsuarioI()==null);
-//        Assert.assertEquals(entity.getTransaccion()==null,comentario.getTransaccion()==null);
+        ComentarioEntity entity = data.get(0);
+        ComentarioEntity newEntity = comentarioPersistence.find(entity.getId());
+        Assert.assertNotNull(newEntity);
+        
+        Assert.assertEquals(entity.getContenido(), newEntity.getContenido());
     }
+    
     @Test
-    public void getAllHTest()
-    {   Long a = dataUsuario.get(0).getId();
-        List<ComentarioEntity> lista = comentarioPersistence.findAllToUsuario(a);
-        Assert.assertEquals(lista.size(), data.size());
-        for(ComentarioEntity wish : lista)
-        {
-            boolean probar=false;
-            for(ComentarioEntity wish2 : data)
-            {
-                if(wish.getId().equals(wish2.getId()))
-                    probar=true;
-            }
-            Assert.assertTrue(probar);
-       }
+    public void update()
+    {
+        ComentarioEntity entity = data.get(1);
+        PodamFactory factory = new PodamFactoryImpl();
+        ComentarioEntity newEntity = factory.manufacturePojo(ComentarioEntity.class);
+        newEntity.setId(entity.getId());
+        comentarioPersistence.update(newEntity);
+        
+        ComentarioEntity result = em.find(ComentarioEntity.class,entity.getId());
+
+        Assert.assertEquals(newEntity.getContenido(), result.getContenido());
+        Assert.assertEquals(newEntity.getCancion(), result.getCancion());
+        Assert.assertEquals(newEntity.getTransaccion(), result.getTransaccion());
+        Assert.assertEquals(newEntity.getUsuario(), result.getUsuario());
+        Assert.assertEquals(newEntity.getUsuarioI(), result.getUsuarioI());
+        Assert.assertEquals(newEntity.getVinilo(), result.getVinilo());
     }
+    
+    @Test
+    public void getAllToUsuario()
+    {   
+        comentarioPersistence.findAllToUsuario(usuarios.get(0).getId());
+        Assert.assertTrue(true);
+    }
+    
+    @Test
+    public void getAllToTransaccion()
+    {   
+        comentarioPersistence.findAllToTransaccion(transacciones.get(0).getId());
+        Assert.assertTrue(true);
+    }
+    
+    @Test
+    public void getAllToCancion()
+    {   
+        comentarioPersistence.findAllToCancion(canciones.get(0).getId());
+        Assert.assertTrue(true);
+    }
+    
+    @Test
+    public void getAllToVinilo()
+    {   
+        comentarioPersistence.findAllToVinilo(vinilos.get(0).getId());
+        Assert.assertTrue(true);
+    }
+    
     @Test
     public void deleteTest()
     {
@@ -147,21 +175,44 @@ public class ComentarioPersistenceTest {
      * Inserta los datos iniciales para el correcto funcionamiento de las
      * pruebas.
     */ 
-    private void insertData() {
+    private void insertData() 
+    {
         PodamFactory factory = new PodamFactoryImpl();
-        for (int i = 0; i < 3; i++) {
-            UsuarioEntity temp = factory.manufacturePojo(UsuarioEntity.class);
-            em.persist(temp);
-            dataUsuario.add(temp);
-
+        for (int i = 0; i < 2; i++)
+        {
+            UsuarioEntity usuario = factory.manufacturePojo(UsuarioEntity.class);
+            em.persist(usuario);
+            usuarios.add(usuario);
         }
-        for(int j = 0; j <3;j++){
+        for(int i = 0; i<2; i ++)
+        {            
+            ViniloEntity vinilo =factory.manufacturePojo(ViniloEntity.class);
+            em.persist(vinilo);
+            vinilos.add(vinilo);
+        }
+        for(int i = 0; i<4; i ++)
+        {
+            CancionEntity cancion = factory.manufacturePojo(CancionEntity.class);
+            em.persist(cancion);
+            canciones.add(cancion);
+        }
+        for(int i = 0; i<2; i ++)
+        {
+            TransaccionEntity transaccion =factory.manufacturePojo(TransaccionEntity.class);
+            em.persist(transaccion);
+            transacciones.add(transaccion);
+        }
+        for(int j = 0; j <4;j++)
+        {
+            int k = j%2;
             ComentarioEntity entity = factory.manufacturePojo(ComentarioEntity.class);
-            entity.setUsuarioI(dataUsuario.get(0));
+            entity.setCancion(canciones.get(k));
+            entity.setTransaccion(transacciones.get(k));
+            entity.setUsuario(usuarios.get(0));
+            entity.setUsuarioI(usuarios.get(k));
+            entity.setVinilo(vinilos.get(k));
             em.persist(entity);
             data.add(entity);
         }
-
     }
-    
 }

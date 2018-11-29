@@ -118,10 +118,11 @@ public class EnvioLogic {
     /**
      * Elimina una instancia de Envio de la base de datos.
      *
-     * @param envioId Identificador de la instancia a eliminar.
+     * @param transaccionId Identificador de la instancia a eliminar.
      * @throws BusinessLogicException si el autor tiene libros asociados.
      */
-    public void deleteEnvio(Long transaccionId) throws BusinessLogicException {
+    public void deleteEnvio(Long transaccionId) throws BusinessLogicException 
+    {
         EnvioEntity envioEntity = persistence.find(transaccionId);
         if (envioEntity == null) {
             throw new WebApplicationException("La transaccion con el id " + transaccionId + " no tiene un Envio asociado", 404);
