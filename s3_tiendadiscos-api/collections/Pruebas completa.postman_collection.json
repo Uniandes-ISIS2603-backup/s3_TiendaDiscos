@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0e4f3760-f2fd-4f86-b61b-f455d8bff085",
+		"_postman_id": "0a0dd2eb-b710-4451-9620-6587fbc0db12",
 		"name": "Prueba completa",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -2352,7 +2352,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"direccionEntrega\":\"Calle 19 # 2a -10\",\r\n\t\"direccionSalida\":\"Carrera 13 # 51-43\",\r\n\t\"estado\":\"PENDIENTE\",\r\n\t\"ubicacion\":\"Algun lugar\"\r\n}"
+					"raw": "{\r\n\t\"direccionEntrega\":\"Calle 19 # 2a -10\",\r\n\t\"direccionSalida\":\"Carrera 13 # 51-43\",\r\n\t\"posicionActual\":\"Calle 19 # 2a -10\",\r\n\t\"estado\":\"PENDIENTE\",\r\n\t\"ubicacion\":\"Algun lugar\"\r\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_tiendadiscos-api/api/transacciones/{{transaccion_id}}/envio?",
