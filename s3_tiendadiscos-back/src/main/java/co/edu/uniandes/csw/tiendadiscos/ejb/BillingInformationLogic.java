@@ -38,29 +38,32 @@ public class BillingInformationLogic {
      * @param usuariosId id del usuario el cual sera padre del nuevo Billing.
      * @return Objeto de BillingEntity con los datos nuevos y su ID.
      * @throws BusinessLogicException si el usuario con id usuarioId ya tiene
-     * asignado un billing
-     *                                Si el usuario con id usuarioId no existe.
+     * asignado un billing Si el usuario con id usuarioId no existe.
      *
      */
-    public BillingInformationEntity createBilling(Long usuariosId, BillingInformationEntity billingEntity) throws BusinessLogicException 
-    {
+    public BillingInformationEntity createBilling(Long usuariosId, BillingInformationEntity billingEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del billing");
         UsuarioEntity usuarioEntity = usuarioPersistence.find(usuariosId);
-        if (usuarioEntity == null) 
+        if (usuarioEntity == null) {
             throw new BusinessLogicException("No existe el usuario con ese id");
-        try 
-        {
-            Integer.parseInt(billingEntity.getCuentaAhorro());
         }
-        catch(NumberFormatException e) 
-        {    
+        try {
+            Integer.parseInt(billingEntity.getCuentaAhorro());
+        } catch (NumberFormatException e) {
             throw new BusinessLogicException("No es un numero de cuenta valido");
         }
-        if(persistence.findBillingByUserId(usuariosId)!=null)
+        if (persistence.findBillingByUserId(usuariosId) != null) {
             throw new BusinessLogicException("El Usuario ya tiene billings");
-        
-        billingEntity.setUsuario(usuarioEntity);        
-        
+        }
+
+        if (billingEntity.getRecieved() == null) {
+            billingEntity.setRecieved(0.0);
+        }
+        if (billingEntity.getSpent() == null) {
+            billingEntity.setSpent(0.0);
+        }
+        billingEntity.setUsuario(usuarioEntity);
+
         LOGGER.log(Level.INFO, "Termina proceso de creación del billing");
 
         return persistence.create(billingEntity);
@@ -73,11 +76,11 @@ public class BillingInformationLogic {
         //Usuario nul necesito la logic del usuario para poder probar
         // Error 
         if (usuario == null) {
-            throw new WebApplicationException("El Usuario con el id"+usuarioId+"no existe.", 404);
+            throw new WebApplicationException("El Usuario con el id" + usuarioId + "no existe.", 404);
         }
-        BillingInformationEntity billing= persistence.findBillingByUserId(usuarioId);
-        if(billing==null){
-            throw new WebApplicationException("El Usuario con el id"+usuarioId+"no tiene billing.", 404);
+        BillingInformationEntity billing = persistence.findBillingByUserId(usuarioId);
+        if (billing == null) {
+            throw new WebApplicationException("El Usuario con el id" + usuarioId + "no tiene billing.", 404);
         }
         return billing;
     }
@@ -86,13 +89,12 @@ public class BillingInformationLogic {
     public BillingInformationEntity updateBilling(Long usuariosId, BillingInformationEntity billingEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el billing del usuario con id = {0}", usuariosId);
         UsuarioEntity usuario = usuarioPersistence.find(usuariosId);
-        if (usuario.getBillingInformation() == null)
+        if (usuario.getBillingInformation() == null) {
             throw new BusinessLogicException("El usuario no tiene asociado un billing");
-        try{
-            Integer.parseInt(billingEntity.getCuentaAhorro());
         }
-        catch(NumberFormatException e) 
-        {    
+        try {
+            Integer.parseInt(billingEntity.getCuentaAhorro());
+        } catch (NumberFormatException e) {
             throw new BusinessLogicException("No es un numero de cuenta valido.");
         }
         billingEntity.setId(usuario.getBillingInformation().getId());
